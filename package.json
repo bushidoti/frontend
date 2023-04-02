@@ -6,10 +6,24 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "eslint": "8.22.0",
+    "jalali-date": "^1.1.4",
+    "jalali-date-time": "^5.0.3",
+    "mdb-ui-kit": "^6.2.0",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-avatar": "^5.0.3",
+    "react-clock": "^4.1.0",
+    "react-currency-input-field": "^3.6.10",
+    "react-date-object": "^2.1.7",
     "react-dom": "^18.2.0",
+    "react-element-popper": "^2.1.6",
+    "react-multi-date-picker": "^3.3.4",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zaman": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-router-dom": "^6.10.0"
   }
 }
