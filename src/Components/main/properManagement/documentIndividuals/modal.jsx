@@ -1,9 +1,9 @@
 import React, {Fragment} from "react";
-import CurrencyInput from 'react-currency-input-field';
-import DatePicker from "react-multi-date-picker"
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
-import transition from "react-element-popper/animations/transition"
+import DatePicker from "react-multi-date-picker";
+import transition from "react-element-popper/animations/transition";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import CurrencyInput from "react-currency-input-field";
 
 
 const Modal = () => {
@@ -50,7 +50,16 @@ const Modal = () => {
 
                             </div>
 
-                            <div className='row'>
+                            <div className='d-flex gap-2'>
+                                      <div className="form-floating  col">
+                                            <select className="form-select" id="searchSelect"
+                                                    aria-label="Floating label select example">
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="منقول">قراردادی</option>
+                                                <option value="غیر منقول">بیمه ای</option>
+                                            </select>
+                                            <label htmlFor="searchSelect">وضعیت</label>
+                                        </div>
 
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
@@ -58,19 +67,24 @@ const Modal = () => {
                                     <div className="invalid-feedback">
                                         لطفا شماره قرارداد را وارد کنید.
                                     </div>
-                                        <label htmlFor="contractNumber">شماره قرارداد</label>
+                                        <label htmlFor="contractNumber">نام و نشان</label>
                                 </div>
 
-                                 <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="name">نام پیمانکار</label>
-                                     <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
-                                     </div>
-                                </div>
+                                      <div className="form-floating  col">
+                                            <select className="form-select" id="searchSelect"
+                                                    aria-label="Floating label select example">
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="مونث">مونث</option>
+                                                <option value="مذکر">مذکر</option>
+                                            </select>
+                                            <label htmlFor="searchSelect">جنسیت</label>
+                                        </div>
 
-                                     <div className="col-3">
+                        </div>
+
+
+                            <div className='d-flex gap-2 mb-5'>
+                                          <div className="col-3">
                                          <DatePicker
                                              animations={[transition()]}
                                              render={<CustomInputDate />}
@@ -80,11 +94,20 @@ const Modal = () => {
                                              required
                                          />
                             </div>
-                        </div>
 
+                                          <div className="col-4 form-floating mb-3">
+                                    <input type="text" className="form-control" id="name"
+                                           placeholder="name@example.com" required/>
+                                        <label htmlFor="name">کد ملی</label>
+                                     <div className="invalid-feedback">
+                                         نام پیمانکار را وارد کنید.
+                                     </div>
+                                </div>
+                                </div>
+                            <hr className='bg-primary mb-5'/>
 
-                            <div className='row mb-5'>
-                                <div className="col form-floating ">
+                                <div className='d-flex gap-2 mb-5'>
+<div className="col form-floating ">
                                     <CurrencyInput
                                       className='form-control'
                                       id="contractPrice"
@@ -92,89 +115,49 @@ const Modal = () => {
                                       name="contractPrice"
                                       placeholder="name@example.com"
                                       required/>
-                                        <label htmlFor="contractPrice">مبلغ قرارداد</label>
+                                        <label htmlFor="contractPrice">تضمین مصوب</label>
                                     <div className="invalid-feedback">
                                         مبلغ قرارداد را وارد کنید.
                                     </div>
                                 </div>
 
+                                            <div className="col-3 form-floating">
+                                    <input className="form-control" list="typeBailList" id="workLocation" placeholder="name@example.com" required/>
+                                    <label htmlFor="workLocation">محل کار</label>
+                                    <datalist id="workLocationList">
+                                                <option value="جاسک"/>
+                                                <option value="اورهال تهران"/>
+                                                <option value="اورهال اصفهان"/>
+                                                <option value="دفتر مرکزی"/>
+                                                <option value="دزفول"/>
+                                                <option value="بیشه کلا"/>
+                                                <option value="چابهار"/>
+                                    </datalist>
+                                    <div className="invalid-feedback">
+                                        نوع ضمانت را انتخاب کنید.
+                                    </div>
 
-                                    <div className="col  form-floating">
+                                </div>
+
+
+
+                                      <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
                                            placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">مدت قرارداد</label>
+                                        <label htmlFor="durationContract">شغل</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
 
                                 </div>
 
-                                <div className="col form-floating">
-                                       <CurrencyInput
-                                      className='form-control'
-                                      id="prePaid"
-                                      prefix="ریال "
-                                      name="prePaid"
-                                      placeholder="name@example.com"
-                                      required/>
-                                        <label htmlFor="prePaid">مبلغ پیش پرداخت</label>
-                                    <div className="invalid-feedback">
-                                        مبلغ پیش پرداخت را وارد کنید.
-                                    </div>
-                                 </div>
+
                             </div>
+
+
                             <hr className='bg-primary mb-5'/>
 
-
-                            <div className='row'>
-
-                                 <div className="col form-floating mb-3">
-                                       <CurrencyInput
-                                      className='form-control'
-                                      id="goodPrice"
-                                      prefix="ریال "
-                                      name="goodPrice"
-                                      placeholder="name@example.com"
-                                      required/>
-                                        <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
-                                     <div className="invalid-feedback">
-                                         مبلغ حسن انجام کار وارد کنید.
-                                     </div>
-                                </div>
-
-                                   <div className="col-2 form-floating">
-                                    <input className="form-control" list="typeBailList" id="typeBail" placeholder="name@example.com" required/>
-                                    <label htmlFor="typeBail">نوع ضمانت</label>
-                                    <datalist id="typeBailList">
-                                        <option value="چک"/>
-                                        <option value="نقد"/>
-                                        <option value="سفته"/>
-                                        <option value="بانک"/>
-                                    </datalist>
-                                    <div className="invalid-feedback">
-                                        نوع ضمانت را انتخاب کنید.
-                                    </div>
-                                </div>
-
-                                    <div className="col form-floating ">
-
-                                    <input type="text" placeholder='ضمانت اول' aria-label="First name" id='firstBail' className="form-control" required/>
-                                    <label htmlFor="firstBail">ضمانت اول</label>
-                                     <div className="invalid-feedback">
-                                         ضمانت اول را انتخاب کنید.
-                                    </div>
-                                    </div>
-
-                                 <div className="col form-floating mb-3">
-                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="Last name" className="form-control" required/>
-                                    <label htmlFor="secondBail">ضمانت دوم</label>
-                                      <div className="invalid-feedback">
-                                         ضمانت دوم را انتخاب کنید.
-                                    </div>
-                                 </div>
-
-                            </div>
-                            <div className='row mb-2'>
+                            <div className='d-flex gap-2'>
 
                                      <div className="col form-floating mb-3">
                                        <CurrencyInput
@@ -184,13 +167,13 @@ const Modal = () => {
                                       name="commitmentPrice"
                                       placeholder="name@example.com"
                                       required/>
-                                        <label htmlFor="commitmentPrice">مبلغ تعهد انجام کار</label>
+                                        <label htmlFor="commitmentPrice">مبلغ تضمین</label>
                                          <div className="invalid-feedback">
                                              مبلغ تعهد انجام کار وارد کنید.
                                          </div>
                                 </div>
 
-                                          <div className="col-2 form-floating">
+                                  <div className="col-2 form-floating">
                                     <input className="form-control" list="typeBailList" id="typeBail" placeholder="name@example.com" required/>
                                     <label htmlFor="typeBail">نوع ضمانت</label>
                                     <datalist id="typeBailList">
@@ -198,6 +181,7 @@ const Modal = () => {
                                         <option value="نقد"/>
                                         <option value="سفته"/>
                                         <option value="بانک"/>
+                                        <option value="تعهد"/>
                                     </datalist>
                                     <div className="invalid-feedback">
                                         نوع ضمانت را انتخاب کنید.
@@ -222,39 +206,9 @@ const Modal = () => {
                                  </div>
 
                             </div>
-                            <hr className='bg-primary mb-5'/>
+                                                        <hr className='bg-primary mb-5'/>
 
-                            <div className='row'>
-                                 <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="topicContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="topicContract">موضوع قرارداد</label>
-                                     <div className="invalid-feedback">
-                                         موضوع قرارداد را وارد کنید.
-                                     </div>
-                                </div>
-
-                                <div className="col form-floating">
-                                    <input className="form-control" list="typeContractList" id="typeContract" placeholder="name@example.com" required/>
-                                    <label htmlFor="typeContract">نوع قرارداد</label>
-                                    <datalist id="typeContractList">
-                                        <option value="خرید قطعات نظامی"/>
-                                        <option value="اجاره"/>
-                                        <option value="هندلینگ"/>
-                                        <option value="آموزش"/>
-                                        <option value="عمرانی"/>
-                                        <option value="پلیس"/>
-                                        <option value="سپاه"/>
-                                        <option value="بیمه"/>
-                                    </datalist>
-                                    <div className="invalid-feedback">
-                                        نوع قرارداد را انتخاب کنید.
-                                    </div>
-                                </div>
-                        </div>
-                                <hr className='bg-primary mb-4'/>
-
-                            <div className='row  mb-2 align-items-center '>
+                             <div className='row  mb-2 align-items-center '>
                                         <div className='d-flex col align-items-center'>
                                             <p className='me-2'>در</p>
                                           <div>
@@ -278,9 +232,8 @@ const Modal = () => {
 
                             </div>
 
-
-
                         </div>
+
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
                             <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
@@ -305,7 +258,7 @@ function CustomInputDate({ openCalendar, value, handleValueChange }) {
                 <div className="invalid-feedback">
                     لطفا تاریخ را انتخاب کنید.
                 </div>
-                     <label htmlFor="datePicker">تاریخ</label>
+                     <label htmlFor="datePicker">تاریخ استخدام</label>
 
         </div>
 

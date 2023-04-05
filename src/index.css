@@ -20,6 +20,11 @@ code {
 .plater {
   background-color: rgba(128, 128, 128, 0.13);
   border: solid rgba(128, 128, 128, 0.24);
+
+}
+
+.div-contact {
+  background-color: rgba(128, 128, 128, 0.13);
 }
 
 ::-webkit-scrollbar-track

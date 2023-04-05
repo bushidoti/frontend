@@ -1,13 +1,13 @@
 import React, {Fragment} from "react";
 import {Clock} from "./clock/timer";
 import {Profile} from "./login/loginBar";
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 const NavBar = () => {
     return (
         <Fragment>
           <div className='rounded-top  bg-light mt-2 w-25 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2 ">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2">
             <div className="container-fluid">
               <Link className='navbar-brand' to='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Link>
                 <Profile/>
@@ -17,7 +17,7 @@ const NavBar = () => {
                         <span className="navbar-toggler-icon"></span>
                 </button>
 
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <div className="collapse navbar-collapse " id="navbarSupportedContent">
 
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3 ms-1">
 
@@ -46,17 +46,18 @@ const NavBar = () => {
                       مدیریت اسناد
                     </span>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><Link className='dropdown-item' to='#'>ثبت اسناد اموال</Link></li>
-                      <li><Link className='dropdown-item' to='#'>ثبت مدارک اشخاص</Link></li>
+                      <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
+                      <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
                       <li>
                         <hr className="dropdown-divider bg-primary"></hr>
                       </li>
-                        <li><Link className='dropdown-item' to='#'>بارگزاری اسناد امول</Link></li>
-                        <li><Link className='dropdown-item' to='#'>بارگزاری مدارک اشخاص</Link></li>
+                        <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
+                        <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
                       <li>
                         <hr className="dropdown-divider bg-primary"></hr>
                       </li>
-                        <li><Link className='dropdown-item' to='#'>گزارش</Link></li>
+                        <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
+                        <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
                     </ul>
                   </li>
 
@@ -65,7 +66,7 @@ const NavBar = () => {
                   </li>
 
                   <li className="nav-item">
-                    <a className="nav-link" href="#" tabIndex="-1" aria-disabled="true">پشتیبانی</a>
+                      <Link className='nav-link' to='contactus'>پشتیبانی</Link>
                   </li>
 
                 </ul>
@@ -75,6 +76,7 @@ const NavBar = () => {
 
             </div>
           </nav>
+                  <Outlet />
 
         </Fragment>
 
