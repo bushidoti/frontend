@@ -1,10 +1,12 @@
 import React, {Fragment} from "react";
 import Modal from "./modal";
 import {Link} from "react-router-dom";
-const Main = () => {
+
+const Main = (props) => {
+
     return (
         <Fragment>
-            <Modal/>
+            <Modal handleEditDocument={props.handleEditDocument}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -13,14 +15,14 @@ const Main = () => {
 
                     <div className='d-flex gap-2'>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                            <input className="form-check-input"  type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='کارفرما' onChange={props.handleForm}/>
                                 <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     کارفرما
                                 </label>
                         </div>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                                   checked/>
+                            <input className="form-check-input" value='پیمانکار' type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                   onChange={props.handleForm}/>
                                 <label className="form-check-label" htmlFor="flexRadioDefault2">
                                     پیمانکار
                                 </label>
@@ -37,9 +39,8 @@ const Main = () => {
 
             <div className='m-4'>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="جستجو براساس نام"
-                           aria-label="searchBox" aria-describedby="search"/>
-                        <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
+                    <input type="text" className="form-control" placeholder={`جستوجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`} aria-label="searchBox" aria-describedby="search" />
+                        <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search"  >search</button>
                 </div>
             </div>
 
@@ -48,7 +49,7 @@ const Main = () => {
                     <thead className= 'bg-light sticky-top'>
                     <tr>
                         <th scope="col">شماره ثبت</th>
-                        <th scope="col">نام پیمانکار</th>
+                        <th scope="col">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</th>
                         <th scope="col">موضوع قرارداد</th>
                         <th scope="col">مبلغ قرارداد</th>
                         <th scope="col">تاریخ</th>

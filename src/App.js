@@ -1,8 +1,8 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import NavBar from "./Components/navigationBar/navBar";
 import Main from "./Components/main/documentManagment/main";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Report from "./Components/main/documentManagment/report";
+import Report, {CustomInputDate} from "./Components/main/documentManagment/report";
 import UploadDocuments from "./Components/main/documentManagment/uploadDocument/upload";
 import {Page404} from "./Components/Page404/404Page";
 import {ContactUS} from "./Components/contatUs/contactUs";
@@ -14,13 +14,33 @@ import UploadIndividualsDoc from "./Components/main/properManagement/documentInd
 import UploadPropertyDoc from "./Components/main/properManagement/propertyDocuments/uploadpropertydoc";
 
 function App() {
+    const [docToggle , setDocToggle ] = useState(true)
+    const [editDocument , setEditDocument ] = useState(false)
+
+    const handleEditDocument = () => {
+         setEditDocument(true)
+         };
+
+
+    const handleForm = (e) => {
+
+        if(e.target.value === 'پیمانکار') {
+         setDocToggle(false)
+        }
+        else if (e.target.value === 'کارفرما') {
+         setDocToggle(true)
+        }
+
+             };
+
   return (
       <BrowserRouter>
-         <Fragment>
+         <Fragment >
         <Routes>
-            <Route path="/" element={<NavBar/>}>
-                      <Route path="report" element={<Report/>} />
-                      <Route path="main" element={<Main/>} />
+            <Route path="/" element={<NavBar/>} >
+
+                      <Route path="report" element={<Report  handleForm={handleForm} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument}/>}/>
+                      <Route path="main" element={<Main  handleForm={handleForm} docToggle={docToggle} handleEditDocument={handleEditDocument}/>}  />
                       <Route path="upload" element={<UploadDocuments/>} />
                       <Route path="contactus" element={<ContactUS />} />
                       <Route path="addpropertydoc" element={<AddPropertyDoc />} />
