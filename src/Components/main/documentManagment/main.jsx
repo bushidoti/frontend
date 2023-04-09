@@ -6,7 +6,7 @@ const Main = (props) => {
 
     return (
         <Fragment>
-            <Modal handleEditDocument={props.handleEditDocument}/>
+            <Modal docToggle={props.docToggle}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -46,7 +46,7 @@ const Main = (props) => {
 
             <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
                 <table className="table table-hover text-center table-striped align-middle">
-                    <thead className= 'bg-light sticky-top'>
+                    <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">شماره ثبت</th>
                         <th scope="col">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</th>

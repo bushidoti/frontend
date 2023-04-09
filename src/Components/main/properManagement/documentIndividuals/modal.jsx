@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
@@ -6,7 +6,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import CurrencyInput from "react-currency-input-field";
 
 
-const Modal = () => {
+const Modal = (props) => {
 
 
     (() => {
@@ -26,6 +26,32 @@ const Modal = () => {
       })
     })()
 
+    const [isCommitmentPriceEmpty , setIsCommitmentPriceEmpty] = useState('')
+    const [isTypeBail1Empty , setIsTypeBail1Empty] = useState('')
+
+    let firstBail = ''
+    let secondBail = ''
+
+    const handleLabelBails1 = () => {
+        if (isTypeBail1Empty === 'چک'){
+            firstBail = 'شماره چک'
+            secondBail = 'بانک'
+        } else if (isTypeBail1Empty === 'نقد'){
+            firstBail = 'واریز به حساب'
+            secondBail = 'شماره حساب'
+        }else if (isTypeBail1Empty === 'سفته'){
+            firstBail = 'تعداد سفته'
+            secondBail = 'مبلغ سفته'
+        }else if (isTypeBail1Empty === 'بانک'){
+            firstBail = 'ضمانت'
+            secondBail = 'شماره تضمین'
+        }else if (isTypeBail1Empty === 'تعهد'){
+            firstBail = 'متعهد'
+            secondBail = 'شماره تعهد'
+        }
+
+    }
+    handleLabelBails1()
   return (
       <Fragment>
 
@@ -53,7 +79,7 @@ const Modal = () => {
                             <div className='d-flex gap-2'>
                                       <div className="form-floating  col">
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" disabled={props.editDocumentIndividuals}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="منقول">قراردادی</option>
                                                 <option value="غیر منقول">بیمه ای</option>
@@ -63,7 +89,7 @@ const Modal = () => {
 
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
-                                           placeholder="name@example.com" required />
+                                           placeholder="name@example.com" required disabled={props.editDocumentIndividuals}/>
                                     <div className="invalid-feedback">
                                         لطفا شماره قرارداد را وارد کنید.
                                     </div>
@@ -72,7 +98,7 @@ const Modal = () => {
 
                                       <div className="form-floating  col">
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" disabled={props.editDocumentIndividuals}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="مونث">مونث</option>
                                                 <option value="مذکر">مذکر</option>
@@ -87,7 +113,7 @@ const Modal = () => {
                                           <div className="col-3">
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate />}
+                                             render={<CustomInputDate disabled={props.editDocumentIndividuals}/>}
                                              id="datePicker"
                                             calendar={persian}
                                               locale={persian_fa}
@@ -97,7 +123,7 @@ const Modal = () => {
 
                                           <div className="col-4 form-floating mb-3">
                                     <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editDocumentIndividuals}  required/>
                                         <label htmlFor="name">کد ملی</label>
                                      <div className="invalid-feedback">
                                          نام پیمانکار را وارد کنید.
@@ -114,6 +140,7 @@ const Modal = () => {
                                       prefix="ریال "
                                       name="contractPrice"
                                       placeholder="name@example.com"
+                                      disabled={props.editDocumentIndividuals}
                                       required/>
                                         <label htmlFor="contractPrice">تضمین مصوب</label>
                                     <div className="invalid-feedback">
@@ -122,7 +149,7 @@ const Modal = () => {
                                 </div>
 
                                             <div className="col-3 form-floating">
-                                    <input className="form-control" list="typeBailList" id="workLocation" placeholder="name@example.com" required/>
+                                    <input className="form-control" list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals} placeholder="name@example.com" required/>
                                     <label htmlFor="workLocation">محل کار</label>
                                     <datalist id="workLocationList">
                                                 <option value="جاسک"/>
@@ -143,7 +170,7 @@ const Modal = () => {
 
                                       <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editDocumentIndividuals} required/>
                                         <label htmlFor="durationContract">شغل</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -159,22 +186,26 @@ const Modal = () => {
 
                             <div className='d-flex gap-2'>
 
-                                     <div className="col form-floating mb-3">
+                                     <div className="col-3 form-floating mb-3">
                                        <CurrencyInput
                                       className='form-control'
                                       id="commitmentPrice"
                                       prefix="ریال "
                                       name="commitmentPrice"
                                       placeholder="name@example.com"
+                                      onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                      disabled={props.editDocumentIndividuals}
                                       required/>
                                         <label htmlFor="commitmentPrice">مبلغ تضمین</label>
                                          <div className="invalid-feedback">
                                              مبلغ تعهد انجام کار وارد کنید.
                                          </div>
                                 </div>
-
-                                  <div className="col-2 form-floating">
-                                    <input className="form-control" list="typeBailList" id="typeBail" placeholder="name@example.com" required/>
+                                      {(() => {
+                if (isCommitmentPriceEmpty.length !== 0) {
+                    return (
+                                 <div className="col-2 form-floating">
+                                    <input className="form-control" list="typeBailList" id="typeBail" placeholder="name@example.com" onChange={(e) => setIsTypeBail1Empty(e.target.value)} disabled={props.editDocumentIndividuals} required/>
                                     <label htmlFor="typeBail">نوع ضمانت</label>
                                     <datalist id="typeBailList">
                                         <option value="چک"/>
@@ -187,24 +218,35 @@ const Modal = () => {
                                         نوع ضمانت را انتخاب کنید.
                                     </div>
                                 </div>
+                    )
+                }
+                     })()}
 
+              {(() => {
+                  if (isTypeBail1Empty.length !==0) {
+                      return (
+                          <Fragment>
                                 <div className="col form-floating ">
 
-                                    <input type="text" placeholder='ضمانت اول' aria-label="First name" id='firstBail' className="form-control" required/>
-                                    <label htmlFor="firstBail">ضمانت اول</label>
+                                    <input type="text" placeholder='ضمانت اول' aria-label="First name" id='firstBail' className="form-control" disabled={props.editDocumentIndividuals} required/>
+                                    <label htmlFor="firstBail">{firstBail}</label>
                                       <div className="invalid-feedback">
                                              ضمانت اول را انتخاب کنید.
                                         </div>
                                 </div>
 
                                  <div className="col form-floating mb-3">
-                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="Last name" className="form-control" required/>
-                                    <label htmlFor="secondBail">ضمانت دوم</label>
+                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="Last name" className="form-control" disabled={props.editDocumentIndividuals} required/>
+                                    <label htmlFor="secondBail">{secondBail}</label>
                                        <div className="invalid-feedback">
                                          ضمانت دوم را انتخاب کنید.
                                     </div>
                                  </div>
+                          </Fragment>
 
+                      )
+                  }
+              })()}
                             </div>
                                                         <hr className='bg-primary mb-5'/>
 
@@ -214,7 +256,7 @@ const Modal = () => {
                                           <div>
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate />}
+                                             render={<CustomInputDate disabled={props.editDocumentIndividuals}/>}
                                              id="clearedDatePicker"
                                             calendar={persian}
                                               locale={persian_fa}
@@ -224,7 +266,7 @@ const Modal = () => {
                                         </div>
                                  <div className="form-check col ms-4">
                                             <input className="form-check-input" type="checkbox" value=""
-                                                   id="receivedDocument"/>
+                                                   id="receivedDocument" disabled={props.editDocumentIndividuals}/>
                                                 <label className="form-check-label" htmlFor="receivedDocument">
                                                     مدارک تحویل داده شده
                                                 </label>
@@ -247,14 +289,15 @@ const Modal = () => {
   );
 };
 
-function CustomInputDate({ openCalendar, value, handleValueChange }) {
+function CustomInputDate({ openCalendar, value, handleValueChange ,disabled }) {
   return (
        <div className=" form-floating mb-3 ">
                 <input type="text" className="form-control" id="datePicker"
                        placeholder="name@example.com" required
                   onFocus={openCalendar}
               value={value}
-              onChange={handleValueChange}/>
+              onChange={handleValueChange}
+                disabled={disabled}/>
                 <div className="invalid-feedback">
                     لطفا تاریخ را انتخاب کنید.
                 </div>

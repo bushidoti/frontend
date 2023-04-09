@@ -1,19 +1,21 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 
 const UploadIndividualsDoc = () => {
+    const [typeDocument , setTypeDocument] = useState('')
+
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                         <div className="form-floating m-4 col-3">
 
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" onChange={(e) => setTypeDocument(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="کارت سبز">شناسنامه</option>
-                                                <option value="کارت ماشین">کارت ملی</option>
-                                                <option value="کارت سوخت">تضمین</option>
-                                                <option value="بیمه نامه">گواهی</option>
-                                                <option value="بیمه نامه">بازنشستگی</option>
+                                                <option value="شناسنامه">شناسنامه</option>
+                                                <option value="کارت ملی">کارت ملی</option>
+                                                <option value="تضمین">تضمین</option>
+                                                <option value="گواهی">گواهی</option>
+                                                <option value="بازنشستگی">بازنشستگی</option>
                                             </select>
                                             <label htmlFor="searchSelect">نوع مدارک</label>
                                         </div>
@@ -26,40 +28,151 @@ const UploadIndividualsDoc = () => {
                 </div>
 
                             <div className= 'mt-5'>
-                               <div className="input-group mb-3 ">
-                                      <label className='me-4'>فاکتور فروش</label>
-                                   <button className="btn btn-outline-secondary" type="button"
-                                           id="firstPageBtn">بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" id="firstPageInp"
-                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
-                               </div>
-                                           <div className="input-group mb-3 align-items-center">
-                                              <label className='me-5'>بیمه نامه</label>
+                                  {(() => {
+                                          if (typeDocument === 'شناسنامه'){
+                                              return(
+                                                        <Fragment>
+                                                                                            <div className="input-group mb-3 align-items-center ">
+                                                                      <label className='me-4'>صفحه اول</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                           <div className="input-group mb-3 align-items-center">
+                                                                              <label className='me-4'>صفحه دوم</label>
 
-                                   <button className="btn btn-outline-secondary" type="button"
-                                           id="secondPageBtn">بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" id="secondPageInp"
-                                          aria-describedby="secondPageBtn" aria-label="Upload"/>
-                               </div>
-                                           <div className="input-group mb-3 align-items-center">
-                                          <label className='me-4'>کارت ماشین</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="secondPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="secondPageInp"
+                                                                          aria-describedby="secondPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                           <div className="input-group mb-3 align-items-center">
+                                                                          <label className='me-4'>صفحه سوم</label>
 
-                                   <button className="btn btn-outline-secondary" type="button"
-                                           id="thirdPageBtn">بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" id="thirdPageInp"
-                                          aria-describedby="thirdPageBtn" aria-label="Upload"/>
-                               </div>
-                                           <div className="input-group mb-3 align-items-center">
-                                               <label className='me-5'>کارت سبز</label>
-                                   <button className="btn btn-outline-secondary" type="button"
-                                           id="forthPageBtn">بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" id="forthPageInp"
-                                          aria-describedby="forthPageBtn" aria-label="Upload"/>
-                               </div>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="thirdPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="thirdPageInp"
+                                                                          aria-describedby="thirdPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                           <div className="input-group mb-3 align-items-center">
+                                                                               <label className='me-4'>صفحه چهارم</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="forthPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="forthPageInp"
+                                                                          aria-describedby="forthPageBtn" aria-label="Upload"/>
+                                                                </div>
+                                                    </Fragment>
+                                                  )
+                                         }else if (typeDocument === 'کارت ملی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <div className="input-group mb-3 align-items-center ">
+                                                                      <label className='me-2'>پشت</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                           <div className="input-group mb-3 align-items-center">
+                                                                              <label className='me-4'>رو</label>
+
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="secondPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="secondPageInp"
+                                                                          aria-describedby="secondPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'تضمین'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <div className="input-group mb-3 align-items-center ">
+                                                                      <label className='me-4'>تضمین</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'گواهی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-3'>گواهی پزشکی</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                      <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-4'>گواهی بیمه</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                      <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-4'>گواهی پلیس</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                      <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-5'>گواهینامه</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'بازنشستگی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-4'>حکم بازنشستگ</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                             <div className="input-group mb-3 align-items-center">
+                                                                      <label className='me-3'>کارت بازنشستگی</label>
+                                                                   <button className="btn btn-outline-secondary" type="button"
+                                                                           id="firstPageBtn">بارگذاری
+                                                                   </button>
+                                                                   <input type="file" className="form-control" id="firstPageInp"
+                                                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                                                               </div>
+                                                                  </Fragment>
+                                                              )
+                                                          }
+                                              })()}
+
+
                                 </div>
             </div>
             </div>

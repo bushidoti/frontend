@@ -1,15 +1,17 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 
 const UploadDocuments = () => {
+    const [partitionSelect , setPartitionSelect] = useState('')
+
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                      <div className="form-floating m-4 col-1">
                                             <select className="form-select" id="partitionSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" onChange={(e) => setPartitionSelect(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="نام پیمانکار">قرارداد</option>
-                                                <option value="شماره ثبت">تضامین</option>
+                                                <option value="قرارداد">قرارداد</option>
+                                                <option value="تضامین">تضامین</option>
                                             </select>
                                             <label htmlFor="partitionSelect">بارگذاری بخش</label>
                                         </div>
@@ -22,7 +24,11 @@ const UploadDocuments = () => {
                 </div>
 
                             <div className= 'mt-5'>
-                               <div className="input-group mb-3 align-items-center">
+                                    {(() => {
+                                        if (partitionSelect === 'قرارداد'){
+                                            return (
+                                                <Fragment>
+                                                      <div className="input-group mb-3 align-items-center">
                                       <label className='me-2'>صفحه 1</label>
                                    <button className="btn btn-outline-secondary" type="button"
                                            id="firstPageBtn">بارگذاری
@@ -56,6 +62,38 @@ const UploadDocuments = () => {
                                    <input type="file" className="form-control" id="forthPageInp"
                                           aria-describedby="forthPageBtn" aria-label="Upload"/>
                                </div>
+
+                                                </Fragment>
+                                            )
+                                        } else if (partitionSelect === 'تضامین'){
+                                            return (
+                                                <Fragment>
+                                                             <div className="input-group mb-3 align-items-center">
+                                      <label className='me-2'>ضمانت اول</label>
+                                   <button className="btn btn-outline-secondary" type="button"
+                                           id="firstPageBtn">بارگذاری
+                                   </button>
+                                   <input type="file" className="form-control" id="firstPageInp"
+                                          aria-describedby="firstPageBtn" aria-label="Upload"/>
+                               </div>
+                                           <div className="input-group mb-3 align-items-center">
+                                              <label className='me-2'>ضمانت دوم</label>
+
+                                   <button className="btn btn-outline-secondary" type="button"
+                                           id="secondPageBtn">بارگذاری
+                                   </button>
+                                   <input type="file" className="form-control" id="secondPageInp"
+                                          aria-describedby="secondPageBtn" aria-label="Upload"/>
+                               </div>
+
+                                                </Fragment>
+                                            )
+                                        }
+
+                                    })()}
+
+
+
                                 </div>
             </div>
             </div>

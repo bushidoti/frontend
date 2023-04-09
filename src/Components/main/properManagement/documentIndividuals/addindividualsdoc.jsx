@@ -9,25 +9,7 @@ const AddPropertyDoc = () => {
 
              <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
-            <div className= 'd-flex justify-content-between m-4' >
-                <div className= 'd-flex gap-2'>
-
-                    <div className='d-flex gap-2'>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    منقول
-                                </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                                   checked/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                    غیر منقول
-                                </label>
-                        </div>
-                    </div>
-                </div>
+            <div className= 'd-flex justify-content-end m-4' >
 
             <div className= 'd-flex gap-2'>
               <Link to= '/reportindividualsdoc'><button className= 'btn btn-secondary'>گزارش</button></Link>

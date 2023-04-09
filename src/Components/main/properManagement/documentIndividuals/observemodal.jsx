@@ -1,7 +1,8 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 
 
 const ObserveModal = () => {
+
 
 
     (() => {
@@ -20,6 +21,7 @@ const ObserveModal = () => {
         }, false)
       })
     })()
+    const [typeDocument , setTypeDocument] = useState('')
 
   return (
       <Fragment>
@@ -47,13 +49,13 @@ const ObserveModal = () => {
                              <div className="form-floating  col-4">
 
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" onChange={(e) => setTypeDocument(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="کارت سبز">شناسنامه</option>
-                                                <option value="کارت ماشین">کارت ملی</option>
-                                                <option value="کارت سوخت">تضمین</option>
-                                                <option value="بیمه نامه">گواهی</option>
-                                                <option value="بیمه نامه">بازنشستگی</option>
+                                                <option value="شناسنامه">شناسنامه</option>
+                                                <option value="کارت ملی">کارت ملی</option>
+                                                <option value="تضمین">تضمین</option>
+                                                <option value="گواهی">گواهی</option>
+                                                <option value="بازنشستگی">بازنشستگی</option>
                                             </select>
                                             <label htmlFor="searchSelect">نوع مدارک</label>
                                         </div>
@@ -65,8 +67,62 @@ const ObserveModal = () => {
                                     <button className="btn btn-outline-success" type="button">نمایش</button>
                                     <select className="form-select" id="checkFileBtn"
                                             aria-label="checkFileBtn">
-                                        <option selected>فایل مورد نظر را انتخاب کنید</option>
-                                        <option value="کارت سبز">ele</option>
+                                        <option selected disabled>فایل مورد نظر را انتخاب کنید</option>
+
+                                                      {(() => {
+
+                                                          if (typeDocument === 'شناسنامه'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <option value="صفحه 1">صفحه 1</option>
+                                                                        <option value="صفحه 2">صفحه 2</option>
+                                                                        <option value="صفحه 3">صفحه 3</option>
+                                                                        <option value="صفحه 4">صفحه 4</option>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'کارت ملی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <option value="پشت">پشت</option>
+                                                                        <option value="رو">رو</option>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'تضمین'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <option value="تضمین">تضمین</option>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'گواهی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <option value="گواهی پزشکی">گواهی پزشکی</option>
+                                                                        <option value="گواهی بیمه">گواهی بیمه</option>
+                                                                        <option value="گواهی پلیس">گواهی پلیس</option>
+                                                                        <option value="گواهینامه">گواهینامه</option>
+                                                                  </Fragment>
+                                                              )
+                                                          }else if (typeDocument === 'بازنشستگی'){
+
+                                                              return(
+
+                                                                  <Fragment>
+                                                                        <option value="حکم بازنشستگ">حکم بازنشستگی</option>
+                                                                        <option value="کارت بازنشستگی">کارت بازنشستگی</option>
+                                                                  </Fragment>
+                                                              )
+                                                          }
+
+
+                                                      })()}
                                     </select>
                                 </div>
 

@@ -14,7 +14,7 @@ const Report = (props) => {
         <Fragment>
             <ObserveModal/>
 
-            <Modal editDocument={props.editDocument}/>
+            <Modal editDocument={props.editDocument} docToggle={props.docToggle}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -54,9 +54,8 @@ const Report = (props) => {
                         </div>
                   <div className="form-floating m-4 col-1">
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example" onChange={(e) => {
-                                                        setSearch(e.target.value)
-                                            }}>
+                                                    aria-label="Floating label select example" onChange={(e) =>
+                                                        setSearch(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="نام پیمانکار">نام پیمانکار</option>
                                                 <option value="نام کارفرما">نام کارفرما</option>
@@ -184,6 +183,7 @@ export function CustomInputDate({ openCalendar, value, handleValueChange ,disabl
               value={value}
               onChange={handleValueChange}
                        disabled={disabled}
+
                 />
                 <div className="invalid-feedback">
                     لطفا تاریخ را انتخاب کنید.

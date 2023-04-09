@@ -2,10 +2,10 @@ import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import Modal from "./modal";
 
-const AddPropertyDoc = () => {
+const AddPropertyDoc = (props) => {
     return (
         <Fragment>
-            <Modal/>
+            <Modal propToggle={props.propToggle}/>
 
              <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -14,14 +14,13 @@ const AddPropertyDoc = () => {
 
                     <div className='d-flex gap-2'>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                            <input className="form-check-input" value='منقول' type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={props.handleFormProp}/>
                                 <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     منقول
                                 </label>
                         </div>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                                   checked/>
+                            <input className="form-check-input" value='غیر منقول' type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={props.handleFormProp} />
                                 <label className="form-check-label" htmlFor="flexRadioDefault2">
                                     غیر منقول
                                 </label>
@@ -51,8 +50,20 @@ const AddPropertyDoc = () => {
                         <th scope="col">شماره ثبت</th>
                         <th scope="col">اموال</th>
                         <th scope="col">نوع</th>
-                        <th scope="col">سیستم</th>
-                        <th scope="col">محل استقرار</th>
+                        {props.propToggle ?
+                                 <Fragment>
+                                    <th scope="col">نام</th>
+                                    <th scope="col">آدرس</th>
+                                 </Fragment>
+
+                            :
+                                 <Fragment>
+                                    <th scope="col">سیستم</th>
+                                    <th scope="col">محل استقرار</th>
+                                 </Fragment>
+
+                        }
+
                         <th scope="col"></th>
                     </tr>
                     </thead>

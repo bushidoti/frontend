@@ -1,13 +1,20 @@
 
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./observemodal";
+import DatePicker from "react-multi-date-picker";
+import transition from "react-element-popper/animations/transition";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import {CustomInputDate} from "../../documentManagment/report";
 
-const ReportIndividualsDoc = () => {
+const ReportIndividualsDoc = (props) => {
+    const [search , setSearch] = useState('')
+
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal/>
+            <Modal  editDocumentIndividuals={props.editDocumentIndividuals}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -26,16 +33,17 @@ const ReportIndividualsDoc = () => {
                   <div className="form-floating m-4 col-1">
 
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" onChange={(e) =>
+                                                        setSearch(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="سیستم">نام و نشان</option>
-                                                <option value="شماره سند">شماره ثبت</option>
-                                                <option value="نوع<">وضعیت</option>
-                                                <option value="نام مالک">جنسیت</option>
-                                                <option value="شماره ثبت">کد ملی</option>
-                                                <option value="محل استقرار">محل کار</option>
-                                                <option value="پلاک">شغل</option>
-                                                <option value="شماره شاسی">تاریخ اسخدام</option>
+                                                <option value="نام و نشان">نام و نشان</option>
+                                                <option value="شماره ثبت">شماره ثبت</option>
+                                                <option value="وضعیت">وضعیت</option>
+                                                <option value="جنسیت">جنسیت</option>
+                                                <option value="کد ملی">کد ملی</option>
+                                                <option value="محل کار">محل کار</option>
+                                                <option value="شغل">شغل</option>
+                                                <option value="تاریخ اسخدام">تاریخ اسخدام</option>
                                             </select>
                                             <label htmlFor="searchSelect">جستجو براساس</label>
                                         </div>
@@ -49,16 +57,90 @@ const ReportIndividualsDoc = () => {
                     </div>
 
                    <div className='m-4'>
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="جستجو براساس ele"
+
+                           {(() => {
+                                     if (search === 'تاریخ اسخدام') {
+                                         return (
+                                                 <div>
+                                         <DatePicker
+                                             animations={[transition()]}
+                                             render={<CustomInputDate />}
+                                             id="clearedDatePicker"
+                                            calendar={persian}
+                                              locale={persian_fa}
+                                         />
+                                          </div>
+
+                                         )
+                                     }else if (search === 'جنسیت'){
+
+                                         return (
+
+                                                     <div className="form-floating  col-2">
+                                            <select className="form-select" id="searchSelect"
+                                                    aria-label="Floating label select example">
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="مونث">مونث</option>
+                                                <option value="مذکر">مذکر</option>
+                                            </select>
+                                            <label htmlFor="searchSelect">جنسیت</label>
+                                        </div>
+
+                                         )
+
+                                     }else if (search === 'محل کار'){
+
+                                         return (
+
+                                    <div className="col-2 form-floating">
+                                            <input className="form-control" list="workLocationList" id="workLocation" placeholder="name@example.com" required/>
+                                            <label htmlFor="workLocation">محل کار</label>
+                                            <datalist id="workLocationList">
+                                                        <option value="جاسک"/>
+                                                        <option value="اورهال تهران"/>
+                                                        <option value="اورهال اصفهان"/>
+                                                        <option value="دفتر مرکزی"/>
+                                                        <option value="دزفول"/>
+                                                        <option value="بیشه کلا"/>
+                                                        <option value="چابهار"/>
+                                            </datalist>
+                                            <div className="invalid-feedback">
+                                                نوع ضمانت را انتخاب کنید.
+                                            </div>
+
+                                     </div>
+                                         )}else if (search === 'وضعیت'){
+
+                                         return (
+
+                                      <div className="form-floating  col-2">
+                                            <select className="form-select" id="searchSelect"
+                                                    aria-label="Floating label select example">
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="منقول">قراردادی</option>
+                                                <option value="غیر منقول">بیمه ای</option>
+                                            </select>
+                                            <label htmlFor="searchSelect">وضعیت</label>
+                                        </div>
+                                         )}else {
+
+                                         return (
+
+                                                    <div className="input-group mb-3">
+                         <input type="text" className="form-control" placeholder={`جستجو براساس ${search}`}
                            aria-label="searchBox" aria-describedby="search"/>
                         <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
-                </div>
+                            </div>
+                                         )
+
+                                     }
+                             })()}
+
             </div>
 
                 <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
                     <table className="table table-hover text-center align-middle table-striped">
-                         <thead className= 'bg-light sticky-top'>
+                         <thead className= 'bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
                                 <th scope="col">شماره ثبت</th>
@@ -99,7 +181,7 @@ const ReportIndividualsDoc = () => {
                                     <td>1401/12/1</td>
                                     <td>1401/12/1</td>
                                     <td>
-                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={props.handleEditDocumentIndividuals}>info</button>
 
                                     </td>
                                 </tr>

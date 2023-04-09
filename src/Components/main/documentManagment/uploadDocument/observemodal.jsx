@@ -1,9 +1,5 @@
-import React, {Fragment} from "react";
-import CurrencyInput from 'react-currency-input-field';
-import DatePicker from "react-multi-date-picker"
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
-import transition from "react-element-popper/animations/transition"
+import React, {Fragment, useState} from "react";
+
 
 
 const ObserveModal = () => {
@@ -25,6 +21,8 @@ const ObserveModal = () => {
         }, false)
       })
     })()
+    const [partitionSelect , setPartitionSelect] = useState('')
+
 
   return (
       <Fragment>
@@ -52,10 +50,10 @@ const ObserveModal = () => {
 
                               <div className="form-floating col-4 mb-5">
                                             <select className="form-select" id="partitionSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" onChange={(e) => setPartitionSelect(e.target.value)}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="نام پیمانکار">قرارداد</option>
-                                                <option value="شماره ثبت">تضامین</option>
+                                                <option value="قرارداد">قرارداد</option>
+                                                <option value="تضامین">تضامین</option>
                                             </select>
                                             <label htmlFor="partitionSelect">بخش</label>
                                         </div>
@@ -67,10 +65,25 @@ const ObserveModal = () => {
                                     <select className="form-select" id="checkFileBtn"
                                             aria-label="checkFileBtn">
                                         <option selected>فایل مورد نظر را انتخاب کنید</option>
-                                        <option value="1">صفحه اول</option>
-                                        <option value="2">صفحه دوم</option>
-                                        <option value="3">صفحه سوم</option>
-                                        <option value="4">صفحه چهارم</option>
+                                        {(() => {
+                                            if (partitionSelect === 'قرارداد'){
+                                                return (
+                                                    <Fragment>
+                                                        <option value="1">صفحه اول</option>
+                                                        <option value="2">صفحه دوم</option>
+                                                        <option value="3">صفحه سوم</option>
+                                                        <option value="4">صفحه چهارم</option>
+                                                    </Fragment>
+                                                )
+                                            }else if (partitionSelect === 'تضامین') {
+                                                return (
+                                                    <Fragment>
+                                                        <option value="1">ضمانت اول</option>
+                                                        <option value="2">ضمانت دوم</option>
+                                                    </Fragment>
+                                                )
+                                            }
+                                        })()}
                                     </select>
                                 </div>
 

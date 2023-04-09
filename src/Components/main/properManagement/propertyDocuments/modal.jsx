@@ -5,7 +5,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
 
-const Modal = () => {
+const Modal = (props) => {
 
 
     (() => {
@@ -50,32 +50,37 @@ const Modal = () => {
                             </div>
 
                             <div className='d-flex gap-2'>
-                                      <div className="form-floating  col">
-                                            <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="منقول">منقول</option>
-                                                <option value="غیر منقول">غیر منقول</option>
-                                            </select>
-                                            <label htmlFor="searchSelect">اموال</label>
-                                        </div>
+
                                     <div className="form-floating  col">
                                             <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example">
+                                                    aria-label="Floating label select example" disabled={props.editProperty}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="خودرو سواری">خودرو سواری</option>
-                                                <option value="خودرو فرودگاهی">خودرو فرودگاهی</option>
+
+                                                {props.propToggle ?
+                                                    <Fragment>
+                                                              <option value="ملک تجاری">ملک تجاری</option>
+                                                              <option value="ملک غیرتجاری">ملک غیرتجاری</option>
+                                                    </Fragment>
+                                                    :
+                                                    <Fragment>
+
+                                                            <option value="خودرو سواری">خودرو سواری</option>
+                                                            <option value="خودرو فرودگاهی">خودرو فرودگاهی</option>
+
+                                                    </Fragment>
+                                                }
+
                                             </select>
                                             <label htmlFor="searchSelect">نوع</label>
                                         </div>
 
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
-                                           placeholder="name@example.com" required />
+                                           placeholder="name@example.com" disabled={props.editProperty} required />
                                     <div className="invalid-feedback">
                                         لطفا شماره قرارداد را وارد کنید.
                                     </div>
-                                        <label htmlFor="contractNumber">سیستم</label>
+                                        <label htmlFor="contractNumber">{props.propToggle ? 'نام' :  'سیستم'}</label>
                                 </div>
                         </div>
 
@@ -84,7 +89,7 @@ const Modal = () => {
 
                                           <div className="col form-floating mb-3">
                                     <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="name">شماره سند</label>
                                      <div className="invalid-feedback">
                                          نام پیمانکار را وارد کنید.
@@ -92,8 +97,8 @@ const Modal = () => {
                                 </div>
                                       <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">شماره موتور</label>
+                                           placeholder="name@example.com"  disabled={props.editProperty} required/>
+                                        <label htmlFor="durationContract">{props.propToggle ? 'پلاک' :  'شماره موتور'}</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -101,8 +106,8 @@ const Modal = () => {
                                 </div>
                                          <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">شماره شاسی</label>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
+                                        <label htmlFor="durationContract">{props.propToggle ? 'آدرس' :  'شماره شاسی'}</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -111,7 +116,7 @@ const Modal = () => {
                                 </div>
                                               <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">نام مالک</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -124,8 +129,8 @@ const Modal = () => {
 
                                  <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">مدل</label>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
+                                        <label htmlFor="durationContract">{props.propToggle ? 'متراژ' :  'مدل'}</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -133,8 +138,8 @@ const Modal = () => {
 
                                   <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">پلاک</label>
+                                           placeholder="name@example.com" disabled={props.editProperty}d required/>
+                                        <label htmlFor="durationContract">{props.propToggle ? 'سال ساخت' :  'پلاک'}</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -142,9 +147,9 @@ const Modal = () => {
                                 </div>
 
                                              <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">محل استقرار</label>
+                                    <textarea  className="form-control" id="durationContract"
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
+                                        <label htmlFor="durationContract">{props.propToggle ? 'توضیحات' :  'محل استقرار'}</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -154,11 +159,17 @@ const Modal = () => {
 
                             </div>
                                                         <hr className='bg-primary mb-5'/>
+                            {props.propToggle ?
 
-                            <div className='d-flex gap-2 mb-5'>
+                                <>
+                                </>
+
+                                :
+                                    <Fragment>
+                                  <div className='d-flex gap-2 mb-5'>
                                               <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">برگه سند</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -166,7 +177,7 @@ const Modal = () => {
                                 </div>
                                      <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">بیمه نامه</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -175,7 +186,7 @@ const Modal = () => {
 
                                        <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">کارت سوخت</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -184,7 +195,7 @@ const Modal = () => {
 
                                      <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">کارت ماشین</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
@@ -192,15 +203,21 @@ const Modal = () => {
                                 </div>
 
                             </div>
-                                     <div className="col  form-floating">
+
+                                      <div className="col  form-floating">
                                     <textarea  className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
                                         <label htmlFor="durationContract">توضیحات</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
                                 </div>
-                                                        <hr className='bg-primary mb-5'/>
+                                                                                                <hr className='bg-primary mb-5'/>
+
+                                </Fragment>
+                            }
+
+
 
                                   <div className='d-flex mb-2'>
                                         <div className='d-flex col align-items-center'>
@@ -208,7 +225,7 @@ const Modal = () => {
                                           <div>
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate />}
+                                             render={<CustomInputDate disabled={props.editProperty} />}
                                              id="clearedDatePicker"
                                             calendar={persian}
                                               locale={persian_fa}
@@ -219,8 +236,8 @@ const Modal = () => {
 
                                       <div className="col  form-floating">
                                     <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="durationContract">کارت سوخت</label>
+                                           placeholder="name@example.com" disabled={props.editProperty} required/>
+                                        <label htmlFor="durationContract">نام خریدار</label>
                                         <div className="invalid-feedback">
                                             مدت قرارداد را وارد کنید.
                                         </div>
@@ -242,14 +259,15 @@ const Modal = () => {
   );
 };
 
-function CustomInputDate({ openCalendar, value, handleValueChange }) {
+function CustomInputDate({ openCalendar, value, handleValueChange ,disabled }) {
   return (
        <div className=" form-floating mb-3 ">
                 <input type="text" className="form-control" id="datePicker"
                        placeholder="name@example.com" required
                   onFocus={openCalendar}
               value={value}
-              onChange={handleValueChange}/>
+              onChange={handleValueChange}
+                disabled={disabled}/>
                 <div className="invalid-feedback">
                     لطفا تاریخ را انتخاب کنید.
                 </div>
