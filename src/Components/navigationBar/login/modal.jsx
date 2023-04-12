@@ -1,11 +1,5 @@
 import React, {Fragment} from "react";
-import {
-  MDBContainer,
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn,
-}
-from 'mdb-react-ui-kit';
+
 
 const Modal = (props) => {
 

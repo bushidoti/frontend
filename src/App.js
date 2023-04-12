@@ -13,7 +13,11 @@ import ReportPropertyDoc from "./Components/main/properManagement/propertyDocume
 import UploadIndividualsDoc from "./Components/main/properManagement/documentIndividuals/uploadindividualsdoc";
 import UploadPropertyDoc from "./Components/main/properManagement/propertyDocuments/uploadpropertydoc";
 
+
 function App() {
+
+    const [modalTitle , setModalTitle] = useState('')
+
     /*مدیریت اسناد*/
         const [propertyToggle , setPropertyToggle ] = useState()
         const handleFormProperty = (e) => {
@@ -75,13 +79,12 @@ function App() {
          <Fragment >
         <Routes>
             <Route path="/" element={<NavBar/>} >
-
-                      <Route path="report" element={<Report  handleForm={handleForm} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument}/>}/>
-                      <Route path="main" element={<Main  handleForm={handleForm} docToggle={docToggle}/>}  />
+                      <Route path="report" element={<Report handleForm={handleForm} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument}/>}/>
+                      <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
                       <Route path="upload" element={<UploadDocuments/>} />
                       <Route path="contactus" element={<ContactUS />} />
                       <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle}/>} />
-                      <Route path="addIndividualsDoc" element={<AddIndividualsDoc />}/>
+                      <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                       <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
                       <Route path="reportpropertydoc" element={<ReportPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                       <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
@@ -95,3 +98,21 @@ function App() {
   );
 }
 export default App;
+
+export function CustomInputDate({ openCalendar, value, handleValueChange ,disabled , label})  {
+  return (
+       <div className=" form-floating mb-3 ">
+                <input type="text" className="form-control" id="datePicker"
+                  placeholder="1379/08/09" required
+                  onFocus={openCalendar}
+                  value={value}
+                  onChange={handleValueChange}
+                  disabled={disabled}
+                />
+                <div className="invalid-feedback">
+
+                </div>
+                <label htmlFor="datePicker">{label}</label>
+        </div>
+  )
+}

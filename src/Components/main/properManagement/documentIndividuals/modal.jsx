@@ -4,11 +4,10 @@ import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import CurrencyInput from "react-currency-input-field";
+import {CustomInputDate} from "../../../../App";
 
 
 const Modal = (props) => {
-
-
     (() => {
       'use strict'
 
@@ -52,104 +51,130 @@ const Modal = (props) => {
 
     }
     handleLabelBails1()
+
   return (
       <Fragment>
-
-
-     <div className="modal fade "  id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
-                 aria-hidden="true">
+             <div className="modal fade "  id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
+             aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">ثبت قرارداد</h1>
-                            <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                    <form className='needs-validation' noValidate>
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                {(() => {
+                                       if (props.ModalTitle === 'edit'){
+                                            return (
+                                                'ویرایش قرارداد'
+                                            )
+                                        }else if (props.ModalTitle === 'done'){
+                                            return (
+                                                'تسویه قرارداد'
+                                            )
+                                        }else if (props.ModalTitle === 'add'){
+                                            return (
+                                                'ثبت قرارداد'
+                                            )
+                                        }else{
+                                            return (
+                                                'نمایش اطلاعات'
+                                            )
+                                        }
 
+                                })()}
+                            </h1>
+                            <button type="button" className="btn-close " data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        </div>
+
+                    <form className='needs-validation' noValidate>
                         <div className="container modal-body">
 
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="Id" className="w-25 form-control" aria-label="Username"
-                                       aria-describedby="basic-addon1" value='1' disabled required/>
-                                <label  id="Id">شماره ثبت</label>
-
+                                <input type="text" id="numberId" className="w-25 form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" value='' disabled required/>
+                                <label  htmlFor="numberId">شماره ثبت</label>
                             </div>
 
                             <div className='d-flex gap-2'>
                                       <div className="form-floating  col">
-                                            <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example" disabled={props.editDocumentIndividuals}>
+                                            <select className="form-select" id="situationSelector"
+                                            aria-label="situationSelector" disabled={props.editDocumentIndividuals}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="منقول">قراردادی</option>
-                                                <option value="غیر منقول">بیمه ای</option>
+                                                <option value="قراردادی">قراردادی</option>
+                                                <option value="بیمه ای">بیمه ای</option>
                                             </select>
-                                            <label htmlFor="searchSelect">وضعیت</label>
-                                        </div>
+                                            <label htmlFor="situationSelector">وضعیت</label>
+                                             <div className="invalid-feedback">
+                                            لطفا وضعیت  را انتخاب کنید.
+                                            </div>
+                                      </div>
 
-                                <div className="col form-floating mb-3 ">
-                                    <input type="text" className="form-control" id="contractNumber"
-                                           placeholder="name@example.com" required disabled={props.editDocumentIndividuals}/>
-                                    <div className="invalid-feedback">
-                                        لطفا شماره قرارداد را وارد کنید.
-                                    </div>
-                                        <label htmlFor="contractNumber">نام و نشان</label>
-                                </div>
+                                      <div className="col form-floating mb-3 ">
+                                            <input type="text" className="form-control" id="fullName"
+                                            placeholder="امیرحسین عباسی" required disabled={props.editDocumentIndividuals}/>
+                                            <div className="invalid-feedback">
+                                            لطفا نام کامل  را وارد کنید.
+                                            </div>
+                                            <label htmlFor="fullName">نام و نشان</label>
+                                      </div>
 
                                       <div className="form-floating  col">
-                                            <select className="form-select" id="searchSelect"
-                                                    aria-label="Floating label select example" disabled={props.editDocumentIndividuals}>
+                                            <select className="form-select" id="sexSelector"
+                                            aria-label="sexSelector" disabled={props.editDocumentIndividuals} required>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="مونث">مونث</option>
                                                 <option value="مذکر">مذکر</option>
                                             </select>
-                                            <label htmlFor="searchSelect">جنسیت</label>
-                                        </div>
+                                             <div className="invalid-feedback">
+                                            لطفا جنسیت  را انتخاب کنید.
+                                            </div>
+                                            <label htmlFor="sexSelector">جنسیت</label>
+                                      </div>
 
                         </div>
 
 
                             <div className='d-flex gap-2 mb-5'>
-                                          <div className="col-3">
-                                         <DatePicker
+                                      <div className="col-3">
+                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocumentIndividuals}/>}
-                                             id="datePicker"
-                                            calendar={persian}
-                                              locale={persian_fa}
+                                             render={<CustomInputDate disabled={props.editDocumentIndividuals} label='تاریخ استخدام'/>}
+                                             id="employedDatePicker"
+                                             calendar={persian}
+                                             locale={persian_fa}
                                              required
-                                         />
-                            </div>
+                                          />
+                                      </div>
 
-                                          <div className="col-4 form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" disabled={props.editDocumentIndividuals}  required/>
-                                        <label htmlFor="name">کد ملی</label>
-                                     <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
-                                     </div>
+                                      <div className="col-4 form-floating mb-3">
+                                          <input type="text" className="form-control" id="nationalCard"
+                                          placeholder="1520505142" disabled={props.editDocumentIndividuals}  required/>
+                                          <label htmlFor="nationalCard">کد ملی</label>
+                                          <div className="invalid-feedback">
+                                          کد ملی را وارد کنید.
+                                          </div>
+                                      </div>
                                 </div>
-                                </div>
+
                             <hr className='bg-primary mb-5'/>
 
-                                <div className='d-flex gap-2 mb-5'>
-<div className="col form-floating ">
+                        <div className='d-flex gap-2 mb-5'>
+                                <div className="col form-floating ">
                                     <CurrencyInput
                                       className='form-control'
-                                      id="contractPrice"
+                                      id="guaranteeApproved"
                                       prefix="ریال "
-                                      name="contractPrice"
-                                      placeholder="name@example.com"
+                                      name="Guarantee Approved"
+                                      placeholder="ریال 1,000"
                                       disabled={props.editDocumentIndividuals}
                                       required/>
-                                        <label htmlFor="contractPrice">تضمین مصوب</label>
+                                    <label htmlFor="guaranteeApproved">تضمین مصوب</label>
                                     <div className="invalid-feedback">
-                                        مبلغ قرارداد را وارد کنید.
+                                        مبلغ تضمین مصوب را وارد کنید.
                                     </div>
                                 </div>
-
-                                            <div className="col-3 form-floating">
-                                    <input className="form-control" list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals} placeholder="name@example.com" required/>
+                            <div className="col-3 form-floating">
+                                    <input className="form-control" list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
+                                    placeholder="دزفول" required/>
                                     <label htmlFor="workLocation">محل کار</label>
                                     <datalist id="workLocationList">
                                                 <option value="جاسک"/>
@@ -161,127 +186,122 @@ const Modal = (props) => {
                                                 <option value="چابهار"/>
                                     </datalist>
                                     <div className="invalid-feedback">
-                                        نوع ضمانت را انتخاب کنید.
+                                    محل کار را انتخاب کنید.
                                     </div>
-
-                                </div>
-
-
-
-                                      <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="durationContract"
-                                           placeholder="name@example.com" disabled={props.editDocumentIndividuals} required/>
-                                        <label htmlFor="durationContract">شغل</label>
-                                        <div className="invalid-feedback">
-                                            مدت قرارداد را وارد کنید.
-                                        </div>
-
-                                </div>
-
-
                             </div>
+                            <div className="col  form-floating">
+                                    <input type="text" className="form-control" id="job"
+                                    placeholder="حسابدار" disabled={props.editDocumentIndividuals} required/>
+                                    <label htmlFor="job">شغل</label>
+                                    <div className="invalid-feedback">
+                                    شغل را وارد کنید.
+                                    </div>
+                            </div>
+                        </div>
 
 
-                            <hr className='bg-primary mb-5'/>
+                        <hr className='bg-primary mb-5'/>
 
                             <div className='d-flex gap-2'>
 
-                                     <div className="col-3 form-floating mb-3">
+                                 <div className="col-3 form-floating mb-3">
                                        <CurrencyInput
-                                      className='form-control'
-                                      id="commitmentPrice"
-                                      prefix="ریال "
-                                      name="commitmentPrice"
-                                      placeholder="name@example.com"
-                                      onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
-                                      disabled={props.editDocumentIndividuals}
-                                      required/>
-                                        <label htmlFor="commitmentPrice">مبلغ تضمین</label>
-                                         <div className="invalid-feedback">
-                                             مبلغ تعهد انجام کار وارد کنید.
-                                         </div>
-                                </div>
-                                      {(() => {
-                if (isCommitmentPriceEmpty.length !== 0) {
-                    return (
-                                 <div className="col-2 form-floating">
-                                    <input className="form-control" list="typeBailList" id="typeBail" placeholder="name@example.com" onChange={(e) => setIsTypeBail1Empty(e.target.value)} disabled={props.editDocumentIndividuals} required/>
-                                    <label htmlFor="typeBail">نوع ضمانت</label>
-                                    <datalist id="typeBailList">
-                                        <option value="چک"/>
-                                        <option value="نقد"/>
-                                        <option value="سفته"/>
-                                        <option value="بانک"/>
-                                        <option value="تعهد"/>
-                                    </datalist>
-                                    <div className="invalid-feedback">
-                                        نوع ضمانت را انتخاب کنید.
-                                    </div>
-                                </div>
-                    )
-                }
-                     })()}
-
-              {(() => {
-                  if (isTypeBail1Empty.length !==0) {
-                      return (
-                          <Fragment>
-                                <div className="col form-floating ">
-
-                                    <input type="text" placeholder='ضمانت اول' aria-label="First name" id='firstBail' className="form-control" disabled={props.editDocumentIndividuals} required/>
-                                    <label htmlFor="firstBail">{firstBail}</label>
-                                      <div className="invalid-feedback">
-                                             ضمانت اول را انتخاب کنید.
-                                        </div>
-                                </div>
-
-                                 <div className="col form-floating mb-3">
-                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="Last name" className="form-control" disabled={props.editDocumentIndividuals} required/>
-                                    <label htmlFor="secondBail">{secondBail}</label>
+                                          className='form-control'
+                                          id="commitmentPrice"
+                                          prefix="ریال "
+                                          name="Commitment Price"
+                                          placeholder="ریال 640,000"
+                                          onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                          disabled={props.editDocumentIndividuals}
+                                          required/>
+                                       <label htmlFor="commitmentPrice">مبلغ تضمین</label>
                                        <div className="invalid-feedback">
-                                         ضمانت دوم را انتخاب کنید.
-                                    </div>
+                                       مبلغ تضمین  وارد کنید.
+                                       </div>
                                  </div>
-                          </Fragment>
 
-                      )
-                  }
-              })()}
+                                      {(() => {
+                                             if (isCommitmentPriceEmpty.length !== 0) {
+                                                return (
+                                                             <div className="col-2 form-floating">
+                                                                <input className="form-control" list="typeBailList" id="typeBail" placeholder="بانک"
+                                                                onChange={(e) => setIsTypeBail1Empty(e.target.value)} disabled={props.editDocumentIndividuals} required/>
+                                                                <label htmlFor="typeBail">نوع ضمانت</label>
+                                                                <datalist id="typeBailList">
+                                                                    <option value="چک"/>
+                                                                    <option value="نقد"/>
+                                                                    <option value="سفته"/>
+                                                                    <option value="بانک"/>
+                                                                    <option value="تعهد"/>
+                                                                </datalist>
+                                                                <div className="invalid-feedback">
+                                                                    نوع ضمانت را انتخاب کنید.
+                                                                </div>
+                                                             </div>
+                                                )
+                                            }
+                                      })()}
+
+                                      {(() => {
+                                              if (isTypeBail1Empty.length !==0) {
+                                                  return (
+                                                      <Fragment>
+                                                            <div className="col form-floating ">
+                                                                <input type="text" placeholder={firstBail} aria-label="First Bail" id='firstBail' className="form-control"
+                                                                disabled={props.editDocumentIndividuals} required/>
+                                                                <label htmlFor="firstBail">{firstBail}</label>
+                                                                <div className="invalid-feedback">
+                                                                 {firstBail} را وارد کنید.
+                                                                </div>
+                                                            </div>
+
+                                                             <div className="col form-floating mb-3">
+                                                                <input type="text" placeholder={secondBail} id='secondBail' aria-label="Second Bail" className="form-control"
+                                                                disabled={props.editDocumentIndividuals} required/>
+                                                                <label htmlFor="secondBail">{secondBail}</label>
+                                                                <div className="invalid-feedback">
+                                                                 {secondBail} را وارد کنید.
+                                                                </div>
+                                                             </div>
+                                                      </Fragment>
+
+                                                )
+                                              }
+                                          })()}
                             </div>
-                                                        <hr className='bg-primary mb-5'/>
 
-                             <div className='row  mb-2 align-items-center '>
-                                        <div className='d-flex col align-items-center'>
-                                            <p className='me-2'>در</p>
+                            <hr className='bg-primary mb-5'/>
+
+                            <div className='row  mb-2 align-items-center '>
+                                    <div className='d-flex col align-items-center'>
+                                          <p className='me-2'>در</p>
                                           <div>
-                                         <DatePicker
-                                             animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocumentIndividuals}/>}
-                                             id="clearedDatePicker"
-                                            calendar={persian}
-                                              locale={persian_fa}
-                                         />
+                                             <DatePicker
+                                                animations={[transition()]}
+                                                render={<CustomInputDate disabled={props.editDocumentIndividuals} label='تاریخ'/>}
+                                                id="clearedDatePicker"
+                                                calendar={persian}
+                                                locale={persian_fa}
+                                             />
                                           </div>
-                                        <p className='ms-2'>تسویه شده</p>
-                                        </div>
-                                 <div className="form-check col ms-4">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="receivedDocument" disabled={props.editDocumentIndividuals}/>
-                                                <label className="form-check-label" htmlFor="receivedDocument">
-                                                    مدارک تحویل داده شده
-                                                </label>
-                                        </div>
+                                          <p className='ms-2'>تسویه شده</p>
+                                    </div>
 
+                                    <div className="form-check col ms-4">
+                                            <input className="form-check-input" type="checkbox" value=""
+                                            id="receivedDocument" disabled={props.editDocumentIndividuals}/>
+                                            <label className="form-check-label" htmlFor="receivedDocument">
+                                            مدارک تحویل داده شده
+                                            </label>
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-
-                        <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
-                            <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
-                        </div>
-                </form>
-
+                            <div className="modal-footer">
+                                <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                                <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -289,22 +309,4 @@ const Modal = (props) => {
   );
 };
 
-function CustomInputDate({ openCalendar, value, handleValueChange ,disabled }) {
-  return (
-       <div className=" form-floating mb-3 ">
-                <input type="text" className="form-control" id="datePicker"
-                       placeholder="name@example.com" required
-                  onFocus={openCalendar}
-              value={value}
-              onChange={handleValueChange}
-                disabled={disabled}/>
-                <div className="invalid-feedback">
-                    لطفا تاریخ را انتخاب کنید.
-                </div>
-                     <label htmlFor="datePicker">تاریخ استخدام</label>
-
-        </div>
-
-  )
-}
 export default Modal

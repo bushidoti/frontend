@@ -45,7 +45,7 @@ const AddPropertyDoc = (props) => {
 
             <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
                 <table className="table table-hover text-center table-striped align-middle">
-                    <thead className= 'bg-light sticky-top'>
+                    <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">شماره ثبت</th>
                         <th scope="col">اموال</th>
