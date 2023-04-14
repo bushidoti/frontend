@@ -55,7 +55,7 @@ function App() {
 
     /*مدیریت قرارداد*/
 
-    const [docToggle , setDocToggle ] = useState(true)
+    const [docToggle , setDocToggle ] = useState()
     const [editDocument , setEditDocument ] = useState(false)
 
     const handleEditDocument = () => {
@@ -69,6 +69,8 @@ function App() {
         }
         else if (e.target.value === 'کارفرما') {
          setDocToggle(true)
+        }else {
+          setDocToggle(null)
         }
              };
 

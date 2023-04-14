@@ -7,40 +7,40 @@ export const ContactUS =  () => {
                          <div className='m-4'>
                          <div className='d-flex gap-4'>
                               <div className="col-5 form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="name">نام کامل</label>
+                                    <input type="text" className="form-control" id="fullName"
+                                           placeholder="رضا احمدآبادی" required/>
+                                        <label htmlFor="fullName">نام کامل</label>
                                      <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
+                                         نام کامل را وارد کنید.
                                      </div>
                                 </div>
                                <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
+                                    <input type="text" className="form-control" id="email"
                                            placeholder="name@example.com" required/>
-                                        <label htmlFor="name">آدرس ایمیل</label>
+                                        <label htmlFor="email">آدرس ایمیل</label>
                                      <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
+                                         آدرس ایمیل را وارد کنید.
                                      </div>
                                 </div>
                              </div>
                               <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="name">موضوع</label>
+                                    <input type="text" className="form-control" id="title"
+                                           placeholder="عدم ثبت قرارداد" required/>
+                                        <label htmlFor="title">موضوع</label>
                                      <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
+                                         موضوع را وارد کنید.
                                      </div>
                                 </div>
                              <div className="col form-floating mb-3">
-                                    <textarea className="form-control h-50" id="name"
-                                           placeholder="name@example.com" required/>
-                                        <label htmlFor="name">توضیحات</label>
+                                    <textarea className="form-control h-50" id="description"
+                                           placeholder="......." required/>
+                                        <label htmlFor="description">توضیحات</label>
                                      <div className="invalid-feedback">
-                                         نام پیمانکار را وارد کنید.
+                                         توضیحات را وارد کنید.
                                      </div>
                                 </div>
 
-                                 <button type="submit" className="btn  btn-success mt-2">ارسال پیغام</button>
+                                 <button type="submit" id='sendMessageBtn' className="btn  btn-success mt-2">ارسال پیغام</button>
 
                               <hr className='bg-primary my-5'/>
                              <div className='d-flex'>

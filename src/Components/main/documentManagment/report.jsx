@@ -11,7 +11,6 @@ import {Toggler} from "./toggler";
 const Report = (props) => {
     const [search , setSearch] = useState('')
 
-
     return (
         <Fragment>
             <ObserveModal/>
@@ -43,13 +42,24 @@ const Report = (props) => {
                             aria-label="Floating label select example" onChange={(e) =>
                             setSearch(e.target.value)}>
                             <option selected disabled>یک مورد انتخاب کنید</option>
-                            <option value="نام پیمانکار">نام پیمانکار</option>
-                            <option value="نام کارفرما">نام کارفرما</option>
-                            <option value="نوع قرارداد">نوع قرارداد</option>
-                            <option value="شماره ثبت">شماره ثبت</option>
-                            <option value="شماره قرارداد">شماره قرارداد</option>
-                            <option value="تاریخ قرارداد">تاریخ قرارداد</option>
-                            <option value="موضوع قرارداد">موضوع قرارداد</option>
+                            {(() => {
+                                if(props.docToggle != null){
+                                    return(
+                                        <Fragment>
+                                                <option value={`نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}>نام {props.docToggle ? "پیمانکار" : "کارفرما"}</option>
+                                                <option value="نوع قرارداد">نوع قرارداد</option>
+                                                <option value="شماره ثبت">شماره ثبت</option>
+                                                <option value="شماره قرارداد">شماره قرارداد</option>
+                                                <option value="تاریخ قرارداد">تاریخ قرارداد</option>
+                                                <option value="موضوع قرارداد">موضوع قرارداد</option>
+                                        </Fragment>
+                                    )
+                                }
+
+                            })()}
+
+
+
                         </select>
                         <label htmlFor="searchSelect">جستجو براساس</label>
                   </div>
