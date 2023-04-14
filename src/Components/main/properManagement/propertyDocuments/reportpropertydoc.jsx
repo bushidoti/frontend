@@ -1,9 +1,8 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import Modal from "./modal";
 import ObserveModal from "./observemodal";
 
 const ReportPropertyDoc = (props) => {
-    const [search , setSearch] = useState('')
     return (
         <Fragment>
             <ObserveModal/>
@@ -47,7 +46,7 @@ const ReportPropertyDoc = (props) => {
                         <div className="form-floating m-4 col-1">
                                 <select className="form-select" id="searchSelector"
                                 aria-label="Search Selector" onChange={(e) => {
-                                setSearch(e.target.value)
+                                props.setSearch(e.target.value)
                                 }}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
 
@@ -86,7 +85,7 @@ const ReportPropertyDoc = (props) => {
 
                         <div className='col-4 m-4'>
                                 {(() => {
-                                    if(search === 'نوع خودرو'){
+                                    if(props.search === 'نوع خودرو'){
                                         return (
                                              <div className="col-2 form-floating">
                                                 <input className="form-control" list="typeCarList" id="typeCar" placeholder="خودرو سواری" required/>
@@ -100,7 +99,7 @@ const ReportPropertyDoc = (props) => {
                                                 </div>
                                              </div>
                                         )
-                                    }else if (search === 'نوع ملک'){
+                                    }else if (props.search === 'نوع ملک'){
                                         return (
                                               <div className="col-2 form-floating">
                                                     <input className="form-control" list="typeEstateList" id="typeEstate" placeholder="ملک تجاری" required/>
@@ -114,7 +113,7 @@ const ReportPropertyDoc = (props) => {
                                                     </div>
                                                 </div>
                                         )
-                                    }else if (search === 'پلاک'){
+                                    }else if (props.search === 'پلاک'){
                                         return (
                                               <div className="mt-2 input-group">
                                                 <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
@@ -158,7 +157,7 @@ const ReportPropertyDoc = (props) => {
                                     } else {
                                         return (
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder={`جستوجو براساس ${search}`}
+                                                <input type="text" className="form-control" placeholder={`جستوجو براساس ${props.search}`}
                                                 aria-label="searchBox" aria-describedby="search"/>
                                                 <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                             </div>

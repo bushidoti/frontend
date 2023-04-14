@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import Modal from "./modal";
 import ObserveModal from "./uploadDocument/observemodal";
 import transition from "react-element-popper/animations/transition";
@@ -9,7 +9,6 @@ import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
 
 const Report = (props) => {
-    const [search , setSearch] = useState('')
 
     return (
         <Fragment>
@@ -38,9 +37,9 @@ const Report = (props) => {
                         </div>
 
                   <div className="form-floating m-4 col-1">
-                        <select className="form-select" id="searchSelect"
-                            aria-label="Floating label select example" onChange={(e) =>
-                            setSearch(e.target.value)}>
+                        <select className="form-select" id="searchSelector"
+                            aria-label="Search Select" onChange={(e) =>
+                            props.setSearch(e.target.value)}>
                             <option selected disabled>یک مورد انتخاب کنید</option>
                             {(() => {
                                 if(props.docToggle != null){
@@ -66,7 +65,7 @@ const Report = (props) => {
 
                   <div className='m-4'>
                         {(() => {
-                            if (search === 'تاریخ قرارداد') {
+                            if (props.search === 'تاریخ قرارداد') {
                               return (
                                 <DatePicker
                                  animations={[transition()]}
@@ -77,7 +76,7 @@ const Report = (props) => {
                                  locale={persian_fa}
                              />
                               )
-                            } else if (search === 'نوع قرارداد') {
+                            } else if (props.search === 'نوع قرارداد') {
                                     return (
                                         <div className="col-2 form-floating">
                                             <input className="form-control" list="typeContractList" id="typeContract" placeholder="اجاره"/>
@@ -97,7 +96,7 @@ const Report = (props) => {
                                 } else {
                                     return (
                                          <div className="input-group mb-3">
-                                             <input type="text" className="form-control" placeholder={`جستجو براساس ${search}`}
+                                             <input type="text" className="form-control" placeholder={`جستجو براساس ${props.search}`}
                                              aria-label="searchBox" id='searchBox' aria-describedby="searchBox"/>
                                              <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                                          </div>
