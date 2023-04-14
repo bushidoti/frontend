@@ -34,7 +34,28 @@ const Modal = (props) => {
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">ثبت قرارداد</h1>
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                {(() => {
+                                       if (props.ModalTitle === 'edit'){
+                                            return (
+                                                'ویرایش سند'
+                                            )
+                                        }else if (props.ModalTitle === 'done'){
+                                            return (
+                                                'فروش'
+                                            )
+                                        }else if (props.ModalTitle === 'add'){
+                                            return (
+                                                'ثبت سند'
+                                            )
+                                        }else{
+                                            return (
+                                                'نمایش اطلاعات'
+                                            )
+                                        }
+
+                                })()}
+                            </h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
                             aria-label="Close"></button>
                         </div>

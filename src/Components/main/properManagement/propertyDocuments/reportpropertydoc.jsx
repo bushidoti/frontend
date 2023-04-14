@@ -46,12 +46,15 @@ const ReportPropertyDoc = (props) => {
 
                         <div className="form-floating m-4 col-1">
                                 <select className="form-select" id="searchSelector"
-                                aria-label="Floating label select example" onChange={(e) => {
+                                aria-label="Search Selector" onChange={(e) => {
                                 setSearch(e.target.value)
                                 }}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-                                    {props.propToggle ?
-                                                <Fragment>
+
+                                              {(() => {
+                                                  if (props.propToggle === true){
+                                                      return(
+                                                      <Fragment>
                                                         <option value="نام">نام</option>
                                                         <option value="شماره سند">شماره سند</option>
                                                         <option value="نوع ملک">نوع ملک</option>
@@ -59,9 +62,11 @@ const ReportPropertyDoc = (props) => {
                                                         <option value="شماره ثبت">شماره ثبت</option>
                                                         <option value="سال ساخت">سال ساخت</option>
                                                         <option value="پلاک ملک">پلاک ملک</option>
-                                                </Fragment>
-                                                :
-                                                <Fragment>
+                                                      </Fragment>
+                                                      )
+                                                  }else if (props.propToggle === false){
+                                                      return (
+                                                           <Fragment>
                                                         <option value="سیستم">سیستم</option>
                                                         <option value="شماره سند">شماره سند</option>
                                                         <option value="نوع خودرو">نوع خودرو</option>
@@ -72,7 +77,9 @@ const ReportPropertyDoc = (props) => {
                                                         <option value="شماره شاسی">شماره شاسی</option>
                                                         <option value="شماره موتور">شماره موتور</option>
                                                 </Fragment>
-                                    }
+                                                      )
+                                                  }
+                                              })()}
                                 </select>
                                 <label htmlFor="searchSelector">جستجو براساس</label>
                         </div>
@@ -145,7 +152,7 @@ const ReportPropertyDoc = (props) => {
                                                     <option value="S">S</option>
                                                 </select>
                                                 <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
-                                                <button className="input-group-text c-form__car-plate-input rounded-8"></button>
+                                                <button className="btn input-group-text c-form__car-plate-input rounded-8"></button>
                                           </div>
                                         )
                                     } else {

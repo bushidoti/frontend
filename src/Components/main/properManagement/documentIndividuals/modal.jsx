@@ -63,7 +63,7 @@ const Modal = (props) => {
                                 {(() => {
                                        if (props.ModalTitle === 'edit'){
                                             return (
-                                                'ویرایش قرارداد'
+                                                'ویرایش مدرک'
                                             )
                                         }else if (props.ModalTitle === 'done'){
                                             return (

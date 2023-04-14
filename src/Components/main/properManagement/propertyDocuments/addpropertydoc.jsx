@@ -5,7 +5,7 @@ import Modal from "./modal";
 const AddPropertyDoc = (props) => {
     return (
         <Fragment>
-            <Modal propToggle={props.propToggle}/>
+            <Modal propToggle={props.propToggle} ModalTitle={props.modalTitle}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
                     <div className= 'd-flex justify-content-between m-4' >
@@ -30,7 +30,7 @@ const AddPropertyDoc = (props) => {
 
                         <div className= 'd-flex gap-2'>
                           <Link to= '/reportpropertydoc'><button className= 'btn btn-secondary'>گزارش</button></Link>
-                          <button className= 'btn btn-primary' id='addDocument' data-bs-toggle="modal" data-bs-target="#modalMain">ثبت سند جدید</button>
+                          <button className= 'btn btn-primary' id='addDocument' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('add')}>ثبت سند جدید</button>
                         </div>
 
                     </div>
@@ -71,9 +71,9 @@ const AddPropertyDoc = (props) => {
                         <td>2000000</td>
                         <td>1401/12/1</td>
                         <td>
-                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">edit</button>
+                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('edit')}>edit</button>
                             <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' >delete</button>
-                            <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain">done</button>
+                            <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
                         </td>
                     </tr>
                     </tbody>

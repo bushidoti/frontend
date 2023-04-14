@@ -7,8 +7,8 @@ export const Profile = () => {
                 <Modal/>
                <div className="dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    <Logo/>
+                aria-expanded="false">
+                <Logo/>
                 </a>
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalLogin">ورود</a></li>

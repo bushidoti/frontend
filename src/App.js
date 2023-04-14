@@ -83,7 +83,7 @@ function App() {
                       <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
                       <Route path="upload" element={<UploadDocuments/>} />
                       <Route path="contactus" element={<ContactUS />} />
-                      <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle}/>} />
+                      <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                       <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                       <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
                       <Route path="reportpropertydoc" element={<ReportPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
