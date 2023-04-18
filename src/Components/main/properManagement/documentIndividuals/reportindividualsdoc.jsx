@@ -80,7 +80,7 @@ const ReportIndividualsDoc = (props) => {
                                  }else if (search === 'محل کار'){
                                      return (
                                             <div className="col-2 form-floating">
-                                                    <input className="form-control" list="workLocationList" id="workLocation" placeholder="جاسک" required/>
+                                                    <input className="form-control" type='search' list="workLocationList" id="workLocation" placeholder="جاسک" required/>
                                                     <label htmlFor="workLocation">محل کار</label>
                                                     <datalist id="workLocationList">
                                                                 <option value="جاسک"/>

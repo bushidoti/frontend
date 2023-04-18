@@ -60,9 +60,19 @@ const NavBar = () => {
                         <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
                     </ul>
                   </li>
-
-                    <li className="nav-item">
-                        <Link className='nav-link disabled' to='/automation'>انبار داری</Link>
+                     <li className="nav-item dropdown">
+                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                      انبارداری
+                    </span>
+                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
+                      <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
+                      <li>
+                        <hr className="dropdown-divider bg-primary"></hr>
+                      </li>
+                        <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
+                    </ul>
                   </li>
 
                   <li className="nav-item">

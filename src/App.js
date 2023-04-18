@@ -22,15 +22,18 @@ function App() {
         const [propertyToggle , setPropertyToggle ] = useState(null)
         const [searchProp , setSearchProp] = useState('')
 
+         const handleFormPropertyreport = (e) => {
+            handleFormProperty(e);
+            setSearchProp('')
+            document.getElementById("searchSelector").selectedIndex = "0";
+                 };
+
         const handleFormProperty = (e) => {
             if(e.target.value === 'منقول') {
              setPropertyToggle(false)
             } else if (e.target.value === 'غیر منقول') {
              setPropertyToggle(true)
             }
-            setSearchProp('')
-            document.getElementById("searchSelector").selectedIndex = "0";
-
                  };
         const [editProperty , setEditProperty ] = useState(false)
 
@@ -68,6 +71,12 @@ function App() {
          };
 
 
+    const handleFormReport = (e) => {
+        handleForm(e)
+        setSearch('')
+        document.getElementById("searchSelector").selectedIndex = "0";
+    };
+
     const handleForm = (e) => {
         if(e.target.value === 'پیمانکار') {
          setDocToggle(false)
@@ -75,8 +84,6 @@ function App() {
         else if (e.target.value === 'کارفرما') {
          setDocToggle(true)
         }
-        setSearch('')
-        document.getElementById("searchSelector").selectedIndex = "0";
     };
 
     /*پایان مدیریت قرارداد*/
@@ -86,14 +93,14 @@ function App() {
          <Fragment >
         <Routes>
             <Route path="/" element={<NavBar/>} >
-                      <Route path="report" element={<Report handleForm={handleForm} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
+                      <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                       <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
                       <Route path="upload" element={<UploadDocuments/>} />
                       <Route path="contactus" element={<ContactUS />} />
                       <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                       <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                       <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
-                      <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} setSearch={setSearchProp} handleFormProp={handleFormProperty} propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
+                      <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                       <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
                       <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                       <Route path="*" element={<Page404 />} />

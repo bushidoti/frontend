@@ -79,7 +79,7 @@ const Report = (props) => {
                             } else if (props.search === 'نوع قرارداد') {
                                     return (
                                         <div className="col-2 form-floating">
-                                            <input className="form-control" list="typeContractList" id="typeContract" placeholder="اجاره"/>
+                                            <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="اجاره"/>
                                             <label htmlFor="typeContract">نوع قرارداد</label>
                                             <datalist id="typeContractList">
                                                 <option value="خرید قطعات نظامی"/>

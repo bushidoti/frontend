@@ -14,14 +14,14 @@ const ReportPropertyDoc = (props) => {
                                     <div className='d-flex gap-2'>
                                         <div className="form-check">
                                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="manghol"
-                                            value='منقول' onChange={props.handleFormProp}/>
+                                            value='منقول' onChange={props.handleFormPropertyreport}/>
                                             <label className="form-check-label" htmlFor="manghol">
                                             منقول
                                             </label>
                                         </div>
                                         <div className="form-check">
                                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="gheirManghol"
-                                            value='غیر منقول' onChange={props.handleFormProp}/>
+                                            value='غیر منقول' onChange={props.handleFormPropertyreport}/>
                                                 <label className="form-check-label" htmlFor="gheirManghol">
                                                 غیر منقول
                                                 </label>
@@ -88,7 +88,7 @@ const ReportPropertyDoc = (props) => {
                                     if(props.search === 'نوع خودرو'){
                                         return (
                                              <div className="col-2 form-floating">
-                                                <input className="form-control" list="typeCarList" id="typeCar" placeholder="خودرو سواری" required/>
+                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" placeholder="خودرو سواری" required/>
                                                 <label htmlFor="typeCar">نوع خودرو</label>
                                                 <datalist id="typeCarList">
                                                     <option value="خودرو سواری"/>
@@ -102,7 +102,7 @@ const ReportPropertyDoc = (props) => {
                                     }else if (props.search === 'نوع ملک'){
                                         return (
                                               <div className="col-2 form-floating">
-                                                    <input className="form-control" list="typeEstateList" id="typeEstate" placeholder="ملک تجاری" required/>
+                                                    <input className="form-control" type='search' list="typeEstateList" id="typeEstate" placeholder="ملک تجاری" required/>
                                                     <label htmlFor="typeEstate">نوع ملک</label>
                                                     <datalist id="typeEstateList">
                                                         <option value="ملک غیرتجاری"/>

@@ -228,10 +228,10 @@ const Modal = (props) => {
                                       return (
                                           <Fragment>
                                                  <div className="col-2 form-floating">
-                                                        <input className="form-control" list="typeBailList" id="typeBail1" placeholder="چک" required disabled={props.editDocument}
+                                                        <input className="form-control" list="typeBailList" type='search' id="typeBail1" placeholder="چک" required disabled={props.editDocument}
                                                         onChange={(e) => setIsTypeBail1Empty(e.target.value)}/>
                                                         <label htmlFor="typeBail1">نوع ضمانت</label>
-                                                        <datalist id="typeBailList">
+                                                        <datalist id="typeBailList" >
                                                             <option value="چک"/>
                                                             <option value="نقد"/>
                                                             <option value="سفته"/>
@@ -297,7 +297,7 @@ const Modal = (props) => {
                                     if (isCommitmentPriceEmpty.length !== 0) {
                                       return (
                                                  <div className="col-2 form-floating">
-                                                        <input className="form-control" list="typeBailList" id="typeBail2" placeholder="نقد"
+                                                        <input className="form-control" type='search' list="typeBailList" id="typeBail2" placeholder="نقد"
                                                         required disabled={props.editDocument} onChange={(e) => setIsTypeBail2Empty(e.target.value)}/>
                                                         <label htmlFor="typeBail2">نوع ضمانت</label>
                                                         <datalist id="typeBailList">
@@ -353,7 +353,7 @@ const Modal = (props) => {
                                     </div>
 
                                 <div className="col form-floating">
-                                    <input className="form-control" list="typeContractList" id="typeContract" placeholder="هندلینگ" required disabled={props.editDocument}/>
+                                    <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="هندلینگ" required disabled={props.editDocument}/>
                                     <label htmlFor="typeContract">نوع قرارداد</label>
                                     <datalist id="typeContractList">
                                         <option value="خرید قطعات نظامی"/>

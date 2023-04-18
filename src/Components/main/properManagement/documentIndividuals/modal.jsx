@@ -173,7 +173,7 @@ const Modal = (props) => {
                                     </div>
                                 </div>
                             <div className="col-3 form-floating">
-                                    <input className="form-control" list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
+                                    <input className="form-control" type='search' list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
                                     placeholder="دزفول" required/>
                                     <label htmlFor="workLocation">محل کار</label>
                                     <datalist id="workLocationList">
@@ -224,7 +224,7 @@ const Modal = (props) => {
                                              if (isCommitmentPriceEmpty.length !== 0) {
                                                 return (
                                                              <div className="col-2 form-floating">
-                                                                <input className="form-control" list="typeBailList" id="typeBail" placeholder="بانک"
+                                                                <input className="form-control" type='search' list="typeBailList" id="typeBail" placeholder="بانک"
                                                                 onChange={(e) => setIsTypeBail1Empty(e.target.value)} disabled={props.editDocumentIndividuals} required/>
                                                                 <label htmlFor="typeBail">نوع ضمانت</label>
                                                                 <datalist id="typeBailList">
