@@ -12,6 +12,7 @@ import ReportIndividualsDoc from "./Components/main/properManagement/documentInd
 import ReportPropertyDoc from "./Components/main/properManagement/propertyDocuments/reportpropertydoc";
 import UploadIndividualsDoc from "./Components/main/properManagement/documentIndividuals/uploadindividualsdoc";
 import UploadPropertyDoc from "./Components/main/properManagement/propertyDocuments/uploadpropertydoc";
+import WarHouse from "./Components/main/inventory/storage-prodoct/main";
 
 
 function App() {
@@ -90,6 +91,7 @@ function App() {
 
   return (
       <BrowserRouter>
+
          <Fragment >
         <Routes>
             <Route path="/" element={<NavBar/>} >
@@ -103,6 +105,7 @@ function App() {
                       <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                       <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
                       <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
+                      <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                       <Route path="*" element={<Page404 />} />
             </Route>
         </Routes>
