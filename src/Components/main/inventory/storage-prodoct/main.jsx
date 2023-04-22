@@ -1,15 +1,30 @@
 import React, {Fragment} from "react";
 import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
+import BillCheckmodal from "./bill&checkmodal";
 
 const WarHouse = (props) => {
 
     return (
         <Fragment>
-        <ObserveModal/>
+        <ObserveModal setModalTitle={props.setModalTitle}/>
         <Modal modalTitle={props.modalTitle}/>
+        <BillCheckmodal modalTitle={props.modalTitle}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
-            <div className= 'd-flex justify-content-end m-4' >
+            <div className= 'd-flex justify-content-between m-4' >
+                <div className='d-flex gap-2'>
+                    <div className="input-group mb-3">
+                        <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal" data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}>قبض انبار</button>
+                        <input type="text" className="form-control" placeholder="شماره فاکتور"
+                        aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
+                    </div>
+                     <div className="input-group mb-3">
+                        <button className="btn btn-outline-secondary"  type="button" id="checkBtn" data-bs-toggle="modal" data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('check')}>صدور حواله</button>
+                        <input type="text" className="form-control" id="checkInp" placeholder="شماره حواله"
+                        aria-label="صدور حواله" aria-describedby="checkBtn"/>
+                    </div>
+                </div>
+
                 <div className= 'd-flex gap-2'>
                 <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('register')}>ثبت کالا جدید</button>
                 </div>

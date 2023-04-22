@@ -2,38 +2,22 @@ import React, {Fragment, useState} from "react";
 
 
 const ObserveModal = () => {
-    (() => {
-      'use strict'
-
-      const forms = document.querySelectorAll('.needs-validation')
-
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
+       function refreshPage() {
+            window.location.reload();
+      }
     const [typeDocument , setTypeDocument] = useState('')
 
   return (
       <Fragment>
-        <div className="modal fade "  id="observModal" tabIndex="-1" aria-labelledby="observModalLabel"
+        <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false"  id="observModal" tabIndex="-1" aria-labelledby="observModalLabel"
         aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">نمایش مدارک</h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Close" onClick={refreshPage}></button>
                         </div>
-
-                <form className='needs-validation' noValidate>
-
                     <div className="container modal-body">
 
                         <div className="input-group mb-3">
@@ -109,9 +93,8 @@ const ObserveModal = () => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
                         </div>
-                </form>
             </div>
         </div>
     </div>

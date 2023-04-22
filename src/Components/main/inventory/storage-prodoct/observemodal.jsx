@@ -4,19 +4,19 @@ import transition from "react-element-popper/animations/transition";
 import {CustomInputDate} from "../../../../App";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-const ObserveModal = () => {
+const ObserveModal = (props) => {
   const [search , setSearch] = useState('')
   return (
       <Fragment>
-         <div className="modal fade "  id="observeModal" tabIndex="-1" aria-labelledby="observeModalLabel" aria-hidden="true">
+         <div className="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" id="observeModal" tabIndex="-1" aria-labelledby="observeModalLabel" aria-hidden="true">
                     <div className="modal-dialog  modal-fullscreen" >
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="exampleModalLabel">مداد</h1>
+                            <div className="modal-header mx-4">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">مداد 101100</h1>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                             </div>
-                            <div className=" modal-body">
+                            <div className="modal-body">
                                    <div className="form-floating m-4 col-1">
                         <select className="form-select" id="searchSelector"
                             aria-label="Search Select" onChange={(e) =>
@@ -119,7 +119,7 @@ const ObserveModal = () => {
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">101100</th>
+                            <th scope="row">1</th>
                             <td></td>
                             <td>12/پ-789</td>
                             <td>1401/12/01</td>
@@ -131,7 +131,7 @@ const ObserveModal = () => {
                             <td></td>
                             <td>...</td>
                             <td>
-                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش">edit</button>
+                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش" onClick={() => props.setModalTitle('edit')}>edit</button>
                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' title="حذف" hidden={true}>delete</button>
                             </td>
                         </tr>
@@ -139,7 +139,7 @@ const ObserveModal = () => {
                     </table>
                 </div>
               </div>
-                    <div className="modal-footer">
+                    <div className="modal-footer mx-4">
                         <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
                         <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
                     </div>

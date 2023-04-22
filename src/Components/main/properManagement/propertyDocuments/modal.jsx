@@ -4,32 +4,24 @@ import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {CustomInputDate} from "../../../../App";
-
+import {Required} from "../../required";
 
 const Modal = (props) => {
 
 
-    (() => {
-      'use strict'
-
-      const forms = document.querySelectorAll('.needs-validation')
-
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
-
+    const Required = () => {
+        return(
+            <Required/>
+        )
+    }
+    Required()
+   function refreshPage() {
+        window.location.reload();
+      }
   return (
       <Fragment>
 
-         <div className="modal fade "  id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
+         <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false"  id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
          aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
                     <div className="modal-content">
@@ -57,7 +49,7 @@ const Modal = (props) => {
                                 })()}
                             </h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                            aria-label="Close" onClick={refreshPage}></button>
                         </div>
 
                     <form className='needs-validation' noValidate>
@@ -281,7 +273,7 @@ const Modal = (props) => {
                                     </div>
                                 </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
                             <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
                         </div>
                 </form>
