@@ -116,3 +116,12 @@ code {
     z-index: 3;
 }
 
+
+.property_menu {
+    width: 250px;
+}
+
+.vl {
+  border-left: 1px solid green;
+  height: 500px;
+}
