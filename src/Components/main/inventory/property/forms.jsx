@@ -1,82 +1,63 @@
 import React, {Fragment} from "react";
-import DatePicker from "react-multi-date-picker";
-import transition from "react-element-popper/animations/transition";
-import {CustomInputDate} from "../../../../App";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
+import {Required} from "../../required";
+import {SafetyEquipment} from "./forms/safety-equipment";
+import {AirportEquipment} from "./forms/airport-equipment";
+import {ElectronicFurniture} from "./forms/electronic-furniture";
+import {OfficeFurniture} from "./forms/office-furniture";
+import {Furniture} from "./forms/furniture";
+import {AirportFurniture} from "./forms/airport-furniture";
+import {AirportCar} from "./forms/airport-car";
 
 export const Forms =  (props) => {
+       const Required = () => {
+        return(
+            <Required/>
+        )
+    }
+    Required()
+
     return (
         <Fragment>
-            <div className= 'd-flex justify-content-around m-4' style={{height:'400px'}} >
-                    <div className="collapse collapse-horizontal" id="collapseSafetyEquipment">
+            <div className= 'd-flex justify-content-around m-4' style={{height:'425px'}} >
                         <div className="card card-body gap-2" style={{width:'1500px'}}>
                             <div className='d-flex'>
-                                <form className='needs-validation m-4' noValidate>
-                                     <div className="form-floating justify-content-center mb-5">
-                                            <input type="text" id="idNumber" className="w-25 form-control" aria-label="Username"
-                                            aria-describedby="basic-addon1" value='' disabled required/>
-                                            <label  id="idNumber">شماره ثبت</label>
-                                        </div>
-                                    <div className='d-flex gap-2'>
-                                        <div className="col form-floating mb-3 ">
-                                            <select className="form-select" id="typeAdd" aria-label="Type Add">
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
-                                                <option value="ثبت اولیه">ثبت اولیه</option>
-                                                <option value="تعمیرات">تعمیرات</option>
-                                            </select>
-                                            <label htmlFor="typeAdd">نوع ثبت</label>
-                                        </div>
-
-                                         <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="nameEquipment"
-                                                   placeholder="کلاه ایمنی" required/>
-                                                <label htmlFor="nameEquipment">نام تجهیزات</label>
-                                             <div className="invalid-feedback">
-                                                 نام تجهیزات را وارد کنید.
-                                             </div>
-                                         </div>
-
-                                         <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="forUse"
-                                                   placeholder="ساختمان" required/>
-                                                <label htmlFor="forUse">مورد استفاده</label>
-                                             <div className="invalid-feedback">
-                                                 مورد استفاده را وارد کنید.
-                                             </div>
-                                         </div>
-
-
-                                    </div>
-
-                                    <hr className='bg-primary mb-5'/>
-
-                                    <div className='d-flex gap-2'>
-                                           <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="user"
-                                                placeholder="فرودگاه" required/>
-                                                    <label htmlFor="user">یوزر</label>
-                                                    <div className="invalid-feedback">
-                                                    یوزر را وارد کنید.
-                                                    </div>
-                                           </div>
-
-                                           <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="location"
-                                                placeholder="شرکت" required/>
-                                                    <label htmlFor="location">محل نصب</label>
-                                                    <div className="invalid-feedback">
-                                                    محل نصب را وارد کنید.
-                                                    </div>
-                                           </div>
-                                </div>
-                          </form>
+                                <form className='needs-validation' noValidate>
+                                    {(() => {
+                                        if (props.showForm === 'safetyEquipment'){
+                                            return (
+                                              <SafetyEquipment/>
+                                            )
+                                        }else if (props.showForm === 'airportEquipment'){
+                                            return (
+                                              <AirportEquipment/>
+                                            )
+                                        }else if (props.showForm === 'electronicFurniture'){
+                                            return (
+                                              <ElectronicFurniture/>
+                                            )
+                                        }else if (props.showForm === 'officeFurniture'){
+                                            return (
+                                              <OfficeFurniture/>
+                                            )
+                                        }else if (props.showForm === 'furniture'){
+                                            return (
+                                              <Furniture/>
+                                            )
+                                        }else if (props.showForm === 'airportFurniture'){
+                                            return (
+                                              <AirportFurniture/>
+                                            )
+                                        }else if (props.showForm === 'airportCar'){
+                                            return (
+                                              <AirportCar/>
+                                            )
+                                        }
+                                    })()}
+                                 </form>
                                 <div className='m-4'>
-                                    eq
                                 </div>
                             </div>
                         </div>
-                    </div>
             </div>
         </Fragment>
     )

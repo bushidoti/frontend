@@ -16,11 +16,32 @@ export const PropertyMenu = (props) => {
                         <div  style={{minHeight: '120px'}} >
                             <div className="collapse collapse-horizontal"  id="collapseInstrument">
                                 <div className="card card-body gap-2 w-100" >
-                                    <button  className='btn btn-primary d-flex justify-content-center gap-2' value='safetyEquipment' data-bs-toggle="collapse"
-                                    data-bs-target="#collapseSafetyEquipment" onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">health_and_safety</span>
+                                    <button  className='btn btn-primary d-flex gap-2' value='safetyEquipment' onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">health_and_safety</span>
                                     تجهیزات ایمنی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span
+                                    <button className='btn btn-primary d-flex gap-2' value='airportEquipment' onClick={(e) => props.setShowForm(e.target.value)}><span
                                         className="material-symbols-outlined">mode_fan</span>تجهیزات فرودگاهی</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div>
+                        <p>
+                            <button className="btn btn-primary property_menu" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseVehicle" aria-expanded="false"
+                                    aria-controls="collapseVehicle"
+                            style={{width:'200px'}}>
+                                وسایل نقلیه
+                            </button>
+                        </p>
+                        <div style={{minHeight: '120px'}}>
+                            <div className="collapse collapse-horizontal" id="collapseVehicle">
+                                <div className="card card-body gap-2 w-100" style={{width: '200px'}}>
+                                    <button className='btn btn-primary d-flex gap-2' value='airportCar' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}><span
+                                    className="material-symbols-outlined">airport_shuttle</span>خودرو فرودگاهی</button>
+                                    <button className='btn btn-primary d-flex gap-2' value='personalCar' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">directions_car</span>
+                                    خودرو اداری</button>
                                 </div>
                             </div>
                         </div>
@@ -36,31 +57,15 @@ export const PropertyMenu = (props) => {
                         <div style={{minHeight: '120px'}}>
                             <div className="collapse collapse-horizontal" id="collapseFurniture">
                                 <div className="card card-body gap-2 w-100">
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">ev_station</span>
+                                    <button className='btn btn-primary d-flex  gap-2' value='electronicFurniture'
+                                    onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">ev_station</span>
                                     اثاثه الکترونیکی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">desk</span>اثاثه اداری</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">luggage</span>اثاثه تاسیساتی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">flight</span>اثاثه فرودگاهی</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p>
-                            <button className="btn btn-primary property_menu" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseVehicle" aria-expanded="false"
-                                    aria-controls="collapseVehicle"
-                            style={{width:'200px'}}>
-                                وسایل نقلیه
-                            </button>
-                        </p>
-                        <div style={{minHeight: '120px'}}>
-                            <div className="collapse collapse-horizontal" id="collapseVehicle">
-                                <div className="card card-body gap-2 w-100" style={{width: '200px'}}>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span
-                                    className="material-symbols-outlined">airport_shuttle</span>خودرو فرودگاهی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">directions_car</span>
-                                    خودرو اداری</button>
+                                    <button className='btn btn-primary d-flex  gap-2' value='officeFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">desk</span>اثاثه اداری</button>
+                                    <button className='btn btn-primary d-flex gap-2' value='furniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">luggage</span>اثاثه تاسیساتی</button>
+                                    <button className='btn btn-primary d-flex  gap-2' value='airportFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">flight</span>اثاثه فرودگاهی</button>
                                 </div>
                             </div>
                         </div>
@@ -76,12 +81,18 @@ export const PropertyMenu = (props) => {
                         <div style={{minHeight: '120px'}}>
                             <div className="collapse collapse-horizontal" id="collapseMovableProperty">
                                 <div className="card card-body gap-2 w-100">
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">construction</span>
-                                    ابزار آلات غیر صنعتی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center  gap-2'><span
-                                    className="material-symbols-outlined float-end">storage</span>اقلام پشتیبانی</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">deskphone</span>امتیازات</button>
-                                    <button className='btn btn-primary d-flex justify-content-center gap-2'><span className="material-symbols-outlined">engineering</span>
+                                    <button className='btn btn-primary d-flex gap-2' value='industrialEquipment' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">construction</span>ابزار آلات غیر صنعتی</button>
+                                    <button className='btn btn-primary d-flex  gap-2' value='supportItems' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined float-end">storage</span>اقلام پشتیبانی</button>
+                                    <button className='btn btn-primary d-flex gap-2' value='benefits' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">deskphone</span>امتیازات</button>
+                                    <button className='btn btn-primary d-flex gap-2' value='dustrialEquipment' data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                        <span className="material-symbols-outlined">engineering</span>
                                     ابزار آلات صنعتی</button>
                                 </div>
                             </div>
