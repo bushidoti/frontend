@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 
-export const AirportFurniture = () => {
+export const IndustrialEquipment = () => {
     return(
         <Fragment>
                <div className="form-floating justify-content-center mb-5">
@@ -9,23 +9,20 @@ export const AirportFurniture = () => {
                 <label  id="idNumber">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
-                    <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typeAdd" aria-label="Type Add" required>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
-                            <option value="ثبت اولیه">ثبت اولیه</option>
-                            <option value="تعمیرات">تعمیرات</option>
-                        </select>
-                        <label htmlFor="typeAdd">نوع ثبت</label>
-                           <div className="invalid-feedback">
-                             نوع ثبت را انتخاب کنید.
-                         </div>
-                    </div>
                      <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="nameFurniture"
-                               placeholder="لپ تاپ" required/>
-                            <label htmlFor="nameFurniture">نام اثاث</label>
+                        <input type="text" className="form-control" id="nameTools"
+                               placeholder="پیچ گوشتی" required/>
+                            <label htmlFor="nameTools">نام ابزار</label>
                          <div className="invalid-feedback">
-                             نام اثاث را وارد کنید.
+                             نام ابزار را وارد کنید.
+                         </div>
+                     </div>
+                      <div className="col form-floating mb-3">
+                        <input type="text" className="form-control" id="user"
+                               placeholder="تاسیسات" required/>
+                            <label htmlFor="user">یوزر</label>
+                         <div className="invalid-feedback">
+                             یوزر را وارد کنید.
                          </div>
                      </div>
                      <div className="col form-floating mb-3">
@@ -40,11 +37,11 @@ export const AirportFurniture = () => {
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex gap-2'>
                         <div className="col-4 form-floating mb-3">
-                            <input type="text" className="form-control" id="location"
+                            <input type="text" className="form-control" id="locationUse"
                             placeholder="شرکت" required/>
-                                <label htmlFor="location">محل نصب</label>
+                                <label htmlFor="locationUse">محل استفاده</label>
                                 <div className="invalid-feedback">
-                                محل نصب را وارد کنید.
+                                محل استفاده را وارد کنید.
                                 </div>
                        </div>
             </div>

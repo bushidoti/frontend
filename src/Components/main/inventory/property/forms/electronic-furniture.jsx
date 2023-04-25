@@ -70,8 +70,9 @@ export const ElectronicFurniture = () => {
                          </div>
                      </div>
             </div>
-            <button type="submit" className="btn material-symbols-outlined btn-success">
-            done</button>
+              <div className='d-flex flex-column '>
+              <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
+            </div>
         </Fragment>
     )
 }

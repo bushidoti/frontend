@@ -81,17 +81,13 @@ export const PropertyMenu = (props) => {
                         <div style={{minHeight: '120px'}}>
                             <div className="collapse collapse-horizontal" id="collapseMovableProperty">
                                 <div className="card card-body gap-2 w-100">
-                                    <button className='btn btn-primary d-flex gap-2' value='industrialEquipment' data-bs-toggle="collapse"
-                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <button className='btn btn-primary d-flex gap-2' value='industrialEquipment' onClick={(e) => props.setShowForm(e.target.value)}>
                                         <span className="material-symbols-outlined">construction</span>ابزار آلات غیر صنعتی</button>
-                                    <button className='btn btn-primary d-flex  gap-2' value='supportItems' data-bs-toggle="collapse"
-                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <button className='btn btn-primary d-flex  gap-2' value='supportItems' onClick={(e) => props.setShowForm(e.target.value)}>
                                         <span className="material-symbols-outlined float-end">storage</span>اقلام پشتیبانی</button>
-                                    <button className='btn btn-primary d-flex gap-2' value='benefits' data-bs-toggle="collapse"
-                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <button className='btn btn-primary d-flex gap-2' value='benefits' onClick={(e) => props.setShowForm(e.target.value)}>
                                         <span className="material-symbols-outlined">deskphone</span>امتیازات</button>
-                                    <button className='btn btn-primary d-flex gap-2' value='dustrialEquipment' data-bs-toggle="collapse"
-                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <button className='btn btn-primary d-flex gap-2' value='dustrialEquipment' onClick={(e) => props.setShowForm(e.target.value)}>
                                         <span className="material-symbols-outlined">engineering</span>
                                     ابزار آلات صنعتی</button>
                                 </div>
