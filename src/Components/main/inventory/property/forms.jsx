@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import {SafetyEquipment} from "./forms/safety-equipment";
 import {AirportEquipment} from "./forms/airport-equipment";
 import {ElectronicFurniture} from "./forms/electronic-furniture";
@@ -11,14 +11,19 @@ import {SupportItems} from "./forms/support-items";
 import {Benefits} from "./forms/benefits";
 import {DustrialEquipment} from "./forms/dustrial-equipment";
 import {Required} from "../../required";
+import {Contextform} from './contextform'
 export const Forms =  (props) => {
+    const [isRepair , setIsRepair] = useState(false)
     Required()
     return (
         <Fragment>
-
             <div className= 'd-flex justify-content-around m-4'>
                         <div className="card card-body gap-2">
                             <div className='d-flex'>
+                            <Contextform.Provider value={{
+                                isRepair:isRepair,
+                                setIsRepair:setIsRepair
+                            }}>
                                 <form className='needs-validation col-5' noValidate>
                                     {(() => {
                                         if (props.showForm === 'safetyEquipment'){
@@ -72,6 +77,8 @@ export const Forms =  (props) => {
                                         }
                                     })()}
                                  </form>
+                                            </Contextform.Provider>
+
                                 <div className='m-4'>
                                 </div>
                             </div>
