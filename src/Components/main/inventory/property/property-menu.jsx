@@ -1,25 +1,6 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment} from "react";
 
 export const PropertyMenu = (props) => {
-  const ref = useRef();
-  const [isMenuOpen, setIsMenuOpen] = useState('');
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
-          console.log(isMenuOpen)
-
-        setIsMenuOpen('');
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [isMenuOpen]);
 
     return (
         <Fragment>

@@ -13,8 +13,11 @@ import {DustrialEquipment} from "./forms/dustrial-equipment";
 import {Required} from "../../required";
 import {Contextform} from './contextform'
 export const Forms =  (props) => {
-    const [isRepair , setIsRepair] = useState(false)
+    const [isRepair , setIsRepair] = useState('')
     Required()
+    function refreshPage() {
+                    window.location.reload();
+          }
     return (
         <Fragment>
             <div className= 'd-flex justify-content-around m-4'>
@@ -26,8 +29,11 @@ export const Forms =  (props) => {
                             }}>
                                 <form className='needs-validation col-5' noValidate>
                                     {(() => {
+
                                         if (props.showForm === 'safetyEquipment'){
+
                                             return (
+
                                               <SafetyEquipment/>
                                             )
                                         }else if (props.showForm === 'airportEquipment'){

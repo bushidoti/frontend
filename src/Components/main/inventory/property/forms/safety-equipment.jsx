@@ -12,10 +12,7 @@ export const SafetyEquipment = () => {
               </div>
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typeAdd" aria-label="Type Add" onChange={() => {
-                            form.setIsRepair(!form.isRepair)
-                            console.log(form.isRepair)
-                        } } required>
+                        <select className="form-select" id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
                             <option selected disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
                             <option value="تعمیرات">تعمیرات</option>
@@ -26,7 +23,7 @@ export const SafetyEquipment = () => {
                          </div>
                     </div>
                     {(() => {
-                            if (form.isRepair){
+                            if (form.isRepair === 'تعمیرات'){
                                 return(
                                     <Fragment>
                                         <div className="col form-floating mb-3">
@@ -39,7 +36,7 @@ export const SafetyEquipment = () => {
                                          </div>
                                     </Fragment>
                                 )
-                            }else {
+                            }else if (form.isRepair === 'ثبت اولیه') {
                                 return(
                                        <Fragment>
                                            <div className="col form-floating mb-3">
@@ -63,12 +60,14 @@ export const SafetyEquipment = () => {
                             }
                         })()}
                 </div>
-                <hr className='bg-primary mb-5'/>
-                <div className='d-flex gap-2'>
+
                       {(() => {
-                            if (form.isRepair){
+
+                            if (form.isRepair === 'تعمیرات'){
                                 return(
                                     <Fragment>
+                                        <hr className='bg-primary mb-5'/>
+                                        <div className='d-flex gap-2'>
                                         <div className="col form-floating">
                                             <textarea className="form-control" id="describeRepair"
                                             placeholder="...." required/>
@@ -77,11 +76,14 @@ export const SafetyEquipment = () => {
                                             شرح تعمیرات را وارد کنید.
                                             </div>
                                        </div>
+                                       </div>
                                     </Fragment>
                                 )
-                            }else {
+                            }else if (form.isRepair === 'ثبت اولیه') {
                                 return(
                                        <Fragment>
+                                         <hr className='bg-primary mb-5'/>
+                                        <div className='d-flex gap-2'>
                                             <div className="col form-floating">
                                                     <input type="text" className="form-control" id="user"
                                                     placeholder="فرودگاه" required/>
@@ -99,11 +101,11 @@ export const SafetyEquipment = () => {
                                                         محل نصب را وارد کنید.
                                                         </div>
                                             </div>
+                                            </div>
                                        </Fragment>
                                 )
                             }
                         })()}
-            </div>
               <div className='d-flex flex-column mt-2'>
               <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
             </div>
