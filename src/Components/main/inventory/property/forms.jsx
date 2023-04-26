@@ -10,14 +10,16 @@ import {IndustrialEquipment} from "./forms/industrial-equipment";
 import {SupportItems} from "./forms/support-items";
 import {Benefits} from "./forms/benefits";
 import {DustrialEquipment} from "./forms/dustrial-equipment";
-
+import {Required} from "../../required";
 export const Forms =  (props) => {
+    Required()
     return (
         <Fragment>
-            <div className= 'd-flex justify-content-around m-4' style={{height:'425px'}} >
-                        <div className="card card-body gap-2" style={{width:'1500px'}}>
+
+            <div className= 'd-flex justify-content-around m-4'>
+                        <div className="card card-body gap-2">
                             <div className='d-flex'>
-                                <form className='needs-validation' noValidate>
+                                <form className='needs-validation col-5' noValidate>
                                     {(() => {
                                         if (props.showForm === 'safetyEquipment'){
                                             return (

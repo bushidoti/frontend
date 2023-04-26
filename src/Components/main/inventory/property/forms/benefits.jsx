@@ -9,7 +9,7 @@ export const Benefits = () => {
                 <label  id="idNumber">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
-                       <div className="col form-floating mb-3 ">
+                       <div className="col form-floating">
                         <select className="form-select" id="typeLine" aria-label="Type Add" required>
                             <option selected disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">سیم کارت</option>
@@ -20,7 +20,7 @@ export const Benefits = () => {
                              نوع خط را انتخاب کنید.
                          </div>
                     </div>
-                        <div className="col-4 form-floating mb-3">
+                        <div className="col-4 form-floating">
                             <input type="text" className="form-control" id="locationUse"
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
@@ -28,7 +28,7 @@ export const Benefits = () => {
                                 محل استفاده را وارد کنید.
                                 </div>
                        </div>
-                      <div className="col form-floating mb-3">
+                      <div className="col form-floating">
                         <input type="text" className="form-control" id="number"
                                placeholder="تاسیسات" required/>
                             <label htmlFor="number">شماره</label>
@@ -37,7 +37,7 @@ export const Benefits = () => {
                          </div>
                      </div>
                 </div>
-              <div className='d-flex flex-column '>
+              <div className='d-flex flex-column mt-2'>
               <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
             </div>
         </Fragment>

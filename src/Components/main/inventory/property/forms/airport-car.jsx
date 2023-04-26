@@ -43,19 +43,11 @@ export const AirportCar = () => {
                              سال ساخت را وارد کنید.
                          </div>
                      </div>
-                           <div className="col-2 form-floating mb-3">
-                        <input type="text" className="form-control" id="ownerCar"
-                               placeholder="فرودگاه مهراباد" required/>
-                            <label htmlFor="ownerCar">مالکیت</label>
-                         <div className="invalid-feedback">
-                             مالکیت را وارد کنید.
-                         </div>
-                     </div>
                 </div>
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex gap-2'>
                      <div className="col  form-floating">
-                         <div className="mt-1 mb-3 input-group">
+                         <div className="mt-1 input-group">
                                             <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
                                             id="carPlateSection4"/>
                                             <span className="c-form__car-plate-input__iran">ایران</span>
@@ -94,7 +86,7 @@ export const AirportCar = () => {
                                             <span className="input-group-text c-form__car-plate-input rounded-8"></span>
                                           </div>
                                           </div>
-                      <div className="col-2 form-floating mb-3">
+                      <div className="col-2 form-floating">
                         <input type="text" className="form-control" id="userCar"
                                placeholder="فرودگاه مهراباد" required/>
                             <label htmlFor="userCar">یوزر</label>
@@ -102,7 +94,18 @@ export const AirportCar = () => {
                              یوزر را وارد کنید.
                          </div>
                      </div>
-                    <div className="col form-floating mb-3">
+                            <div className="col-2 form-floating mb-3">
+                        <input type="text" className="form-control" id="ownerCar"
+                               placeholder="فرودگاه مهراباد" required/>
+                            <label htmlFor="ownerCar">مالکیت</label>
+                         <div className="invalid-feedback">
+                             مالکیت را وارد کنید.
+                         </div>
+                     </div>
+            </div>
+            <hr className='bg-primary mb-5'/>
+            <div className='d-flex gap-2'>
+                <div className="col form-floating">
                         <input type="text" className="form-control" id="motorNumber"
                                placeholder="IN-12345678" required/>
                             <label htmlFor="motorNumber">شماره موتور</label>
@@ -110,7 +113,7 @@ export const AirportCar = () => {
                              شماره موتور را وارد کنید.
                          </div>
                      </div>
-                    <div className="col form-floating mb-3">
+                    <div className="col form-floating">
                         <input type="text" className="form-control" id="chassisNumber"
                                placeholder="123456789052314" required/>
                             <label htmlFor="chassisNumber">شماره شاسی</label>
@@ -118,10 +121,9 @@ export const AirportCar = () => {
                              شماره شاسی را وارد کنید.
                          </div>
                      </div>
-
-
             </div>
-              <div className='d-flex flex-column '>
+
+              <div className='d-flex flex-column mt-2'>
               <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
             </div>
         </Fragment>

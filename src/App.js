@@ -111,6 +111,7 @@ function App() {
                       <Route path="*" element={<Page404 />} />
             </Route>
         </Routes>
+
          </Fragment>
       </BrowserRouter>
 

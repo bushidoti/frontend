@@ -36,7 +36,7 @@ export const SupportItems = () => {
                 </div>
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex gap-2'>
-                        <div className="col-4 form-floating mb-3">
+                        <div className="col-4 form-floating">
                             <input type="text" className="form-control" id="locationUse"
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
@@ -45,7 +45,7 @@ export const SupportItems = () => {
                                 </div>
                        </div>
             </div>
-              <div className='d-flex flex-column '>
+              <div className='d-flex flex-column mt-2'>
               <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
             </div>
         </Fragment>

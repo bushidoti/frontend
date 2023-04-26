@@ -55,7 +55,7 @@ export const AirportEquipment = () => {
                 <hr className='bg-primary mb-5'/>
 
                 <div className='d-flex gap-2'>
-                       <div className="col form-floating mb-3">
+                       <div className="col form-floating">
                             <input type="text" className="form-control" id="user"
                             placeholder="فرودگاه" required/>
                                 <label htmlFor="user">یوزر</label>
@@ -63,7 +63,7 @@ export const AirportEquipment = () => {
                                 یوزر را وارد کنید.
                                 </div>
                        </div>
-                       <div className="col form-floating mb-3">
+                       <div className="col form-floating">
                             <input type="text" className="form-control" id="owner"
                             placeholder="فرودگاه" required/>
                                 <label htmlFor="owner">مالکیت</label>
@@ -71,7 +71,7 @@ export const AirportEquipment = () => {
                                 مالکیت را وارد کنید.
                                 </div>
                        </div>
-                       <div className="col form-floating mb-3">
+                       <div className="col form-floating">
                             <input type="text" className="form-control" id="location"
                             placeholder="شرکت" required/>
                                 <label htmlFor="location">محل نصب</label>
@@ -80,7 +80,7 @@ export const AirportEquipment = () => {
                                 </div>
                        </div>
             </div>
-              <div className='d-flex flex-column '>
+              <div className='d-flex flex-column mt-2'>
               <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
             </div>
         </Fragment>
