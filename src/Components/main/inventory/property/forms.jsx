@@ -15,12 +15,9 @@ import {Contextform} from './contextform'
 export const Forms =  (props) => {
     const [isRepair , setIsRepair] = useState('')
     Required()
-    function refreshPage() {
-                    window.location.reload();
-          }
     return (
         <Fragment>
-            <div className= 'd-flex justify-content-around m-4'>
+            <div className= 'd-flex justify-content-around m-4 w-100 rounded'>
                         <div className="card card-body gap-2">
                             <div className='d-flex'>
                             <Contextform.Provider value={{
@@ -84,9 +81,6 @@ export const Forms =  (props) => {
                                     })()}
                                  </form>
                                             </Contextform.Provider>
-
-                                <div className='m-4'>
-                                </div>
                             </div>
                         </div>
             </div>
