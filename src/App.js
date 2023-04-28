@@ -14,6 +14,8 @@ import UploadIndividualsDoc from "./Components/main/properManagement/documentInd
 import UploadPropertyDoc from "./Components/main/properManagement/propertyDocuments/uploadpropertydoc";
 import WarHouse from "./Components/main/inventory/storage-prodoct/main";
 import Property from "./Components/main/inventory/property/main";
+import {Footer} from "./Components/footer/footer";
+import ReportProperty from "./Components/main/inventory/property/report";
 
 
 function App() {
@@ -91,9 +93,8 @@ function App() {
     /*پایان مدیریت قرارداد*/
 
   return (
+   <Fragment >
       <BrowserRouter>
-
-         <Fragment >
         <Routes>
             <Route path="/" element={<NavBar/>} >
                       <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
@@ -108,12 +109,14 @@ function App() {
                       <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                       <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                       <Route path="property" element={<Property />} />
+                      <Route path="report-properties" element={<ReportProperty />} />
                       <Route path="*" element={<Page404 />} />
             </Route>
         </Routes>
+    <Footer/>
+  </BrowserRouter>
+</Fragment>
 
-         </Fragment>
-      </BrowserRouter>
 
   );
 }
