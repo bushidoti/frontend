@@ -1,88 +1,50 @@
 import React, {Fragment} from "react";
-import ObserveModal from "../../properManagement/propertyDocuments/observemodal";
-import Modal from "../../properManagement/propertyDocuments/modal";
 
 const ReportProperty = (props) => {
     return (
         <Fragment>
-            <ObserveModal/>
-            <Modal editProperty={props.editProperty} propToggle={props.propToggle} />
-
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
-                                <div className= 'd-flex gap-2'>
-                                    <div className='d-flex gap-2'>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="propertiesPart"
-                                            value='اموال' onChange={props.handleFormPropertyreport}/>
-                                            <label className="form-check-label" htmlFor="propertiesPart">
-                                            اموال
-                                            </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="repairsPart"
-                                            value='تعمیرات' onChange={props.handleFormPropertyreport}/>
-                                                <label className="form-check-label" htmlFor="repairsPart">
-                                                تعمیرات
-                                                </label>
-                                        </div>
-                                        <div className="form-check ms-4">
-                                            <input className="form-check-input" type="checkbox" value="تعمیر شده" id="repaired" />
-                                            <label className="form-check-label" htmlFor="repaired">
-                                            تعمیر شده
-                                            </label>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div className= 'd-flex gap-2'>
-                                    <button className="btn btn-danger material-symbols-outlined " type="button" id="observeDocs"
-                                    data-bs-toggle="modal" data-bs-target="#observModal">description</button>
-                                    <button className="btn btn-outline-secondary material-symbols-outlined " type="button" id="print">print</button>
-                                </div>
+                        <div className= 'd-flex gap-2  align-items-center'>
+                        <div className="form-floating">
+                                <select className="form-select" id="typeProperty"
+                                aria-label="Type Property">
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="تجهیزات ایمنی">تجهیزات ایمنی</option>
+                                                <option value="تجهیزات فرودگاهی">تجهیزات فرودگاهی</option>
+                                                <option value="اثاثه الکترونیکی">اثاثه الکترونیکی</option>
+                                                <option value="اثاثه اداری">اثاثه اداری</option>
+                                                <option value="اثاثه تاسیساتی">اثاثه تاسیساتی</option>
+                                                <option value="اثاثه فرودگاهی">اثاثه فرودگاهی</option>
+                                                <option value="خودرو فرودگاهی">خودرو فرودگاهی</option>
+                                                <option value="خودرو اداری">خودرو اداری</option>
+                                                <option value="ابزار آلات غیر صنعتی">ابزار آلات غیر صنعتی</option>
+                                                <option value="ابزار آلات صنعتی">ابزار آلات صنعتی</option>
+                                                <option value="اقلام پشتیبانی">اقلام پشتیبانی</option>
+                                                <option value="امتیازات">امتیازات</option>
+                                </select>
+                                <label htmlFor="typeProperty">نوع اموال</label>
                         </div>
+                         <div className="form-check ms-4">
+                                <input className="form-check-input" type="checkbox" value="تعمیر شده" id="repaired" />
+                                <label className="form-check-label" htmlFor="repaired">
+                                تعمیر شده
+                                </label>
+                        </div>
+                    </div>
+                    <div className= 'd-flex gap-2'>
+                        <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print">print</button>
+                    </div>
+                        </div>
+                    <hr className='bg-primary mb-5'/>
 
                         <div className="form-floating m-4 col-1">
-                                <select className="form-select" id="searchSelector"
-                                aria-label="Search Selector" onChange={(e) => {
-                                props.setSearch(e.target.value)
-                                }}>
+                                <select className="form-select" id="searchList"
+                                aria-label="Search List">
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
-
-                                              {(() => {
-                                                  if (props.propToggle === true){
-                                                      return(
-                                                      <Fragment>
-                                                        <option value="نام">نام</option>
-                                                        <option value="شماره سند">شماره سند</option>
-                                                        <option value="نوع ملک">نوع ملک</option>
-                                                        <option value="نام مالک">نام مالک</option>
-                                                        <option value="شماره ثبت">شماره ثبت</option>
-                                                        <option value="سال ساخت">سال ساخت</option>
-                                                        <option value="پلاک ملک">پلاک ملک</option>
-                                                      </Fragment>
-                                                      )
-                                                  }else if (props.propToggle === false){
-                                                      return (
-                                                           <Fragment>
-                                                        <option value="سیستم">سیستم</option>
-                                                        <option value="شماره سند">شماره سند</option>
-                                                        <option value="نوع خودرو">نوع خودرو</option>
-                                                        <option value="نام مالک">نام مالک</option>
-                                                        <option value="شماره ثبت">شماره ثبت</option>
-                                                        <option value="محل استقرار">محل استقرار</option>
-                                                        <option value="پلاک">پلاک</option>
-                                                        <option value="شماره شاسی">شماره شاسی</option>
-                                                        <option value="شماره موتور">شماره موتور</option>
-                                                </Fragment>
-                                                      )
-                                                  }
-                                              })()}
                                 </select>
-                                <label htmlFor="searchSelector">نوع اموال</label>
+                                <label htmlFor="searchList">جستجو براساس</label>
                         </div>
-
                         <div className='col-4 m-4'>
                                 {(() => {
                                     if(props.search === 'نوع خودرو'){
