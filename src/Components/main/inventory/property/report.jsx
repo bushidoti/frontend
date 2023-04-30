@@ -1,14 +1,22 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
+import Modal from "./modal";
 
-const ReportProperty = (props) => {
+const ReportProperty = () => {
+    const [typeProperty , setTypeProperty] = useState('')
+    const [searchFor , setSearchFor] = useState('')
     return (
         <Fragment>
-            <div className= 'plater  m-2 rounded-3 shadow-lg '>
+            <Modal typeProperty={typeProperty}/>
+            <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
                         <div className="form-floating">
                                 <select className="form-select" id="typeProperty"
-                                aria-label="Type Property">
+                                aria-label="Type Property" onChange={(e) => {
+                                  setTypeProperty(e.target.value)
+                                  document.getElementById("searchList").selectedIndex = "0";
+                                  setSearchFor('')
+                                } }>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تجهیزات ایمنی">تجهیزات ایمنی</option>
                                                 <option value="تجهیزات فرودگاهی">تجهیزات فرودگاهی</option>
@@ -40,42 +48,164 @@ const ReportProperty = (props) => {
 
                         <div className="form-floating m-4 col-1">
                                 <select className="form-select" id="searchList"
-                                aria-label="Search List">
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                aria-label="Search List" onChange={(e) => setSearchFor(e.target.value)}>
+                                    <option selected disabled>یک مورد انتخاب کنید</option>
+                                    {(() => {
+                                        if (typeProperty === 'تجهیزات ایمنی'){
+                                            return(
+                                                <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام تجهیزات">نام تجهیزات</option>
+                                                    <option value="مورد استفاده">مورد استفاده</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                </Fragment>
+                                            )
+                                        }else if (typeProperty === 'تجهیزات فرودگاهی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام تجهیزات">نام تجهیزات</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="سال ساخت">سال ساخت</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="مالکیت">مالکیت</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'اثاثه الکترونیکی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اثاث">نام اثاث</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'اثاثه اداری'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اثاث">نام اثاث</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="محل نصب">محل استفاده</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اثاث">نام اثاث</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اثاث">نام اثاث</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام خودرو">نام خودرو</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="پلاک">پلاک</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="شماره موتور">شماره موتور</option>
+                                                    <option value="شماره شاسی">شماره شاسی</option>
+                                                    <option value="سال ساخت">سال ساخت</option>
+                                                    <option value="مالکیت">مالکیت</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام ابزار">نام ابزار</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="مکان استفاده">مکان استفاده</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام ابزار">نام ابزار</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="سال">سال</option>
+                                                    <option value="مکان استفاده">مکان استفاده</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'اقلام پشتیبانی'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اقلام">نام اقلام</option>
+                                                    <option value="مدل">مدل</option>
+                                                    <option value="مکان استفاده">مکان استفاده</option>
+                                                    <option value="یوزر">یوزر</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'امتیازات'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نوع خط">نوع خط</option>
+                                                    <option value="مکان استفاده">مکان استفاده</option>
+                                                    <option value="شماره">شماره</option>
+                                                  </Fragment>
+                                            )
+                                        }
+                                    })()}
                                 </select>
                                 <label htmlFor="searchList">جستجو براساس</label>
                         </div>
                         <div className='col-4 m-4'>
                                 {(() => {
-                                    if(props.search === 'نوع خودرو'){
+                                    if(searchFor === 'نام تجهیزات'){
                                         return (
-                                             <div className="col-2 form-floating">
-                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" placeholder="خودرو سواری" required/>
-                                                <label htmlFor="typeCar">نوع خودرو</label>
-                                                <datalist id="typeCarList">
-                                                    <option value="خودرو سواری"/>
-                                                    <option value="خودرو قرودگاهی"/>
+                                             <div className="col-3 form-floating">
+                                                <input className="form-control" type='search' list="nameEquipmentList" id="nameEquipment" placeholder="نقاله" required/>
+                                                <label htmlFor="nameEquipment">نام تجهیزات</label>
+                                                <datalist id="nameEquipmentList">
+                                                    <option value="X RAY"/>
+                                                    <option value="نقاله"/>
+                                                    <option value="کانتر"/>
+                                                    <option value="ایرکاندیشن"/>
                                                 </datalist>
                                                 <div className="invalid-feedback">
-                                                نوع خودرو را انتخاب کنید.
+                                                نام تجهیزات را وارد کنید.
                                                 </div>
                                              </div>
                                         )
-                                    }else if (props.search === 'نوع ملک'){
+                                    }else if (searchFor === 'نوع خط'){
                                         return (
-                                              <div className="col-2 form-floating">
-                                                    <input className="form-control" type='search' list="typeEstateList" id="typeEstate" placeholder="ملک تجاری" required/>
-                                                    <label htmlFor="typeEstate">نوع ملک</label>
-                                                    <datalist id="typeEstateList">
-                                                        <option value="ملک غیرتجاری"/>
-                                                        <option value="ملک تجاری"/>
+                                              <div className="col-3 form-floating">
+                                                    <input className="form-control" type='search' list="typeLineList" id="typeLine" placeholder="02133229964" required/>
+                                                    <label htmlFor="typeLine">نوع خط</label>
+                                                    <datalist id="typeLineList">
+                                                        <option value="سیم کارت"/>
+                                                        <option value="ثابت"/>
                                                     </datalist>
                                                     <div className="invalid-feedback">
-                                                    نوع ملک را انتخاب کنید.
+                                                    نوع خط را انتخاب کنید.
                                                     </div>
                                                 </div>
                                         )
-                                    }else if (props.search === 'پلاک'){
+                                    }else if (searchFor === 'پلاک'){
                                         return (
                                               <div className="mt-2 input-group">
                                                 <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
@@ -119,7 +249,7 @@ const ReportProperty = (props) => {
                                     } else {
                                         return (
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder={`جستوجو براساس ${props.search}`}
+                                                <input type="text" className="form-control" placeholder={`جستوجو براساس ${searchFor}`}
                                                 aria-label="searchBox" aria-describedby="search"/>
                                                 <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                             </div>
@@ -127,67 +257,165 @@ const ReportProperty = (props) => {
                                     }
                             })()}
             </div>
-                <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
+                <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '37vh'}}>
                     <table className="table table-hover text-center align-middle table-striped">
                          <thead className= 'bg-light sticky-top'>
                             <tr>
-                                {props.propToggle ?
-                                    <Fragment>
-                                        <th scope="col">ردیف</th>
-                                        <th scope="col">شماره ثبت</th>
-                                        <th scope="col">نوع</th>
-                                        <th scope="col">نام</th>
-                                        <th scope="col">شماره سند</th>
-                                        <th scope="col">پلاک</th>
-                                        <th scope="col">آدرس</th>
-                                        <th scope="col">مالک</th>
-                                        <th scope="col">متراژ</th>
-                                        <th scope="col">سال ساخت</th>
-                                        <th scope="col">وضعیت</th>
-                                        <th scope="col">تاریخ فروش</th>
-                                        <th scope="col">خریدار</th>
-                                        <th scope="col">توضیحات</th>
-                                    </Fragment>
-                                    :
-                                    <Fragment>
+                                {(() => {
+                                    if (typeProperty === 'تجهیزات فرودگاهی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام تجهیزات</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">سال ساخت</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">مالکیت</th>
+                                                <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'تجهیزات ایمنی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام تجهیزات</th>
+                                                <th scope="col">مورد استفاده</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه الکترونیکی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اثاث</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه اداری'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اثاث</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">محل استفاده</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اثاث</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اثاث</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام خودرو</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">پلاک</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">شماره موتور</th>
+                                                <th scope="col">شماره شاسی</th>
+                                                <th scope="col">سال ساخت</th>
+                                                <th scope="col">مالکیت</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام ابزار</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">مکان استفاده</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام ابزار</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">سال</th>
+                                                <th scope="col">مکان استفاده</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اقلام پشتیبانی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اقلام</th>
+                                                <th scope="col">مدل</th>
+                                                <th scope="col">مکان استفاده</th>
+                                                <th scope="col">یوزر</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'امتیازات'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نوع خط</th>
+                                                <th scope="col">مکان استفاده</th>
+                                                <th scope="col">شماره</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }
+                                })()}
 
-                                        <th scope="col">ردیف</th>
-                                        <th scope="col">شماره ثبت</th>
-                                        <th scope="col">نوع</th>
-                                        <th scope="col">سیستم</th>
-                                        <th scope="col">شماره سند</th>
-                                        <th scope="col">شماره موتور</th>
-                                        <th scope="col">شماره شاسی</th>
-                                        <th scope="col">مالک</th>
-                                        <th scope="col">مدل</th>
-                                        <th scope="col">پلاک</th>
-                                        <th scope="col">محل استقرار</th>
-                                        <th scope="col">برگ سند</th>
-                                        <th scope="col">بیمه نامه</th>
-                                        <th scope="col">کارت سوخت</th>
-                                        <th scope="col">کارت ماشین</th>
-                                        <th scope="col">توضیحات</th>
-                                        <th scope="col">وضعیت</th>
-                                        <th scope="col">تاریخ فروش</th>
-                                        <th scope="col">خریدار</th>
-                                        <th scope="col">نمایش</th>
-                                    </Fragment>
-                                }
                             </tr>
                          </thead>
                         <tbody>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    {props.propToggle ?
-                                        <Fragment>
+                                         {(() => {
+                                    if (typeProperty === 'تجهیزات فرودگاهی'){
+                                        return (
+                                           <Fragment>
+                                            <th scope="row">1</th>
                                             <td>ب/12/3</td>
                                             <td>13/2ث</td>
                                             <td>سجاد</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
                                             <td>1401/12/1</td>
                                             <td>1401/12/1</td>
                                             <td>1401/12/1</td>
@@ -195,32 +423,155 @@ const ReportProperty = (props) => {
                                             <td>
                                                 <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
                                             </td>
-                                        </Fragment>
-                                        :
-                                        <Fragment>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'تجهیزات ایمنی'){
+                                        return (
+                                            <Fragment>
+                                            <th scope="row">1</th>
                                             <td>ب/12/3</td>
                                             <td>13/2ث</td>
                                             <td>سجاد</td>
                                             <td>1401/12/1</td>
                                             <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
                                             <td>
-                                                <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={props.handleEditProperty}>info</button>
-                                    </td>
-                                </Fragment>
-                            }
+                                                <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                            </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه الکترونیکی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه اداری'){
+                                        return (
+                                           <Fragment>
+                                                 <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'اقلام پشتیبانی'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'امتیازات'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="row">1</th>
+                                                <td>ب/12/3</td>
+                                                <td>13/2ث</td>
+                                                <td>سجاد</td>
+                                                <td>1401/12/1</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                           </Fragment>
+                                        )
+                                    }
+                                })()}
                         </tr>
                     </tbody>
                 </table>

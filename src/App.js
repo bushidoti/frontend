@@ -16,10 +16,11 @@ import WarHouse from "./Components/main/inventory/storage-prodoct/main";
 import Property from "./Components/main/inventory/property/main";
 import {Footer} from "./Components/footer/footer";
 import ReportProperty from "./Components/main/inventory/property/report";
+import {Contextform} from "./Components/main/inventory/property/contextform";
 
 
 function App() {
-
+    const [isRepair , setIsRepair] = useState('')
     const [modalTitle , setModalTitle] = useState('')
 
     /*مدیریت اسناد*/
@@ -93,29 +94,37 @@ function App() {
     /*پایان مدیریت قرارداد*/
 
   return (
-   <Fragment >
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<NavBar/>} >
-                      <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                      <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
-                      <Route path="upload" element={<UploadDocuments/>} />
-                      <Route path="contactus" element={<ContactUS />} />
-                      <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
-                      <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
-                      <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
-                      <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
-                      <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
-                      <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
-                      <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
-                      <Route path="property" element={<Property />} />
-                      <Route path="report-properties" element={<ReportProperty />} />
-                      <Route path="*" element={<Page404 />} />
-            </Route>
-        </Routes>
-    <Footer/>
-  </BrowserRouter>
-</Fragment>
+<Contextform.Provider value={{
+                    isRepair:isRepair,
+                    setIsRepair:setIsRepair
+                }}>
+       <Fragment >
+          <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<NavBar/>} >
+                          <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
+                          <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
+                          <Route path="upload" element={<UploadDocuments/>} />
+                          <Route path="contactus" element={<ContactUS />} />
+                          <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
+                          <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
+                          <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
+                          <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
+                          <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
+                          <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
+                          <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
+                          <Route path="property" element={<Property />} />
+
+                          <Route path="report-properties" element={<ReportProperty />} />
+
+                          <Route path="*" element={<Page404 />} />
+                </Route>
+            </Routes>
+        <Footer/>
+      </BrowserRouter>
+    </Fragment>
+</Contextform.Provider>
+
 
 
   );

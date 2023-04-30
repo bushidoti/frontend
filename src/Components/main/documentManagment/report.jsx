@@ -56,9 +56,6 @@ const Report = (props) => {
                                 }
 
                             })()}
-
-
-
                         </select>
                         <label htmlFor="searchSelect">جستجو براساس</label>
                   </div>

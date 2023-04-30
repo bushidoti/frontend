@@ -37,9 +37,6 @@ export const Benefits = () => {
                          </div>
                      </div>
                 </div>
-              <div className='d-flex flex-column mt-2'>
-              <button type="submit" className="btn material-symbols-outlined btn-success align-self-end">done</button>
-            </div>
         </Fragment>
     )
 }
