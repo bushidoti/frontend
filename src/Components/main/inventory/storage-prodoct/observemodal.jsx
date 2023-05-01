@@ -17,18 +17,24 @@ const ObserveModal = (props) => {
                                 aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                   <div className="form-floating m-4 col-1">
-                        <select className="form-select" id="searchSelector"
-                            aria-label="Search Select" onChange={(e) =>
-                            setSearch(e.target.value)}>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
-                            <option value="ردیف">ردیف</option>
-                            <option value="تاریخ ثبت">تاریخ ثبت</option>
-                            <option value="گروه">گروه</option>
-                            <option value="مورد مصرف">مورد مصرف</option>
-                        </select>
-                        <label htmlFor="searchSelect">جستجو براساس</label>
-                  </div>
+                                <div className='d-flex justify-content-between'>
+                                      <div className="form-floating m-4 col-1">
+                                            <select className="form-select" id="searchSelector"
+                                                aria-label="Search Select" onChange={(e) =>
+                                                setSearch(e.target.value)}>
+                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value="ردیف">ردیف</option>
+                                                <option value="تاریخ ثبت">تاریخ ثبت</option>
+                                                <option value="گروه">گروه</option>
+                                                <option value="مورد مصرف">مورد مصرف</option>
+                                            </select>
+                                            <label htmlFor="searchSelect">جستجو براساس</label>
+                                      </div>
+                                   <div className= 'd-flex gap-2 m-4'>
+                                        <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print">print</button>
+                                   </div>
+                                </div>
+
                     <div className='m-4'>
                         {(() => {
                             if (search === 'تاریخ ثبت') {

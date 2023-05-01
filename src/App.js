@@ -17,6 +17,7 @@ import Property from "./Components/main/inventory/property/main";
 import {Footer} from "./Components/footer/footer";
 import ReportProperty from "./Components/main/inventory/property/report";
 import {Contextform} from "./Components/main/inventory/property/contextform";
+import StorageHandling from "./Components/main/inventory/warhouse-handling";
 
 
 function App() {
@@ -114,8 +115,9 @@ function App() {
                           <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                           <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                           <Route path="property" element={<Property />} />
-
                           <Route path="report-properties" element={<ReportProperty />} />
+                          <Route path="warehouse-handling" element={<StorageHandling />} />
+
 
                           <Route path="*" element={<Page404 />} />
                 </Route>
