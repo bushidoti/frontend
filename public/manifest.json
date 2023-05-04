@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "سامانه مدیریتی",
+  "name": "سامانه مدیریتی شرکت هواپیمایی عقاب عسلویه",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,15 +8,11 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo192.ico",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
+
   ],
   "start_url": ".",
   "display": "standalone",

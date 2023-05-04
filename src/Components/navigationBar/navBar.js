@@ -1,16 +1,23 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Clock} from "./clock/timer";
 import {Profile} from "./login/loginBar";
 import {Link, Outlet} from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+   useEffect(() => {
+     if (localStorage.getItem('access_token') !== null) {
+        props.setIsAuth(true);
+      }
+    }, [props, props.isAuth]);
     return (
         <Fragment>
           <div className='rounded-top  bg-light mt-2 w-25 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2">
             <div className="container-fluid">
               <Link className='navbar-brand' to='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Link>
-                <Profile/>
+                <Profile isAuth={props.isAuth} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

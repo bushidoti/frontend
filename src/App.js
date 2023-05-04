@@ -18,11 +18,14 @@ import {Footer} from "./Components/footer/footer";
 import ReportProperty from "./Components/main/inventory/property/report";
 import {Contextform} from "./Components/main/inventory/property/contextform";
 import StorageHandling from "./Components/main/inventory/warhouse-handling";
+import {Logout} from "./Components/navigationBar/login/logout";
+import ToastLogin from "./Components/navigationBar/login/toast";
 
 
 function App() {
     const [isRepair , setIsRepair] = useState('')
     const [modalTitle , setModalTitle] = useState('')
+    const [isAuth, setIsAuth] = useState(false);
 
     /*مدیریت اسناد*/
         const [propertyToggle , setPropertyToggle ] = useState(null)
@@ -102,9 +105,11 @@ function App() {
        <Fragment >
           <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar/>} >
+                <Route path="/" element={<NavBar isAuth={isAuth} setIsAuth={setIsAuth}/>} >
+                    {isAuth ?
+                        <Fragment>
                           <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                          <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>}  />
+                          <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
                           <Route path="contactus" element={<ContactUS />} />
                           <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
@@ -117,13 +122,25 @@ function App() {
                           <Route path="property" element={<Property />} />
                           <Route path="report-properties" element={<ReportProperty />} />
                           <Route path="warehouse-handling" element={<StorageHandling />} />
-
+                          <Route path="/logout" element={<Logout/>}/>
+                        </Fragment>
+                        :
 
                           <Route path="*" element={<Page404 />} />
+
+                    }
+
+
+
+
                 </Route>
             </Routes>
         <Footer/>
       </BrowserRouter>
+           {isAuth ?
+               <ToastLogin/>
+                :
+           null}
     </Fragment>
 </Contextform.Provider>
 
