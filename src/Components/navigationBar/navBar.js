@@ -31,60 +31,66 @@ const NavBar = (props) => {
                   <li className="nav-item ">
                       <Link className='nav-link active' to='/'>خانه</Link>
                   </li>
+                    {props.isAuth ?
+                        <Fragment>
+                                  <li className="nav-item dropdown">
+                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                  مدیریت قراردادها
+                                </span>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   <li> <Link className='dropdown-item' to="/main">ثبت قرارداد</Link></li>
+                                    <li>
+                                    <hr className="dropdown-divider bg-primary"></hr>
+                                  </li>
+                                  <li><Link className= 'dropdown-item' to= '/report'>گزارش</Link></li>
+                                  <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
+                                </ul>
+                              </li>
 
-                  <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                      مدیریت قراردادها
-                    </span>
-                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                       <li> <Link className='dropdown-item' to="/main">ثبت قرارداد</Link></li>
-                        <li>
-                        <hr className="dropdown-divider bg-primary"></hr>
-                      </li>
-                      <li><Link className= 'dropdown-item' to= '/report'>گزارش</Link></li>
-                      <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
-                    </ul>
-                  </li>
+                                 <li className="nav-item dropdown">
+                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                  مدیریت اسناد
+                                </span>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
+                                  <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
+                                  <li>
+                                    <hr className="dropdown-divider bg-primary"></hr>
+                                  </li>
+                                    <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
+                                    <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
+                                  <li>
+                                    <hr className="dropdown-divider bg-primary"></hr>
+                                  </li>
+                                    <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
+                                    <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
+                                </ul>
+                              </li>
+                                 <li className="nav-item dropdown">
+                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                  انبارداری
+                                </span>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
+                                     <li>
+                                    <hr className="dropdown-divider bg-primary"></hr>
+                                  </li>
+                                  <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
+                                  <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
+                                  <li>
+                                    <hr className="dropdown-divider bg-primary"></hr>
+                                  </li>
+                                    <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
+                                </ul>
+                              </li>
+                        </Fragment>
+                        :
+                        null
+                    }
 
-                     <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                      مدیریت اسناد
-                    </span>
-                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
-                      <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
-                      <li>
-                        <hr className="dropdown-divider bg-primary"></hr>
-                      </li>
-                        <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
-                        <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
-                      <li>
-                        <hr className="dropdown-divider bg-primary"></hr>
-                      </li>
-                        <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
-                        <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
-                    </ul>
-                  </li>
-                     <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                      انبارداری
-                    </span>
-                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
-                         <li>
-                        <hr className="dropdown-divider bg-primary"></hr>
-                      </li>
-                      <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
-                      <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
-                      <li>
-                        <hr className="dropdown-divider bg-primary"></hr>
-                      </li>
-                        <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
-                    </ul>
-                  </li>
 
                   <li className="nav-item">
                       <Link className='nav-link' to='contactus'>پشتیبانی</Link>

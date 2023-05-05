@@ -27,6 +27,7 @@
     "react-multi-date-picker": "^3.3.4",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.2",
+    "sass": "^1.62.1",
     "web-vitals": "^2.1.4",
     "zaman": "^2.0.1"
   },

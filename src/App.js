@@ -20,6 +20,7 @@ import {Contextform} from "./Components/main/inventory/property/contextform";
 import StorageHandling from "./Components/main/inventory/warhouse-handling";
 import {Logout} from "./Components/navigationBar/login/logout";
 import ToastLogin from "./Components/navigationBar/login/toast";
+import {Page403} from "./Components/page403/403Page";
 
 
 function App() {
@@ -111,7 +112,6 @@ function App() {
                           <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                           <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
-                          <Route path="contactus" element={<ContactUS />} />
                           <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                           <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                           <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
@@ -125,10 +125,10 @@ function App() {
                           <Route path="/logout" element={<Logout/>}/>
                         </Fragment>
                         :
-
-                          <Route path="*" element={<Page404 />} />
-
+                          <Route path="*" element={<Page403 />} />
                     }
+                      <Route path="contactus" element={<ContactUS />} />
+                      <Route path="*" element={<Page404 />} />
 
 
 
