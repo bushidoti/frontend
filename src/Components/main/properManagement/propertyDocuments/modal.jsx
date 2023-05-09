@@ -109,9 +109,9 @@ const Modal = (props) => {
                                     </div>
                                 </div>
                                 <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="address"
+                                    <input type="text" className="form-control" id="addressChassis"
                                     placeholder="افسریه قصرفیروزه 1" disabled={props.editProperty} required/>
-                                    <label htmlFor="address">{props.propToggle ? 'آدرس' :  'شماره شاسی'}</label>
+                                    <label htmlFor="addressChassis">{props.propToggle ? 'آدرس' :  'شماره شاسی'}</label>
                                     <div className="invalid-feedback">
                                     {props.propToggle ? 'آدرس' :  'شماره شاسی'} را وارد کنید.
                                     </div>
@@ -190,9 +190,9 @@ const Modal = (props) => {
                                  </div>
                             </div>
                             <div className="col form-floating">
-                                <textarea  className="form-control" id="description"
+                                <textarea  className="form-control" id="descriptionLocation"
                                 placeholder="تهران ....." disabled={props.editProperty} required/>
-                                <label htmlFor="description">{props.propToggle ? 'توضیحات' :  'محل استقرار'}</label>
+                                <label htmlFor="descriptionLocation">{props.propToggle ? 'توضیحات' :  'محل استقرار'}</label>
                                 <div className="invalid-feedback">
                                 {props.propToggle ? 'توضیحات' :  'محل استقرار'} را وارد کنید.
                                 </div>

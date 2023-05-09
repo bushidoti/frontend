@@ -102,7 +102,7 @@ const Modal = (props) => {
                         <div className="container modal-body">
 
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="idNumber" className="w-25 form-control" aria-label="Username"
+                                <input type="text" id="idNumber" className="w-25 form-control" aria-label="idNumber"
                                 aria-describedby="basic-addon1" value='' disabled required/>
                                 <label  id="idNumber">شماره ثبت</label>
                             </div>

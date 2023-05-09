@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from "./avatar.svg";
 import Modal from './modal'
 
 export const Profile = (props) => {
+
     return (
         <Fragment>
                 <Modal username={props.username} setUsername={props.setUsername} password={props.password} setPassword={props.setPassword}/>
