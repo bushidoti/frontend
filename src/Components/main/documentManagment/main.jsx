@@ -4,17 +4,17 @@ import {Link} from "react-router-dom";
 import {Toggler} from "./toggler";
 
 const Main = (props) => {
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(false)
-    useEffect(() => {
-    setLoading(true)
-    fetch("http://127.0.0.1:8000/api/documents")
-      .then(response => response.json())
-      .then(json => setUsers(json))
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+    const [contract, setContracts] = useState([])
+
+    const fetchData = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const data = await response.json()
+        setContracts(data)
+      }
+      useEffect(() => {
+            fetchData()
+          }, [])
+
     return (
         <Fragment>
 
@@ -50,13 +50,13 @@ const Main = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map(user => (
-                    <tr key={user.id}>
-                        <th scope="row">{user.id}</th>
-                        <td>{user.employer}</td>
-                        <td>{user.topicContract}</td>
-                        <td>{user.contractPrice}</td>
-                        <td>{user.dateContract}</td>
+                    {contract.map(contract => (
+                    <tr key={contract.id}>
+                        <th scope="row">{contract.id}</th>
+                        <td>{contract.employer}</td>
+                        <td>{contract.topicContract}</td>
+                        <td>{contract.contractPrice}</td>
+                        <td>{contract.dateContract}</td>
                         <td>
                             <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('edit')}>edit</button>
                             <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2'>delete</button>
