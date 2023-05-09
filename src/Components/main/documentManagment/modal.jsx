@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
@@ -9,11 +9,16 @@ import {Required} from "../required";
 
 const Modal = (props) => {
 
-     const Required = () => {
-        return(
-            <Required/>
-        )
-    }
+     const [contract, setContracts] = useState([])
+
+    const fetchData = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const data = await response.json()
+        setContracts(data)
+      }
+      useEffect(() => {
+            fetchData()
+          }, [])
 
     Required()
          function refreshPage() {
@@ -65,7 +70,6 @@ const Modal = (props) => {
     }
     handleLabelBails2()
     handleLabelBails1()
-
   return (
       <Fragment>
      <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
@@ -100,18 +104,18 @@ const Modal = (props) => {
                         </div>
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
-
                             <div className="form-floating justify-content-center mb-5">
                                 <input type="text" id="idNumber" className="w-25 form-control" aria-label="idNumber"
-                                aria-describedby="basic-addon1" value='' disabled required/>
+                                aria-describedby="basic-addon1" value={contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.id))} disabled required/>
                                 <label  id="idNumber">شماره ثبت</label>
                             </div>
 
                             <div className='d-flex gap-2'>
-
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
-                                    placeholder="35 / پ - 7552" required disabled={props.editDocument} />
+                                    placeholder="35 / پ - 7552"
+                                    value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.contractNumber)) : null}
+                                   required disabled={props.editDocument} />
                                     <div className="invalid-feedback">
                                         لطفا شماره قرارداد را وارد کنید.
                                     </div>
@@ -120,6 +124,7 @@ const Modal = (props) => {
 
                                  <div className="col form-floating mb-3">
                                     <input type="text" className="form-control" id="name"
+                                            value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.employer)) : null}
                                            placeholder="رضا محمدی" required disabled={props.editDocument}/>
                                         <label htmlFor="name">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</label>
                                      <div className="invalid-feedback">
@@ -130,9 +135,10 @@ const Modal = (props) => {
                                      <div className="col-3">
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocument} label='تاریخ ثبت قرارداد'/>}
+                                             render={<CustomInputDate disabled={props.editDocument} label='تاریخ ثبت قرارداد' />}
                                              id="dateContract"
                                              name='dateContractPicker'
+                                             value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.dateContract)) : null}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
@@ -145,15 +151,25 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-5'>
 
                                 <div className="col form-floating ">
-                                        <CurrencyInput
+                                    {props.editDocument ?
+                                           <input
+                                          className='form-control'
+                                          id="contractPrice"
+                                          name="contractPrice"
+                                          value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.contractPrice)) : null}
+                                          disabled={props.editDocument}
+                                        />
+                                        :
+                                           <CurrencyInput
                                           className='form-control'
                                           id="contractPrice"
                                           prefix="ریال "
                                           name="contractPrice"
                                           placeholder="ریال 10,000,000"
                                           required
-                                          disabled={props.editDocument}
                                         />
+                                    }
+
                                         <label htmlFor="contractPrice">مبلغ قرارداد</label>
                                         <div className="invalid-feedback">
                                             مبلغ قرارداد را وارد کنید.
@@ -162,7 +178,8 @@ const Modal = (props) => {
 
 
                                 <div className="col  form-floating">
-                                        <input type="text" className="form-control" id="durationContract"
+                                        <input type="text" className="form-control"  id="durationContract"
+                                         value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.durationContract)) : null}
                                         placeholder="12 ماه" required
                                         disabled={props.editDocument}/>
                                         <label htmlFor="durationContract">مدت قرارداد</label>
@@ -172,14 +189,23 @@ const Modal = (props) => {
                                 </div>
 
                                 <div className="col form-floating">
-                                       <CurrencyInput
+                                    {props.editDocument ?
+                                                 <input
+                                      className='form-control'
+                                      id="prePaidPrice"
+                                      value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.prePaidPrice)) : null}
+                                      name="prePaid"
+                                      placeholder="ریال 2,500,000"
+                                      disabled={props.editDocument}/>
+                                        :
+                                     <CurrencyInput
                                       className='form-control'
                                       id="prePaidPrice"
                                       prefix="ریال "
                                       name="prePaid"
                                       placeholder="ریال 2,500,000"
-                                      required
-                                      disabled={props.editDocument}/>
+                                      required/>
+                                    }
                                       <label htmlFor="prePaidPrice">مبلغ پیش پرداخت</label>
                                       <div className="invalid-feedback">
                                         مبلغ پیش پرداخت را وارد کنید.
@@ -193,15 +219,27 @@ const Modal = (props) => {
                             <div className='d-flex gap-2'>
 
                                  <div className="col-3 form-floating mb-3">
-                                      <CurrencyInput
-                                      className='form-control'
-                                      id="goodPrice"
-                                      prefix="ریال "
-                                      name="goodPrice"
-                                      placeholder="ریال 50,000,000"
-                                      required
-                                      disabled={props.editDocument}
-                                      onChange={(e) => setIsGoodPriceEmpty(e.target.value)}/>
+                                     {props.editDocument ?
+                                         <input
+                                          className='form-control'
+                                          id="goodPrice"
+                                          value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.goodPrice)) : null}
+                                          prefix="ریال "
+                                          name="goodPrice"
+                                          placeholder="ریال 50,000,000"
+                                          required
+                                          disabled={props.editDocument}
+                                          onChange={(e) => setIsGoodPriceEmpty(e.target.value)}/>
+                                         :
+                                         <CurrencyInput
+                                          className='form-control'
+                                          id="goodPrice"
+                                          prefix="ریال "
+                                          name="goodPrice"
+                                          placeholder="ریال 50,000,000"
+                                          required
+                                          onChange={(e) => setIsGoodPriceEmpty(e.target.value)}/>
+                                     }
                                       <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
                                       <div className="invalid-feedback">
                                       مبلغ حسن انجام کار وارد کنید.
@@ -210,12 +248,15 @@ const Modal = (props) => {
 
                                 {(() => {
 
-                                    if (isGoodPriceEmpty.length !== 0) {
+                                    if (isGoodPriceEmpty.length !== 0 || props.editDocument) {
                                       return (
                                           <Fragment>
                                                  <div className="col-2 form-floating">
-                                                        <input className="form-control" list="typeBailList" type='search' id="typeBail1" placeholder="چک" required disabled={props.editDocument}
-                                                        onChange={(e) => setIsTypeBail1Empty(e.target.value)}/>
+                                                        <input className="form-control" list="typeBailList" type='search' id="typeBail1" placeholder="چک"
+                                                               required disabled={props.editDocument}
+                                                        onChange={(e) => setIsTypeBail1Empty(e.target.value)}
+                                                        value={props.editDocument ? contract.filter(contract =>
+                                                            contract.id === props.idNumber).map(contract => (contract.typeBail1)) : null}/>
                                                         <label htmlFor="typeBail1">نوع ضمانت</label>
                                                         <datalist id="typeBailList" >
                                                             <option value="چک"/>
@@ -235,12 +276,14 @@ const Modal = (props) => {
 
                                 {(() => {
 
-                                      if (isTypeBail1Empty.length !== 0) {
+                                      if (isTypeBail1Empty.length !== 0 || props.editDocument) {
                                       return (
                                           <Fragment>
                                               <div className="col form-floating ">
                                                     <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control"
-                                                    required disabled={props.editDocument}/>
+                                                    required disabled={props.editDocument}
+                                                    value={props.editDocument ? contract.filter(contract =>
+                                                            contract.id === props.idNumber).map(contract => (contract.firstBail)) : null}/>
                                                     <label htmlFor="firstBail">{firstBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {firstBail1} را وارد کنید.
@@ -248,7 +291,9 @@ const Modal = (props) => {
                                                     </div>
                                                     <div className="col form-floating mb-3">
                                                     <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control"
-                                                    required disabled={props.editDocument}/>
+                                                    required disabled={props.editDocument}
+                                                    value={props.editDocument ? contract.filter(contract =>
+                                                            contract.id === props.idNumber).map(contract => (contract.secondBail)) : null}/>
                                                     <label htmlFor="secondBail">{secondBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {secondBail1} را وارد کنید.
@@ -264,15 +309,29 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-2'>
 
                                  <div className="col-3 form-floating mb-3">
-                                       <CurrencyInput
-                                       className='form-control'
-                                       id="commitmentPrice"
-                                       prefix="ریال "
-                                       name="commitmentPrice"
-                                       placeholder="ریال 200,000,000"
-                                       required
-                                       disabled={props.editDocument}
-                                       onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}/>
+                                      {props.editDocument ?
+                                          <input
+                                           className='form-control'
+                                           id="commitmentPrice"
+                                           name="commitmentPrice"
+                                           required
+                                           disabled={props.editDocument}
+                                           onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                           value={props.editDocument ? contract.filter(contract =>
+                                            contract.id === props.idNumber).map(contract => (contract.commitmentPrice)) : null}/>
+                                          :
+                                          <CurrencyInput
+                                           className='form-control'
+                                           id="commitmentPrice"
+                                           prefix="ریال "
+                                           name="commitmentPrice"
+                                           placeholder="ریال 200,000,000"
+                                           required
+                                           onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                           />
+                                      }
+
+
                                        <label htmlFor="commitmentPrice">مبلغ تعهد انجام کار</label>
                                        <div className="invalid-feedback">
                                        مبلغ تعهد انجام کار وارد کنید.
@@ -280,11 +339,13 @@ const Modal = (props) => {
                                  </div>
 
                                  {(() => {
-                                    if (isCommitmentPriceEmpty.length !== 0) {
+                                    if (isCommitmentPriceEmpty.length !== 0 || props.editDocument) {
                                       return (
                                                  <div className="col-2 form-floating">
                                                         <input className="form-control" type='search' list="typeBailList" id="typeBail2" placeholder="نقد"
-                                                        required disabled={props.editDocument} onChange={(e) => setIsTypeBail2Empty(e.target.value)}/>
+                                                        required disabled={props.editDocument} onChange={(e) => setIsTypeBail2Empty(e.target.value)}
+                                                        value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.typeBail2)) : null}/>
                                                         <label htmlFor="typeBail2">نوع ضمانت</label>
                                                         <datalist id="typeBailList">
                                                             <option value="چک"/>
@@ -301,12 +362,14 @@ const Modal = (props) => {
                                  })()}
 
                                  {(() => {
-                                      if (isTypeBail2Empty.length !==0) {
+                                      if (isTypeBail2Empty.length !==0 || props.editDocument) {
                                           return (
                                               <Fragment>
                                                     <div className="col form-floating ">
                                                         <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control"
-                                                        required disabled={props.editDocument}/>
+                                                        required disabled={props.editDocument}
+                                                        value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.firstBail2)) : null}/>
                                                         <label htmlFor="firstBail">{firstBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {firstBail2} را وارد کنید.
@@ -314,7 +377,9 @@ const Modal = (props) => {
                                                     </div>
                                                     <div className="col form-floating mb-3">
                                                         <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control"
-                                                        required disabled={props.editDocument}/>
+                                                        required disabled={props.editDocument}
+                                                         value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.secondBail2)) : null}/>
                                                         <label htmlFor="secondBail">{secondBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {secondBail2} را وارد کنید.
@@ -331,7 +396,9 @@ const Modal = (props) => {
                             <div className='d-flex gap-2'>
                                     <div className="col form-floating mb-3">
                                         <input type="text" className="form-control" id="topicContract"
-                                        placeholder="حسابداری" required disabled={props.editDocument}/>
+                                        placeholder="حسابداری" required disabled={props.editDocument}
+                                        value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.topicContract)) : null}/>
                                         <label htmlFor="topicContract">موضوع قرارداد</label>
                                         <div className="invalid-feedback">
                                         موضوع قرارداد را وارد کنید.
@@ -339,7 +406,10 @@ const Modal = (props) => {
                                     </div>
 
                                 <div className="col form-floating">
-                                    <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="هندلینگ" required disabled={props.editDocument}/>
+                                    <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="هندلینگ"
+                                   value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.typeContract)) : null}
+                                   required disabled={props.editDocument}/>
                                     <label htmlFor="typeContract">نوع قرارداد</label>
                                     <datalist id="typeContractList">
                                         <option value="خرید قطعات نظامی"/>
@@ -367,6 +437,8 @@ const Modal = (props) => {
                                           animations={[transition()]}
                                           render={<CustomInputDate disabled={props.editDocument} label='تاریخ'/>}
                                           id="clearedDatePicker"
+                                          value={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.clearedDate)) : null}
                                           calendar={persian}
                                           locale={persian_fa}
                                           />
@@ -376,7 +448,9 @@ const Modal = (props) => {
 
                                         <div className="form-check col ms-4">
                                             <input className="form-check-input" type="checkbox" value="مدارک تحویل داده شده"
-                                            id="receivedDocument" disabled={props.editDocument}/>
+                                            id="receivedDocument" disabled={props.editDocument}
+                                            checked={props.editDocument ? contract.filter(contract =>
+                                                        contract.id === props.idNumber).map(contract => (contract.receivedDocument)) : null}/>
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده
                                             </label>

@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./uploadDocument/observemodal";
 import transition from "react-element-popper/animations/transition";
@@ -9,11 +9,21 @@ import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
 
 const Report = (props) => {
+      const [contract, setContracts] = useState([])
+      const [idNumber, setIdNumber] = useState('')
 
+    const fetchData = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const data = await response.json()
+        setContracts(data)
+      }
+      useEffect(() => {
+            fetchData()
+          }, [])
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editDocument={props.editDocument} docToggle={props.docToggle}/>
+            <Modal editDocument={props.editDocument} docToggle={props.docToggle} idNumber={idNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -114,6 +124,7 @@ const Report = (props) => {
                                 <th scope="col">نوع قرارداد</th>
                                 <th scope="col">تایخ قرارداد</th>
                                 <th scope="col">مبلغ قرارداد</th>
+                                <th scope="col">مبلغ پیش پرداخت</th>
                                 <th scope="col">مدت قرارداد</th>
                                 <th scope="col">مبلغ حسن انجام کار</th>
                                 <th scope="col">نوع ضمانت</th>
@@ -126,27 +137,34 @@ const Report = (props) => {
                          </thead>
 
                         <tbody>
+                            {contract.map((contract , i ) => (
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>ب/12/3</td>
-                                    <td>13/2ث</td>
-                                    <td>سجاد</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
-                                    <td>1401/12/1</td>
+                                    <th scope="row">{i}</th>
+                                    <td>{contract.id}</td>
+                                    <td>{contract.contractNumber}</td>
+                                    <td>{contract.employer}</td>
+                                    <td>{contract.topicContract}</td>
+                                    <td>{contract.typeContract}</td>
+                                    <td>{contract.dateContract}</td>
+                                    <td>{contract.contractPrice}</td>
+                                    <td>{contract.prePaidPrice}</td>
+                                    <td>{contract.durationContract}</td>
+                                    <td>{contract.goodPrice}</td>
+                                    <td>{contract.typeBail1}</td>
+                                    <td>{contract.firstBail} _ {contract.secondBail}</td>
+                                    <td>{contract.commitmentPrice}</td>
+                                    <td>{contract.typeBail2}</td>
+                                    <td>{contract.firstBail2} _ {contract.secondBail2}</td>
                                     <td>
                                         <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn'  data-bs-toggle="modal"
-                                        data-bs-target="#modalMain" onClick={props.handleEditDocument}>info</button>
+                                        data-bs-target="#modalMain" onClick={() => {
+                                            props.handleEditDocument()
+                                            setIdNumber(contract.id)
+                                        }}>info</button>
                                     </td>
                                 </tr>
+                            ))}
+
                         </tbody>
                     </table>
                 </div>

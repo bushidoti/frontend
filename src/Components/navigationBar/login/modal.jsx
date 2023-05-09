@@ -17,7 +17,6 @@ const Modal = (props) => {
         localStorage.clear();
         localStorage.setItem('access_token', data.access);
         localStorage.setItem('refresh_token', data.refresh);
-        localStorage.setItem('username', JSON.stringify(user.username));
         axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
         window.location.href = '/'
     }
