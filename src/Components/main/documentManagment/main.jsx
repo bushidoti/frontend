@@ -5,6 +5,7 @@ import {Toggler} from "./toggler";
 
 const Main = (props) => {
     const [contract, setContracts] = useState([])
+    const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/documents")
@@ -17,9 +18,7 @@ const Main = (props) => {
 
     return (
         <Fragment>
-
-            <Modal docToggle={props.docToggle} modalTitle={props.modalTitle}/>
-
+                 <Modal docToggle={props.docToggle}  modalTitle={props.modalTitle} idNumber={idNumber}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <Toggler handleForm={props.handleForm}/>
@@ -50,19 +49,24 @@ const Main = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {contract.map(contract => (
-                    <tr key={contract.id}>
-                        <th scope="row">{contract.id}</th>
-                        <td>{contract.employer}</td>
-                        <td>{contract.topicContract}</td>
-                        <td>{contract.contractPrice}</td>
-                        <td>{contract.dateContract}</td>
+                    {contract.map((data) => (
+                    <tr key={data.id}>
+                        <th scope="row">{data.id}</th>
+                        <td>{data.employer}</td>
+                        <td>{data.topicContract}</td>
+                        <td>{data.contractPrice}</td>
+                        <td>{data.dateContract}</td>
                         <td>
-                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('edit')}>edit</button>
+                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
+                                props.setModalTitle('edit')
+                                setIdNumber(data.id)
+
+                            }}>edit</button>
                             <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2'>delete</button>
                             <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
                         </td>
                     </tr>
+
                     ))}
                     </tbody>
                 </table>

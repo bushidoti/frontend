@@ -37,7 +37,6 @@ function App() {
             setSearchProp('')
             document.getElementById("searchSelector").selectedIndex = "0";
                  };
-
         const handleFormProperty = (e) => {
             if(e.target.value === 'منقول') {
              setPropertyToggle(false)

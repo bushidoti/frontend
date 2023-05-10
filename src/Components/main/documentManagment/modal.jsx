@@ -6,21 +6,48 @@ import persian_fa from "react-date-object/locales/persian_fa"
 import transition from "react-element-popper/animations/transition"
 import {CustomInputDate} from "../../../App";
 import {Required} from "../required";
+import {useFormik} from "formik";
 
 const Modal = (props) => {
-
-     const [contract, setContracts] = useState([])
+    const [contract, setContracts] = useState([])
+    const formik = useFormik({
+    initialValues: {
+      id: contract.id,
+      contractNumber: contract.contractNumber,
+      employer: contract.employer,
+      dateContract: contract.dateContract,
+      contractPrice: contract.contractPrice,
+      durationContract: contract.durationContract,
+      prePaidPrice: contract.prePaidPrice,
+      goodPrice: contract.goodPrice,
+      typeBail1: contract.typeBail1,
+      firstBail: contract.firstBail,
+      secondBail: contract.secondBail,
+      commitmentPrice: contract.commitmentPrice,
+      typeBail2: contract.typeBail2,
+      firstBail2: contract.firstBail2,
+      secondBail2: contract.secondBail2,
+      topicContract: contract.topicContract,
+      typeContract: contract.typeContract,
+      clearedDate: contract.clearedDate,
+      receivedDocument: contract.receivedDocument,
+    },
+    enableReinitialize: true,
+    onSubmit: (values) => {
+        console.log(values);
+    },
+});
 
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
         const data = await response.json()
         setContracts(data)
       }
+
       useEffect(() => {
             fetchData()
-          }, [])
-
-    Required()
+          }, [props.idNumber])
+            Required()
          function refreshPage() {
                 window.location.reload();
       }
@@ -70,6 +97,8 @@ const Modal = (props) => {
     }
     handleLabelBails2()
     handleLabelBails1()
+
+
   return (
       <Fragment>
      <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
@@ -105,16 +134,17 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="idNumber" className="w-25 form-control" aria-label="idNumber"
-                                aria-describedby="basic-addon1" value={contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.id))} disabled required/>
+                                <input type="text" id="idNumber" value={formik.values.id} className="w-25 form-control" aria-label="idNumber"
+                                aria-describedby="basic-addon1" disabled required/>
                                 <label  id="idNumber">شماره ثبت</label>
                             </div>
-
                             <div className='d-flex gap-2'>
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
                                     placeholder="35 / پ - 7552"
-                                    value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.contractNumber)) : null}
+                                   value={formik.values.contractNumber}
+                                   onChange={formik.setValues}
+                                    name='contractNumber'
                                    required disabled={props.editDocument} />
                                     <div className="invalid-feedback">
                                         لطفا شماره قرارداد را وارد کنید.
@@ -124,7 +154,9 @@ const Modal = (props) => {
 
                                  <div className="col form-floating mb-3">
                                     <input type="text" className="form-control" id="name"
-                                            value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.employer)) : null}
+                                           name='employer'
+                                             value={formik.values.employer}
+                                             onChange={formik.setValues}
                                            placeholder="رضا محمدی" required disabled={props.editDocument}/>
                                         <label htmlFor="name">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</label>
                                      <div className="invalid-feedback">
@@ -137,8 +169,9 @@ const Modal = (props) => {
                                              animations={[transition()]}
                                              render={<CustomInputDate disabled={props.editDocument} label='تاریخ ثبت قرارداد' />}
                                              id="dateContract"
+                                             value={formik.values.dateContract}
+                                             onChange={formik.setValues}
                                              name='dateContractPicker'
-                                             value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.dateContract)) : null}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
@@ -156,7 +189,6 @@ const Modal = (props) => {
                                           className='form-control'
                                           id="contractPrice"
                                           name="contractPrice"
-                                          value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.contractPrice)) : null}
                                           disabled={props.editDocument}
                                         />
                                         :
@@ -164,6 +196,8 @@ const Modal = (props) => {
                                           className='form-control'
                                           id="contractPrice"
                                           prefix="ریال "
+                                          value={formik.values.contractPrice}
+                                          onChange={formik.setValues}
                                           name="contractPrice"
                                           placeholder="ریال 10,000,000"
                                           required
@@ -179,8 +213,9 @@ const Modal = (props) => {
 
                                 <div className="col  form-floating">
                                         <input type="text" className="form-control"  id="durationContract"
-                                         value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.durationContract)) : null}
                                         placeholder="12 ماه" required
+                                        value={formik.values.durationContract}
+                                       onChange={formik.setValues}
                                         disabled={props.editDocument}/>
                                         <label htmlFor="durationContract">مدت قرارداد</label>
                                         <div className="invalid-feedback">
@@ -193,7 +228,6 @@ const Modal = (props) => {
                                                  <input
                                       className='form-control'
                                       id="prePaidPrice"
-                                      value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.prePaidPrice)) : null}
                                       name="prePaid"
                                       placeholder="ریال 2,500,000"
                                       disabled={props.editDocument}/>
@@ -202,7 +236,9 @@ const Modal = (props) => {
                                       className='form-control'
                                       id="prePaidPrice"
                                       prefix="ریال "
-                                      name="prePaid"
+                                      value={formik.values.prePaidPrice}
+                                       onChange={formik.setValues}
+                                      name="prePaidPrice"
                                       placeholder="ریال 2,500,000"
                                       required/>
                                     }
@@ -223,7 +259,6 @@ const Modal = (props) => {
                                          <input
                                           className='form-control'
                                           id="goodPrice"
-                                          value={props.editDocument ? contract.filter(contract => contract.id === props.idNumber).map(contract => (contract.goodPrice)) : null}
                                           prefix="ریال "
                                           name="goodPrice"
                                           placeholder="ریال 50,000,000"
@@ -236,9 +271,12 @@ const Modal = (props) => {
                                           id="goodPrice"
                                           prefix="ریال "
                                           name="goodPrice"
+                                          value={formik.values.goodPrice}
                                           placeholder="ریال 50,000,000"
                                           required
-                                          onChange={(e) => setIsGoodPriceEmpty(e.target.value)}/>
+                                          onChange={(e) => {
+                                              setIsGoodPriceEmpty(e.target.value)
+                                          }}/>
                                      }
                                       <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
                                       <div className="invalid-feedback">
@@ -248,15 +286,16 @@ const Modal = (props) => {
 
                                 {(() => {
 
-                                    if (isGoodPriceEmpty.length !== 0 || props.editDocument) {
+                                    if (isGoodPriceEmpty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
                                           <Fragment>
                                                  <div className="col-2 form-floating">
-                                                        <input className="form-control" list="typeBailList" type='search' id="typeBail1" placeholder="چک"
+                                                        <input className="form-control" list="typeBailList" type='search'
+                                                                    value={formik.values.typeBail1}
+                                                               id="typeBail1" placeholder="چک"
                                                                required disabled={props.editDocument}
                                                         onChange={(e) => setIsTypeBail1Empty(e.target.value)}
-                                                        value={props.editDocument ? contract.filter(contract =>
-                                                            contract.id === props.idNumber).map(contract => (contract.typeBail1)) : null}/>
+                                                        />
                                                         <label htmlFor="typeBail1">نوع ضمانت</label>
                                                         <datalist id="typeBailList" >
                                                             <option value="چک"/>
@@ -276,14 +315,15 @@ const Modal = (props) => {
 
                                 {(() => {
 
-                                      if (isTypeBail1Empty.length !== 0 || props.editDocument) {
+                                      if (isTypeBail1Empty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
                                           <Fragment>
                                               <div className="col form-floating ">
                                                     <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control"
+                                                     value={formik.values.firstBail}
+                                                     onChange={formik.setValues}
                                                     required disabled={props.editDocument}
-                                                    value={props.editDocument ? contract.filter(contract =>
-                                                            contract.id === props.idNumber).map(contract => (contract.firstBail)) : null}/>
+                                                    />
                                                     <label htmlFor="firstBail">{firstBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {firstBail1} را وارد کنید.
@@ -291,9 +331,10 @@ const Modal = (props) => {
                                                     </div>
                                                     <div className="col form-floating mb-3">
                                                     <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control"
+                                                   value={formik.values.secondBail}
+                                                     onChange={formik.setValues}
                                                     required disabled={props.editDocument}
-                                                    value={props.editDocument ? contract.filter(contract =>
-                                                            contract.id === props.idNumber).map(contract => (contract.secondBail)) : null}/>
+                                                />
                                                     <label htmlFor="secondBail">{secondBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {secondBail1} را وارد کنید.
@@ -317,14 +358,14 @@ const Modal = (props) => {
                                            required
                                            disabled={props.editDocument}
                                            onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
-                                           value={props.editDocument ? contract.filter(contract =>
-                                            contract.id === props.idNumber).map(contract => (contract.commitmentPrice)) : null}/>
+                                           />
                                           :
                                           <CurrencyInput
                                            className='form-control'
                                            id="commitmentPrice"
                                            prefix="ریال "
                                            name="commitmentPrice"
+                                           value={formik.values.commitmentPrice}
                                            placeholder="ریال 200,000,000"
                                            required
                                            onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
@@ -339,13 +380,14 @@ const Modal = (props) => {
                                  </div>
 
                                  {(() => {
-                                    if (isCommitmentPriceEmpty.length !== 0 || props.editDocument) {
+                                    if (isCommitmentPriceEmpty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
                                                  <div className="col-2 form-floating">
                                                         <input className="form-control" type='search' list="typeBailList" id="typeBail2" placeholder="نقد"
-                                                        required disabled={props.editDocument} onChange={(e) => setIsTypeBail2Empty(e.target.value)}
-                                                        value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.typeBail2)) : null}/>
+                                                        required disabled={props.editDocument}
+                                                        value={formik.values.typeBail2}
+                                                        onChange={(e) => setIsTypeBail2Empty(e.target.value)}
+                                                        />
                                                         <label htmlFor="typeBail2">نوع ضمانت</label>
                                                         <datalist id="typeBailList">
                                                             <option value="چک"/>
@@ -362,24 +404,26 @@ const Modal = (props) => {
                                  })()}
 
                                  {(() => {
-                                      if (isTypeBail2Empty.length !==0 || props.editDocument) {
+                                      if (isTypeBail2Empty.length !==0 || props.editDocument || props.modalTitle === 'edit') {
                                           return (
                                               <Fragment>
                                                     <div className="col form-floating ">
-                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control"
+                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail2' className="form-control"
                                                         required disabled={props.editDocument}
-                                                        value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.firstBail2)) : null}/>
+                                                         value={formik.values.firstBail2}
+                                                        onChange={formik.setValues}
+                                                        />
                                                         <label htmlFor="firstBail">{firstBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {firstBail2} را وارد کنید.
                                                         </div>
                                                     </div>
                                                     <div className="col form-floating mb-3">
-                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control"
+                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail2" className="form-control"
                                                         required disabled={props.editDocument}
-                                                         value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.secondBail2)) : null}/>
+                                                        value={formik.values.secondBail2}
+                                                        onChange={formik.setValues}
+                                                        />
                                                         <label htmlFor="secondBail">{secondBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {secondBail2} را وارد کنید.
@@ -397,8 +441,9 @@ const Modal = (props) => {
                                     <div className="col form-floating mb-3">
                                         <input type="text" className="form-control" id="topicContract"
                                         placeholder="حسابداری" required disabled={props.editDocument}
-                                        value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.topicContract)) : null}/>
+                                       value={formik.values.topicContract}
+                                            onChange={formik.setValues}
+                                        />
                                         <label htmlFor="topicContract">موضوع قرارداد</label>
                                         <div className="invalid-feedback">
                                         موضوع قرارداد را وارد کنید.
@@ -407,9 +452,9 @@ const Modal = (props) => {
 
                                 <div className="col form-floating">
                                     <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="هندلینگ"
-                                   value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.typeContract)) : null}
-                                   required disabled={props.editDocument}/>
+                                   required disabled={props.editDocument}
+                                       value={formik.values.typeContract}
+                                            onChange={formik.setValues}/>
                                     <label htmlFor="typeContract">نوع قرارداد</label>
                                     <datalist id="typeContractList">
                                         <option value="خرید قطعات نظامی"/>
@@ -437,8 +482,8 @@ const Modal = (props) => {
                                           animations={[transition()]}
                                           render={<CustomInputDate disabled={props.editDocument} label='تاریخ'/>}
                                           id="clearedDatePicker"
-                                          value={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.clearedDate)) : null}
+                                           value={formik.values.clearedDate}
+                                            onChange={formik.setValues}
                                           calendar={persian}
                                           locale={persian_fa}
                                           />
@@ -449,8 +494,9 @@ const Modal = (props) => {
                                         <div className="form-check col ms-4">
                                             <input className="form-check-input" type="checkbox" value="مدارک تحویل داده شده"
                                             id="receivedDocument" disabled={props.editDocument}
-                                            checked={props.editDocument ? contract.filter(contract =>
-                                                        contract.id === props.idNumber).map(contract => (contract.receivedDocument)) : null}/>
+                                            checked={formik.values.receivedDocument}
+                                            onChange={formik.setValues}
+                                        />
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده
                                             </label>
