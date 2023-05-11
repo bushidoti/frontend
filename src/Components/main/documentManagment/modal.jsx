@@ -11,7 +11,6 @@ import axios from "axios";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
-    const [value, setValue] = useState('')
 
     const formik = useFormik({
     initialValues: {
@@ -89,7 +88,6 @@ const Modal = (props) => {
     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChange(value){
-          setValue(value.toDate().toLocaleDateString('fa-IR', options))
             formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
     const fetchData = async () => {
