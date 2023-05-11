@@ -10,6 +10,7 @@ import {Toggler} from "./toggler";
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
+      const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/documents")
@@ -18,11 +19,11 @@ const Report = (props) => {
       }
       useEffect(() => {
             fetchData()
-          }, [])
+          }, [fetchData])
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editDocument={props.editDocument} docToggle={props.docToggle}/>
+            <Modal editDocument={props.editDocument} docToggle={props.docToggle} idNumber={idNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -158,6 +159,8 @@ const Report = (props) => {
                                         <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn'  data-bs-toggle="modal"
                                         data-bs-target="#modalMain" onClick={() => {
                                             props.handleEditDocument()
+                                            setIdNumber(contract.id)
+
                                         }}>info</button>
                                     </td>
                                 </tr>

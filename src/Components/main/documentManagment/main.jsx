@@ -2,6 +2,8 @@ import React, {Fragment, useEffect, useState} from "react";
 import Modal from "./modal";
 import {Link} from "react-router-dom";
 import {Toggler} from "./toggler";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Main = (props) => {
     const [contract, setContracts] = useState([])
@@ -12,9 +14,40 @@ const Main = (props) => {
         const data = await response.json()
         setContracts(data)
       }
+
+
+      const deleteAlert = (id) => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: `امکان بازگشت داده با شماره ثبت ${id} وجود نخواهد داشت`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, پاکش کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'حذف شد!',
+                  'قرارداد حذف شد.',
+                  'success',
+                  deleteHandler(id),
+                )
+              }
+            })
+
+      }
+
+      const deleteHandler = async (id) => {
+          const response = await axios.delete(
+            `http://127.0.0.1:8000/api/documents/${id}`
+          )
+        }
+
       useEffect(() => {
             fetchData()
-          }, [])
+          }, [fetchData])
 
     return (
         <Fragment>
@@ -62,7 +95,9 @@ const Main = (props) => {
                                 setIdNumber(data.id)
 
                             }}>edit</button>
-                            <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2'>delete</button>
+                            <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                              deleteAlert(data.id)
+                            }>delete</button>
                             <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
                         </td>
                     </tr>
