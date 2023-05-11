@@ -37,7 +37,6 @@ const Main = (props) => {
                 )
               }
             })
-
       }
 
       const deleteHandler = async (id) => {
@@ -49,7 +48,7 @@ const Main = (props) => {
       useEffect(() => {
             fetchData()
 
-          }, [fetchData])
+          }, [])
 
     return (
         <Fragment>

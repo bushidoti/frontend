@@ -7,9 +7,12 @@ import transition from "react-element-popper/animations/transition"
 import {CustomInputDate} from "../../../App";
 import {Required} from "../required";
 import {useFormik} from "formik";
+import axios from "axios";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
+    const [value, setValue] = useState('')
+
     const formik = useFormik({
     initialValues: {
       id: contract.id,
@@ -36,8 +39,58 @@ const Modal = (props) => {
     onSubmit: (values) => {
         console.log(values);
     },
+    });
 
-});
+     const postHandler = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/documents/`,
+              {
+              contractNumber: formik.values.contractNumber,
+              employer: formik.values.employer,
+              dateContract: value.replaceAll('/' , '-'),
+              contractPrice: formik.values.contractPrice,
+              durationContract: formik.values.durationContract,
+              prePaidPrice: formik.values.prePaidPrice,
+              goodPrice: formik.values.goodPrice,
+              typeBail1: formik.values.typeBail1,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail2: formik.values.typeBail2,
+              firstBail2: formik.values.firstBail2,
+              secondBail2: formik.values.secondBail2,
+              topicContract: formik.values.topicContract,
+              typeContract: formik.values.typeContract,
+         })
+        }
+
+       const putHandler = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
+              {
+              contractNumber: formik.values.contractNumber,
+              employer: formik.values.employer,
+              dateContract: value.replaceAll('/' , '-'),
+              contractPrice: formik.values.contractPrice,
+              durationContract: formik.values.durationContract,
+              prePaidPrice: formik.values.prePaidPrice,
+              goodPrice: formik.values.goodPrice,
+              typeBail1: formik.values.typeBail1,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail2: formik.values.typeBail2,
+              firstBail2: formik.values.firstBail2,
+              secondBail2: formik.values.secondBail2,
+              topicContract: formik.values.topicContract,
+              typeContract: formik.values.typeContract,
+         })
+        }
+    const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
+
+    function handleChange(value){
+          setValue(value.toDate().toLocaleDateString('fa-IR', options ,))
+        }
     const fetchData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
         const data = await response.json()
@@ -45,7 +98,6 @@ const Modal = (props) => {
       }
 
       useEffect(() => {
-
             fetchData()
           }, [props.idNumber])
             Required()
@@ -168,10 +220,11 @@ const Modal = (props) => {
                                      <div className="col-3">
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocument} label='تاریخ ثبت قرارداد' />}
+                                             render={<CustomInputDate disabled={props.editDocument} names='clearedDatePicker' label='تاریخ قرارداد'/>}
                                              id="dateContract"
+                                             name='dateContract'
                                              value={formik.values.dateContract}
-                                             name='dateContractPicker'
+                                             onChange={handleChange}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
@@ -279,6 +332,7 @@ const Modal = (props) => {
                                           required
                                           onChange={(e) => {
                                               setIsGoodPriceEmpty(e.target.value)
+
                                           }}/>
                                      }
                                       <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
@@ -415,7 +469,7 @@ const Modal = (props) => {
                                           return (
                                               <Fragment>
                                                     <div className="col form-floating ">
-                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail2' className="form-control"
+                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail2" id='firstBail2' name='firstBail2' className="form-control"
                                                         required disabled={props.editDocument}
                                                          value={formik.values.firstBail2}
                                                         onChange={formik.handleChange}
@@ -426,7 +480,7 @@ const Modal = (props) => {
                                                         </div>
                                                     </div>
                                                     <div className="col form-floating mb-3">
-                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail2" className="form-control"
+                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail2' aria-label="secondBail2" name='secondBail2' className="form-control"
                                                         required disabled={props.editDocument}
                                                         value={formik.values.secondBail2}
                                                         onChange={formik.handleChange}
@@ -487,9 +541,8 @@ const Modal = (props) => {
                                         <div>
                                           <DatePicker
                                           animations={[transition()]}
-                                          render={<CustomInputDate disabled={props.editDocument} label='تاریخ'/>}
+                                          render={<CustomInputDate disabled={props.editDocument} names='clearedDatePicker' label='تاریخ'/>}
                                           id="clearedDatePicker"
-                                           value={formik.values.clearedDate}
                                           calendar={persian}
                                           locale={persian_fa}
                                           />
@@ -510,7 +563,7 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                            <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={props.modalTitle === 'edit' ? putHandler : postHandler}>done</button>
                         </div>
 
                       </form>

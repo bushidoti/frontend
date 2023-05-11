@@ -19,7 +19,7 @@ const Report = (props) => {
       }
       useEffect(() => {
             fetchData()
-          }, [fetchData])
+          }, [])
     return (
         <Fragment>
             <ObserveModal/>
