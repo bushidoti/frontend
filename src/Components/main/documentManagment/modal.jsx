@@ -47,7 +47,7 @@ const Modal = (props) => {
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
-              dateContract: value.replaceAll('/' , '-'),
+              dateContract: formik.values.dateContract,
               contractPrice: formik.values.contractPrice,
               durationContract: formik.values.durationContract,
               prePaidPrice: formik.values.prePaidPrice,
@@ -70,7 +70,7 @@ const Modal = (props) => {
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
-              dateContract: value.replaceAll('/' , '-'),
+              dateContract: formik.values.dateContract,
               contractPrice: formik.values.contractPrice,
               durationContract: formik.values.durationContract,
               prePaidPrice: formik.values.prePaidPrice,
@@ -89,16 +89,18 @@ const Modal = (props) => {
     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChange(value){
-          setValue(value.toDate().toLocaleDateString('fa-IR', options ,))
+          setValue(value.toDate().toLocaleDateString('fa-IR', options))
+            formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
     const fetchData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
         const data = await response.json()
         setContracts(data)
-      }
 
+      }
       useEffect(() => {
             fetchData()
+
           }, [props.idNumber])
             Required()
          function refreshPage() {
@@ -152,8 +154,10 @@ const Modal = (props) => {
     handleLabelBails1()
 
 
+
   return (
       <Fragment>
+
      <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
                  aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
@@ -242,7 +246,7 @@ const Modal = (props) => {
                                           className='form-control'
                                           id="contractPrice"
                                           name="contractPrice"
-                                            value={formik.values.contractPrice}
+                                          value={formik.values.contractPrice}
                                           disabled={props.editDocument}
                                         />
                                         :
@@ -332,7 +336,7 @@ const Modal = (props) => {
                                           required
                                           onChange={(e) => {
                                               setIsGoodPriceEmpty(e.target.value)
-
+                                              formik.setFieldValue('goodPrice', e.target.value)
                                           }}/>
                                      }
                                       <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
@@ -353,6 +357,7 @@ const Modal = (props) => {
                                                                required disabled={props.editDocument}
                                                         onChange={(e) => {
                                                             setIsTypeBail1Empty(e.target.value)
+                                                             formik.setFieldValue('typeBail1', e.target.value)
 
                                                         }}
                                                         />
@@ -429,7 +434,11 @@ const Modal = (props) => {
                                            value={formik.values.commitmentPrice}
                                            placeholder="ریال 200,000,000"
                                            required
-                                           onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                           onChange={(e) =>
+                                           {
+                                               setIsCommitmentPriceEmpty(e.target.value)
+                                               formik.setFieldValue('commitmentPrice', e.target.value)
+                                           }}
                                            />
                                       }
 
@@ -447,7 +456,11 @@ const Modal = (props) => {
                                                         <input className="form-control" type='search' list="typeBailList" id="typeBail2" placeholder="نقد"
                                                         required disabled={props.editDocument}
                                                         value={formik.values.typeBail2}
-                                                        onChange={(e) => setIsTypeBail2Empty(e.target.value)}
+                                                        onChange={(e) =>
+                                                        {
+                                                          setIsTypeBail2Empty(e.target.value)
+                                                          formik.setFieldValue('typeBail2', e.target.value)
+                                                        }}
                                                         />
                                                         <label htmlFor="typeBail2">نوع ضمانت</label>
                                                         <datalist id="typeBailList">
