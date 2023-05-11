@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useCallback, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import {Link} from "react-router-dom";
 import {Toggler} from "./toggler";
@@ -28,6 +28,7 @@ const Main = (props) => {
               confirmButtonText: 'بله, پاکش کن!'
             }).then((result) => {
               if (result.isConfirmed) {
+
                 Swal.fire(
                   'حذف شد!',
                   'قرارداد حذف شد.',
@@ -47,6 +48,7 @@ const Main = (props) => {
 
       useEffect(() => {
             fetchData()
+
           }, [fetchData])
 
     return (
