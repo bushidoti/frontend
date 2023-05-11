@@ -8,6 +8,7 @@ import {CustomInputDate} from "../../../App";
 import {Required} from "../required";
 import {useFormik} from "formik";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
@@ -46,6 +47,7 @@ const Modal = (props) => {
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
+              type_form: props.docToggle,
               dateContract: formik.values.dateContract,
               contractPrice: formik.values.contractPrice,
               durationContract: formik.values.durationContract,
@@ -61,6 +63,8 @@ const Modal = (props) => {
               topicContract: formik.values.topicContract,
               typeContract: formik.values.typeContract,
          })
+           setTimeout(
+                    refreshPage, 3000)
         }
 
        const putHandler = async () => {
@@ -84,12 +88,64 @@ const Modal = (props) => {
               topicContract: formik.values.topicContract,
               typeContract: formik.values.typeContract,
          })
+        setTimeout(
+                    refreshPage, 3000)
         }
+
+      const putAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از ویرایش قرارداد ${formik.values.employer} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ویرایش کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ویرایش شد!',
+                  'قرارداد ویرایش شد.',
+                  'success',
+                  'ok',
+                  putHandler(),
+
+                )
+              }
+            })
+      }
+
+      const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت این قرارداد مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'قرارداد ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandler(),
+
+                )
+              }
+            })
+      }
+
     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChange(value){
             formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
+
     const fetchData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
         const data = await response.json()
@@ -574,7 +630,7 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={props.modalTitle === 'edit' ? putHandler : postHandler}>done</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={props.modalTitle === 'edit' ? putAlert : postAlert}>done</button>
                         </div>
 
                       </form>
