@@ -278,7 +278,7 @@ const Modal = (props) => {
                                      <div className="col-3">
                                          <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocument} names='clearedDatePicker' label='تاریخ قرارداد'/>}
+                                             render={<CustomInputDate disabled={props.editDocument} ids={"dateContract"} names='clearedDatePicker' label='تاریخ قرارداد'/>}
                                              id="dateContract"
                                              name='dateContract'
                                              value={formik.values.dateContract}
@@ -608,7 +608,7 @@ const Modal = (props) => {
                                         <div>
                                           <DatePicker
                                           animations={[transition()]}
-                                          render={<CustomInputDate disabled={props.editDocument} names='clearedDatePicker' label='تاریخ'/>}
+                                          render={<CustomInputDate disabled={props.editDocument} ids={'clearedDatePicker'} names='clearedDatePicker' label='تاریخ'/>}
                                           id="clearedDatePicker"
                                           calendar={persian}
                                           locale={persian_fa}

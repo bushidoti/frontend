@@ -58,7 +58,7 @@ const Main = (props) => {
                 <Toggler handleForm={props.handleForm}/>
                 <div className= 'd-flex gap-2'>
                 <Link to= '/report'><button id='reportBtn' className= 'btn btn-secondary'>گزارش</button></Link>
-                <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal" data-bs-target="#modalMain"
+                <button className= 'btn btn-primary' id='registrationBtnModal' disabled={props.docToggle === null} data-bs-toggle="modal" data-bs-target="#modalMain"
                         onClick={() => props.setModalTitle('add')}>ثبت قرارداد جدید</button>
                 </div>
             </div>
@@ -85,62 +85,27 @@ const Main = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {(() => {
-                                    if (props.docToggle){
-                                        return (
-                                            <Fragment>
-                                                {contract.filter(contract => contract.type_form === true).map((data) => (
-                                                    <tr key={data.id}>
-                                                        <th scope="row">{data.id}</th>
-                                                        <td>{data.employer}</td>
-                                                        <td>{data.topicContract}</td>
-                                                        <td>{data.contractPrice}</td>
-                                                        <td>{data.dateContract}</td>
-                                                        <td>
-                                                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
-                                                                props.setModalTitle('edit')
-                                                                setIdNumber(data.id)
+                                    {contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
+                                        <tr key={data.id}>
+                                            <th scope="row">{data.id}</th>
+                                            <td>{data.employer}</td>
+                                            <td>{data.topicContract}</td>
+                                            <td>{data.contractPrice}</td>
+                                            <td>{data.dateContract}</td>
+                                            <td>
+                                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
+                                                    props.setModalTitle('edit')
+                                                    setIdNumber(data.id)
 
-                                                            }}>edit</button>
-                                                            <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
-                                                              deleteAlert(data.id)
-                                                            }>delete</button>
-                                                            <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
-                                                        </td>
-                                                    </tr>
+                                                }}>edit</button>
+                                                <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                                                  deleteAlert(data.id)
+                                                }>delete</button>
+                                                <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
+                                            </td>
+                                        </tr>
 
-                                                    ))}
-                                            </Fragment>
-                                        )
-                                    }else {
-                                        return (
-                                             <Fragment>
-                                                {contract.filter(contract => contract.type_form === false).map((data) => (
-                                                    <tr key={data.id}>
-                                                        <th scope="row">{data.id}</th>
-                                                        <td>{data.employer}</td>
-                                                        <td>{data.topicContract}</td>
-                                                        <td>{data.contractPrice}</td>
-                                                        <td>{data.dateContract}</td>
-                                                        <td>
-                                                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
-                                                                props.setModalTitle('edit')
-                                                                setIdNumber(data.id)
-
-                                                            }}>edit</button>
-                                                            <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
-                                                              deleteAlert(data.id)
-                                                            }>delete</button>
-                                                            <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
-                                                        </td>
-                                                    </tr>
-
-                                                    ))}
-                                            </Fragment>
-                                        )
-                                    }
-                                })()}
-
+                                        ))}
                                 </tbody>
                             </table>
                         </div>

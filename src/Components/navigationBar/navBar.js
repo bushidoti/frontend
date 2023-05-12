@@ -11,6 +11,7 @@ const NavBar = (props) => {
         props.setIsAuth(true);
       }
     }, [props, props.isAuth]);
+
     return (
         <Fragment>
           <div className='rounded-top  bg-light mt-2 w-25 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>

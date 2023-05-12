@@ -149,10 +149,10 @@ function App() {
 }
 export default App;
 
-export function CustomInputDate({ openCalendar, value ,disabled , label})  {
+export function CustomInputDate({ openCalendar, ids , value ,disabled , label})  {
   return (
        <div className=" form-floating mb-3 ">
-                <input  className="form-control" id="datePicker"
+                <input  className="form-control" id={ids}
                   placeholder="1379/08/09"
                   onFocus={openCalendar}
                   value={value}

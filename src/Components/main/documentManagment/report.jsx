@@ -111,10 +111,10 @@ const Report = (props) => {
                                 }
                         })()}
                   </div>
-
-                <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
-                    <table className="table table-hover text-center align-middle table-striped">
-                         <thead className= 'bg-light '>
+                {props.docToggle === null ? null :
+                    <div className='m-4 table-responsive rounded-3' style={{maxHeight: '50vh'}}>
+                        <table className="table table-hover text-center align-middle table-striped">
+                            <thead className='bg-light '>
                             <tr>
                                 <th scope="col">ردیف</th>
                                 <th scope="col">شماره ثبت</th>
@@ -134,41 +134,44 @@ const Report = (props) => {
                                 <th scope="col">مشخصه ضمانت</th>
                                 <th scope="col">نمایش</th>
                             </tr>
-                         </thead>
+                            </thead>
 
-                        <tbody>
-                            {contract.map((contract , i ) => (
+                            <tbody>
+                            {contract.filter(contract => contract.type_form === props.docToggle).map((data, i) => (
                                 <tr>
                                     <th scope="row">{i}</th>
-                                    <td>{contract.id}</td>
-                                    <td>{contract.contractNumber}</td>
-                                    <td>{contract.employer}</td>
-                                    <td>{contract.topicContract}</td>
-                                    <td>{contract.typeContract}</td>
-                                    <td>{contract.dateContract}</td>
-                                    <td>{contract.contractPrice}</td>
-                                    <td>{contract.prePaidPrice}</td>
-                                    <td>{contract.durationContract}</td>
-                                    <td>{contract.goodPrice}</td>
-                                    <td>{contract.typeBail1}</td>
-                                    <td>{contract.firstBail} _ {contract.secondBail}</td>
-                                    <td>{contract.commitmentPrice}</td>
-                                    <td>{contract.typeBail2}</td>
-                                    <td>{contract.firstBail2} _ {contract.secondBail2}</td>
+                                    <td>{data.id}</td>
+                                    <td>{data.contractNumber}</td>
+                                    <td>{data.employer}</td>
+                                    <td>{data.topicContract}</td>
+                                    <td>{data.typeContract}</td>
+                                    <td>{data.dateContract}</td>
+                                    <td>{data.contractPrice}</td>
+                                    <td>{data.prePaidPrice}</td>
+                                    <td>{data.durationContract}</td>
+                                    <td>{data.goodPrice}</td>
+                                    <td>{data.typeBail1}</td>
+                                    <td>{data.firstBail} _ {data.secondBail}</td>
+                                    <td>{data.commitmentPrice}</td>
+                                    <td>{data.typeBail2}</td>
+                                    <td>{data.firstBail2} _ {data.secondBail2}</td>
                                     <td>
-                                        <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn'  data-bs-toggle="modal"
-                                        data-bs-target="#modalMain" onClick={() => {
+                                        <button className='btn btn-warning material-symbols-outlined' id='infoBtn'
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalMain" onClick={() => {
                                             props.handleEditDocument()
-                                            setIdNumber(contract.id)
+                                            setIdNumber(data.id)
 
-                                        }}>info</button>
+                                        }}>info
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
 
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
 
 
