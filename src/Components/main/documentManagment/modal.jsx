@@ -9,6 +9,7 @@ import {Required} from "../required";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { NumericFormat } from 'react-number-format';
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
@@ -206,8 +207,7 @@ const Modal = (props) => {
     }
     handleLabelBails2()
     handleLabelBails1()
-
-
+    console.log(formik.values.contractPrice)
 
   return (
       <Fragment>
@@ -218,26 +218,26 @@ const Modal = (props) => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                                                {(() => {
-                                                                   if (props.modalTitle === 'edit'){
-                                                                        return (
-                                                                            'ویرایش قرارداد'
-                                                                        )
-                                                                    }else if (props.modalTitle === 'done'){
-                                                                        return (
-                                                                            'تسویه قرارداد'
-                                                                        )
-                                                                    }else if (props.modalTitle === 'add'){
-                                                                        return (
-                                                                            'ثبت قرارداد'
-                                                                        )
-                                                                    }else{
-                                                                        return (
-                                                                            'نمایش اطلاعات'
-                                                                        )
-                                                                    }
+                                    {(() => {
+                                       if (props.modalTitle === 'edit'){
+                                            return (
+                                                'ویرایش قرارداد'
+                                            )
+                                        }else if (props.modalTitle === 'done'){
+                                            return (
+                                                'تسویه قرارداد'
+                                            )
+                                        }else if (props.modalTitle === 'add'){
+                                            return (
+                                                'ثبت قرارداد'
+                                            )
+                                        }else{
+                                            return (
+                                                'نمایش اطلاعات'
+                                            )
+                                        }
 
-                                                                })()}
+                                    })()}
                             </h1>
                             <button type="button" id='closeBtn' className="btn-close " data-bs-dismiss="modal"
                                     aria-label="Close" onClick={refreshPage}></button>
@@ -295,28 +295,20 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-5'>
 
                                 <div className="col form-floating ">
-                                    {props.editDocument ?
-                                           <input
+                                   <NumericFormat
                                           className='form-control'
+                                          allowNegative={false}
+                                          suffix={'ریال '}
+                                          thousandSeparator=","
                                           id="contractPrice"
-                                          name="contractPrice"
-                                          value={formik.values.contractPrice}
-                                          disabled={props.editDocument}
-                                        />
-                                        :
-                                           <CurrencyInput
-                                          className='form-control'
-                                          id="contractPrice"
-                                          prefix="ریال "
                                           value={formik.values.contractPrice}
                                           onChange={formik.handleChange}
+                                          disabled={props.editDocument}
                                           name="contractPrice"
                                           placeholder="ریال 10,000,000"
                                           required
                                         />
-                                    }
-
-                                        <label htmlFor="contractPrice">{props.modalTitle === 'edit' ? formik.values.contractPrice : 'مبلغ قرارداد' }</label>
+                                        <label htmlFor="contractPrice">مبلغ قرارداد</label>
                                         <div className="invalid-feedback">
                                             مبلغ قرارداد را وارد کنید.
                                         </div>
@@ -336,25 +328,17 @@ const Modal = (props) => {
                                 </div>
 
                                 <div className="col form-floating">
-                                    {props.editDocument ?
-                                                 <input
+                                     <NumericFormat
                                       className='form-control'
                                       id="prePaidPrice"
-                                      name="prePaid"
+                                      thousandSeparator=","
+                                      suffix="ریال "
+                                      disabled={props.editDocument}
                                       value={formik.values.prePaidPrice}
-                                      placeholder="ریال 2,500,000"
-                                      disabled={props.editDocument}/>
-                                        :
-                                     <CurrencyInput
-                                      className='form-control'
-                                      id="prePaidPrice"
-                                      prefix="ریال "
-                                      value={formik.values.prePaidPrice}
-                                       onChange={formik.handleChange}
+                                      onChange={formik.handleChange}
                                       name="prePaidPrice"
                                       placeholder="ریال 2,500,000"
                                       required/>
-                                    }
                                       <label htmlFor="prePaidPrice">مبلغ پیش پرداخت</label>
                                       <div className="invalid-feedback">
                                         مبلغ پیش پرداخت را وارد کنید.
@@ -368,23 +352,13 @@ const Modal = (props) => {
                             <div className='d-flex gap-2'>
 
                                  <div className="col-3 form-floating mb-3">
-                                     {props.editDocument ?
-                                         <input
+                                         <NumericFormat
                                           className='form-control'
                                           id="goodPrice"
-                                          prefix="ریال "
+                                          thousandSeparator=","
+                                          suffix="ریال "
                                           name="goodPrice"
-                                          placeholder="ریال 50,000,000"
-                                          required
-                                            value={formik.values.goodPrice}
                                           disabled={props.editDocument}
-                                          onChange={(e) => setIsGoodPriceEmpty(e.target.value)}/>
-                                         :
-                                         <CurrencyInput
-                                          className='form-control'
-                                          id="goodPrice"
-                                          prefix="ریال "
-                                          name="goodPrice"
                                           value={formik.values.goodPrice}
                                           placeholder="ریال 50,000,000"
                                           required
@@ -392,7 +366,6 @@ const Modal = (props) => {
                                               setIsGoodPriceEmpty(e.target.value)
                                               formik.setFieldValue('goodPrice', e.target.value)
                                           }}/>
-                                     }
                                       <label htmlFor="goodPrice">مبلغ حسن انجام کار</label>
                                       <div className="invalid-feedback">
                                       مبلغ حسن انجام کار وارد کنید.
@@ -406,7 +379,7 @@ const Modal = (props) => {
                                           <Fragment>
                                                  <div className="col-2 form-floating">
                                                         <input className="form-control" list="typeBailList" type='search'
-                                                                    value={formik.values.typeBail1}
+                                                                value={formik.values.typeBail1}
                                                                id="typeBail1" placeholder="چک"
                                                                required disabled={props.editDocument}
                                                         onChange={(e) => {
@@ -463,28 +436,16 @@ const Modal = (props) => {
                                       )
                                     }
                                 })()}
-
                             </div>
-
                             <div className='d-flex gap-2 mb-2'>
-
                                  <div className="col-3 form-floating mb-3">
-                                      {props.editDocument ?
-                                          <input
+                                          <NumericFormat
                                            className='form-control'
                                            id="commitmentPrice"
+                                           suffix="ریال "
+                                           thousandSeparator=","
                                            name="commitmentPrice"
-                                           required
                                            disabled={props.editDocument}
-                                            value={formik.values.commitmentPrice}
-                                           onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
-                                           />
-                                          :
-                                          <CurrencyInput
-                                           className='form-control'
-                                           id="commitmentPrice"
-                                           prefix="ریال "
-                                           name="commitmentPrice"
                                            value={formik.values.commitmentPrice}
                                            placeholder="ریال 200,000,000"
                                            required
@@ -494,9 +455,6 @@ const Modal = (props) => {
                                                formik.setFieldValue('commitmentPrice', e.target.value)
                                            }}
                                            />
-                                      }
-
-
                                        <label htmlFor="commitmentPrice">مبلغ تعهد انجام کار</label>
                                        <div className="invalid-feedback">
                                        مبلغ تعهد انجام کار وارد کنید.
@@ -562,9 +520,7 @@ const Modal = (props) => {
                                     }
                                  })()}
                             </div>
-
                             <hr className='bg-primary mb-5'/>
-
                             <div className='d-flex gap-2'>
                                     <div className="col form-floating mb-3">
                                         <input type="text" className="form-control" id="topicContract"

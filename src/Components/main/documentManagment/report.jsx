@@ -113,8 +113,8 @@ const Report = (props) => {
                   </div>
                 {props.docToggle === null ? null :
                     <div className='m-4 table-responsive rounded-3' style={{maxHeight: '50vh'}}>
-                        <table className="table table-hover text-center align-middle table-striped">
-                            <thead className='bg-light '>
+                        <table className="table table-hover text-center align-middle table-striped table-bordered border-primary">
+                            <thead className='bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
                                 <th scope="col">شماره ثبت</th>
@@ -138,7 +138,7 @@ const Report = (props) => {
 
                             <tbody>
                             {contract.filter(contract => contract.type_form === props.docToggle).map((data, i) => (
-                                <tr>
+                                <tr className='small'>
                                     <th scope="row">{i}</th>
                                     <td>{data.id}</td>
                                     <td>{data.contractNumber}</td>

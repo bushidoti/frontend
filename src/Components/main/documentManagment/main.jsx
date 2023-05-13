@@ -73,7 +73,7 @@ const Main = (props) => {
             {props.docToggle === null ?  null :
                 <Fragment>
                     <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
-                            <table className="table table-hover text-center table-striped align-middle">
+                            <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
                                 <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">شماره ثبت</th>
