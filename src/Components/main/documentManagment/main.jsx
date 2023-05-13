@@ -52,7 +52,7 @@ const Main = (props) => {
 
     return (
         <Fragment>
-                 <Modal docToggle={props.docToggle}  modalTitle={props.modalTitle} idNumber={idNumber}/>
+                 <Modal docToggle={props.docToggle}  editDocument={props.editDocument} modalTitle={props.modalTitle} idNumber={idNumber}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <Toggler handleForm={props.handleForm}/>
@@ -72,7 +72,7 @@ const Main = (props) => {
             </div>
             {props.docToggle === null ?  null :
                 <Fragment>
-                    <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
+                    <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
                             <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
                                 <thead className= 'bg-light'>
                                 <tr>
@@ -101,7 +101,11 @@ const Main = (props) => {
                                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
                                                   deleteAlert(data.id)
                                                 }>delete</button>
-                                                <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
+                                                <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                setIdNumber(data.id)
+                                                props.setModalTitle('done')
+                                                props.handleEditDocument()
+                                                }}>done</button>
                                             </td>
                                         </tr>
 

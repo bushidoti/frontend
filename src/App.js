@@ -109,7 +109,7 @@ function App() {
                     {isAuth ?
                         <Fragment>
                           <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                          <Route path="main" element={<Main modalTitle={modalTitle} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
+                          <Route path="main" element={<Main modalTitle={modalTitle} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
                           <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                           <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>

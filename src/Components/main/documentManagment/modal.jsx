@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import CurrencyInput from 'react-currency-input-field';
 import DatePicker from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
@@ -35,6 +34,7 @@ const Modal = (props) => {
       typeContract: contract.typeContract,
       clearedDate: contract.clearedDate,
       receivedDocument: contract.receivedDocument,
+      clearedStatus: contract.clearedStatus,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -88,10 +88,66 @@ const Modal = (props) => {
               secondBail2: formik.values.secondBail2,
               topicContract: formik.values.topicContract,
               typeContract: formik.values.typeContract,
+              clearedDate: formik.values.clearedDate,
+              receivedDocument: formik.values.receivedDocument,
+              clearedStatus: formik.values.clearedStatus,
+
          })
         setTimeout(
                     refreshPage, 3000)
         }
+
+        const putHandlerCleared = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
+              {
+              contractNumber: formik.values.contractNumber,
+              employer: formik.values.employer,
+              dateContract: formik.values.dateContract,
+              contractPrice: formik.values.contractPrice,
+              durationContract: formik.values.durationContract,
+              prePaidPrice: formik.values.prePaidPrice,
+              goodPrice: formik.values.goodPrice,
+              typeBail1: formik.values.typeBail1,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail2: formik.values.typeBail2,
+              firstBail2: formik.values.firstBail2,
+              secondBail2: formik.values.secondBail2,
+              topicContract: formik.values.topicContract,
+              typeContract: formik.values.typeContract,
+              clearedDate: formik.values.clearedDate,
+              receivedDocument: formik.values.receivedDocument,
+              clearedStatus: true,
+
+         })
+        setTimeout(
+                    refreshPage, 3000)
+        }
+
+        const putAlertCleared = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از تسویه قرارداد ${formik.values.employer} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, تسویه کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'تسویه شد!',
+                  'قرارداد تسویه شد.',
+                  'success',
+                  putHandlerCleared(),
+
+                )
+              }
+            })
+         }
 
       const putAlert = () => {
           Swal.fire({
@@ -145,6 +201,10 @@ const Modal = (props) => {
 
     function handleChange(value){
             formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+        }
+
+    function handleChangeClear(value){
+            formik.setFieldValue('clearedDate' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
 
     const fetchData = async () => {
@@ -207,8 +267,15 @@ const Modal = (props) => {
     }
     handleLabelBails2()
     handleLabelBails1()
-    console.log(formik.values.contractPrice)
-
+    const handleSubmit = () => {
+        if (props.modalTitle === 'edit'){
+            return putAlert
+        }else if (props.modalTitle === 'done'){
+            return putAlertCleared
+        }else {
+            return postAlert
+        }
+    }
   return (
       <Fragment>
 
@@ -564,8 +631,11 @@ const Modal = (props) => {
                                         <div>
                                           <DatePicker
                                           animations={[transition()]}
-                                          render={<CustomInputDate disabled={props.editDocument} ids={'clearedDatePicker'} names='clearedDatePicker' label='تاریخ'/>}
+                                          render={<CustomInputDate disabled={props.modalTitle === 'done' ? false : props.editDocument} ids={'clearedDatePicker'} names='clearedDate' label='تاریخ'/>}
                                           id="clearedDatePicker"
+                                          value={formik.values.clearedDate}
+                                          onChange={handleChangeClear}
+                                          name='clearedDate'
                                           calendar={persian}
                                           locale={persian_fa}
                                           />
@@ -574,9 +644,10 @@ const Modal = (props) => {
                                         </div>
 
                                         <div className="form-check col ms-4">
-                                            <input className="form-check-input" type="checkbox" value="مدارک تحویل داده شده"
-                                            id="receivedDocument" disabled={props.editDocument}
+                                            <input className="form-check-input"  name='receivedDocument' type="checkbox" value="مدارک تحویل داده شده"
+                                            id="receivedDocument" disabled={props.modalTitle === 'done' ? false : props.editDocument}
                                             checked={formik.values.receivedDocument}
+                                            onChange={formik.handleChange}
                                         />
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده
@@ -586,9 +657,9 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={props.modalTitle === 'edit' ? putAlert : postAlert}>done</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success"
+                            onClick={handleSubmit()}>done</button>
                         </div>
-
                       </form>
                     </div>
                 </div>
