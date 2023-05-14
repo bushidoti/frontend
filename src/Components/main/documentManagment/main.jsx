@@ -8,9 +8,10 @@ import Swal from "sweetalert2";
 const Main = (props) => {
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const [searchInp, setSearchInp] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${searchInp}`)
         const data = await response.json()
         setContracts(data)
       }
@@ -48,7 +49,7 @@ const Main = (props) => {
       useEffect(() => {
             fetchData()
 
-          }, [])
+          }, [searchInp])
 
     return (
         <Fragment>
@@ -65,7 +66,7 @@ const Main = (props) => {
 
             <div className='m-4'>
                 <div className="input-group mb-3">
-                    <input type="text"  id='searchBox' className="form-control" placeholder={`جستجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}
+                    <input type="text"  id='searchBox' className="form-control" value={searchInp} onChange={e => setSearchInp(e.target.value)} placeholder={`جستجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}
                     aria-label="searchBox" aria-describedby="search" />
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
@@ -85,7 +86,7 @@ const Main = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
+                                    {contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
                                         <tr key={data.id}>
                                             <th scope="row">{data.id}</th>
                                             <td>{data.employer}</td>
@@ -108,8 +109,8 @@ const Main = (props) => {
                                                 }}>done</button>
                                             </td>
                                         </tr>
-
-                                        ))}
+                                        )) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                    }
                                 </tbody>
                             </table>
                         </div>
