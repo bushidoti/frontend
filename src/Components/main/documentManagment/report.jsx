@@ -12,16 +12,6 @@ import {useFormik} from "formik";
 const Report = (props) => {
       const [contract, setContracts] = useState([])
       const [idNumber, setIdNumber] = useState(null)
-      const [searchInp, setSearchInp] = useState({
-          employer: '',
-          dateContract: '',
-          typeContract: '',
-          clearedStatus: '',
-          topicContract: '',
-          id: '',
-          contractNumber: '',
-
-      })
       const formik = useFormik({
         initialValues: {
               employer: '',
@@ -35,13 +25,34 @@ const Report = (props) => {
         enableReinitialize: true,
     });
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${formik.values.employer}&typeContract=${formik.values.typeContract}&id=&contractNumber=&dateContract=&topicContract=&clearedStatus=`)
+        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${formik.values.employer}&typeContract=${formik.values.typeContract}&
+        id=&contractNumber=&dateContract=${mystr}&topicContract=&clearedStatus=`)
         const data = await response.json()
         setContracts(data)
       }
       useEffect(() => {
             fetchData()
-          }, [formik])
+          }, [formik.values])
+
+
+     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
+
+     function handleChange(value){
+            formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+        }
+
+    const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+        arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
+        fixNumbers = function (str) {
+            if (typeof str === 'string') {
+                for (let i = 0; i < 10; i++) {
+                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+                }
+            }
+            return str;
+        };
+    let mystr = '';
+    mystr = fixNumbers(formik.values.dateContract);
     return (
         <Fragment>
             <ObserveModal/>
@@ -71,7 +82,11 @@ const Report = (props) => {
                   <div className="form-floating m-4 col-1">
                         <select className="form-select" id="searchSelector"
                             aria-label="Search Select" onChange={(e) =>
-                            props.setSearch(e.target.value)}>
+                        {
+                          formik.resetForm()
+                          props.setSearch(e.target.value)
+                        }
+                            }>
                             <option selected disabled>یک مورد انتخاب کنید</option>
                             {(() => {
                                 if(props.docToggle != null){
@@ -97,20 +112,21 @@ const Report = (props) => {
                             if (props.search === 'تاریخ قرارداد') {
                               return (
                                 <DatePicker
-                                 animations={[transition()]}
-                                 render={<CustomInputDate label='تاریخ ثبت قرارداد' />}
-                                 id="datePicker"
-                                 calendar={persian}
-                                 range
-                                 locale={persian_fa}
-                             />
+                                     animations={[transition()]}
+                                     render={<CustomInputDate  ids={"dateContract"} names='clearedDatePicker' label='تاریخ قرارداد'/>}
+                                     id="dateContract"
+                                     name='dateContract'
+                                     onChange={handleChange}
+                                     calendar={persian}
+                                        onOpenPickNewDate={false}
+                                     locale={persian_fa}
+                                 />
                               )
                             } else if (props.search === 'نوع قرارداد') {
                                     return (
                                         <div className="col-2 form-floating">
                                             <input className="form-control" type='search' list="typeContractList"
                                                    name='typeContract' onChange={(e) => {
-                                                    formik.resetForm()
                                                     formik.setFieldValue('typeContract' , e.target.value)
                                             }} id="typeContract" placeholder="اجاره"/>
                                             <label htmlFor="typeContract">نوع قرارداد</label>
@@ -130,7 +146,6 @@ const Report = (props) => {
                                     return (
                                          <div className="input-group mb-3">
                                              <input type="text" className="form-control" name='employer' onChange={(e) => {
-                                                    formik.resetForm()
                                                     formik.setFieldValue('employer' , e.target.value)
                                             }} placeholder={`جستجو براساس ${props.search}`}
                                              aria-label="searchBox" id='searchBox' aria-describedby="searchBox"/>
