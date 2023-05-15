@@ -7,19 +7,41 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
 import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
+import {useFormik} from "formik";
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
       const [idNumber, setIdNumber] = useState(null)
+      const [searchInp, setSearchInp] = useState({
+          employer: '',
+          dateContract: '',
+          typeContract: '',
+          clearedStatus: '',
+          topicContract: '',
+          id: '',
+          contractNumber: '',
 
+      })
+      const formik = useFormik({
+        initialValues: {
+              employer: '',
+              dateContract: '',
+              typeContract: '',
+              clearedStatus: '',
+              topicContract: '',
+              id: '',
+              contractNumber: '',
+        },
+        enableReinitialize: true,
+    });
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/documents")
+        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${formik.values.employer}&typeContract=${formik.values.typeContract}&id=&contractNumber=&dateContract=&topicContract=&clearedStatus=`)
         const data = await response.json()
         setContracts(data)
       }
       useEffect(() => {
             fetchData()
-          }, [])
+          }, [formik])
     return (
         <Fragment>
             <ObserveModal/>
@@ -86,7 +108,11 @@ const Report = (props) => {
                             } else if (props.search === 'نوع قرارداد') {
                                     return (
                                         <div className="col-2 form-floating">
-                                            <input className="form-control" type='search' list="typeContractList" id="typeContract" placeholder="اجاره"/>
+                                            <input className="form-control" type='search' list="typeContractList"
+                                                   name='typeContract' onChange={(e) => {
+                                                    formik.resetForm()
+                                                    formik.setFieldValue('typeContract' , e.target.value)
+                                            }} id="typeContract" placeholder="اجاره"/>
                                             <label htmlFor="typeContract">نوع قرارداد</label>
                                             <datalist id="typeContractList">
                                                 <option value="خرید قطعات نظامی"/>
@@ -103,7 +129,10 @@ const Report = (props) => {
                                 } else {
                                     return (
                                          <div className="input-group mb-3">
-                                             <input type="text" className="form-control" placeholder={`جستجو براساس ${props.search}`}
+                                             <input type="text" className="form-control" name='employer' onChange={(e) => {
+                                                    formik.resetForm()
+                                                    formik.setFieldValue('employer' , e.target.value)
+                                            }} placeholder={`جستجو براساس ${props.search}`}
                                              aria-label="searchBox" id='searchBox' aria-describedby="searchBox"/>
                                              <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                                          </div>
@@ -137,7 +166,7 @@ const Report = (props) => {
                             </thead>
 
                             <tbody>
-                            {contract.filter(contract => contract.type_form === props.docToggle).map((data, i) => (
+                                    {contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
                                 <tr>
                                     <th scope="row">{i}</th>
                                     <td>{data.id}</td>
@@ -166,7 +195,7 @@ const Report = (props) => {
                                         </button>
                                     </td>
                                 </tr>
-                            ))}
+                            )) || <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>}
 
                             </tbody>
                         </table>
