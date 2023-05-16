@@ -7,38 +7,28 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
 import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
-import {useFormik} from "formik";
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
       const [idNumber, setIdNumber] = useState(null)
-      const formik = useFormik({
-        initialValues: {
-              employer: '',
-              dateContract: '',
-              typeContract: '',
-              clearedStatus: '',
-              topicContract: '',
-              id: '',
-              contractNumber: '',
-        },
-        enableReinitialize: true,
-    });
+
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${formik.values.employer}&typeContract=${formik.values.typeContract}&
-        id=&contractNumber=&dateContract=${mystr}&topicContract=&clearedStatus=`)
+        const response = await
+        fetch(`http://127.0.0.1:8000/api/documents/?employer=${props.formik.values.employer}
+        &typeContract=${props.formik.values.typeContract}&id=${props.formik.values.id}&contractNumber=${props.formik.values.contractNumber}
+        &dateContract=${fixNumbers(props.formik.values.dateContract)}&topicContract=${props.formik.values.topicContract}&clearedStatus=${props.formik.values.clearedStatus}`)
         const data = await response.json()
         setContracts(data)
       }
       useEffect(() => {
             fetchData()
-          }, [formik.values])
+          }, [props.formik.values])
 
 
      const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
      function handleChange(value){
-            formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+            props.formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
 
     const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -51,8 +41,18 @@ const Report = (props) => {
             }
             return str;
         };
-    let mystr = '';
-    mystr = fixNumbers(formik.values.dateContract);
+
+     const nameFieldHandler = () => {
+         if (props.search === 'شماره ثبت'){
+             return 'id'
+         }else if (props.search === 'شماره قرارداد'){
+             return 'contractNumber'
+         }else if (props.search === 'موضوع قرارداد'){
+             return 'topicContract'
+         }else if (props.search === 'نام کارفرما' || props.search === 'نام پیمانکار'){
+             return 'employer'
+         }
+     }
     return (
         <Fragment>
             <ObserveModal/>
@@ -64,7 +64,8 @@ const Report = (props) => {
                                  <div className= 'd-flex gap-2'>
                                       <Toggler handleForm={props.handleForm}/>
                                       <div className="form-check ms-4">
-                                      <input className="form-check-input" type="checkbox" value=""
+                                      <input className="form-check-input" type="checkbox" name='clearedStatus' onChange={e => e.target.checked ?
+                                          props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
                                       id="clearedCheck"/>
                                       <label className="form-check-label" htmlFor="clearedCheck">
                                       تسویه شده
@@ -79,12 +80,20 @@ const Report = (props) => {
 
                         </div>
 
-                  <div className="form-floating m-4 col-1">
+                  <div className="form-floating m-4" style={{width:'10%'}}>
                         <select className="form-select" id="searchSelector"
                             aria-label="Search Select" onChange={(e) =>
                         {
-                          formik.resetForm()
+                          props.formik.setFieldValue('employer' , '')
+                          props.formik.setFieldValue('dateContract' , '')
+                          props.formik.setFieldValue('typeContract' , '')
+                          props.formik.setFieldValue('topicContract' , '')
+                          props.formik.setFieldValue('id' , '')
+                          props.formik.setFieldValue('contractNumber' , '')
                           props.setSearch(e.target.value)
+                            if (props.search !== 'نوع قرارداد' && props.search !== 'تاریخ قرارداد' ) {
+                                document.getElementById('searchBox').value = ''
+                            }
                         }
                             }>
                             <option selected disabled>یک مورد انتخاب کنید</option>
@@ -118,7 +127,7 @@ const Report = (props) => {
                                      name='dateContract'
                                      onChange={handleChange}
                                      calendar={persian}
-                                        onOpenPickNewDate={false}
+                                     onOpenPickNewDate={false}
                                      locale={persian_fa}
                                  />
                               )
@@ -127,7 +136,7 @@ const Report = (props) => {
                                         <div className="col-2 form-floating">
                                             <input className="form-control" type='search' list="typeContractList"
                                                    name='typeContract' onChange={(e) => {
-                                                    formik.setFieldValue('typeContract' , e.target.value)
+                                                    props.formik.setFieldValue('typeContract' , e.target.value)
                                             }} id="typeContract" placeholder="اجاره"/>
                                             <label htmlFor="typeContract">نوع قرارداد</label>
                                             <datalist id="typeContractList">
@@ -145,8 +154,8 @@ const Report = (props) => {
                                 } else {
                                     return (
                                          <div className="input-group mb-3">
-                                             <input type="text" className="form-control" name='employer' onChange={(e) => {
-                                                    formik.setFieldValue('employer' , e.target.value)
+                                             <input type="text" className="form-control" onChange={(e) => {
+                                                    props.formik.setFieldValue(nameFieldHandler() , e.target.value)
                                             }} placeholder={`جستجو براساس ${props.search}`}
                                              aria-label="searchBox" id='searchBox' aria-describedby="searchBox"/>
                                              <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>

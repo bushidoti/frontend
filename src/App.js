@@ -21,13 +21,25 @@ import StorageHandling from "./Components/main/inventory/warhouse-handling";
 import {Logout} from "./Components/navigationBar/login/logout";
 import ToastLogin from "./Components/navigationBar/login/toast";
 import {Page403} from "./Components/page403/403Page";
+import {useFormik} from "formik";
 
 
 function App() {
     const [isRepair , setIsRepair] = useState('')
     const [modalTitle , setModalTitle] = useState('')
     const [isAuth, setIsAuth] = useState(false);
-
+    const formik = useFormik({
+            initialValues: {
+                  employer: '',
+                  dateContract: '',
+                  typeContract: '',
+                  clearedStatus: '',
+                  topicContract: '',
+                  id: '',
+                  contractNumber: '',
+            },
+            enableReinitialize: true,
+        });
     /*مدیریت اسناد*/
         const [propertyToggle , setPropertyToggle ] = useState(null)
         const [searchProp , setSearchProp] = useState('')
@@ -87,6 +99,8 @@ function App() {
     };
 
     const handleForm = (e) => {
+        document.getElementById("clearedCheck").checked = false;
+        formik.resetForm()
         if(e.target.value === 'پیمانکار') {
          setDocToggle(false)
         }
@@ -94,9 +108,7 @@ function App() {
          setDocToggle(true)
         }
     };
-
     /*پایان مدیریت قرارداد*/
-
   return (
 <Contextform.Provider value={{
                     isRepair:isRepair,
@@ -108,7 +120,7 @@ function App() {
                 <Route path="/" element={<NavBar isAuth={isAuth} setIsAuth={setIsAuth}/>} >
                     {isAuth ?
                         <Fragment>
-                          <Route path="report" element={<Report handleForm={handleFormReport} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
+                          <Route path="report" element={<Report handleForm={handleFormReport} formik={formik} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                           <Route path="main" element={<Main modalTitle={modalTitle} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
                           <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
