@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./uploadDocument/observemodal";
 import transition from "react-element-popper/animations/transition";
@@ -7,10 +7,13 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
 import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
+import { useReactToPrint } from "react-to-print";
+
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
       const [idNumber, setIdNumber] = useState(null)
+      const conponentPDF= useRef();
 
     const fetchData = async () => {
         const response = await
@@ -53,6 +56,11 @@ const Report = (props) => {
              return 'employer'
          }
      }
+     const generatePDF= useReactToPrint({
+        content: ()=>conponentPDF.current,
+        documentTitle:"Userdata",
+        onAfterPrint:()=>alert("Data saved in PDF")
+    });
     return (
         <Fragment>
             <ObserveModal/>
@@ -75,9 +83,8 @@ const Report = (props) => {
                             <div className= 'd-flex gap-2'>
                                 <button className="btn btn-danger material-symbols-outlined " type="button" id="observeDocs"  data-bs-toggle="modal"
                                 data-bs-target="#observModal">description</button>
-                                <button className="btn btn-outline-secondary material-symbols-outlined " type="button" id="print">print</button>
+                                <button className="btn btn-outline-secondary material-symbols-outlined " type="button" id="print" onClick={generatePDF}>print</button>
                             </div>
-
                         </div>
 
                   <div className="form-floating m-4" style={{width:'10%'}}>
@@ -165,7 +172,7 @@ const Report = (props) => {
                         })()}
                   </div>
                 {props.docToggle === null ? null :
-                    <div className='m-4 table-responsive text-nowrap rounded-3' style={{maxHeight: '50vh'}}>
+                    <div className='m-4 table-responsive text-nowrap rounded-3' ref={conponentPDF} style={{maxHeight: '50vh'}}>
                         <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary">
                             <thead className='bg-light'>
                             <tr>
