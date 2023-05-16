@@ -172,8 +172,8 @@ const Report = (props) => {
                         })()}
                   </div>
                 {props.docToggle === null ? null :
-                    <div className='m-4 table-responsive text-nowrap rounded-3' ref={conponentPDF} style={{maxHeight: '50vh'}}>
-                        <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary">
+                    <div className='m-4 table-responsive text-nowrap rounded-3'  style={{maxHeight: '50vh'}}>
+                        <table ref={conponentPDF} className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary">
                             <thead className='bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
