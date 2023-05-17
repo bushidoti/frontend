@@ -166,7 +166,6 @@ const Modal = (props) => {
                   'success',
                   'ok',
                   putHandler(),
-
                 )
               }
             })
@@ -216,7 +215,7 @@ const Modal = (props) => {
             fetchData()
 
           }, [props.idNumber])
-            Required()
+      Required()
          function refreshPage() {
                 window.location.reload();
       }
@@ -364,7 +363,6 @@ const Modal = (props) => {
                                    <NumericFormat
                                           className='form-control'
                                           allowNegative={false}
-                                          suffix={'ریال '}
                                           thousandSeparator=","
                                           id="contractPrice"
                                           value={formik.values.contractPrice}
@@ -398,7 +396,6 @@ const Modal = (props) => {
                                       className='form-control'
                                       id="prePaidPrice"
                                       thousandSeparator=","
-                                      suffix="ریال "
                                       disabled={props.editDocument}
                                       value={formik.values.prePaidPrice}
                                       onChange={formik.handleChange}
@@ -422,7 +419,6 @@ const Modal = (props) => {
                                           className='form-control'
                                           id="goodPrice"
                                           thousandSeparator=","
-                                          suffix="ریال "
                                           name="goodPrice"
                                           disabled={props.editDocument}
                                           value={formik.values.goodPrice}
@@ -508,7 +504,6 @@ const Modal = (props) => {
                                           <NumericFormat
                                            className='form-control'
                                            id="commitmentPrice"
-                                           suffix="ریال "
                                            thousandSeparator=","
                                            name="commitmentPrice"
                                            disabled={props.editDocument}

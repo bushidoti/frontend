@@ -72,7 +72,7 @@ const Report = (props) => {
                                  <div className= 'd-flex gap-2'>
                                       <Toggler handleForm={props.handleForm}/>
                                       <div className="form-check ms-4">
-                                      <input className="form-check-input" type="checkbox" name='clearedStatus' onChange={e => e.target.checked ?
+                                      <input className="form-check-input" type="checkbox" name='clearedStatus' checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
                                           props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
                                       id="clearedCheck"/>
                                       <label className="form-check-label" htmlFor="clearedCheck">
@@ -197,7 +197,7 @@ const Report = (props) => {
                             </thead>
 
                             <tbody>
-                                    {contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
+                                    {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
                                 <tr>
                                     <th scope="row">{i}</th>
                                     <td>{data.id}</td>
@@ -226,7 +226,7 @@ const Report = (props) => {
                                         </button>
                                     </td>
                                 </tr>
-                            )) || <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>}
+                            ))) || <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>}
 
                             </tbody>
                         </table>

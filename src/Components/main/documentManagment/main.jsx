@@ -8,10 +8,9 @@ import Swal from "sweetalert2";
 const Main = (props) => {
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
-    const [searchInp, setSearchInp] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${searchInp}`)
+        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${props.formik.values.employer}`)
         const data = await response.json()
         setContracts(data)
       }
@@ -48,8 +47,7 @@ const Main = (props) => {
 
       useEffect(() => {
             fetchData()
-
-          }, [searchInp])
+          }, [props.formik.values.employer])
 
     return (
         <Fragment>
@@ -66,7 +64,8 @@ const Main = (props) => {
 
             <div className='m-4'>
                 <div className="input-group mb-3">
-                    <input type="text"  id='searchBox' className="form-control" value={searchInp} onChange={e => setSearchInp(e.target.value)} placeholder={`جستجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}
+                    <input type="text"  id='searchBox' className="form-control" value={props.formik.values.employer}
+                    onChange={e => props.formik.setFieldValue('employer' , e.target.value)} placeholder={`جستجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}
                     aria-label="searchBox" aria-describedby="search" />
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
