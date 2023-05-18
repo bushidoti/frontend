@@ -1,13 +1,214 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import CurrencyInput from "react-currency-input-field";
 import {CustomInputDate} from "../../../../App";
 import {Required} from "../../required";
+import { NumericFormat } from 'react-number-format';
+import {useFormik} from "formik";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Modal = (props) => {
+    const [contract, setContracts] = useState([])
+
+    const formik = useFormik({
+    initialValues: {
+      id: contract.id,
+      type: contract.type,
+      full_name: contract.full_name,
+      date: contract.date,
+      national_id: contract.national_id,
+      sex: contract.sex,
+      office: contract.office,
+      job: contract.job,
+      approvedPrice: contract.approvedPrice,
+      commitmentPrice: contract.commitmentPrice,
+      typeBail: contract.typeBail,
+      firstBail: contract.firstBail,
+      secondBail: contract.secondBail,
+      clearedStatus: contract.clearedStatus,
+      clearedDate: contract.clearedDate,
+      receivedDocument: contract.receivedDocument,
+    },
+    enableReinitialize: true,
+    onSubmit: (values) => {
+        console.log(values);
+    },
+    });
+
+    const postHandler = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/persons/`,
+              {
+              type: formik.values.type,
+              full_name: formik.values.full_name,
+              date: formik.values.date,
+              national_id: formik.values.national_id,
+              sex: formik.values.sex,
+              office: formik.values.office,
+              job: formik.values.job,
+              approvedPrice: formik.values.approvedPrice,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail: formik.values.typeBail,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+         })
+           setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putHandler = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
+              {
+              type: formik.values.type,
+              full_name: formik.values.full_name,
+              date: formik.values.date,
+              national_id: formik.values.national_id,
+              sex: formik.values.sex,
+              office: formik.values.office,
+              job: formik.values.job,
+              approvedPrice: formik.values.approvedPrice,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail: formik.values.typeBail,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+              clearedStatus: formik.values.clearedStatus,
+              clearedDate: formik.values.clearedDate,
+              receivedDocument: formik.values.receivedDocument,
+         })
+        setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putHandlerCleared = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
+              {
+              type: formik.values.type,
+              full_name: formik.values.full_name,
+              date: formik.values.date,
+              national_id: formik.values.national_id,
+              sex: formik.values.sex,
+              office: formik.values.office,
+              job: formik.values.job,
+              approvedPrice: formik.values.approvedPrice,
+              commitmentPrice: formik.values.commitmentPrice,
+              typeBail: formik.values.typeBail,
+              firstBail: formik.values.firstBail,
+              secondBail: formik.values.secondBail,
+              clearedStatus: true,
+              clearedDate: formik.values.clearedDate,
+              receivedDocument: formik.values.receivedDocument,
+
+         })
+        setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putAlertCleared = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از تسویه قرارداد ${formik.values.full_name} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, تسویه کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'تسویه شد!',
+                  'قرارداد تسویه شد.',
+                  'success',
+                  putHandlerCleared(),
+
+                )
+              }
+            })
+         }
+
+      const putAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از ویرایش قرارداد ${formik.values.full_name} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ویرایش کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ویرایش شد!',
+                  'قرارداد ویرایش شد.',
+                  'success',
+                  'ok',
+                  putHandler(),
+                )
+              }
+            })
+      }
+
+      const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت این قرارداد مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'قرارداد ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandler(),
+
+                )
+              }
+            })
+      }
+
+    const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
+
+    function handleChange(value){
+            formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+        }
+
+    function handleChangeClear(value){
+            formik.setFieldValue('clearedDate' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+        }
+
+      const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/persons/`+ props.idNumber)
+        const data = await response.json()
+        setContracts(data)
+
+      }
+      useEffect(() => {
+            fetchData()
+
+          }, [props.idNumber])
+
+    const handleSubmit = () => {
+        if (props.ModalTitle === 'edit'){
+            return putAlert
+        }else if (props.ModalTitle === 'done'){
+            return putAlertCleared
+        }else {
+            return postAlert
+        }
+    }
+
     const Required = () => {
         return(
             <Required/>
@@ -81,15 +282,16 @@ const Modal = (props) => {
                         <div className="container modal-body">
 
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="numberId" className="w-25 form-control" aria-label="Username"
-                                aria-describedby="basic-addon1" value='' disabled required/>
+                                <input type="text" id="numberId" value={formik.values.id} className="w-25 form-control" aria-label="Username"
+                                aria-describedby="basic-addon1" disabled required/>
                                 <label  htmlFor="numberId">شماره ثبت</label>
                             </div>
 
                             <div className='d-flex gap-2'>
                                       <div className="form-floating  col">
                                             <select className="form-select" id="situationSelector"
-                                            aria-label="situationSelector" disabled={props.editDocumentIndividuals}>
+                                            aria-label="situationSelector" disabled={props.editDocumentIndividuals} name='type' value={formik.values.type}
+                                            onChange={formik.handleChange}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="قراردادی">قراردادی</option>
                                                 <option value="بیمه ای">بیمه ای</option>
@@ -101,7 +303,8 @@ const Modal = (props) => {
                                       </div>
 
                                       <div className="col form-floating mb-3 ">
-                                            <input type="text" className="form-control" id="fullName"
+                                            <input type="text" className="form-control" id="fullName" name='full_name' value={formik.values.full_name}
+                                             onChange={formik.handleChange}
                                             placeholder="امیرحسین عباسی" required disabled={props.editDocumentIndividuals}/>
                                             <div className="invalid-feedback">
                                             لطفا نام کامل  را وارد کنید.
@@ -110,7 +313,8 @@ const Modal = (props) => {
                                       </div>
 
                                       <div className="form-floating  col">
-                                            <select className="form-select" id="sexSelector"
+                                            <select className="form-select" id="sexSelector" name='sex' value={formik.values.sex}
+                                             onChange={formik.handleChange}
                                             aria-label="sexSelector" disabled={props.editDocumentIndividuals} required>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="مونث">مونث</option>
@@ -129,8 +333,12 @@ const Modal = (props) => {
                                       <div className="col-3">
                                           <DatePicker
                                              animations={[transition()]}
-                                             render={<CustomInputDate disabled={props.editDocumentIndividuals} label='تاریخ استخدام'/>}
+                                             render={<CustomInputDate disabled={props.editDocumentIndividuals}
+                                             ids={"date"} names='clearedDatePicker' label='تاریخ استخدام'/>}
                                              id="employedDatePicker"
+                                             name='date'
+                                             value={formik.values.date}
+                                             onChange={handleChange}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
@@ -138,7 +346,8 @@ const Modal = (props) => {
                                       </div>
 
                                       <div className="col-4 form-floating mb-3">
-                                          <input type="text" className="form-control" id="nationalCard"
+                                          <input type="text" className="form-control" id="nationalCard" name='national_id' value={formik.values.national_id}
+                                             onChange={formik.handleChange}
                                           placeholder="1520505142" disabled={props.editDocumentIndividuals}  required/>
                                           <label htmlFor="nationalCard">کد ملی</label>
                                           <div className="invalid-feedback">
@@ -151,11 +360,14 @@ const Modal = (props) => {
 
                         <div className='d-flex gap-2 mb-5'>
                                 <div className="col form-floating ">
-                                    <CurrencyInput
+                                    <NumericFormat
                                       className='form-control'
                                       id="guaranteeApproved"
-                                      prefix="ریال "
-                                      name="Guarantee Approved"
+                                      allowNegative={false}
+                                      value={formik.values.approvedPrice}
+                                      onChange={formik.handleChange}
+                                      thousandSeparator=","
+                                      name="approvedPrice"
                                       placeholder="ریال 1,000"
                                       disabled={props.editDocumentIndividuals}
                                       required/>
@@ -165,7 +377,8 @@ const Modal = (props) => {
                                     </div>
                                 </div>
                             <div className="col-3 form-floating">
-                                    <input className="form-control" type='search' list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
+                                    <input className="form-control" name='office' type='search' value={formik.values.office}
+                                      onChange={formik.handleChange} list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
                                     placeholder="دزفول" required/>
                                     <label htmlFor="workLocation">محل کار</label>
                                     <datalist id="workLocationList">
@@ -182,7 +395,8 @@ const Modal = (props) => {
                                     </div>
                             </div>
                             <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="job"
+                                    <input type="text" className="form-control" id="job" name='job' value={formik.values.job}
+                                      onChange={formik.handleChange}
                                     placeholder="حسابدار" disabled={props.editDocumentIndividuals} required/>
                                     <label htmlFor="job">شغل</label>
                                     <div className="invalid-feedback">
@@ -197,13 +411,18 @@ const Modal = (props) => {
                             <div className='d-flex gap-2'>
 
                                  <div className="col-3 form-floating mb-3">
-                                       <CurrencyInput
+                                       <NumericFormat
                                           className='form-control'
                                           id="commitmentPrice"
-                                          prefix="ریال "
-                                          name="Commitment Price"
+                                          allowNegative={false}
+                                          value={formik.values.commitmentPrice}
+                                          thousandSeparator=","
+                                          name="commitmentPrice"
                                           placeholder="ریال 640,000"
-                                          onChange={(e) => setIsCommitmentPriceEmpty(e.target.value)}
+                                          onChange={(e) => {
+                                              setIsCommitmentPriceEmpty(e.target.value)
+                                              formik.setFieldValue('commitmentPrice', e.target.value)
+                                          }}
                                           disabled={props.editDocumentIndividuals}
                                           required/>
                                        <label htmlFor="commitmentPrice">مبلغ تضمین</label>
@@ -213,11 +432,15 @@ const Modal = (props) => {
                                  </div>
 
                                       {(() => {
-                                             if (isCommitmentPriceEmpty.length !== 0) {
+                                             if (isCommitmentPriceEmpty.length !== 0 || props.editDocumentIndividuals || props.ModalTitle === 'edit') {
                                                 return (
                                                              <div className="col-2 form-floating">
-                                                                <input className="form-control" type='search' list="typeBailList" id="typeBail" placeholder="بانک"
-                                                                onChange={(e) => setIsTypeBail1Empty(e.target.value)} disabled={props.editDocumentIndividuals} required/>
+                                                                <input className="form-control" type='search' name='typeBail' list="typeBailList" id="typeBail"
+                                                                value={formik.values.typeBail} placeholder="بانک"
+                                                                onChange={(e) => {
+                                                                    setIsTypeBail1Empty(e.target.value)
+                                                                    formik.setFieldValue('typeBail', e.target.value)
+                                                                }} disabled={props.editDocumentIndividuals} required/>
                                                                 <label htmlFor="typeBail">نوع ضمانت</label>
                                                                 <datalist id="typeBailList">
                                                                     <option value="چک"/>
@@ -235,11 +458,12 @@ const Modal = (props) => {
                                       })()}
 
                                       {(() => {
-                                              if (isTypeBail1Empty.length !==0) {
+                                              if (isTypeBail1Empty.length !==0 || props.editDocumentIndividuals || props.ModalTitle === 'edit') {
                                                   return (
                                                       <Fragment>
                                                             <div className="col form-floating ">
-                                                                <input type="text" placeholder={firstBail} aria-label="First Bail" id='firstBail' className="form-control"
+                                                                <input type="text" placeholder={firstBail} name='firstBail' value={formik.values.firstBail}
+                                                                onChange={formik.handleChange} aria-label="First Bail" id='firstBail' className="form-control"
                                                                 disabled={props.editDocumentIndividuals} required/>
                                                                 <label htmlFor="firstBail">{firstBail}</label>
                                                                 <div className="invalid-feedback">
@@ -248,7 +472,8 @@ const Modal = (props) => {
                                                             </div>
 
                                                              <div className="col form-floating mb-3">
-                                                                <input type="text" placeholder={secondBail} id='secondBail' aria-label="Second Bail" className="form-control"
+                                                                <input type="text" placeholder={secondBail} id='secondBail' name='secondBail' value={formik.values.secondBail}
+                                                                onChange={formik.handleChange} aria-label="Second Bail" className="form-control"
                                                                 disabled={props.editDocumentIndividuals} required/>
                                                                 <label htmlFor="secondBail">{secondBail}</label>
                                                                 <div className="invalid-feedback">
@@ -270,7 +495,11 @@ const Modal = (props) => {
                                           <div>
                                              <DatePicker
                                                 animations={[transition()]}
-                                                render={<CustomInputDate disabled={props.editDocumentIndividuals} label='تاریخ'/>}
+                                                render={<CustomInputDate ids={'clearedDatePicker'} names='clearedDate' disabled={props.ModalTitle === 'done' ? false : props.editDocumentIndividuals}
+                                                label='تاریخ'/>}
+                                                value={formik.values.clearedDate}
+                                                onChange={handleChangeClear}
+                                                name='clearedDate'
                                                 id="clearedDatePicker"
                                                 calendar={persian}
                                                 locale={persian_fa}
@@ -280,8 +509,9 @@ const Modal = (props) => {
                                     </div>
 
                                     <div className="form-check col ms-4">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                            id="receivedDocument" disabled={props.editDocumentIndividuals}/>
+                                            <input className="form-check-input" type="checkbox" name='clearedStatus' value="مدارک تحویل داده شده" checked={formik.values.receivedDocument}
+                                            onChange={formik.handleChange}
+                                            id="receivedDocument" disabled={props.ModalTitle === 'done' ? false : props.editDocumentIndividuals}/>
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده
                                             </label>
@@ -291,7 +521,7 @@ const Modal = (props) => {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                                <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                                <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
                             </div>
                         </form>
                     </div>

@@ -40,6 +40,20 @@ function App() {
             },
             enableReinitialize: true,
         });
+
+     const formikPersonalSearch = useFormik({
+            initialValues: {
+                  id: '',
+                  full_name: '',
+                  national_id: '',
+                  type: '',
+                  sex: '',
+                  office: '',
+                  job: '',
+                  date: '',
+            },
+            enableReinitialize: true,
+        });
     /*مدیریت اسناد*/
         const [propertyToggle , setPropertyToggle ] = useState(null)
         const [searchProp , setSearchProp] = useState('')
@@ -123,7 +137,7 @@ function App() {
                           <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
                           <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
-                          <Route path="addIndividualsDoc" element={<AddIndividualsDoc modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
+                          <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                           <Route path="reportindividualsdoc" element={<ReportIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
                           <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                           <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />

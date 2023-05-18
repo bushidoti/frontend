@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback, useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Modal from "./modal";
 import {Link} from "react-router-dom";
 import {Toggler} from "./toggler";
@@ -85,7 +85,7 @@ const Main = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
+                                    {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
                                         <tr key={data.id}>
                                             <th scope="row">{data.id}</th>
                                             <td>{data.employer}</td>
@@ -108,7 +108,7 @@ const Main = (props) => {
                                                 }}>done</button>
                                             </td>
                                         </tr>
-                                        )) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                        ))) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
                                     }
                                 </tbody>
                             </table>

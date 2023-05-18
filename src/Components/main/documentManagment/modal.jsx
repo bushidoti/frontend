@@ -41,6 +41,7 @@ const Modal = (props) => {
         console.log(values);
     },
     });
+
      const postHandler = async () => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/documents/`,
@@ -223,7 +224,6 @@ const Modal = (props) => {
     const [isCommitmentPriceEmpty , setIsCommitmentPriceEmpty] = useState('')
     const [isTypeBail1Empty , setIsTypeBail1Empty] = useState('')
     const [isTypeBail2Empty , setIsTypeBail2Empty] = useState('')
-
     let firstBail1 = ''
     let secondBail1 = ''
 
@@ -625,7 +625,8 @@ const Modal = (props) => {
                                         <div>
                                           <DatePicker
                                           animations={[transition()]}
-                                          render={<CustomInputDate disabled={props.modalTitle === 'done' ? false : props.editDocument} ids={'clearedDatePicker'} names='clearedDate' label='تاریخ'/>}
+                                          render={<CustomInputDate disabled={props.modalTitle === 'done' ? false : props.editDocument}
+                                           ids={'clearedDatePicker'} names='clearedDate' label='تاریخ'/>}
                                           id="clearedDatePicker"
                                           value={formik.values.clearedDate}
                                           onChange={handleChangeClear}
@@ -650,7 +651,7 @@ const Modal = (props) => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={formik.resetForm} data-bs-dismiss="modal">close</button>
                             <button type="button" className="btn material-symbols-outlined btn-success"
                             onClick={handleSubmit()}>done</button>
                         </div>
