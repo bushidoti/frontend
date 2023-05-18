@@ -22,6 +22,7 @@ import {Logout} from "./Components/navigationBar/login/logout";
 import ToastLogin from "./Components/navigationBar/login/toast";
 import {Page403} from "./Components/page403/403Page";
 import {useFormik} from "formik";
+import Home from "./Components/home/home";
 
 
 function App() {
@@ -153,6 +154,7 @@ function App() {
                     }
                       <Route path="contactus" element={<ContactUS />} />
                       <Route path="*" element={<Page404 />} />
+                      <Route path="/" element={<Home/>}/>
 
 
 
