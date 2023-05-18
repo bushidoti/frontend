@@ -1,11 +1,71 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 
 const ObserveModal = () => {
+    const [search , setSearch] = useState('')
+    const [allContract, setAllContract] = useState([])
+    const [contract, setContracts] = useState([])
+    const [contractId, setContractId] = useState('')
+    const [selectedFile, setSelectedFile] = useState('')
+    const [typeDocument , setTypeDocument] = useState('')
+
+    const fetchData = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/persons")
+        const data = await response.json()
+        setAllContract(data)
+      }
+
+     const fetchDataSpecific = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/persons/${contractId}/`)
+        const data = await response.json()
+        setContracts(data)
+      }
+
+     const handleId = (e) => {
+            allContract.filter(contract => contract.national_id === e.target.value).map((data) => (
+                setContractId(data.id)
+            ))
+      }
+
+    const handleOpenFile = () => {
+        if (selectedFile === 'Birth_certificate1'){
+            return contract.Birth_certificate1
+        }else if (selectedFile === 'Birth_certificate2'){
+            return contract.Birth_certificate2
+        }else if (selectedFile === 'Birth_certificate3'){
+            return contract.Birth_certificate3
+        }else if (selectedFile === 'Birth_certificate4'){
+            return contract.Birth_certificate4
+        }else if (selectedFile === 'front_card'){
+            return contract.front_card
+        }else if (selectedFile === 'back_card'){
+            return contract.back_card
+        }else if (selectedFile === 'driveLicense'){
+            return contract.driveLicense
+        }else if (selectedFile === 'bail'){
+            return contract.bail
+        }else if (selectedFile === 'certificateMedic'){
+            return contract.certificateMedic
+        }else if (selectedFile === 'insurance'){
+            return contract.insurance
+        }else if (selectedFile === 'police'){
+            return contract.police
+        }else if (selectedFile === 'retired'){
+            return contract.retired
+        }else if (selectedFile === 'retired_card'){
+            return contract.retired_card
+        }
+    }
+        useEffect(() => {
+            fetchData()
+            fetchDataSpecific()
+
+          }, [contractId])
+
        function refreshPage() {
             window.location.reload();
       }
-    const [typeDocument , setTypeDocument] = useState('')
 
   return (
       <Fragment>
@@ -21,10 +81,20 @@ const ObserveModal = () => {
                     <div className="container modal-body">
 
                         <div className="input-group mb-3">
-                            <input type="text"  id='searchBox' className="form-control" placeholder="کد ملی را وارد کنید"
+                            <input type="text"  id='searchBox' className="form-control" placeholder="کد ملی را وارد کنید" onChange={e => {
+                                    setSearch(e.target.value)
+                                     handleId(e)
+                                }}
                             aria-label="searchBox" aria-describedby="search"/>
                             <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtr">search</button>
                         </div>
+                        {allContract.filter(contract => contract.national_id === search).map((data) => (
+                                  <div className="alert alert-success" role="alert">
+                                    قرارداد با شماره ثبت {data.id} یافت شد.
+                                        </div>
+                                    ))}
+                {allContract.filter(contract => contract.national_id === search).map(() => (
+                    <Fragment>
                         <div className="form-floating  col-4">
                             <select className="form-select" id="typeDocument"
                                     aria-label="Type Document" onChange={(e) => setTypeDocument(e.target.value)}>
@@ -42,8 +112,11 @@ const ObserveModal = () => {
 
                         <div className='row'>
                                 <div className="input-group mb-3">
-                                    <button className="btn btn-outline-success" id='checkBtn' type="button">نمایش</button>
-                                    <select className="form-select" id="checkFileList"
+                                    <Link className='text-decoration-none link-dark' download='document.pdf'
+                                                  rel="noreferrer" to={handleOpenFile()} >
+                                            <button className="btn btn-outline-success"  type="button">
+                                            نمایش</button></Link>
+                                    <select className="form-select" id="checkFileList" onChange={e => setSelectedFile(e.target.value)}
                                     aria-label="checkFileList">
                                     <option selected disabled>فایل مورد نظر را انتخاب کنید</option>
                                       {(() => {
@@ -51,39 +124,39 @@ const ObserveModal = () => {
                                           if (typeDocument === 'شناسنامه'){
                                               return(
                                                   <Fragment>
-                                                        <option value="صفحه 1">صفحه 1</option>
-                                                        <option value="صفحه 2">صفحه 2</option>
-                                                        <option value="صفحه 3">صفحه 3</option>
-                                                        <option value="صفحه 4">صفحه 4</option>
+                                                        <option value="Birth_certificate1">صفحه 1</option>
+                                                        <option value="Birth_certificate1">صفحه 2</option>
+                                                        <option value="Birth_certificate1">صفحه 3</option>
+                                                        <option value="Birth_certificate1">صفحه 4</option>
                                                   </Fragment>
                                               )
                                           }else if (typeDocument === 'کارت ملی'){
                                               return(
                                                   <Fragment>
-                                                        <option value="پشت">پشت</option>
-                                                        <option value="رو">رو</option>
+                                                        <option value="back_card">پشت</option>
+                                                        <option value="front_card">رو</option>
                                                   </Fragment>
                                               )
                                           }else if (typeDocument === 'تضمین'){
                                               return(
                                                   <Fragment>
-                                                        <option value="تضمین">تضمین</option>
+                                                        <option value="bail">تضمین</option>
                                                   </Fragment>
                                               )
                                           }else if (typeDocument === 'گواهی'){
                                               return(
                                                   <Fragment>
-                                                        <option value="گواهی پزشکی">گواهی پزشکی</option>
-                                                        <option value="گواهی بیمه">گواهی بیمه</option>
-                                                        <option value="گواهی پلیس">گواهی پلیس</option>
-                                                        <option value="گواهینامه">گواهینامه</option>
+                                                        <option value="certificateMedic">گواهی پزشکی</option>
+                                                        <option value="insurance">گواهی بیمه</option>
+                                                        <option value="police">گواهی پلیس</option>
+                                                        <option value="driveLicense">گواهینامه</option>
                                                   </Fragment>
                                               )
                                           }else if (typeDocument === 'بازنشستگی'){
                                               return(
                                                   <Fragment>
-                                                        <option value="حکم بازنشستگ">حکم بازنشستگی</option>
-                                                        <option value="کارت بازنشستگی">کارت بازنشستگی</option>
+                                                        <option value="retired">حکم بازنشستگی</option>
+                                                        <option value="retired_card">کارت بازنشستگی</option>
                                                   </Fragment>
                                               )
                                           }
@@ -91,7 +164,11 @@ const ObserveModal = () => {
                                     </select>
                                 </div>
                             </div>
+                         </Fragment>
+                            ))}
+
                         </div>
+
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
                         </div>
