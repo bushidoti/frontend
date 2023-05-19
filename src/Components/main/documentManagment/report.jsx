@@ -58,8 +58,7 @@ const Report = (props) => {
      }
      const generatePDF= useReactToPrint({
         content: ()=>conponentPDF.current,
-        documentTitle:"Userdata",
-        onAfterPrint:()=>alert("Data saved in PDF")
+        documentTitle:"Data",
     });
     return (
         <Fragment>
@@ -173,7 +172,8 @@ const Report = (props) => {
                   </div>
                 {props.docToggle === null ? null :
                     <div className='m-4 table-responsive text-nowrap rounded-3'  style={{maxHeight: '50vh'}}>
-                        <table ref={conponentPDF} className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary">
+                        <table ref={conponentPDF}
+                           className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
                             <thead className='bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
@@ -198,7 +198,7 @@ const Report = (props) => {
 
                             <tbody>
                                     {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
-                                <tr>
+                                <tr key={data.id}>
                                     <th scope="row">{i}</th>
                                     <td>{data.id}</td>
                                     <td>{data.contractNumber}</td>
