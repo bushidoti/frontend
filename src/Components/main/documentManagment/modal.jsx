@@ -651,7 +651,7 @@ const Modal = (props) => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={formik.resetForm} data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
                             <button type="button" className="btn material-symbols-outlined btn-success"
                             onClick={handleSubmit()}>done</button>
                         </div>

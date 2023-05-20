@@ -42,7 +42,27 @@ function App() {
             enableReinitialize: true,
         });
 
-     const formikPersonalSearch = useFormik({
+    const formikPropertySearch = useFormik({
+            initialValues: {
+                  name: '',
+                  docNumber: '',
+                  landlord: '',
+                  madeOf: '',
+                  plateMotor: '',
+                  id: '',
+                  typeProperty: '',
+                  part1plate: '',
+                  part2plate: '',
+                  part3plate: '',
+                  cityPlate: '',
+                  addressChassis: '',
+                  modelMeter: '',
+                  descriptionLocation: '',
+            },
+            enableReinitialize: true,
+        });
+
+    const formikPersonalSearch = useFormik({
             initialValues: {
                   id: '',
                   full_name: '',
@@ -66,6 +86,7 @@ function App() {
             document.getElementById("searchSelector").selectedIndex = "0";
                  };
         const handleFormProperty = (e) => {
+            formikPropertySearch.resetForm()
             if(e.target.value === 'منقول') {
              setPropertyToggle(false)
             } else if (e.target.value === 'غیر منقول') {
@@ -138,7 +159,7 @@ function App() {
                           <Route path="report" element={<Report handleForm={handleFormReport} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                           <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                           <Route path="upload" element={<UploadDocuments/>} />
-                          <Route path="addpropertydoc" element={<AddPropertyDoc handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
+                          <Route path="addpropertydoc" element={<AddPropertyDoc formik={formikPropertySearch} handleEditProperty={handleEditProperty} editProperty={editProperty} handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                           <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                           <Route path="reportindividualsdoc" element={<ReportIndividualsDoc formik={formikPersonalSearch} handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
                           <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />

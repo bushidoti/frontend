@@ -1,11 +1,56 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState , useEffect} from "react";
 import {Link} from "react-router-dom";
 import Modal from "./modal";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddPropertyDoc = (props) => {
+    const [property, setProperties] = useState([])
+    const [idNumber, setIdNumber] = useState(null)
+
+    const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/properties/?docNumber=${props.formik.values.docNumber}`)
+        const data = await response.json()
+        setProperties(data)
+    }
+
+    const deleteAlert = (id) => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: `امکان بازگشت داده با شماره ثبت ${id} وجود نخواهد داشت`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, پاکش کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+
+                Swal.fire(
+                  'حذف شد!',
+                  'اموال حذف شد.',
+                  'success',
+                  deleteHandler(id),
+                )
+              }
+            })
+      }
+
+      const deleteHandler = async (id) => {
+          const response = await axios.delete(
+            `http://127.0.0.1:8000/api/properties/${id}`
+          )
+            fetchData()
+        }
+
+      useEffect(() => {
+            fetchData()
+          }, [props.formik.values.docNumber])
+
     return (
         <Fragment>
-            <Modal propToggle={props.propToggle} ModalTitle={props.modalTitle}/>
+            <Modal propToggle={props.propToggle} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
                     <div className= 'd-flex justify-content-between m-4' >
@@ -30,55 +75,73 @@ const AddPropertyDoc = (props) => {
 
                         <div className= 'd-flex gap-2'>
                           <Link to= '/reportpropertydoc'><button className= 'btn btn-secondary'>گزارش</button></Link>
-                          <button className= 'btn btn-primary' id='addDocument' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('add')}>ثبت سند جدید</button>
+                          <button className= 'btn btn-primary' id='addDocument' data-bs-toggle="modal"
+                          data-bs-target="#modalMain" disabled={props.propToggle === null} onClick={() => props.setModalTitle('add')}>ثبت سند جدید</button>
                         </div>
 
                     </div>
 
             <div className='m-4'>
                 <div className="input-group mb-3">
-                    <input type="text" id='searchBox' className="form-control" placeholder="جستجو براساس شماره ثبت"
-                    aria-label="searchBox" aria-describedby="search"/>
+                    <input type="text" id='searchBox' className="form-control" placeholder="جستجو براساس شماره سند"
+                    aria-label="searchBox" aria-describedby="search" value={props.formik.values.docNumber}
+                    onChange={e => props.formik.setFieldValue('docNumber' , e.target.value)}/>
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
-            <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
-                <table className="table table-hover text-center table-striped align-middle">
-                    <thead className= 'bg-light'>
-                    <tr>
-                        <th scope="col">شماره ثبت</th>
-                        <th scope="col">اموال</th>
-                        <th scope="col">نوع</th>
-                        {props.propToggle ?
-                                 <Fragment>
-                                    <th scope="col">نام</th>
-                                    <th scope="col">آدرس</th>
-                                 </Fragment>
-                            :
-                                 <Fragment>
-                                    <th scope="col">سیستم</th>
-                                    <th scope="col">محل استقرار</th>
-                                 </Fragment>
-                        }
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>حسین شاه محمدلو</td>
-                        <td>حسابداری</td>
-                        <td>2000000</td>
-                        <td>1401/12/1</td>
-                        <td>
-                            <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('edit')}>edit</button>
-                            <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' >delete</button>
-                            <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('done')}>done</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            {props.propToggle === null ?  null :
+                <Fragment>
+                    <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
+                        <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
+                            <thead className= 'bg-light'>
+                            <tr>
+                                <th scope="col">شماره ثبت</th>
+                                <th scope="col">نوع</th>
+                                {props.propToggle ?
+                                         <Fragment>
+                                            <th scope="col">نام</th>
+                                            <th scope="col">آدرس</th>
+                                         </Fragment>
+                                    :
+                                         <Fragment>
+                                            <th scope="col">سیستم</th>
+                                            <th scope="col">محل استقرار</th>
+                                         </Fragment>
+                                }
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {(property.length > 0 && property.filter(property => property.type_form === !props.propToggle).map((data) => (
+                            <tr key={data.id}>
+                                <th scope="row">{data.id}</th>
+                                <td>{data.typeProperty}</td>
+                                <td>{data.name}</td>
+                                <td>{!props.propToggle ? data.descriptionLocation : data.addressChassis }</td>
+                                <td>
+                                    <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'
+                                     data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
+                                     props.setModalTitle('edit')
+                                     setIdNumber(data.id)
+                                     }}>edit</button>
+                                    <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                                    deleteAlert(data.id)} >delete</button>
+                                    <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2'
+                                    data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                    setIdNumber(data.id)
+                                    props.setModalTitle('done')
+                                    props.handleEditProperty()
+                                    }}>done</button>
+                                </td>
+                            </tr>
+                                   ))) || <td colSpan="5" className='h3'>داده ای یافت نشد .....</td>
+                                    }
+                            </tbody>
+                        </table>
+                    </div>
+                </Fragment>
+            }
+
         </div>
 
         </Fragment>

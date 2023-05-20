@@ -1,13 +1,221 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {CustomInputDate} from "../../../../App";
 import {Required} from "../../required";
+import {useFormik} from "formik";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Modal = (props) => {
+    const [property, setProperties] = useState([])
 
+    const formik = useFormik({
+    initialValues: {
+      id: property.id,
+      typeProperty: property.typeProperty,
+      name: property.name,
+      docNumber: property.docNumber,
+      plateMotor: property.plateMotor,
+      addressChassis: property.addressChassis,
+      landlord: property.landlord,
+      modelMeter: property.modelMeter,
+      madeOf: property.madeOf,
+      part1plate: property.part1plate,
+      part2plate: property.part2plate,
+      part3plate: property.part3plate,
+      cityPlate: property.cityPlate,
+      descriptionLocation: property.descriptionLocation,
+      paperDoc: property.paperDoc,
+      insurancePaper: property.insurancePaper,
+      gasCard: property.gasCard,
+      carCard: property.carCard,
+      description: property.description,
+      soldDate: property.soldDate,
+      buyer: property.buyer,
+      soldStatus: property.soldStatus,
+    },
+    enableReinitialize: true,
+    onSubmit: (values) => {
+        console.log(values);
+    },
+    });
+
+    const postHandler = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/properties/`,
+              {
+              typeProperty: formik.values.typeProperty,
+              name: formik.values.name,
+              docNumber: formik.values.docNumber,
+              plateMotor: formik.values.plateMotor,
+              addressChassis: formik.values.addressChassis,
+              landlord: formik.values.landlord,
+              modelMeter: formik.values.modelMeter,
+              madeOf: formik.values.madeOf,
+              part1plate: formik.values.part1plate,
+              part2plate: formik.values.part2plate,
+              part3plate: formik.values.part3plate,
+              cityPlate: formik.values.cityPlate,
+              descriptionLocation: formik.values.descriptionLocation,
+              paperDoc: formik.values.paperDoc,
+              insurancePaper: formik.values.insurancePaper,
+              gasCard: formik.values.gasCard,
+              carCard: formik.values.carCard,
+              description: formik.values.description,
+         })
+           setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putHandler = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
+              {
+              typeProperty: formik.values.typeProperty,
+              name: formik.values.name,
+              docNumber: formik.values.docNumber,
+              plateMotor: formik.values.plateMotor,
+              addressChassis: formik.values.addressChassis,
+              landlord: formik.values.landlord,
+              modelMeter: formik.values.modelMeter,
+              madeOf: formik.values.madeOf,
+              part1plate: formik.values.part1plate,
+              part2plate: formik.values.part2plate,
+              part3plate: formik.values.part3plate,
+              cityPlate: formik.values.cityPlate,
+              descriptionLocation: formik.values.descriptionLocation,
+              paperDoc: formik.values.paperDoc,
+              insurancePaper: formik.values.insurancePaper,
+              gasCard: formik.values.gasCard,
+              carCard: formik.values.carCard,
+              description: formik.values.description,
+              soldDate: formik.values.soldDate,
+              buyer: formik.values.buyer,
+              soldStatus: formik.values.soldStatus,
+         })
+        setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putHandlerCleared = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
+              {
+                      typeProperty: formik.values.typeProperty,
+                      name: formik.values.name,
+                      docNumber: formik.values.docNumber,
+                      plateMotor: formik.values.plateMotor,
+                      addressChassis: formik.values.addressChassis,
+                      landlord: formik.values.landlord,
+                      modelMeter: formik.values.modelMeter,
+                      madeOf: formik.values.madeOf,
+                      part1plate: formik.values.part1plate,
+                      part2plate: formik.values.part2plate,
+                      part3plate: formik.values.part3plate,
+                      cityPlate: formik.values.cityPlate,
+                      descriptionLocation: formik.values.descriptionLocation,
+                      paperDoc: formik.values.paperDoc,
+                      insurancePaper: formik.values.insurancePaper,
+                      gasCard: formik.values.gasCard,
+                      carCard: formik.values.carCard,
+                      description: formik.values.description,
+                      soldDate: formik.values.soldDate,
+                      buyer: formik.values.buyer,
+                      soldStatus: true,
+         })
+        setTimeout(
+                    refreshPage, 3000)
+        }
+
+    const putAlertCleared = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از ثبت فروش اموال با شماره سند${formik.values.docNumber} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, تسویه کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'تسویه شد!',
+                  'اموال ثبت فروش شد.',
+                  'success',
+                  putHandlerCleared(),
+
+                )
+              }
+            })
+         }
+
+      const putAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: ` آیا از ویرایش اموال با شماره سند${formik.values.docNumber} مطمئنید ؟ `,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ویرایش کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ویرایش شد!',
+                  'اموال ویرایش شد.',
+                  'success',
+                  'ok',
+                  putHandler(),
+                )
+              }
+            })
+      }
+
+      const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت این اموال مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'اموال ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandler(),
+
+                )
+              }
+            })
+      }
+
+    const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
+
+    function handleChangeSold(value){
+            formik.setFieldValue('soldDate' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+        }
+
+    const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/properties/`+ props.idNumber)
+        const data = await response.json()
+        setProperties(data)
+
+      }
+      useEffect(() => {
+            fetchData()
+
+          }, [props.idNumber])
 
     const Required = () => {
         return(
@@ -18,9 +226,17 @@ const Modal = (props) => {
    function refreshPage() {
         window.location.reload();
       }
+   const handleSubmit = () => {
+        if (props.ModalTitle === 'edit'){
+            return putAlert
+        }else if (props.ModalTitle === 'done'){
+            return putAlertCleared
+        }else {
+            return postAlert
+        }
+    }
   return (
       <Fragment>
-
          <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false"  id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
          aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
@@ -55,15 +271,16 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="Id" className="w-25 form-control" aria-label="ID"
-                                aria-describedby="REGISTER ID" value='' disabled required/>
+                                <input type="text" id="Id" value={formik.values.id} className="w-25 form-control" aria-label="ID"
+                                aria-describedby="REGISTER ID" disabled required/>
                                 <label  id="numberId">شماره ثبت</label>
                             </div>
 
                             <div className='d-flex gap-2'>
                                     <div className="form-floating  col">
                                             <select className="form-select" id="typePropertySelector"
-                                                    aria-label="Type Property Selector" disabled={props.editProperty}>
+                                                    aria-label="Type Property Selector" name='typeProperty' value={formik.values.typeProperty}
+                                                    onChange={formik.handleChange} disabled={props.editProperty}>
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 {props.propToggle ?
                                                     <Fragment>
@@ -81,8 +298,8 @@ const Modal = (props) => {
                                     </div>
 
                                 <div className="col form-floating mb-3 ">
-                                    <input type="text" className="form-control" id="name"
-                                    placeholder="وانت" disabled={props.editProperty} required />
+                                    <input type="text" className="form-control" id="name" name='name' value={formik.values.name}
+                                    onChange={formik.handleChange} placeholder="وانت" disabled={props.editProperty} required />
                                     <div className="invalid-feedback">
                                     لطفا {props.propToggle?'نام':'سیستم'} را وارد کنید.
                                     </div>
@@ -93,7 +310,8 @@ const Modal = (props) => {
 
                             <div className='d-flex gap-2 mb-5'>
                                 <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="docNumber"
+                                    <input type="text" className="form-control" name='docNumber' value={formik.values.docNumber}
+                                    onChange={formik.handleChange} id="docNumber"
                                     placeholder="12/پ-7532" disabled={props.editProperty} required/>
                                     <label htmlFor="docNumber">شماره سند</label>
                                     <div className="invalid-feedback">
@@ -102,14 +320,16 @@ const Modal = (props) => {
                                 </div>
                                 <div className="col  form-floating">
                                     <input type="text" className="form-control" id="plateMotor"
-                                    placeholder="26/د"  disabled={props.editProperty} required/>
+                                    placeholder="26/د" name='plateMotor' value={formik.values.plateMotor}
+                                    onChange={formik.handleChange} disabled={props.editProperty} required/>
                                     <label htmlFor="plateMotor">{props.propToggle ? 'پلاک' :  'شماره موتور'}</label>
                                     <div className="invalid-feedback">
                                     {props.propToggle ? 'پلاک' :  'شماره موتور'} را وارد کنید.
                                     </div>
                                 </div>
                                 <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="addressChassis"
+                                    <input type="text" className="form-control" name='addressChassis' value={formik.values.addressChassis}
+                                    onChange={formik.handleChange} id="addressChassis"
                                     placeholder="افسریه قصرفیروزه 1" disabled={props.editProperty} required/>
                                     <label htmlFor="addressChassis">{props.propToggle ? 'آدرس' :  'شماره شاسی'}</label>
                                     <div className="invalid-feedback">
@@ -117,8 +337,8 @@ const Modal = (props) => {
                                     </div>
                                 </div>
                                 <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="landlord"
-                                    placeholder="علی عبدلی" disabled={props.editProperty} required/>
+                                    <input type="text" className="form-control" id="landlord" name='landlord' value={formik.values.landlord}
+                                    onChange={formik.handleChange} placeholder="علی عبدلی" disabled={props.editProperty} required/>
                                     <label htmlFor="landlord">نام مالک</label>
                                     <div className="invalid-feedback">
                                     نام مالک را وارد کنید.
@@ -128,8 +348,8 @@ const Modal = (props) => {
                             <hr className='bg-primary mb-5'/>
                             <div className='d-flex gap-2 mb-5'>
                                  <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="modelMeter"
-                                    placeholder="1000 هکتار" disabled={props.editProperty} required/>
+                                    <input type="text" className="form-control" id="modelMeter" name='modelMeter' value={formik.values.modelMeter}
+                                    onChange={formik.handleChange} placeholder="1000 هکتار" disabled={props.editProperty} required/>
                                     <label htmlFor="modelMeter">{props.propToggle ? 'متراژ' :  'مدل'}</label>
                                     <div className="invalid-feedback">
                                     {props.propToggle ? 'متراژ' :  'مدل'} را وارد کنید.
@@ -139,8 +359,8 @@ const Modal = (props) => {
                                  <div className="col  form-floating">
                                       {props.propToggle ?
                                           <Fragment>
-                                            <input type="text" className="form-control" id="madeOf"
-                                            placeholder="1399" disabled={props.editProperty} required/>
+                                            <input type="text" className="form-control" id="madeOf" name='madeOf' value={formik.values.madeOf}
+                                            onChange={formik.handleChange} placeholder="1399" disabled={props.editProperty} required/>
                                             <label htmlFor="madeOf">سال ساخت</label>
                                             <div className="invalid-feedback">
                                             سال ساخت را وارد کنید.
@@ -149,12 +369,15 @@ const Modal = (props) => {
                                           :
 
                                           <div className="mt-2 input-group">
-                                            <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
+                                            <input className="form-control c-form__input c-form__car-plate-input__section4" name='cityPlate' value={formik.values.cityPlate}
+                                            onChange={formik.handleChange} type="tel" maxLength='2' placeholder="⚊ ⚊"
                                             id="carPlateSection4"/>
                                             <span className="c-form__car-plate-input__iran">ایران</span>
-                                            <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" aria-label="First name"
+                                            <input type="tel"  id="carPlateSection3" name='part3plate' value={formik.values.part3plate}
+                                            onChange={formik.handleChange} placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                             maxLength='3' className="c-form__input form-control"/>
-                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2">
+                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2"
+                                            name='part2plate' value={formik.values.part2plate} onChange={formik.handleChange}>
                                                 <option value="الف">الف</option>
                                                 <option value="ب">ب</option>
                                                 <option value="پ">پ</option>
@@ -183,7 +406,9 @@ const Modal = (props) => {
                                                 <option value="D">D</option>
                                                 <option value="S">S</option>
                                             </select>
-                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
+                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1"
+                                            name='part1plate' value={formik.values.part1plate} onChange={formik.handleChange}
+                                            maxLength='2' className="c-form__input form-control"/>
                                             <span className="input-group-text c-form__car-plate-input rounded-8"></span>
                                           </div>
                                       }
@@ -191,6 +416,7 @@ const Modal = (props) => {
                             </div>
                             <div className="col form-floating">
                                 <textarea  className="form-control" id="descriptionLocation"
+                                name='descriptionLocation' value={formik.values.descriptionLocation} onChange={formik.handleChange}
                                 placeholder="تهران ....." disabled={props.editProperty} required/>
                                 <label htmlFor="descriptionLocation">{props.propToggle ? 'توضیحات' :  'محل استقرار'}</label>
                                 <div className="invalid-feedback">
@@ -206,6 +432,7 @@ const Modal = (props) => {
                                         <div className='d-flex gap-2 mb-5'>
                                               <div className="col  form-floating">
                                                 <input type="text" className="form-control" id="paperDoc"
+                                                name='paperDoc' value={formik.values.paperDoc} onChange={formik.handleChange}
                                                 placeholder="....." disabled={props.editProperty} required/>
                                                 <label htmlFor="paperDoc">برگه سند</label>
                                                 <div className="invalid-feedback">
@@ -214,6 +441,7 @@ const Modal = (props) => {
                                               </div>
                                         <div className="col  form-floating">
                                                <input type="text" className="form-control" id="insurancePaper"
+                                               name='insurancePaper' value={formik.values.insurancePaper} onChange={formik.handleChange}
                                                placeholder="....." disabled={props.editProperty} required/>
                                                <label htmlFor="insurancePaper">بیمه نامه</label>
                                                <div className="invalid-feedback">
@@ -222,6 +450,7 @@ const Modal = (props) => {
                                         </div>
                                         <div className="col  form-floating">
                                             <input type="text" className="form-control" id="gasCard"
+                                            name='gasCard' value={formik.values.gasCard} onChange={formik.handleChange}
                                             placeholder="....." disabled={props.editProperty} required/>
                                             <label htmlFor="gasCard">کارت سوخت</label>
                                             <div className="invalid-feedback">
@@ -230,6 +459,7 @@ const Modal = (props) => {
                                         </div>
                                         <div className="col  form-floating">
                                             <input type="text" className="form-control" id="carCard"
+                                            name='carCard' value={formik.values.carCard} onChange={formik.handleChange}
                                             placeholder="....." disabled={props.editProperty} required/>
                                             <label htmlFor="carCard">کارت ماشین</label>
                                             <div className="invalid-feedback">
@@ -239,6 +469,7 @@ const Modal = (props) => {
                             </div>
                                         <div className="col  form-floating">
                                             <textarea  className="form-control" id="description"
+                                            name='description' value={formik.values.description} onChange={formik.handleChange}
                                             placeholder="....." disabled={props.editProperty} required/>
                                             <label htmlFor="description">توضیحات</label>
                                             <div className="invalid-feedback">
@@ -254,8 +485,11 @@ const Modal = (props) => {
                                              <div>
                                              <DatePicker
                                                  animations={[transition()]}
-                                                 render={<CustomInputDate disabled={props.editProperty} />}
+                                                 render={<CustomInputDate disabled={props.ModalTitle === 'done' ? false : props.editProperty} ids={"soldDate"} names='soldDatePicker' label='تاریخ'/>}
                                                  id="soldDatePicker"
+                                                 name='soldDate'
+                                                 value={formik.values.soldDate}
+                                                 onChange={handleChangeSold}
                                                  calendar={persian}
                                                  locale={persian_fa}
                                              />
@@ -264,7 +498,8 @@ const Modal = (props) => {
                                         </div>
                                         <div className="col  form-floating">
                                             <input type="text" className="form-control" id="buyer"
-                                            placeholder="محمد حسنی" disabled={props.editProperty} required/>
+                                            name='buyer' value={formik.values.buyer} onChange={formik.handleChange}
+                                            placeholder="محمد حسنی" disabled={props.ModalTitle === 'done' ? false : props.editProperty} required/>
                                             <label htmlFor="buyer">نام خریدار</label>
                                             <div className="invalid-feedback">
                                             نام خریدار را وارد کنید.
@@ -274,7 +509,7 @@ const Modal = (props) => {
                                 </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
-                            <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
                         </div>
                 </form>
             </div>
