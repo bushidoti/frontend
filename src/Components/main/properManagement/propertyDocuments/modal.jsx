@@ -49,6 +49,7 @@ const Modal = (props) => {
               {
               typeProperty: formik.values.typeProperty,
               name: formik.values.name,
+              type_form: !props.propToggle,
               docNumber: formik.values.docNumber,
               plateMotor: formik.values.plateMotor,
               addressChassis: formik.values.addressChassis,

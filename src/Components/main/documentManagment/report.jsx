@@ -66,13 +66,13 @@ const Report = (props) => {
             <Modal editDocument={props.editDocument} docToggle={props.docToggle} idNumber={idNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
-
                  <div className= 'd-flex  justify-content-between m-4' >
                                  <div className= 'd-flex gap-2'>
                                       <Toggler handleForm={props.handleForm}/>
                                       <div className="form-check ms-4">
-                                      <input className="form-check-input" type="checkbox" name='clearedStatus' checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
-                                          props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
+                                      <input className="form-check-input" type="checkbox" name='clearedStatus'
+                                      checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
+                                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
                                       id="clearedCheck"/>
                                       <label className="form-check-label" htmlFor="clearedCheck">
                                       تسویه شده
@@ -82,7 +82,7 @@ const Report = (props) => {
                             <div className= 'd-flex gap-2'>
                                 <button className="btn btn-danger material-symbols-outlined " type="button" id="observeDocs"  data-bs-toggle="modal"
                                 data-bs-target="#observModal">description</button>
-                                <button className="btn btn-outline-secondary material-symbols-outlined " type="button" id="print" onClick={generatePDF}>print</button>
+                                <button className="btn btn-outline-secondary material-symbols-outlined" type="button" id="print" onClick={generatePDF}>print</button>
                             </div>
                         </div>
 

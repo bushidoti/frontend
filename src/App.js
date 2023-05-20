@@ -81,6 +81,7 @@ function App() {
         const [searchProp , setSearchProp] = useState('')
 
          const handleFormPropertyreport = (e) => {
+            formikPropertySearch.resetForm()
             handleFormProperty(e);
             setSearchProp('')
             document.getElementById("searchSelector").selectedIndex = "0";
@@ -162,7 +163,7 @@ function App() {
                           <Route path="addpropertydoc" element={<AddPropertyDoc formik={formikPropertySearch} handleEditProperty={handleEditProperty} editProperty={editProperty} handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                           <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                           <Route path="reportindividualsdoc" element={<ReportIndividualsDoc formik={formikPersonalSearch} handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
-                          <Route path="reportpropertydoc" element={<ReportPropertyDoc  search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
+                          <Route path="reportpropertydoc" element={<ReportPropertyDoc formik={formikPropertySearch} search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                           <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
                           <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                           <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
