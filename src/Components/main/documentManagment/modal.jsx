@@ -217,8 +217,26 @@ const Modal = (props) => {
 
           }, [props.idNumber])
       Required()
-         function refreshPage() {
-                window.location.reload();
+     function refreshPage() {
+        formik.setFieldValue('id' , '')
+        formik.setFieldValue('contractNumber' , '')
+        formik.setFieldValue('employer' , '')
+        formik.setFieldValue('dateContract' , '')
+        formik.setFieldValue('contractPrice' , '')
+        formik.setFieldValue('durationContract' , '')
+        formik.setFieldValue('prePaidPrice' , '')
+        formik.setFieldValue('goodPrice' , '')
+        formik.setFieldValue('typeBail1' , '')
+        formik.setFieldValue('typeBail2' , '')
+        formik.setFieldValue('firstBail' , '')
+        formik.setFieldValue('secondBail' , '')
+        formik.setFieldValue('commitmentPrice' , '')
+        formik.setFieldValue('firstBail2' , '')
+        formik.setFieldValue('secondBail2' , '')
+        formik.setFieldValue('topicContract' , '')
+        formik.setFieldValue('typeContract' , '')
+        formik.setFieldValue('clearedDate' , '')
+        formik.setFieldValue('receivedDocument' , null)
       }
     const [isGoodPriceEmpty , setIsGoodPriceEmpty] = useState('')
     const [isCommitmentPriceEmpty , setIsCommitmentPriceEmpty] = useState('')

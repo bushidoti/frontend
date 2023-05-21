@@ -15,7 +15,7 @@ const NavBar = (props) => {
     return (
         <Fragment>
           <div className='rounded-top  bg-light mt-2 w-25 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2">
+          <nav className="navbar navbar-expand-lg navbar-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2" style={{backgroundColor:'hsl(209, 100%, 95%)'}}>
             <div className="container-fluid">
               <Link className='navbar-brand' to='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Link>
                 <Profile isAuth={props.isAuth} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>
@@ -104,6 +104,13 @@ const NavBar = (props) => {
 
                 </ul>
 
+                  <span className="btn position-relative material-symbols-outlined">
+                      <i className="fas fa-bell fa-2x"></i>
+                    <span className="position-absolute translate-middle badge rounded-pill bg-danger" style={{top:'8px' , right:'10px'}}>
+                                 99+
+                    <span className="visually-hidden">New alerts</span>
+                  </span>
+                  </span>
 
               </div>
 
