@@ -1,5 +1,51 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 const ObserveModal = () => {
+    const [search , setSearch] = useState('')
+    const [allContract, setAllContract] = useState([])
+    const [property, setProperties] = useState([])
+    const [contractId, setContractId] = useState('')
+    const [selectedFile, setSelectedFile] = useState('')
+    const [partitionSelect , setPartitionSelect] = useState('')
+
+    const fetchData = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/properties")
+        const data = await response.json()
+        setAllContract(data)
+      }
+
+     const fetchDataSpecific = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
+        const data = await response.json()
+        setProperties(data)
+      }
+
+     const handleId = (e) => {
+            allContract.filter(contract => contract.docNumber === e.target.value).map((data) => (
+                setContractId(data.id)
+            ))
+      }
+
+     const handleOpenFile = () => {
+        if (selectedFile === 'saleFactorFile'){
+            return property.saleFactorFile
+        }else if (selectedFile === 'insurancePaperFile'){
+            return property.insurancePaperFile
+        }else if (selectedFile === 'carCardFile'){
+            return property.carCardFile
+        }else if (selectedFile === 'greenCardFile'){
+            return property.greenCardFile
+        }else if (selectedFile === 'gasCardFile'){
+            return property.gasCardFile
+        }
+    }
+
+    useEffect(() => {
+            fetchData()
+            fetchDataSpecific()
+
+          }, [contractId])
+
        function refreshPage() {
             window.location.reload();
       }
@@ -17,57 +63,35 @@ const ObserveModal = () => {
 
                         <div className="container modal-body">
                             <div className="input-group mb-3">
-                                <div className="mt-2 input-group">
-                                            <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
-                                            id="carPlateSection4"/>
-                                            <span className="c-form__car-plate-input__iran">ایران</span>
-                                            <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" aria-label="First name"
-                                            maxLength='3' className="c-form__input form-control"/>
-                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2">
-                                                <option value="الف">الف</option>
-                                                <option value="ب">ب</option>
-                                                <option value="پ">پ</option>
-                                                <option value="ت">ت</option>
-                                                <option value="ث">ث</option>
-                                                <option value="ج">ج</option>
-                                                <option value="د">د</option>
-                                                <option value="ز">ز</option>
-                                                <option value="س">س</option>
-                                                <option value="ش">ش</option>
-                                                <option value="ص">ص</option>
-                                                <option value="ط">ط</option>
-                                                <option value="ع">ع</option>
-                                                <option value="ف">ف</option>
-                                                <option value="ق">ق</option>
-                                                <option value="ک">ک</option>
-                                                <option value="گ">گ</option>
-                                                <option value="ل">ل</option>
-                                                <option value="م">م</option>
-                                                <option value="ن">ن</option>
-                                                <option value="و">و</option>
-                                                <option value="ه">ه</option>
-                                                <option value="ی">ی</option>
-                                                <option value="ژ">معلولین</option>
-                                                <option value="تشریفات">تشریفات</option>
-                                                <option value="D">D</option>
-                                                <option value="S">S</option>
-                                            </select>
-                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
-                                            <button className="input-group-text c-form__car-plate-input rounded-8"></button>
-                                          </div>
+                                    <div className="input-group mb-3">
+                                        <input type="text" className="form-control" value={search} onChange={e => {
+                                    setSearch(e.target.value)
+                                     handleId(e)
+                                }} placeholder="شماره سند"
+                                aria-label="searchBox" aria-describedby="searchDocuments"/>
+                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                             </div>
+                            </div>
+                              {allContract.filter(contract => contract.docNumber === search).map((data) => (
+                                    <div className="alert alert-success" role="alert">
+                                        سند با شماره ثبت {data.id} یافت شد.
+                                    </div>
+                             ))}
                             <hr className='bg-primary my-5'/>
                             <div className='row'>
                                 <div className="input-group mb-3">
-                                    <button className="btn btn-outline-success"  id='checkFileBtn' type="button">نمایش</button>
-                                    <select className="form-select" id="checkFileSelector"
+                                    <Link className='text-decoration-none link-dark' download='document.pdf'
+                                                  rel="noreferrer" to={handleOpenFile()} >
+                                            <button className="btn btn-outline-success"  type="button">
+                                            نمایش</button></Link>
+                                    <select className="form-select" id="checkFileSelector" onChange={e => setSelectedFile(e.target.value)}
                                     aria-label="checkFileBtn">
                                         <option selected>فایل مورد نظر را انتخاب کنید</option>
-                                        <option value="کارت سبز">کارت سبز</option>
-                                        <option value="کارت ماشین">کارت ماشین</option>
-                                        <option value="کارت سوخت">کارت سوخت</option>
-                                        <option value="بیمه نامه">بیمه نامه</option>
-                                        <option value="فاکتور فروش">فاکتور فروش</option>
+                                        <option value="greenCardFile">کارت سبز</option>
+                                        <option value="carCardFile">کارت ماشین</option>
+                                        <option value="gasCardFile">کارت سوخت</option>
+                                        <option value="insurancePaperFile">بیمه نامه</option>
+                                        <option value="saleFactorFile">فاکتور فروش</option>
                                     </select>
                                 </div>
                             </div>

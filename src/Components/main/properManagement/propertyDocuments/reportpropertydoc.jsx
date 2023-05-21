@@ -15,7 +15,7 @@ const ReportPropertyDoc = (props) => {
         &plateMotor=${props.formik.values.plateMotor}&id=${props.formik.values.id}&typeProperty=${props.formik.values.typeProperty}
         &part1plate=${props.formik.values.part1plate}&part2plate=${props.formik.values.part2plate}&part3plate=${props.formik.values.part3plate}
         &cityPlate=${props.formik.values.cityPlate}&addressChassis=${props.formik.values.addressChassis}&modelMeter=${props.formik.values.modelMeter}
-        &descriptionLocation=${props.formik.values.descriptionLocation}`)
+        &descriptionLocation=${props.formik.values.descriptionLocation}&soldStatus=${props.formik.values.soldStatus}`)
         const data = await response.json()
         setProperties(data)
       }
@@ -23,7 +23,6 @@ const ReportPropertyDoc = (props) => {
             fetchData()
           }, [props.formik.values])
 
-      const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
      const nameFieldHandler = () => {
          if (props.search === 'شماره ثبت'){
@@ -78,7 +77,9 @@ const ReportPropertyDoc = (props) => {
                                                 </label>
                                         </div>
                                         <div className="form-check ms-4">
-                                            <input className="form-check-input" type="checkbox" value="فروخته شده" id="soldCheck" />
+                                            <input className="form-check-input" type="checkbox" value="فروخته شده" id="soldCheck" name='soldStatus'
+                                            checked={props.formik.values.soldStatus} onChange={e => e.target.checked ?
+                                            props.formik.setFieldValue('soldStatus' , true) : props.formik.setFieldValue('soldStatus' , null)} />
                                             <label className="form-check-label" htmlFor="soldCheck">
                                             فروخته شده
                                             </label>
@@ -159,33 +160,27 @@ const ReportPropertyDoc = (props) => {
                                     if(props.search === 'نوع خودرو'){
                                         return (
                                              <div className="col-3 form-floating">
-                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" name='typeProperty' onChange={(e) => {
+                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" name='typeCar' onChange={(e) => {
                                                     props.formik.setFieldValue('typeProperty' , e.target.value)
-                                            }} placeholder="خودرو سواری" required/>
+                                            }} placeholder="خودرو سواری"/>
                                                 <label htmlFor="typeCar">نوع خودرو</label>
                                                 <datalist id="typeCarList">
                                                     <option value="خودرو سواری"/>
                                                     <option value="خودرو قرودگاهی"/>
                                                 </datalist>
-                                                <div className="invalid-feedback">
-                                                نوع خودرو را انتخاب کنید.
-                                                </div>
                                              </div>
                                         )
                                     }else if (props.search === 'نوع ملک'){
                                         return (
                                               <div className="col-3 form-floating">
-                                                    <input className="form-control" type='search' list="typeEstateList" id="typeEstate" name='typeProperty' onChange={(e) => {
+                                                    <input className="form-control" type='search' list="typeEstateList" id="typeEstate" name='typeEstate' onChange={(e) => {
                                                     props.formik.setFieldValue('typeProperty' , e.target.value)
-                                            }} placeholder="ملک تجاری" required/>
+                                            }} placeholder="ملک تجاری"/>
                                                     <label htmlFor="typeEstate">نوع ملک</label>
                                                     <datalist id="typeEstateList">
                                                         <option value="ملک غیرتجاری"/>
                                                         <option value="ملک تجاری"/>
                                                     </datalist>
-                                                    <div className="invalid-feedback">
-                                                    نوع ملک را انتخاب کنید.
-                                                    </div>
                                                 </div>
                                         )
                                     }else if (props.search === 'پلاک'){

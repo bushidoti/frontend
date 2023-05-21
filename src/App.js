@@ -58,6 +58,7 @@ function App() {
                   addressChassis: '',
                   modelMeter: '',
                   descriptionLocation: '',
+                  soldStatus: '',
             },
             enableReinitialize: true,
         });

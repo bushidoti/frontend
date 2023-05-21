@@ -42,7 +42,8 @@ const ObserveModal = () => {
             return contract.doc_bail_2
         }
     }
-        useEffect(() => {
+
+    useEffect(() => {
             fetchData()
             fetchDataSpecific()
 
