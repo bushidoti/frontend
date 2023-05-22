@@ -43,6 +43,31 @@ const Modal = (props) => {
     },
     });
 
+    function refreshPage() {
+        formik.setFieldValue('id' , '')
+        formik.setFieldValue('typeProperty' , '')
+        formik.setFieldValue('name' , '')
+        formik.setFieldValue('docNumber' , '')
+        formik.setFieldValue('plateMotor' , '')
+        formik.setFieldValue('addressChassis' , '')
+        formik.setFieldValue('landlord' , '')
+        formik.setFieldValue('modelMeter' , '')
+        formik.setFieldValue('madeOf' , '')
+        formik.setFieldValue('part1plate' , '')
+        formik.setFieldValue('part2plate' , '')
+        formik.setFieldValue('part3plate' , '')
+        formik.setFieldValue('cityPlate' , '')
+        formik.setFieldValue('descriptionLocation' , '')
+        formik.setFieldValue('paperDoc' , '')
+        formik.setFieldValue('insurancePaper' , '')
+        formik.setFieldValue('gasCard' , '')
+        formik.setFieldValue('carCard' , '')
+        formik.setFieldValue('description' , '')
+        formik.setFieldValue('soldDate' , '')
+        formik.setFieldValue('buyer' , '')
+        formik.setFieldValue('soldStatus' , '')
+      }
+
     const postHandler = async () => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/properties/`,
@@ -68,7 +93,7 @@ const Modal = (props) => {
               description: formik.values.description,
          })
            setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putHandler = async () => {
@@ -98,7 +123,7 @@ const Modal = (props) => {
               soldStatus: formik.values.soldStatus,
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putHandlerCleared = async () => {
@@ -128,7 +153,7 @@ const Modal = (props) => {
                       soldStatus: true,
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putAlertCleared = () => {
@@ -224,7 +249,7 @@ const Modal = (props) => {
         )
     }
     Required()
-   function refreshPage() {
+   function refreshPages() {
         window.location.reload();
       }
    const handleSubmit = () => {

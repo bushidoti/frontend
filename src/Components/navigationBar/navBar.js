@@ -107,7 +107,7 @@ const NavBar = (props) => {
                   <span className="btn position-relative material-symbols-outlined">
                       <i className="fas fa-bell fa-2x"></i>
                     <span className="position-absolute translate-middle badge rounded-pill bg-danger" style={{top:'8px' , right:'10px'}}>
-                                 99+
+                                 1
                     <span className="visually-hidden">New alerts</span>
                   </span>
                   </span>

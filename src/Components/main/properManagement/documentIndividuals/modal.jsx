@@ -38,6 +38,25 @@ const Modal = (props) => {
     },
     });
 
+     function refreshPage() {
+        formik.setFieldValue('id' , '')
+        formik.setFieldValue('type' , '')
+        formik.setFieldValue('full_name' , '')
+        formik.setFieldValue('date' , '')
+        formik.setFieldValue('national_id' , '')
+        formik.setFieldValue('sex' , '')
+        formik.setFieldValue('office' , '')
+        formik.setFieldValue('job' , '')
+        formik.setFieldValue('approvedPrice' , '')
+        formik.setFieldValue('commitmentPrice' , '')
+        formik.setFieldValue('typeBail' , '')
+        formik.setFieldValue('firstBail' , '')
+        formik.setFieldValue('secondBail' , '')
+        formik.setFieldValue('clearedStatus' , '')
+        formik.setFieldValue('clearedDate' , '')
+        formik.setFieldValue('receivedDocument' , null)
+      }
+
     const postHandler = async () => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/persons/`,
@@ -56,7 +75,7 @@ const Modal = (props) => {
               secondBail: formik.values.secondBail,
          })
            setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putHandler = async () => {
@@ -80,7 +99,7 @@ const Modal = (props) => {
               receivedDocument: formik.values.receivedDocument,
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putHandlerCleared = async () => {
@@ -105,7 +124,7 @@ const Modal = (props) => {
 
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
     const putAlertCleared = () => {
@@ -130,6 +149,8 @@ const Modal = (props) => {
               }
             })
          }
+
+
 
       const putAlert = () => {
           Swal.fire({
@@ -215,7 +236,7 @@ const Modal = (props) => {
         )
     }
     Required()
-   function refreshPage() {
+   function refreshPages() {
         window.location.reload();
       }
     const [isCommitmentPriceEmpty , setIsCommitmentPriceEmpty] = useState('')

@@ -63,10 +63,6 @@ const ObserveModal = () => {
 
           }, [contractId])
 
-       function refreshPage() {
-            window.location.reload();
-      }
-
   return (
       <Fragment>
         <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false"  id="observModal" tabIndex="-1" aria-labelledby="observModalLabel"
@@ -76,7 +72,7 @@ const ObserveModal = () => {
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">نمایش مدارک</h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                    aria-label="Close" onClick={refreshPage}></button>
+                                    aria-label="Close"></button>
                         </div>
                     <div className="container modal-body">
 
@@ -170,7 +166,7 @@ const ObserveModal = () => {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
                         </div>
             </div>
         </div>

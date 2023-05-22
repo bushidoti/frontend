@@ -65,7 +65,7 @@ const Modal = (props) => {
               typeContract: formik.values.typeContract,
          })
            setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
        const putHandler = async () => {
@@ -94,7 +94,7 @@ const Modal = (props) => {
 
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
         const putHandlerCleared = async () => {
@@ -123,7 +123,7 @@ const Modal = (props) => {
 
          })
         setTimeout(
-                    refreshPage, 3000)
+                    refreshPages, 3000)
         }
 
         const putAlertCleared = () => {
@@ -212,11 +212,13 @@ const Modal = (props) => {
         setContracts(data)
 
       }
+
       useEffect(() => {
             fetchData()
 
           }, [props.idNumber])
       Required()
+
      function refreshPage() {
         formik.setFieldValue('id' , '')
         formik.setFieldValue('contractNumber' , '')
@@ -238,6 +240,7 @@ const Modal = (props) => {
         formik.setFieldValue('clearedDate' , '')
         formik.setFieldValue('receivedDocument' , null)
       }
+
     const [isGoodPriceEmpty , setIsGoodPriceEmpty] = useState('')
     const [isCommitmentPriceEmpty , setIsCommitmentPriceEmpty] = useState('')
     const [isTypeBail1Empty , setIsTypeBail1Empty] = useState('')
@@ -292,9 +295,11 @@ const Modal = (props) => {
             return postAlert
         }
     }
+    function refreshPages() {
+        window.location.reload()
+    }
   return (
       <Fragment>
-
      <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
                  aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
