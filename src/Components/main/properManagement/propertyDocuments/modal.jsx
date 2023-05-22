@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 
 const Modal = (props) => {
     const [property, setProperties] = useState([])
+    const [lastID, setLastID] = useState([])
 
     const formik = useFormik({
     initialValues: {
@@ -238,8 +239,16 @@ const Modal = (props) => {
         setProperties(data)
 
       }
+
+    const fetchLastData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/properties`)
+        const data = await response.json()
+        setLastID(data)
+      }
+
       useEffect(() => {
             fetchData()
+            fetchLastData()
 
           }, [props.idNumber])
 
@@ -297,7 +306,7 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="Id" value={formik.values.id} className="w-25 form-control" aria-label="ID"
+                                <input type="text" id="Id" value={props.ModalTitle === 'add' ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="ID"
                                 aria-describedby="REGISTER ID" disabled required/>
                                 <label  id="numberId">شماره ثبت</label>
                             </div>

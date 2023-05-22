@@ -12,6 +12,7 @@ import { NumericFormat } from 'react-number-format';
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
+    const [lastID, setLastID] = useState([])
 
     const formik = useFormik({
     initialValues: {
@@ -213,8 +214,16 @@ const Modal = (props) => {
 
       }
 
+       const fetchLastData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/documents`)
+        const data = await response.json()
+        setLastID(data)
+
+      }
+
       useEffect(() => {
             fetchData()
+          fetchLastData()
 
           }, [props.idNumber])
       Required()
@@ -333,7 +342,7 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="idNumber" value={formik.values.id} className="w-25 form-control" aria-label="idNumber"
+                                <input type="text" id="idNumber" value={props.modalTitle === 'add' ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="idNumber"
                                 aria-describedby="basic-addon1" disabled required/>
                                 <label  id="idNumber">شماره ثبت</label>
                             </div>

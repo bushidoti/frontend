@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
+    const [lastID, setLastID] = useState([])
 
     const formik = useFormik({
     initialValues: {
@@ -215,8 +216,16 @@ const Modal = (props) => {
         setContracts(data)
 
       }
+
+      const fetchLastData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/persons`)
+        const data = await response.json()
+        setLastID(data)
+
+      }
       useEffect(() => {
             fetchData()
+            fetchLastData()
 
           }, [props.idNumber])
 
@@ -303,7 +312,7 @@ const Modal = (props) => {
                         <div className="container modal-body">
 
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="numberId" value={formik.values.id} className="w-25 form-control" aria-label="Username"
+                                <input type="text" id="numberId" value={props.ModalTitle === 'add' ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" disabled required/>
                                 <label  htmlFor="numberId">شماره ثبت</label>
                             </div>
