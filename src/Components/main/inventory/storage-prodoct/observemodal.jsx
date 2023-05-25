@@ -25,7 +25,6 @@ const ObserveModal = (props) => {
                                                 <option selected disabled>یک مورد انتخاب کنید</option>
                                                 <option value="ردیف">ردیف</option>
                                                 <option value="تاریخ ثبت">تاریخ ثبت</option>
-                                                <option value="گروه">گروه</option>
                                                 <option value="مورد مصرف">مورد مصرف</option>
                                             </select>
                                             <label htmlFor="searchSelect">جستجو براساس</label>
