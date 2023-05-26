@@ -7,6 +7,20 @@ import {useFormik} from "formik";
 const Modal = (props) => {
      const [product, setProduct] = useState([])
      const [lastID, setLastID] = useState([])
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+            (async () => {
+                const {data} = await axios.get('http://localhost:8000/home/', {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setMessage(data.message);
+        })()
+    }, []);
+
+    let today = new Date().toLocaleDateString('fa-IR');
 
     const formik = useFormik({
     initialValues: {
@@ -35,7 +49,10 @@ const Modal = (props) => {
               name: formik.values.name,
               category: formik.values.category,
               input: formik.values.input,
+              inventory: message,
+              operator: 'ثبت اولیه',
               output: 0,
+              date: today.replaceAll('/' , '-'),
               left_stock: formik.values.input,
               scale: formik.values.scale,
               document_type: formik.values.document_type,

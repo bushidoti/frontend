@@ -14,7 +14,6 @@ function ToastLogin() {
                 }
               });
               setMessage(data.message);
-
         })()
     }, []);
   const toggleShowA = () => setShowA(!showA);

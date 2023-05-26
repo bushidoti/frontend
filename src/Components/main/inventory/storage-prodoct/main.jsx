@@ -8,6 +8,18 @@ import Swal from "sweetalert2";
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+            (async () => {
+                const {data} = await axios.get('http://localhost:8000/home/', {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setMessage(data.message);
+        })()
+    }, []);
 
     const fetchData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/product/?code=${props.formik.values.code}`)
@@ -69,7 +81,7 @@ const WarHouse = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {(product.length > 0 && product.map((data) => (
+                    {(product.length > 0 && product.filter(product => product.inventory ===  message).map((data) => (
                     <tr key={data.code}>
                         <th scope="row">{data.code}</th>
                         <td>{data.name}</td>
