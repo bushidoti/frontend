@@ -63,6 +63,20 @@ function App() {
             enableReinitialize: true,
         });
 
+      const formikProductSearch = useFormik({
+            initialValues: {
+                  code: '',
+                  name: '',
+                  category: '',
+                  date: '',
+                  consumable: '',
+                  inventory: '',
+                  recycle_status: '',
+                  operator: '',
+            },
+            enableReinitialize: true,
+        });
+
     const formikPersonalSearch = useFormik({
             initialValues: {
                   id: '',
@@ -167,7 +181,7 @@ function App() {
                           <Route path="reportpropertydoc" element={<ReportPropertyDoc formik={formikPropertySearch} search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                           <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
                           <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
-                          <Route path="warehouse" element={<WarHouse modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
+                          <Route path="warehouse" element={<WarHouse formik={formikProductSearch} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                           <Route path="property" element={<Property />} />
                           <Route path="report-properties" element={<ReportProperty />} />
                           <Route path="warehouse-handling" element={<StorageHandling />} />

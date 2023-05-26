@@ -1,7 +1,94 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {Required} from "../../required";
+import axios from "axios";
+import Swal from "sweetalert2";
+import {useFormik} from "formik";
 
 const Modal = (props) => {
+     const [product, setProduct] = useState([])
+     const [lastID, setLastID] = useState([])
+
+    const formik = useFormik({
+    initialValues: {
+      code: product.code,
+      name: product.name,
+      category: product.category,
+      input: product.input,
+      output: product.output,
+      left_stock: product.left_stock,
+      scale: product.scale,
+      document_type: product.document_type,
+      document_code: product.document_code,
+
+    },
+    enableReinitialize: true,
+    onSubmit: (values) => {
+        console.log(values);
+    },
+    });
+
+     const postHandler = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/product/`,
+              {
+              code: lastID.slice(-1)[0].code + 1,
+              name: formik.values.name,
+              category: formik.values.category,
+              input: formik.values.input,
+              output: 0,
+              left_stock: formik.values.input,
+              scale: formik.values.scale,
+              document_type: formik.values.document_type,
+              document_code: formik.values.document_code,
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+    const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت اولیه این کالا مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'کالا ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandler(),
+
+                )
+              }
+            })
+      }
+
+     const fetchLastData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/product`)
+        const data = await response.json()
+        setLastID(data)
+      }
+
+      useEffect(() => {
+          fetchLastData()
+          }, [props.idNumber])
+
+    const handleSubmit = () => {
+        if (props.modalTitle === 'edit'){
+            return null
+        }else if (props.modalTitle === 'done'){
+            return null
+        }else if (props.modalTitle === 'register'){
+            return postAlert
+        }
+    }
+
     const Required = () => {
         return(
             <Required/>
@@ -9,11 +96,11 @@ const Modal = (props) => {
     }
     Required()
     const [document , setDocument] = useState('')
-      function refreshPage() {
-        if (props.modalTitle !== 'edit'){
-            window.location.reload();
-        }
-  }
+
+    function refreshPages() {
+        window.location.reload()
+    }
+
   return (
       <Fragment>
          <div className="modal fade "  id="modalMain" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
@@ -51,8 +138,9 @@ const Modal = (props) => {
                         <form className='needs-validation' noValidate>
                             <div className=" modal-body">
                                 <div className="form-floating justify-content-center mb-5">
-                                    <input type="text" id="idNumber" className="w-25 form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" value='' disabled required/>
+                                    <input type="text" id="idNumber" className="w-25 form-control"
+                                       value={props.modalTitle === 'register' ? lastID.slice(-1)[0].code + 1 : formik.values.code} aria-label="Username"
+                                    aria-describedby="basic-addon1" disabled required/>
                                     <label  id="idNumber">کد کالا</label>
                                 </div>
                             <div className='d-flex gap-2 mb-3'>
@@ -61,7 +149,9 @@ const Modal = (props) => {
                                                         return (
                                                             <Fragment>
                                                                   <div className="col-6 form-floating">
-                                                                        <input type="text" className="form-control" id="contractNumber"
+                                                                        <input type="text" className="form-control" id="name" value={formik.values.name}
+                                                                       onChange={formik.handleChange}
+                                                                        name='name'
                                                                         placeholder="خودکار" required />
                                                                         <div className="invalid-feedback">
                                                                         لطفا نام کالا را وارد کنید.
@@ -69,7 +159,8 @@ const Modal = (props) => {
                                                                         <label htmlFor="contractNumber">نام کالا</label>
                                                                   </div>
                                                                   <div className="form-floating">
-                                                                        <input className="form-control" type='search' list="groupProductList" id="groupProduct"
+                                                                        <input className="form-control" type='search' value={formik.values.category}
+                                                                       onChange={formik.handleChange} name='category' list="groupProductList" id="groupProduct"
                                                                         placeholder="اداری" required/>
                                                                         <label htmlFor="groupProduct">گروه</label>
                                                                         <datalist id="groupProductList">
@@ -189,7 +280,9 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-3'>
 
                                   <div className="col-3 form-floating">
-                                    <input type="number" className="form-control" id="count"
+                                    <input type="number" className="form-control" id="count" value={formik.values.input}
+                                           onChange={formik.handleChange}
+                                          name='input'
                                            placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">
@@ -197,7 +290,9 @@ const Modal = (props) => {
                                      </div>
                                    </div>
                                 <div className="col-3 form-floating">
-                                    <input type="text" className="form-control" id="count"
+                                    <input type="text" className="form-control" id="scale" value={formik.values.scale}
+                                           onChange={formik.handleChange}
+                                          name='scale'
                                            placeholder="560" required/>
                                         <label htmlFor="count">مقیاس</label>
                                      <div className="invalid-feedback">
@@ -271,7 +366,11 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-3'>
                               <div className="form-floating  col-4">
                                 <select className="form-select" id="documentType"
-                                        aria-label="Document Type" onChange={(e) => setDocument(e.target.value)} required>
+                                        aria-label="Document Type" onChange={(e) => {
+                                            setDocument(e.target.value)
+                                    formik.setFieldValue('document_type' , e.target.value)
+                                } } value={formik.values.document_type}
+                                          name='document_type'>
                                             <option selected disabled>انتخاب کنید</option>
                                                      {(() => {
                                                 if (props.modalTitle === 'entry'){
@@ -298,8 +397,10 @@ const Modal = (props) => {
                                         <label htmlFor="documentType">مدرک</label>
                               </div>
                                  <div className="col form-floating">
-                                    <input type="text" className="form-control" id="documentId"
-                                           placeholder="560" required/>
+                                    <input type="text" className="form-control" id="documentId" value={formik.values.document_code}
+                                           onChange={formik.handleChange}
+                                          name='document_code'
+                                           placeholder="560"/>
                                         <label htmlFor="documentId">شناسه {document}</label>
                                      <div className="invalid-feedback">
                                          شناسه {document}  را وارد کنید.
@@ -336,7 +437,7 @@ const Modal = (props) => {
                                         })()}
                              </div>
                                 {(() => {
-                                    if (props.modalTitle === 'entry' && document === 'فاکتور' || props.modalTitle === 'remove' && document === 'حواله' ){
+                                    if ((props.modalTitle === 'entry' && document === 'فاکتور') || (props.modalTitle === 'remove' && document === 'حواله')){
                                         return(
                                             <div className="input-group">
                                                 <label className="input-group-text"
@@ -350,7 +451,7 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
-                            <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
                         </div>
                     </form>
                 </div>

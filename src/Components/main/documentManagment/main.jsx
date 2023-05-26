@@ -96,7 +96,6 @@ const Main = (props) => {
                                                 <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
                                                     props.setModalTitle('edit')
                                                     setIdNumber(data.id)
-
                                                 }}>edit</button>
                                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
                                                   deleteAlert(data.id)
