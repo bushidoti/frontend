@@ -8,14 +8,15 @@ function ToastLogin() {
 
     useEffect(() => {
             (async () => {
-                const {data} = await axios.get('http://localhost:8000/home/', {
+                const {data} = await (await axios.get('http://localhost:8000/home/', {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
-              });
+              }));
               setMessage(data.message);
         })()
     }, []);
+
   const toggleShowA = () => setShowA(!showA);
   return (
         <Toast className='toast end-1 position-fixed m-2  align-items-center text-white bg-success border-0' style={{bottom: '75px'}} show={showA} autohide={true} onClose={toggleShowA}>

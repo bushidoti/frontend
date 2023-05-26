@@ -211,10 +211,9 @@ const Modal = (props) => {
         const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
         const data = await response.json()
         setContracts(data)
-
       }
 
-       const fetchLastData = async () => {
+    const fetchLastData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/documents`)
         const data = await response.json()
         setLastID(data)

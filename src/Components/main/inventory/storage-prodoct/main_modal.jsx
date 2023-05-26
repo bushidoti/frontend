@@ -7,18 +7,6 @@ import {useFormik} from "formik";
 const Modal = (props) => {
      const [product, setProduct] = useState([])
      const [lastID, setLastID] = useState([])
-    const [message, setMessage] = useState('');
-
-    useEffect(() => {
-            (async () => {
-                const {data} = await axios.get('http://localhost:8000/home/', {
-                headers: {
-                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                }
-              });
-              setMessage(data.message);
-        })()
-    }, []);
 
     let today = new Date().toLocaleDateString('fa-IR');
 
@@ -26,6 +14,7 @@ const Modal = (props) => {
     initialValues: {
       code: product.code,
       name: product.name,
+      inventory: product.inventory,
       category: product.category,
       input: product.input,
       output: product.output,
@@ -33,7 +22,6 @@ const Modal = (props) => {
       scale: product.scale,
       document_type: product.document_type,
       document_code: product.document_code,
-
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -49,7 +37,7 @@ const Modal = (props) => {
               name: formik.values.name,
               category: formik.values.category,
               input: formik.values.input,
-              inventory: message,
+              inventory: props.message,
               operator: 'ثبت اولیه',
               output: 0,
               date: today.replaceAll('/' , '-'),
@@ -86,6 +74,12 @@ const Modal = (props) => {
             })
       }
 
+    const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/product/`+ props.idNumber)
+        const data = await response.json()
+        setProduct(data)
+      }
+
      const fetchLastData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/product`)
         const data = await response.json()
@@ -94,6 +88,7 @@ const Modal = (props) => {
 
       useEffect(() => {
           fetchLastData()
+          fetchData()
           }, [props.idNumber])
 
     const handleSubmit = () => {
@@ -156,8 +151,8 @@ const Modal = (props) => {
                             <div className=" modal-body">
                                 <div className="form-floating justify-content-center mb-5">
                                     <input type="text" id="idNumber" className="w-25 form-control"
-                                       value={props.modalTitle === 'register' ? lastID.slice(-1)[0].code + 1 : formik.values.code} aria-label="Username"
-                                    aria-describedby="basic-addon1" disabled required/>
+                                       value={props.modalTitle === 'register' ? lastID.slice(-1)[0].code + 1 : formik.values.code}
+                                       aria-label="Username" aria-describedby="basic-addon1" disabled required/>
                                     <label  id="idNumber">کد کالا</label>
                                 </div>
                             <div className='d-flex gap-2 mb-3'>
@@ -202,7 +197,7 @@ const Modal = (props) => {
                                                             <Fragment>
                                                                      <div className="col form-floating">
                                                                         <input type="text" className="form-control" id="contractNumber"
-                                                                        placeholder="خودکار" value='مداد' required disabled/>
+                                                                        placeholder="خودکار" value={formik.values.name} required disabled/>
                                                                         <div className="invalid-feedback">
                                                                         لطفا نام کالا را وارد کنید.
                                                                         </div>
@@ -210,7 +205,7 @@ const Modal = (props) => {
                                                                   </div>
                                                                   <div className="col-3 form-floating">
                                                                         <input type="text" className="form-control" id="sourceStorage"
-                                                                        placeholder="چابهار" required value='دزفول' disabled />
+                                                                        placeholder="چابهار" required value={formik.values.inventory} disabled />
                                                                         <div className="invalid-feedback">
                                                                             لطفا انبار مبدا را وارد کنید.
                                                                         </div>

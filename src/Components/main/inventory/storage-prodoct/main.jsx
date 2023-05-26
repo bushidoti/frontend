@@ -3,7 +3,6 @@ import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
 import BillCheckmodal from "./bill&checkmodal";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
@@ -33,8 +32,8 @@ const WarHouse = (props) => {
 
     return (
         <Fragment>
-        <ObserveModal setModalTitle={props.setModalTitle} idNumber={idNumber}/>
-        <Modal modalTitle={props.modalTitle} idNumber={idNumber}/>
+        <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber} formik={props.formik}/>
+        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message}/>
         <BillCheckmodal modalTitle={props.modalTitle}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
@@ -89,7 +88,10 @@ const WarHouse = (props) => {
                         <td>{data.output}</td>
                         <td>{data.left_stock}</td>
                         <td>
-                            <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" title="کاردکس">visibility</button>
+                            <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal"
+                            title="کاردکس" onClick={() => {
+                                setIdNumber(data.code)
+                            }}>visibility</button>
                             <button id='moveBtn' className= 'btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain"
                             title="جا به جایی" onClick={() => {
                                 setIdNumber(data.code)

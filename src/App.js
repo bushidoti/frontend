@@ -77,6 +77,11 @@ function App() {
             enableReinitialize: true,
         });
 
+     const handleProduct = (e) => {
+            formikProductSearch.resetForm()
+            document.getElementById("searchSelector").selectedIndex = "0";
+         };
+
     const formikPersonalSearch = useFormik({
             initialValues: {
                   id: '',
@@ -181,7 +186,7 @@ function App() {
                           <Route path="reportpropertydoc" element={<ReportPropertyDoc formik={formikPropertySearch} search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
                           <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
                           <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
-                          <Route path="warehouse" element={<WarHouse formik={formikProductSearch} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
+                          <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                           <Route path="property" element={<Property />} />
                           <Route path="report-properties" element={<ReportProperty />} />
                           <Route path="warehouse-handling" element={<StorageHandling />} />

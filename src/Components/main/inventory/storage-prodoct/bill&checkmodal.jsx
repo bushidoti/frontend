@@ -26,8 +26,8 @@ const BillCheckModal = (props) => {
                                 <button className= 'btn btn-primary material-symbols-outlined'  id='export&print'>print</button>
                                 </div>
                                 <hr className='bg-primary mx-4'/>
-                                  <div className= 'mx-4 table-responsive rounded-3' style={{maxHeight : '50vh'}}>
-                                    <table className="table table-hover text-center table-striped align-middle">
+                                  <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
+                                    <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
                                         <thead className= 'bg-light'>
                                         <tr>
                                             <th scope="col">ردیف</th>
