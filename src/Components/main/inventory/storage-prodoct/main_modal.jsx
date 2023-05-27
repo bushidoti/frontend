@@ -6,7 +6,6 @@ import {useFormik} from "formik";
 
 const Modal = (props) => {
      const [product, setProduct] = useState([])
-     const [lastID, setLastID] = useState([])
      const [autoIncrement, setAutoIncrement] = useState([])
 
     let today = new Date().toLocaleDateString('fa-IR');
@@ -23,6 +22,11 @@ const Modal = (props) => {
       scale: product.scale,
       document_type: product.document_type,
       document_code: product.document_code,
+      consumable: '',
+      date: '',
+      buyer:'',
+      receiver:'',
+      product: null,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -69,8 +73,51 @@ const Modal = (props) => {
                   'success',
                   'ok',
                   postHandler(),
-                  putHandler(),
+                  putHandlerAutoIncrement(),
 
+                )
+              }
+            })
+      }
+
+    const postHandlerProductInput = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/allproducts/`,
+              {
+              consumable: formik.values.consumable,
+              input: formik.values.input,
+              output: formik.values.output,
+              scale: formik.values.scale,
+              date: today.replaceAll('/' , '-'),
+              buyer:formik.values.buyer,
+              receiver:formik.values.receiver,
+              operator:'ورود',
+              document_type: formik.values.document_type,
+              document_code: formik.values.document_code,
+              product: formik.values.code,
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+    const postAlertProductsInput = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت ورودی این کالا مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'کالا ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandlerProductInput(),
                 )
               }
             })
@@ -89,7 +136,7 @@ const Modal = (props) => {
         setAutoIncrement(data)
       }
 
-    const putHandler = async () => {
+    const putHandlerAutoIncrement = async () => {
           const response = await axios.put(
             `http://127.0.0.1:8000/api/autoIncrement/1/`,
               {
@@ -103,33 +150,25 @@ const Modal = (props) => {
          })
         }
 
-     const fetchLastData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/product`)
-        const data = await response.json()
-        setLastID(data)
-      }
+
 
     useEffect(() => {
-          fetchLastData()
           fetchData()
           fetchDataAutoIncrement()
           }, [props.idNumber])
 
     const handleSubmit = () => {
-        if (props.modalTitle === 'edit'){
+        if (props.modalTitle === 'entry'){
+            return postAlertProductsInput
+        }else if (props.modalTitle === 'remove'){
             return null
-        }else if (props.modalTitle === 'done'){
+        }else if (props.modalTitle === 'move'){
             return null
         }else if (props.modalTitle === 'register'){
             return postAlert
         }
     }
 
-    const Required = () => {
-        return(
-            <Required/>
-        )
-    }
     Required()
     const [document , setDocument] = useState('')
 
@@ -153,6 +192,23 @@ const Modal = (props) => {
               return autoIncrement.oghab107
           }
     }
+
+    function refreshPage() {
+        formik.setFieldValue('name' , '')
+        formik.setFieldValue('category' , '')
+        formik.setFieldValue('input' , '')
+        formik.setFieldValue('output' , '')
+        formik.setFieldValue('left_stock' , '')
+        formik.setFieldValue('scale' , '')
+        formik.setFieldValue('document_type' , '')
+        formik.setFieldValue('document_code' , '')
+        formik.setFieldValue('consumable' , '')
+        formik.setFieldValue('date' , '')
+        formik.setFieldValue('buyer' , '')
+        formik.setFieldValue('receiver' , '')
+        formik.setFieldValue('product' , '')
+    }
+
   return (
       <Fragment>
          <div className="modal fade "  id="modalMain" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
@@ -185,7 +241,7 @@ const Modal = (props) => {
                                         })()}
                                 </h1>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                aria-label="Close" onClick={refreshPage}></button>
                             </div>
                         <form className='needs-validation' noValidate>
                             <div className=" modal-body">
@@ -332,8 +388,7 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-3'>
 
                                   <div className="col-3 form-floating">
-                                    <input type="number" className="form-control" id="count" value={formik.values.input}
-                                           onChange={formik.handleChange}
+                                    <input type="number" className="form-control" id="count" onChange={formik.handleChange}
                                           name='input'
                                            placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
@@ -342,7 +397,7 @@ const Modal = (props) => {
                                      </div>
                                    </div>
                                 <div className="col-3 form-floating">
-                                    <input type="text" className="form-control" id="scale" value={formik.values.scale}
+                                    <input type="text" className="form-control" id="scale" value={formik.values.scale} disabled={props.modalTitle !== 'register'}
                                            onChange={formik.handleChange}
                                           name='scale'
                                            placeholder="560" required/>
@@ -417,12 +472,10 @@ const Modal = (props) => {
                             <hr className='bg-primary my-4'/>
                             <div className='d-flex gap-2 mb-3'>
                               <div className="form-floating  col-4">
-                                <select className="form-select" id="documentType"
-                                        aria-label="Document Type" onChange={(e) => {
-                                            setDocument(e.target.value)
-                                    formik.setFieldValue('document_type' , e.target.value)
-                                } } value={formik.values.document_type}
-                                          name='document_type'>
+                                <select className="form-select" id="documentType" aria-label="Document Type" onChange={(e) => {
+                                setDocument(e.target.value)
+                                formik.setFieldValue('document_type' , e.target.value)}} value={formik.values.document_type}
+                                name='document_type'>
                                             <option selected disabled>انتخاب کنید</option>
                                                      {(() => {
                                                 if (props.modalTitle === 'entry'){
@@ -463,8 +516,8 @@ const Modal = (props) => {
                                                         return (
                                                             <Fragment>
                                                                   <div className="col form-floating">
-                                                                    <input type="text" className="form-control" id="receiver"
-                                                                           placeholder="560" required/>
+                                                                    <input type="text" className="form-control" id="receiver" value={formik.values.receiver}
+                                                                   onChange={formik.handleChange} name='receiver' placeholder="560" required/>
                                                                         <label htmlFor="receiver">گیرنده</label>
                                                                      <div className="invalid-feedback">
                                                                          گیرنده  را وارد کنید.
@@ -476,8 +529,8 @@ const Modal = (props) => {
                                                     return (
                                                             <Fragment>
                                                                        <div className="col form-floating">
-                                                                            <input type="text" className="form-control" id="buyer"
-                                                                                   placeholder="560" required/>
+                                                                            <input type="text" className="form-control" id="buyer" value={formik.values.buyer}
+                                                                               onChange={formik.handleChange} name='buyer' placeholder="560" required/>
                                                                                 <label htmlFor="buyer">خریدار</label>
                                                                              <div className="invalid-feedback">
                                                                                  خریدار  را وارد کنید.

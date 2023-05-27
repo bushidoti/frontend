@@ -51,10 +51,9 @@ const WarHouse = (props) => {
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>
                 </div>
-
                 <div className= 'd-flex gap-2'>
                 <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
-                data-bs-target="#modalMain" onClick={() => props.setModalTitle('register')}>ثبت کالا جدید</button>
+                data-bs-target="#modalMain" onClick={() =>  props.setModalTitle('register')}>ثبت کالا جدید</button>
                 </div>
             </div>
 
