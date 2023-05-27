@@ -7,6 +7,7 @@ import {useFormik} from "formik";
 const Modal = (props) => {
      const [product, setProduct] = useState([])
      const [lastID, setLastID] = useState([])
+     const [autoIncrement, setAutoIncrement] = useState([])
 
     let today = new Date().toLocaleDateString('fa-IR');
 
@@ -33,7 +34,7 @@ const Modal = (props) => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/product/`,
               {
-              code: lastID.slice(-1)[0].code + 1,
+              code: handleAutoIncrement(),
               name: formik.values.name,
               category: formik.values.category,
               input: formik.values.input,
@@ -68,6 +69,7 @@ const Modal = (props) => {
                   'success',
                   'ok',
                   postHandler(),
+                  putHandler(),
 
                 )
               }
@@ -80,15 +82,37 @@ const Modal = (props) => {
         setProduct(data)
       }
 
+
+    const fetchDataAutoIncrement = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/autoIncrement/1`)
+        const data = await response.json()
+        setAutoIncrement(data)
+      }
+
+    const putHandler = async () => {
+          const response = await axios.put(
+            `http://127.0.0.1:8000/api/autoIncrement/1/`,
+              {
+              oghab101: props.message === 'دفتر مرکزی' ? autoIncrement.oghab101+1 : autoIncrement.oghab101,
+              oghab102: props.message === 'چابهار' ? autoIncrement.oghab102+1 : autoIncrement.oghab102,
+              oghab103: props.message === 'دزفول' ? autoIncrement.oghab103+1 : autoIncrement.oghab103,
+              oghab104: props.message === 'جاسک' ? autoIncrement.oghab104+1 : autoIncrement.oghab104,
+              oghab105: props.message === 'بیشه کلا' ? autoIncrement.oghab105+1 : autoIncrement.oghab105,
+              oghab106: props.message === 'اورهال تهران' ? autoIncrement.oghab106+1 : autoIncrement.oghab106,
+              oghab107: props.message === 'اورهال اصفهان' ? autoIncrement.oghab107+1 : autoIncrement.oghab107,
+         })
+        }
+
      const fetchLastData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/product`)
         const data = await response.json()
         setLastID(data)
       }
 
-      useEffect(() => {
+    useEffect(() => {
           fetchLastData()
           fetchData()
+          fetchDataAutoIncrement()
           }, [props.idNumber])
 
     const handleSubmit = () => {
@@ -112,7 +136,23 @@ const Modal = (props) => {
     function refreshPages() {
         window.location.reload()
     }
-
+    const handleAutoIncrement = () => {
+          if (props.message === 'دفتر مرکزی'){
+              return autoIncrement.oghab101
+          }else if (props.message === 'چابهار'){
+              return autoIncrement.oghab102
+          }else if (props.message === 'دزفول'){
+              return autoIncrement.oghab103
+          }else if (props.message === 'جاسک'){
+              return autoIncrement.oghab104
+          }else if (props.message === 'بیشه کلا'){
+              return autoIncrement.oghab105
+          }else if (props.message === 'اورهال تهران'){
+              return autoIncrement.oghab106
+          }else if (props.message === 'اورهال اصفهان'){
+              return autoIncrement.oghab107
+          }
+    }
   return (
       <Fragment>
          <div className="modal fade "  id="modalMain" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
@@ -151,7 +191,7 @@ const Modal = (props) => {
                             <div className=" modal-body">
                                 <div className="form-floating justify-content-center mb-5">
                                     <input type="text" id="idNumber" className="w-25 form-control"
-                                       value={props.modalTitle === 'register' ? lastID.slice(-1)[0].code + 1 : formik.values.code}
+                                       value={props.modalTitle === 'register' ? handleAutoIncrement() : formik.values.code}
                                        aria-label="Username" aria-describedby="basic-addon1" disabled required/>
                                     <label  id="idNumber">کد کالا</label>
                                 </div>
