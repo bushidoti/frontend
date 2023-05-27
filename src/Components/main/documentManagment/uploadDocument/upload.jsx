@@ -46,11 +46,13 @@ const UploadDocuments = () => {
         const data = await response.json()
         setContracts(data)
       }
+
       const fetchData = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/documents")
         const data = await response.json()
         setAllContract(data)
       }
+
       const handleId = (e) => {
             allContract.filter(contract => contract.contractNumber === e.target.value).map((data) => (
                 setContractId(data.id)

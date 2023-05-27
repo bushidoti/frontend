@@ -27,6 +27,8 @@ const Modal = (props) => {
       buyer:'',
       receiver:'',
       product: null,
+      factor: '',
+      checkBill: '',
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -34,6 +36,24 @@ const Modal = (props) => {
     },
     });
 
+     function reader(file, callback) {
+              const fr = new FileReader();
+              fr.onload = () => callback(null, fr.result);
+              fr.onerror = (err) => callback(err);
+              fr.readAsDataURL(file);
+            }
+
+    function factor(e) {
+              reader(e.target.files[0], (err, res) => {
+                formik.setFieldValue('factor' , res)
+              });
+            }
+
+    function checkBill(e) {
+          reader(e.target.files[0], (err, res) => {
+                formik.setFieldValue('checkBill' , res)
+              });
+        }
      const postHandler = async () => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/product/`,
@@ -87,6 +107,7 @@ const Modal = (props) => {
               consumable: formik.values.consumable,
               input: formik.values.input,
               output: formik.values.output,
+              name: formik.values.name,
               scale: formik.values.scale,
               date: today.replaceAll('/' , '-'),
               buyer:formik.values.buyer,
@@ -95,6 +116,8 @@ const Modal = (props) => {
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
               product: formik.values.code,
+              factor: formik.values.factor,
+              checkBill: formik.values.checkBill,
          })
            setTimeout(
                     refreshPages, 3000)
@@ -171,7 +194,6 @@ const Modal = (props) => {
 
     Required()
     const [document , setDocument] = useState('')
-
     function refreshPages() {
         window.location.reload()
     }
@@ -466,18 +488,16 @@ const Modal = (props) => {
                                             )
                                         }
                                         })()}
-
-
                                       </div>
                             <hr className='bg-primary my-4'/>
                             <div className='d-flex gap-2 mb-3'>
                               <div className="form-floating  col-4">
                                 <select className="form-select" id="documentType" aria-label="Document Type" onChange={(e) => {
                                 setDocument(e.target.value)
-                                formik.setFieldValue('document_type' , e.target.value)}} value={formik.values.document_type}
+                                formik.setFieldValue('document_type' , e.target.value)}}
                                 name='document_type'>
                                             <option selected disabled>انتخاب کنید</option>
-                                                     {(() => {
+                                             {(() => {
                                                 if (props.modalTitle === 'entry'){
                                                     return(
                                                       <option value="فاکتور">فاکتور</option>
@@ -547,7 +567,7 @@ const Modal = (props) => {
                                             <div className="input-group">
                                                 <label className="input-group-text"
                                                        htmlFor="factor-check">فایل {document}</label>
-                                                <input type="file" className="form-control" id="factor-check"/>
+                                                <input type="file" className="form-control" id="factor-check" onChange={document === 'حواله' ? checkBill : factor}/>
                                             </div>
                                         )
                                     }
