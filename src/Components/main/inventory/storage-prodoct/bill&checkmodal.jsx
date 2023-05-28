@@ -1,8 +1,10 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
+import {Link} from "react-router-dom";
 
 const BillCheckModal = (props) => {
   const [product, setProduct] = useState([])
+  const [file, setFile] = useState([])
 
 
 
@@ -19,9 +21,24 @@ const BillCheckModal = (props) => {
         setProduct(data)
       }
 
+  const fetchDataSpecific = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck }
+        &document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' }`)
+        const data = await response.json()
+        setFile(data)
+      }
    useEffect(() => {
             fetchData()
-          }, [props.factor])
+            fetchDataSpecific()
+          }, [props.modalTitle])
+
+   const handleOpenFile = () => {
+       if (props.modalTitle === 'factor') {
+           return file[0].factor
+       } else if (props.modalTitle === 'check') {
+           return file[0].checkBill
+       }
+   }
 
   return (
       <Fragment>
@@ -33,15 +50,20 @@ const BillCheckModal = (props) => {
                                     if (props.modalTitle === 'factor'){
                                         return  `شماره فاکتور ${props.factor}`
                                     }else if (props.modalTitle === 'check') {
-                                        return `شماره حواله${props.billCheck}`
+                                        return `شماره حواله ${props.billCheck}`
                                     }
                                 })()}</h1>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                aria-label="Close" onClick={() => {
+                                    props.setBillCheck('')
+                                    props.setFactor('')
+                                }}></button>
                             </div>
                             <div className="modal-body">
-                                 <div className= 'd-flex mx-4 my-2'>
+                                 <div className= 'd-flex mx-4 my-2 gap-2'>
                                 <button className= 'btn btn-primary material-symbols-outlined'  id='export&print' onClick={generatePDF}>print</button>
+                                <Link className='text-decoration-none link-dark' download='document.pdf'
+                                rel="noreferrer" to={handleOpenFile()} ><button className= 'btn btn-warning material-symbols-outlined'  id='export&print'>download</button></Link>
                                 </div>
                                 <hr className='bg-primary mx-4'/>
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
@@ -65,13 +87,16 @@ const BillCheckModal = (props) => {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                    {(product.length > 0 && product.filter(product => product.document_code === props.factor).map((data , i) => (
+                                    {(product.length > 0 &&
+                                    product.filter(product =>
+                                    (product.document_code === props.factor && product.document_type === 'فاکتور')
+                                    || (product.document_code === props.billCheck && product.document_type === 'حواله') ).map((data , i) => (
                                         <tr key={data.id}>
                                             <th scope="row">{i}</th>
                                             <td>{data.product}</td>
                                             <td>{data.name}</td>
-                                            <td>{data.input}</td>
-                                            <td>{data.receiver}</td>
+                                            <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
+                                            <td>{data.document_type === 'حواله' ? data.buyer : data.receiver}</td>
                                             <td>{data.date}</td>
                                         </tr>
                                         ))) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
@@ -90,4 +115,5 @@ const BillCheckModal = (props) => {
   </Fragment>
   );
 };
+
 export default BillCheckModal

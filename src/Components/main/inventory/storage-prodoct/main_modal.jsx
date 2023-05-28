@@ -104,19 +104,35 @@ const Modal = (props) => {
           const response = await axios.post(
             `http://127.0.0.1:8000/api/allproducts/`,
               {
-              consumable: formik.values.consumable,
               input: formik.values.input,
-              output: formik.values.output,
               name: formik.values.name,
               scale: formik.values.scale,
               date: today.replaceAll('/' , '-'),
-              buyer:formik.values.buyer,
               receiver:formik.values.receiver,
               operator:'ورود',
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
               product: formik.values.code,
               factor: formik.values.factor,
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+    const postHandlerProductOutput = async () => {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/api/allproducts/`,
+              {
+              consumable: formik.values.consumable,
+              output: formik.values.output,
+              name: formik.values.name,
+              scale: formik.values.scale,
+              date: today.replaceAll('/' , '-'),
+              buyer:formik.values.buyer,
+              operator:'خروج',
+              document_type: formik.values.document_type,
+              document_code: formik.values.document_code,
+              product: formik.values.code,
               checkBill: formik.values.checkBill,
          })
            setTimeout(
@@ -141,6 +157,29 @@ const Modal = (props) => {
                   'success',
                   'ok',
                   postHandlerProductInput(),
+                )
+              }
+            })
+      }
+
+    const postAlertProductsOutput = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت خروجی این کالا مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'کالا ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandlerProductOutput(),
                 )
               }
             })
@@ -184,7 +223,7 @@ const Modal = (props) => {
         if (props.modalTitle === 'entry'){
             return postAlertProductsInput
         }else if (props.modalTitle === 'remove'){
-            return null
+            return postAlertProductsOutput
         }else if (props.modalTitle === 'move'){
             return null
         }else if (props.modalTitle === 'register'){
@@ -405,14 +444,12 @@ const Modal = (props) => {
                                                     )
                                                 }
                                         })()}
-
                             </div>
                             <div className='d-flex gap-2 mb-3'>
 
                                   <div className="col-3 form-floating">
                                     <input type="number" className="form-control" id="count" onChange={formik.handleChange}
-                                          name='input'
-                                           placeholder="560" required/>
+                                          name={props.modalTitle === 'entry' ? "input" : "output"} placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">
                                          تعداد  را وارد کنید.
@@ -434,7 +471,9 @@ const Modal = (props) => {
                                                         return (
                                                             <Fragment>
                                                                    <div className="col form-floating">
-                                                                        <input className="form-control" type='search' list="consumeCauseList" id="consumeCause"
+                                                                        <input className="form-control" type='search' list="consumeCauseList"
+                                                                       id="consumeCause" value={formik.values.consumable}
+                                                                       onChange={formik.handleChange} name='consumable'
                                                                         placeholder="اجاره" required/>
                                                                         <label htmlFor="consumeCause">مورد مصرف</label>
                                                                         <datalist id="consumeCauseList">

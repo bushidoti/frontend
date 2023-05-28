@@ -40,25 +40,24 @@ const WarHouse = (props) => {
             fetchData()
             fetchDataProducts()
           }, [props.formik.values.code])
-
     return (
         <Fragment>
         <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber} formik={props.formik}/>
         <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message}/>
-        <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck}/>
+        <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <div className='d-flex gap-2'>
                     <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal"
-                        data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')} disabled={factor.length === 0}>قبض انبار</button>
-                        <input type="text" className="form-control" onChange={e => setFactor(e.target.value)} placeholder="شماره فاکتور"
+                        data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factor.length === 0}>قبض انبار</button>
+                        <input type="text" className="form-control" onChange={e => setFactor(e.target.value)} placeholder="شماره فاکتور" value={factor}
                         aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
                     </div>
                      <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="checkBtn"
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal" disabled={billCheck.length === 0} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
-                        <input type="text" className="form-control" id="checkInp" onChange={e => setBillCheck(e.target.value)}  placeholder="شماره حواله"
+                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={billCheck.length === 0} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
+                        <input type="text" className="form-control" id="checkInp" onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>
                 </div>
