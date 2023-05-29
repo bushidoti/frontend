@@ -181,7 +181,10 @@ const ObserveModal = (props) => {
                             <td>{data.receiver}</td>
                             <td>...</td>
                             <td>
-                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش" onClick={() => props.setModalTitle('edit')}>edit</button>
+                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش" onClick={() => {
+                                   props.setIdNumberProduct(data.id)
+                                   props.setModalTitle('edit')
+                                }}>edit</button>
                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' title="حذف" hidden={true}>delete</button>
                             </td>
                         </tr>

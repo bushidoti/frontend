@@ -7,6 +7,7 @@ import axios from "axios";
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const [idNumberProduct, setIdNumberProduct] = useState(null)
     const [message, setMessage] = useState('');
     const [factor, setFactor] = useState('');
     const [billCheck, setBillCheck] = useState('');
@@ -42,8 +43,9 @@ const WarHouse = (props) => {
           }, [props.formik.values.code])
     return (
         <Fragment>
-        <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber} formik={props.formik}/>
-        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message}/>
+        <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber}
+                      setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
+        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} idNumberProduct={idNumberProduct}/>
         <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
