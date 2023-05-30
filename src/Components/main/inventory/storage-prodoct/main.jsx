@@ -3,6 +3,7 @@ import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
 import BillCheckmodal from "./bill&checkmodal";
 import axios from "axios";
+import { memo } from "react";
 
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
@@ -38,14 +39,16 @@ const WarHouse = (props) => {
       }
 
     useEffect(() => {
-            fetchData()
-            fetchDataProducts()
-          }, [props.formik.values.code])
+            void fetchData()
+            void fetchDataProducts()
+          },
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+        [props.formik.values.code, idNumberProduct])
     return (
         <Fragment>
         <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber}
                       setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
-        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} idNumberProduct={idNumberProduct}/>
+        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} setIdNumber={setIdNumber} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
         <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
@@ -95,10 +98,10 @@ const WarHouse = (props) => {
                     <tr key={data.code}>
                         <th scope="row">{data.code}</th>
                         <td>{data.name}</td>
-                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>  a = a + v.input , 0 ))}</td>
-                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>  a = a + v.output , 0 ))}</td>
-                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>  a = a + v.input , 0 ))
-                            - (products.filter(products => products.product ===  data.code).reduce((a,v) =>  a = a + v.output , 0 ))}</td>
+                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))}</td>
+                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
+                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
+                            - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
                         <td>
                             <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal"
                             title="کاردکس" onClick={() => {
@@ -130,4 +133,5 @@ const WarHouse = (props) => {
         </Fragment>
     )
 }
-export default WarHouse
+
+export default memo(WarHouse)

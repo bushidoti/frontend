@@ -5,12 +5,12 @@ import {CustomInputDate} from "../../../../App";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {useReactToPrint} from "react-to-print";
-
+import options from '../../date-option'
 const ObserveModal = (props) => {
   const [search , setSearch] = useState('')
   const [product, setProduct] = useState([])
   const [products, setProducts] = useState([])
-  const conponentPDF= useRef();
+  const componentPDF= useRef();
 
 
   const fetchData = async () => {
@@ -25,7 +25,6 @@ const ObserveModal = (props) => {
         setProducts(data)
       }
 
-  const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
   function handleChange(value){
             props.formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
@@ -43,14 +42,17 @@ const ObserveModal = (props) => {
         };
 
   useEffect(() => {
-          fetchData()
-          fetchDataProducts()
-          }, [props.idNumber , props.formik.values])
+          void fetchData()
+          void fetchDataProducts()
+          },
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+      [props.idNumber , props.formik.values])
 
    const generatePDF= useReactToPrint({
-        content: ()=>conponentPDF.current,
+        content: ()=>componentPDF.current,
         documentTitle:"Data",
     });
+
   return (
       <Fragment>
          <div className="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" id="observeModal" tabIndex="-1" aria-labelledby="observeModalLabel" aria-hidden="true">
@@ -62,6 +64,7 @@ const ObserveModal = (props) => {
                                 aria-label="Close" onClick={() => {
                                     props.handleProduct()
                                     setSearch('')
+                                    props.setIdNumber('')
                                 }}></button>
                             </div>
                             <div className="modal-body">
@@ -149,8 +152,8 @@ const ObserveModal = (props) => {
                         })()}
                   </div>
                   <hr className='bg-primary m-4'/>
-                  <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                    <table ref={conponentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
+                  <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '60vh'}}>
+                    <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
                         <thead className= 'bg-light'>
                         <tr>
                             <th scope="col">ردیف</th>

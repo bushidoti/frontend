@@ -16,11 +16,11 @@ const Modal = (props) => {
       name: product.name,
       inventory: product.inventory,
       category: product.category,
-      input: props.modalTitle === 'edit' ? products.input : product.input,
-      output: props.modalTitle === 'edit' ? products.output : product.output,
+      input: props.modalTitle === 'edit' ? products.input : null,
+      output: props.modalTitle === 'edit' ? products.output : null,
       operator: products.operator,
       left_stock: product.left_stock,
-      scale: props.modalTitle === 'edit' ? products.scale : product.scale,
+      scale: props.modalTitle === 'edit' ? products.scale : product.scale || "",
       document_type: props.modalTitle === 'edit' ? products.document_type : product.document_type,
       document_code: props.modalTitle === 'edit' ? products.document_code : product.document_code,
       consumable: props.modalTitle === 'edit' ? products.consumable : '',
@@ -37,7 +37,7 @@ const Modal = (props) => {
     },
     });
 
-
+    console.log(formik.values.scale)
      function reader(file, callback) {
               const fr = new FileReader();
               fr.onload = () => callback(null, fr.result);
@@ -57,7 +57,7 @@ const Modal = (props) => {
               });
         }
      const postHandler = async () => {
-          const response = await axios.post(
+           await axios.post(
             `http://127.0.0.1:8000/api/product/`,
               {
               code: handleAutoIncrement(),
@@ -103,7 +103,7 @@ const Modal = (props) => {
       }
 
     const postHandlerProductInput = async () => {
-          const response = await axios.post(
+           await axios.post(
             `http://127.0.0.1:8000/api/allproducts/`,
               {
               input: formik.values.input,
@@ -122,7 +122,7 @@ const Modal = (props) => {
         }
 
     const postHandlerProductOutput = async () => {
-          const response = await axios.post(
+           await axios.post(
             `http://127.0.0.1:8000/api/allproducts/`,
               {
               consumable: formik.values.consumable,
@@ -208,7 +208,7 @@ const Modal = (props) => {
       }
 
     const putHandlerAutoIncrement = async () => {
-          const response = await axios.put(
+           await axios.put(
             `http://127.0.0.1:8000/api/autoIncrement/1/`,
               {
               oghab101: props.message === 'دفتر مرکزی' ? autoIncrement.oghab101+1 : autoIncrement.oghab101,
@@ -224,10 +224,12 @@ const Modal = (props) => {
 
 
     useEffect(() => {
-          fetchData()
-          fetchDataAutoIncrement()
-          fetchDataAllProducts()
-          }, [props.idNumber , props.idNumberProduct])
+          void fetchData()
+          void fetchDataAutoIncrement()
+          void fetchDataAllProducts()
+          },
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+        [props.idNumber , props.idNumberProduct])
 
     const handleSubmit = () => {
         if (props.modalTitle === 'entry'){
@@ -263,7 +265,6 @@ const Modal = (props) => {
               return autoIncrement.oghab107
           }
     }
-
     function refreshPage() {
         formik.setFieldValue('name' , '')
         formik.setFieldValue('category' , '')
@@ -279,8 +280,11 @@ const Modal = (props) => {
         formik.setFieldValue('receiver' , '')
         formik.setFieldValue('product' , '')
         formik.setFieldValue('operator' , '')
-
         document.getElementById("documentType").selectedIndex = '0' ;
+        props.setIdNumberProduct('')
+        if (props.modalTitle !== 'edit'){
+            props.setIdNumber('')
+        }
     }
 
   return (
@@ -334,7 +338,7 @@ const Modal = (props) => {
                                                                         <input type="text" className="form-control" id="name" value={formik.values.name}
                                                                        onChange={formik.handleChange}
                                                                         name='name'
-                                                                        placeholder="خودکار" required />
+                                                                        placeholder="..." required />
                                                                         <div className="invalid-feedback">
                                                                         لطفا نام کالا را وارد کنید.
                                                                         </div>
@@ -367,7 +371,7 @@ const Modal = (props) => {
                                                             <Fragment>
                                                                      <div className="col form-floating">
                                                                         <input type="text" className="form-control" id="contractNumber"
-                                                                        placeholder="خودکار" value={formik.values.name} required disabled/>
+                                                                        placeholder="..." value={formik.values.name} required disabled/>
                                                                         <div className="invalid-feedback">
                                                                         لطفا نام کالا را وارد کنید.
                                                                         </div>
@@ -546,7 +550,7 @@ const Modal = (props) => {
                                 value={formik.values.document_type} onChange={(e) => {
                                 setDocument(e.target.value)
                                 formik.setFieldValue('document_type' , e.target.value)}}>
-                                            <option selected disabled>انتخاب کنید</option>
+                                            <option selected value='' disabled>انتخاب کنید</option>
                                              {(() => {
                                                 if (props.modalTitle === 'entry'){
                                                     return(
