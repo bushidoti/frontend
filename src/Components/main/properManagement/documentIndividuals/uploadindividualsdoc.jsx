@@ -62,13 +62,15 @@ const UploadIndividualsDoc = () => {
       }
 
     useEffect(() => {
-        fetchData()
-        fetchDataSpecific()
+        void fetchData()
+        void fetchDataSpecific()
 
-      }, [contractId])
+      },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [contractId])
 
     const putHandler = async () => {
-              const response = await axios.put(
+            await axios.put(
                 `http://127.0.0.1:8000/api/persons/${contractId}/`,
                   {
                           id: formik.values.id,

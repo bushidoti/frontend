@@ -8,10 +8,10 @@ const BillCheckModal = (props) => {
 
 
 
-  const conponentPDF= useRef();
+  const componentPDF= useRef();
 
   const generatePDF= useReactToPrint({
-        content: ()=>conponentPDF.current,
+        content: ()=>componentPDF.current,
         documentTitle:"Data",
     });
 
@@ -28,9 +28,11 @@ const BillCheckModal = (props) => {
         setFile(data)
       }
    useEffect(() => {
-            fetchData()
-            fetchDataSpecific()
-          }, [props.modalTitle])
+            void fetchData()
+            void fetchDataSpecific()
+          },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+       [props.modalTitle])
 
    const handleOpenFile = () => {
        if (props.modalTitle === 'factor') {
@@ -67,7 +69,7 @@ const BillCheckModal = (props) => {
                                 </div>
                                 <hr className='bg-primary mx-4'/>
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                                    <table ref={conponentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
+                                    <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
                                         <thead className= 'bg-light'>
                                         <tr>
                                             <th scope="col">ردیف</th>
@@ -99,7 +101,11 @@ const BillCheckModal = (props) => {
                                             <td>{data.document_type === 'حواله' ? data.buyer : data.receiver}</td>
                                             <td>{data.date}</td>
                                         </tr>
-                                        ))) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                        ))) ||
+
+                                      <tr>
+                                          <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                       </tr>
                                     }
                                         </tbody>
                                     </table>

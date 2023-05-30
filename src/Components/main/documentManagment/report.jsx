@@ -226,7 +226,13 @@ const Report = (props) => {
                                         </button>
                                     </td>
                                 </tr>
-                            ))) || <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>}
+                            ))) ||
+
+                          <tr>
+                            <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                          </tr>
+
+                                    }
 
                             </tbody>
                         </table>

@@ -6,7 +6,6 @@ const ObserveModal = () => {
     const [property, setProperties] = useState([])
     const [contractId, setContractId] = useState('')
     const [selectedFile, setSelectedFile] = useState('')
-    const [partitionSelect , setPartitionSelect] = useState('')
 
     const fetchData = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/properties")
@@ -41,10 +40,12 @@ const ObserveModal = () => {
     }
 
     useEffect(() => {
-            fetchData()
-            fetchDataSpecific()
+            void fetchData()
+            void fetchDataSpecific()
 
-          }, [contractId])
+          },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [contractId])
 
 
   return (

@@ -1,5 +1,4 @@
 import React, {Fragment, useState} from "react";
-import ObserveModal from "./storage-prodoct/observemodal";
 import {Product} from "./storage-prodoct/handling/product";
 import Modal from "./storage-prodoct/main_modal";
 
@@ -7,7 +6,6 @@ const StorageHandling = (props) => {
     const [handling , setHandling] = useState('')
     return (
         <Fragment>
-        <ObserveModal setModalTitle={props.setModalTitle}/>
         <Modal modalTitle={props.modalTitle}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4'>

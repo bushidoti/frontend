@@ -33,15 +33,15 @@ const Modal = (props) => {
                     <form className='needs-validation' onSubmit={submit} noValidate>
                         <div className="container modal-body">
                           <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" name='username' value={props.username} onChange={e => props.setUsername(e.target.value)}  id="userName"
-                                    placeholder="نام کاربری" required/>
+                                    <input type="text" className="form-control" id="userName" autoComplete="on" name='username' value={props.username} onChange={e => props.setUsername(e.target.value)}
+                                           placeholder="نام کاربری" required/>
                                     <label htmlFor="userName">نام کاربری</label>
                                     <div className="invalid-feedback">
                                      نام کاربری را وارد کنید
                                     </div>
                           </div>
                            <div className="col form-floating mb-3">
-                                    <input type="password" name='password'  className="form-control" id="password"
+                                    <input type="password" name='password' autoComplete="on" className="form-control" id="password"
                                     placeholder="رمز عبور" value={props.password} onChange={e => props.setPassword(e.target.value)} required/>
                                     <label htmlFor="password">رمز عبور</label>
                                     <div className="invalid-feedback">

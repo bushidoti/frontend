@@ -38,15 +38,17 @@ const AddPropertyDoc = (props) => {
       }
 
       const deleteHandler = async (id) => {
-          const response = await axios.delete(
+        await axios.delete(
             `http://127.0.0.1:8000/api/properties/${id}`
           )
             fetchData()
         }
 
       useEffect(() => {
-            fetchData()
-          }, [props.formik.values.docNumber])
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.formik.values.docNumber])
 
     return (
         <Fragment>
@@ -120,7 +122,7 @@ const AddPropertyDoc = (props) => {
                                 <td>{!props.propToggle ? data.descriptionLocation : data.addressChassis }</td>
                                 <td>
                                     <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'
-                                     data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
+                                     data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                      props.setModalTitle('edit')
                                      setIdNumber(data.id)
                                      }}>edit</button>
@@ -134,7 +136,10 @@ const AddPropertyDoc = (props) => {
                                     }}>done</button>
                                 </td>
                             </tr>
-                                   ))) || <td colSpan="5" className='h3'>داده ای یافت نشد .....</td>
+                                   ))) ||
+                                <tr>
+                                    <td colSpan="5" className='h3'>داده ای یافت نشد .....</td>
+                                </tr>
                                     }
                             </tbody>
                         </table>

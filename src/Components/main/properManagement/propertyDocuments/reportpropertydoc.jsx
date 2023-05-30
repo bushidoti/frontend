@@ -6,7 +6,7 @@ import {useReactToPrint} from "react-to-print";
 const ReportPropertyDoc = (props) => {
     const [property, setProperties] = useState([])
     const [idNumber, setIdNumber] = useState(null)
-    const conponentPDF= useRef();
+    const componentPDF= useRef();
 
     const fetchData = async () => {
         const response = await
@@ -20,8 +20,10 @@ const ReportPropertyDoc = (props) => {
         setProperties(data)
       }
       useEffect(() => {
-            fetchData()
-          }, [props.formik.values])
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.formik.values])
 
 
      const nameFieldHandler = () => {
@@ -49,7 +51,7 @@ const ReportPropertyDoc = (props) => {
      }
 
      const generatePDF= useReactToPrint({
-        content: ()=>conponentPDF.current,
+        content: ()=>componentPDF.current,
         documentTitle:"Data",
     });
 
@@ -246,7 +248,7 @@ const ReportPropertyDoc = (props) => {
             </div>
             {props.propToggle === null ? null :
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={conponentPDF} style={{direction:'rtl'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {props.propToggle ?
@@ -326,7 +328,10 @@ const ReportPropertyDoc = (props) => {
                                 </Fragment>
                             }
                         </tr>
-                        ))) || <td colSpan="11" className='h3'>داده ای یافت نشد .....</td>
+                        ))) ||
+                        <tr>
+                            <td colSpan="11" className='h3'>داده ای یافت نشد .....</td>
+                        </tr>
                         }
                     </tbody>
                 </table>

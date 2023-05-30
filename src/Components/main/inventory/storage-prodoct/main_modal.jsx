@@ -12,32 +12,28 @@ const Modal = (props) => {
 
     const formik = useFormik({
     initialValues: {
-      code: product.code,
-      name: product.name,
-      inventory: product.inventory,
-      category: product.category,
-      input: props.modalTitle === 'edit' ? products.input : null,
-      output: props.modalTitle === 'edit' ? products.output : null,
+      code: product.code || "",
+      name: product.name || "",
+      inventory: product.inventory || "",
+      category: product.category || "",
+      input: props.modalTitle === 'edit' ? products.input || "" : "",
+      output: props.modalTitle === 'edit' ? products.output || "" : "",
       operator: products.operator,
       left_stock: product.left_stock,
-      scale: props.modalTitle === 'edit' ? products.scale : product.scale || "",
-      document_type: props.modalTitle === 'edit' ? products.document_type : product.document_type,
-      document_code: props.modalTitle === 'edit' ? products.document_code : product.document_code,
-      consumable: props.modalTitle === 'edit' ? products.consumable : '',
-      date: props.modalTitle === 'edit' ? products.date : '',
-      buyer: props.modalTitle === 'edit' ? products.buyer : '',
-      receiver: props.modalTitle === 'edit' ? products.receiver : '',
+      scale: props.modalTitle === 'edit' ? products.scale || "" : product.scale || "",
+      document_type: props.modalTitle === 'edit' ? products.document_type || "" : product.document_type || "",
+      document_code: props.modalTitle === 'edit' ? products.document_code  || "" : product.document_code || "",
+      consumable: props.modalTitle === 'edit' ? products.consumable || "" : '',
+      date: props.modalTitle === 'edit' ? products.date || "" : '',
+      buyer: props.modalTitle === 'edit' ? products.buyer || "" : '',
+      receiver: props.modalTitle === 'edit' ? products.receiver || "" : '',
       product: null,
       factor: '',
       checkBill: '',
     },
     enableReinitialize: true,
-    onSubmit: (values) => {
-        console.log(values);
-    },
     });
 
-    console.log(formik.values.scale)
      function reader(file, callback) {
               const fr = new FileReader();
               fr.onload = () => callback(null, fr.result);
@@ -109,6 +105,8 @@ const Modal = (props) => {
               input: formik.values.input,
               name: formik.values.name,
               scale: formik.values.scale,
+              afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                            - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
               date: today.replaceAll('/' , '-'),
               receiver:formik.values.receiver,
               operator:'ورود',
@@ -127,6 +125,8 @@ const Modal = (props) => {
               {
               consumable: formik.values.consumable,
               output: formik.values.output,
+              afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                            - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
               name: formik.values.name,
               scale: formik.values.scale,
               date: today.replaceAll('/' , '-'),
@@ -188,16 +188,20 @@ const Modal = (props) => {
       }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/product/`+ props.idNumber)
-        const data = await response.json()
-        setProduct(data)
+           if (props.idNumber !== null) {
+               const response = await fetch(`http://127.0.0.1:8000/api/product/` + props.idNumber)
+               const data = await response.json()
+               setProduct(data)
+           }
       }
 
 
       const fetchDataAllProducts = async () => {
-             const response = await fetch(`http://127.0.0.1:8000/api/allproducts/`+ props.idNumberProduct)
-             const data = await response.json()
-             setProducts(data)
+        if (props.idNumberProduct !== null) {
+            const response = await fetch(`http://127.0.0.1:8000/api/allproducts/` + props.idNumberProduct)
+            const data = await response.json()
+            setProducts(data)
+        }
       }
 
 
@@ -550,7 +554,7 @@ const Modal = (props) => {
                                 value={formik.values.document_type} onChange={(e) => {
                                 setDocument(e.target.value)
                                 formik.setFieldValue('document_type' , e.target.value)}}>
-                                            <option selected value='' disabled>انتخاب کنید</option>
+                                            <option  value='' disabled>انتخاب کنید</option>
                                              {(() => {
                                                 if (props.modalTitle === 'entry'){
                                                     return(

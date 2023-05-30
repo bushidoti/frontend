@@ -62,13 +62,15 @@ const UploadPropertyDoc = () => {
       }
 
       useEffect(() => {
-        fetchData()
-        fetchDataSpecific()
+        void fetchData()
+        void fetchDataSpecific()
 
-      }, [contractId])
+      },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [contractId])
     console.log(partitionSelect)
     const putHandler = async () => {
-          const response = await axios.put(
+       await axios.put(
             `http://127.0.0.1:8000/api/properties/${contractId}/`,
               {
               typeProperty: formik.values.typeProperty,

@@ -231,7 +231,7 @@ export function CustomInputDate({ openCalendar, ids , value ,disabled , label}) 
                 <div className="invalid-feedback">
 
                 </div>
-                <label htmlFor="datePicker">{label}</label>
+                <label htmlFor={ids}>{label}</label>
         </div>
   )
 }

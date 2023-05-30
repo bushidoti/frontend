@@ -107,7 +107,10 @@ const Main = (props) => {
                                                 }}>done</button>
                                             </td>
                                         </tr>
-                                        ))) || <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                        ))) ||
+                                        <tr>
+                                            <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

@@ -6,6 +6,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {useReactToPrint} from "react-to-print";
 import options from '../../date-option'
+
 const ObserveModal = (props) => {
   const [search , setSearch] = useState('')
   const [product, setProduct] = useState([])
@@ -14,10 +15,12 @@ const ObserveModal = (props) => {
 
 
   const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/product/`+ props.idNumber)
-        const data = await response.json()
-        setProduct(data)
+      if (props.idNumber !== null){
+            const response = await fetch(`http://127.0.0.1:8000/api/product/`+ props.idNumber)
+            const data = await response.json()
+            setProduct(data)
       }
+  }
 
   const fetchDataProducts = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`)
@@ -59,7 +62,7 @@ const ObserveModal = (props) => {
                     <div className="modal-dialog  modal-fullscreen" >
                         <div className="modal-content">
                             <div className="modal-header mx-4">
-                                <div className="modal-title fs-5 h1 d-flex gap-2" id="exampleModalLabel"><span>{product.name}</span><span class="text-danger">{props.idNumber}</span></div>
+                                <div className="modal-title fs-5 h1 d-flex gap-2" id="exampleModalLabel"><span>{product.name}</span><span className="text-danger">{props.idNumber}</span></div>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
                                 aria-label="Close" onClick={() => {
                                     props.handleProduct()
@@ -70,17 +73,17 @@ const ObserveModal = (props) => {
                             <div className="modal-body">
                                 <div className='d-flex justify-content-between'>
                                       <div className="form-floating m-4 col-1">
-                                            <select className="form-select" id="searchSelector"
+                                            <select className="form-select" defaultValue='' id="searchSelector"
                                                 aria-label="Search Select" onChange={(e) => {
                                                     props.formik.setFieldValue('consumable' , '')
                                                     props.formik.setFieldValue('date' , '')
                                                     setSearch(e.target.value)
                                             }}>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تاریخ ثبت">تاریخ ثبت</option>
                                                 <option value="مورد مصرف">مورد مصرف</option>
                                             </select>
-                                            <label htmlFor="searchSelect">جستجو براساس</label>
+                                            <label htmlFor="searchSelector">جستجو براساس</label>
                                       </div>
                                    <div className= 'd-flex gap-2 m-4'>
                                         <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print" onClick={generatePDF}>print</button>
@@ -162,6 +165,7 @@ const ObserveModal = (props) => {
                             <th scope="col">تاریخ</th>
                             <th scope="col">عملیات</th>
                             <th scope="col">تعداد</th>
+                            <th scope="col">موجودی</th>
                             <th scope="col">مورد مصرف</th>
                             <th scope="col">خریدار</th>
                             <th scope="col">گیرنده</th>
@@ -179,6 +183,7 @@ const ObserveModal = (props) => {
                             <td>{data.date}</td>
                             <td>{data.operator}</td>
                             <td>{data.operator === 'خروج' ? data.output : data.input }</td>
+                            <td>{data.afterOperator}</td>
                             <td>{data.consumable}</td>
                             <td>{data.buyer}</td>
                             <td>{data.receiver}</td>
@@ -191,7 +196,10 @@ const ObserveModal = (props) => {
                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' title="حذف" hidden={true}>delete</button>
                             </td>
                         </tr>
-                               ))) || <td colSpan="12" className='h3'>داده ای یافت نشد .....</td>
+                               ))) ||
+                        <tr>
+                            <td colSpan="12" className='h3'>داده ای یافت نشد .....</td>
+                        </tr>
                     }
                         </tbody>
                     </table>

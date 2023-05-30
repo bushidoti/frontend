@@ -70,7 +70,7 @@ const Modal = (props) => {
       }
 
     const postHandler = async () => {
-          const response = await axios.post(
+           await axios.post(
             `http://127.0.0.1:8000/api/properties/`,
               {
               typeProperty: formik.values.typeProperty,
@@ -98,7 +98,7 @@ const Modal = (props) => {
         }
 
     const putHandler = async () => {
-          const response = await axios.put(
+       await axios.put(
             `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
               {
               typeProperty: formik.values.typeProperty,
@@ -128,7 +128,7 @@ const Modal = (props) => {
         }
 
     const putHandlerCleared = async () => {
-          const response = await axios.put(
+        await axios.put(
             `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
               {
                       typeProperty: formik.values.typeProperty,
@@ -247,16 +247,13 @@ const Modal = (props) => {
       }
 
       useEffect(() => {
-            fetchData()
-            fetchLastData()
+            void fetchData()
+            void fetchLastData()
 
-          }, [props.idNumber])
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.idNumber])
 
-    const Required = () => {
-        return(
-            <Required/>
-        )
-    }
     Required()
    function refreshPages() {
         window.location.reload();
