@@ -227,6 +227,7 @@ export function CustomInputDate({ openCalendar, ids , value ,disabled , label}) 
                   onFocus={openCalendar}
                   value={value}
                   disabled={disabled}
+                  readOnly
                 />
                 <div className="invalid-feedback">
 
