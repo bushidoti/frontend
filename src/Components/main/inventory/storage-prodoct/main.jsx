@@ -9,6 +9,8 @@ const WarHouse = (props) => {
     const [product, setProduct] = useState([])
     const [idNumber, setIdNumber] = useState(null)
     const [idNumberProduct, setIdNumberProduct] = useState(null)
+    const [factorBtn, setFactorBtn] = useState(true)
+    const [checkBtn, setCheckBtn] = useState(true)
     const [message, setMessage] = useState('');
     const [factor, setFactor] = useState('');
     const [billCheck, setBillCheck] = useState('');
@@ -38,12 +40,27 @@ const WarHouse = (props) => {
         setProducts(data)
       }
 
+
     useEffect(() => {
             void fetchData()
             void fetchDataProducts()
+                 handleCheckFactor()
+                 handleCheckCheck()
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props.formik.values.code, idNumberProduct])
+        [props.formik.values.code, idNumberProduct , factor , billCheck])
+
+
+    const handleCheckFactor = () => {
+        if (products.filter(product => product.document_code === factor && product.document_code !== '' && product.document_type === 'فاکتور')[0]){
+            return setFactorBtn(false)
+        }else return setFactorBtn(true)
+    }
+      const handleCheckCheck = () => {
+        if (products.filter(product => product.document_code === billCheck && product.document_code !== '' && product.document_type === 'حواله')[0]){
+            return setCheckBtn(false)
+        }else return setCheckBtn(true)
+    }
 
     return (
         <Fragment>
@@ -57,13 +74,16 @@ const WarHouse = (props) => {
                 <div className='d-flex gap-2'>
                     <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal"
-                        data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factor.length === 0}>قبض انبار</button>
-                        <input type="text" className="form-control" onChange={e => setFactor(e.target.value)} placeholder="شماره فاکتور" value={factor}
+                        data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
+                        <input type="text" className="form-control" onChange={e => {
+                                 setFactor(e.target.value)
+
+                        }} placeholder="شماره فاکتور" value={factor}
                         aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
                     </div>
                      <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="checkBtn"
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={billCheck.length === 0} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
+                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
                         <input type="text" className="form-control" id="checkInp" onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>

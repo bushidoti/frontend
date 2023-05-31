@@ -346,7 +346,7 @@ const Modal = (props) => {
                                                                         <div className="invalid-feedback">
                                                                         لطفا نام کالا را وارد کنید.
                                                                         </div>
-                                                                        <label htmlFor="contractNumber">نام کالا</label>
+                                                                        <label htmlFor="name">نام کالا</label>
                                                                   </div>
                                                                   <div className="form-floating">
                                                                         <input className="form-control" type='search' value={formik.values.category}
@@ -456,7 +456,7 @@ const Modal = (props) => {
                             <div className='d-flex gap-2 mb-3'>
 
                                   <div className="col-3 form-floating">
-                                    <input type="number" className="form-control" id="count" value={formik.values.operator === 'ورود' ? formik.values.input : formik.values.output }  onChange={formik.handleChange}
+                                    <input type="number" className="form-control" id="count" value={props.modalTitle === 'entry' ? formik.values.input : formik.values.output }  onChange={formik.handleChange}
                                           name={props.modalTitle === 'entry' ? "input" : "output"} placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">

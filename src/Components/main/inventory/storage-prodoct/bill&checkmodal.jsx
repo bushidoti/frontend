@@ -38,7 +38,7 @@ const BillCheckModal = (props) => {
        if (props.modalTitle === 'factor') {
            return file[0].factor
        } else if (props.modalTitle === 'check') {
-           return file[0].checkBill
+           return file[0].checkBill || ""
        }
    }
 
