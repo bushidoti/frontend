@@ -16,9 +16,12 @@ const ObserveModal = () => {
       }
 
      const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/${contractId}/`)
-        const data = await response.json()
-        setContracts(data)
+        if (contractId !== ''){
+            const response = await fetch(`http://127.0.0.1:8000/api/documents/${contractId}/`)
+            const data = await response.json()
+            setContracts(data)
+        }
+
       }
 
      const handleId = (e) => {
@@ -44,10 +47,12 @@ const ObserveModal = () => {
     }
 
     useEffect(() => {
-            fetchData()
-            fetchDataSpecific()
+            void fetchData()
+            void fetchDataSpecific()
 
-          }, [contractId])
+          },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [contractId])
 
 
   return (
@@ -82,9 +87,9 @@ const ObserveModal = () => {
                             {allContract.filter(contract => contract.contractNumber === search).map(() => (
                                 <Fragment>
                                     <div className="form-floating col-4 mb-5">
-                                            <select className="form-select" id="partitionSelect"
+                                            <select className="form-select" id="partitionSelect" defaultValue=''
                                             aria-label="partitionSelect" onChange={(e) => setPartitionSelect(e.target.value)}>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="قرارداد">قرارداد</option>
                                                 <option value="تضامین">تضامین</option>
                                             </select>
@@ -96,9 +101,9 @@ const ObserveModal = () => {
                                                   rel="noreferrer" to={handleOpenFile()} >
                                             <button className="btn btn-outline-success"  type="button">
                                             نمایش</button></Link>
-                                            <select className="form-select" id="checkFileBtn" onChange={e => setSelectedFile(e.target.value)}
+                                            <select className="form-select" defaultValue='' id="checkFileBtn" onChange={e => setSelectedFile(e.target.value)}
                                             aria-label="checkFileBtn">
-                                                <option selected>فایل مورد نظر را انتخاب کنید</option>
+                                                <option value=''>فایل مورد نظر را انتخاب کنید</option>
                                                 {(() => {
                                                     if (partitionSelect === 'قرارداد'){
                                                         return (

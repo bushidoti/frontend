@@ -16,26 +16,26 @@ const Modal = (props) => {
 
     const formik = useFormik({
     initialValues: {
-      id: contract.id,
-      contractNumber: contract.contractNumber,
-      employer: contract.employer,
-      dateContract: contract.dateContract,
-      contractPrice: contract.contractPrice,
-      durationContract: contract.durationContract,
-      prePaidPrice: contract.prePaidPrice,
-      goodPrice: contract.goodPrice,
-      typeBail1: contract.typeBail1,
-      firstBail: contract.firstBail,
-      secondBail: contract.secondBail,
-      commitmentPrice: contract.commitmentPrice,
-      typeBail2: contract.typeBail2,
-      firstBail2: contract.firstBail2,
-      secondBail2: contract.secondBail2,
-      topicContract: contract.topicContract,
-      typeContract: contract.typeContract,
-      clearedDate: contract.clearedDate,
-      receivedDocument: contract.receivedDocument,
-      clearedStatus: contract.clearedStatus,
+      id: contract.id || '',
+      contractNumber: contract.contractNumber || '',
+      employer: contract.employer || '',
+      dateContract: contract.dateContract || '',
+      contractPrice: contract.contractPrice || '',
+      durationContract: contract.durationContract || '',
+      prePaidPrice: contract.prePaidPrice || '',
+      goodPrice: contract.goodPrice || '',
+      typeBail1: contract.typeBail1 || '',
+      firstBail: contract.firstBail || '',
+      secondBail: contract.secondBail || '',
+      commitmentPrice: contract.commitmentPrice || '',
+      typeBail2: contract.typeBail2 || '',
+      firstBail2: contract.firstBail2 || '',
+      secondBail2: contract.secondBail2 || '',
+      topicContract: contract.topicContract || '',
+      typeContract: contract.typeContract || '',
+      clearedDate: contract.clearedDate || '',
+      receivedDocument: contract.receivedDocument || '',
+      clearedStatus: contract.clearedStatus || '',
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -44,7 +44,7 @@ const Modal = (props) => {
     });
 
      const postHandler = async () => {
-          const response = await axios.post(
+          await axios.post(
             `http://127.0.0.1:8000/api/documents/`,
               {
               contractNumber: formik.values.contractNumber,
@@ -70,7 +70,7 @@ const Modal = (props) => {
         }
 
        const putHandler = async () => {
-          const response = await axios.put(
+         await axios.put(
             `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
               {
               contractNumber: formik.values.contractNumber,
@@ -98,8 +98,8 @@ const Modal = (props) => {
                     refreshPages, 3000)
         }
 
-        const putHandlerCleared = async () => {
-          const response = await axios.put(
+       const putHandlerCleared = async () => {
+           await axios.put(
             `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
               {
               contractNumber: formik.values.contractNumber,
@@ -208,9 +208,11 @@ const Modal = (props) => {
         }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
-        const data = await response.json()
-        setContracts(data)
+        if (props.idNumber !== null){
+            const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
+            const data = await response.json()
+            setContracts(data)
+            }
       }
 
     const fetchLastData = async () => {
@@ -221,10 +223,11 @@ const Modal = (props) => {
       }
 
       useEffect(() => {
-            fetchData()
-          fetchLastData()
-
-          }, [props.idNumber])
+          void fetchData()
+          void fetchLastData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.idNumber])
       Required()
 
      function refreshPage() {
@@ -246,7 +249,9 @@ const Modal = (props) => {
         formik.setFieldValue('topicContract' , '')
         formik.setFieldValue('typeContract' , '')
         formik.setFieldValue('clearedDate' , '')
-        formik.setFieldValue('receivedDocument' , null)
+        formik.setFieldValue('receivedDocument' , '')
+        props.setIdNumber('')
+        props.setEditDocument(false)
       }
 
     const [isGoodPriceEmpty , setIsGoodPriceEmpty] = useState('')
@@ -365,7 +370,7 @@ const Modal = (props) => {
                                            name='employer'
                                              value={formik.values.employer}
                                              onChange={formik.handleChange}
-                                           placeholder="رضا محمدی" required disabled={props.editDocument}/>
+                                           placeholder="...." required disabled={props.editDocument}/>
                                         <label htmlFor="name">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</label>
                                      <div className="invalid-feedback">
                                          نام {props.docToggle ? "پیمانکار" : "کارفرما"} را وارد کنید.

@@ -8,12 +8,12 @@ import DatePicker from "react-multi-date-picker";
 import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
 import { useReactToPrint } from "react-to-print";
-
+import fixNumbers from '.././persianNumbers'
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
       const [idNumber, setIdNumber] = useState(null)
-      const conponentPDF= useRef();
+      const componentPDF= useRef();
 
     const fetchData = async () => {
         const response = await
@@ -24,8 +24,10 @@ const Report = (props) => {
         setContracts(data)
       }
       useEffect(() => {
-            fetchData()
-          }, [props.formik.values])
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.formik.values])
 
 
      const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -33,17 +35,6 @@ const Report = (props) => {
      function handleChange(value){
             props.formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
-
-    const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
-        arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
-        fixNumbers = function (str) {
-            if (typeof str === 'string') {
-                for (let i = 0; i < 10; i++) {
-                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-                }
-            }
-            return str;
-        };
 
      const nameFieldHandler = () => {
          if (props.search === 'شماره ثبت'){
@@ -57,13 +48,13 @@ const Report = (props) => {
          }
      }
      const generatePDF= useReactToPrint({
-        content: ()=>conponentPDF.current,
+        content: ()=>componentPDF.current,
         documentTitle:"Data",
     });
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editDocument={props.editDocument} docToggle={props.docToggle} idNumber={idNumber}/>
+            <Modal editDocument={props.editDocument} docToggle={props.docToggle} setEditDocument={props.setEditDocument} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -72,7 +63,7 @@ const Report = (props) => {
                                       <div className="form-check ms-4">
                                       <input className="form-check-input" type="checkbox" name='clearedStatus'
                                       checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
-                                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
+                                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , '')}
                                       id="clearedCheck"/>
                                       <label className="form-check-label" htmlFor="clearedCheck">
                                       تسویه شده
@@ -87,7 +78,7 @@ const Report = (props) => {
                         </div>
 
                   <div className="form-floating m-4" style={{width:'10%'}}>
-                        <select className="form-select" id="searchSelector"
+                        <select className="form-select" id="searchSelector" defaultValue=''
                             aria-label="Search Select" onChange={(e) =>
                         {
                           props.formik.setFieldValue('employer' , '')
@@ -102,7 +93,7 @@ const Report = (props) => {
                             }
                         }
                             }>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             {(() => {
                                 if(props.docToggle != null){
                                     return(
@@ -172,7 +163,7 @@ const Report = (props) => {
                   </div>
                 {props.docToggle === null ? null :
                     <div className='m-4 table-responsive text-nowrap rounded-3'  style={{maxHeight: '50vh'}}>
-                        <table ref={conponentPDF}
+                        <table ref={componentPDF}
                            className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
                             <thead className='bg-light'>
                             <tr>

@@ -39,19 +39,21 @@ const Main = (props) => {
       }
 
       const deleteHandler = async (id) => {
-          const response = await axios.delete(
+        await axios.delete(
             `http://127.0.0.1:8000/api/documents/${id}`
           )
-            fetchData()
+            await fetchData()
         }
 
       useEffect(() => {
-            fetchData()
-          }, [props.formik.values.employer])
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.formik.values.employer])
 
     return (
         <Fragment>
-                 <Modal docToggle={props.docToggle}  editDocument={props.editDocument} modalTitle={props.modalTitle} idNumber={idNumber}/>
+                 <Modal docToggle={props.docToggle}  editDocument={props.editDocument} setEditDocument={props.setEditDocument}  modalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <Toggler handleForm={props.handleForm}/>
