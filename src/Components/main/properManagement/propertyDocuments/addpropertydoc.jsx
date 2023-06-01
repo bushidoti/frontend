@@ -9,9 +9,12 @@ const AddPropertyDoc = (props) => {
     const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/properties/?docNumber=${props.formik.values.docNumber}`)
-        const data = await response.json()
-        setProperties(data)
+        if (props.formik.values.docNumber !== null){
+            const response = await fetch(`http://127.0.0.1:8000/api/properties/?docNumber=${props.formik.values.docNumber}`)
+            const data = await response.json()
+            setProperties(data)
+        }
+
     }
 
     const deleteAlert = (id) => {
@@ -52,7 +55,7 @@ const AddPropertyDoc = (props) => {
 
     return (
         <Fragment>
-            <Modal propToggle={props.propToggle} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber}/>
+            <Modal propToggle={props.propToggle} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
                     <div className= 'd-flex justify-content-between m-4' >

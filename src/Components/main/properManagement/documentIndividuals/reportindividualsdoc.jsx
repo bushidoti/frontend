@@ -7,12 +7,14 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {CustomInputDate} from "../../../../App";
 import {useReactToPrint} from "react-to-print";
+import options from "../../date-option"
+import fixNumbers from "../../persianNumbers"
 
 const ReportIndividualsDoc = (props) => {
     const [search , setSearch] = useState('')
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
-    const conponentPDF= useRef();
+    const componentPDF= useRef();
 
     const fetchData = async () => {
         const response = await
@@ -24,24 +26,16 @@ const ReportIndividualsDoc = (props) => {
         setContracts(data)
       }
       useEffect(() => {
-            fetchData()
-          }, [props.formik.values])
-      const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.formik.values])
 
       function handleChange(value){
             props.formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
 
-      const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
-      arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
-        fixNumbers = function (str) {
-            if (typeof str === 'string') {
-                for (let i = 0; i < 10; i++) {
-                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-                }
-            }
-            return str;
-        };
+
 
         const nameFieldHandler = () => {
          if (search === 'شماره ثبت'){
@@ -65,14 +59,14 @@ const ReportIndividualsDoc = (props) => {
 
      const generatePDF= useReactToPrint({
 
-        content: ()=>conponentPDF.current,
+        content: ()=>componentPDF.current,
         documentTitle:"Data",
      });
 
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal  editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber}/>
+            <Modal  editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-end m-4' >
@@ -85,7 +79,7 @@ const ReportIndividualsDoc = (props) => {
 
                 <div className='d-flex gap-2 align-items-center'>
                   <div className="form-floating m-4" style={{width:'10%'}}>
-                    <select className="form-select" id="searchSelect"
+                    <select className="form-select" id="searchSelect" defaultValue=''
                         aria-label="Floating label select example"  onChange={(e) =>
                         {
                           props.formik.setFieldValue('full_name' , '')
@@ -103,7 +97,7 @@ const ReportIndividualsDoc = (props) => {
                             }
                         }
                             }>
-                        <option selected disabled>یک مورد انتخاب کنید</option>
+                        <option value='' disabled>یک مورد انتخاب کنید</option>
                         <option value="نام و نشان">نام و نشان</option>
                         <option value="شماره ثبت">شماره ثبت</option>
                         <option value="وضعیت">وضعیت</option>
@@ -117,7 +111,7 @@ const ReportIndividualsDoc = (props) => {
                   </div>
                   <div className="form-check ms-4">
                     <input className="form-check-input" type="checkbox" name='clearedStatus' checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
-                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , null)}
+                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , '')}
                     id="clearedCheck"/>
                     <label className="form-check-label" htmlFor="clearedCheck">
                     تسویه شده
@@ -145,10 +139,10 @@ const ReportIndividualsDoc = (props) => {
                                  }else if (search === 'جنسیت'){
                                      return (
                                             <div className="form-floating  col-2">
-                                                <select className="form-select" id="sexSelector" onChange={(e) => {
+                                                <select className="form-select" id="sexSelector" defaultValue='' onChange={(e) => {
                                                     props.formik.setFieldValue('sex' , e.target.value)
                                             }} name='sex' aria-label="Floating label select example">
-                                                    <option selected disabled>یک مورد انتخاب کنید</option>
+                                                    <option value='' disabled>یک مورد انتخاب کنید</option>
                                                     <option value="مونث">مونث</option>
                                                     <option value="مذکر">مذکر</option>
                                                 </select>
@@ -178,10 +172,10 @@ const ReportIndividualsDoc = (props) => {
                                      )}else if (search === 'وضعیت'){
                                          return (
                                               <div className="form-floating  col-2">
-                                                    <select className="form-select" id="typeSelector" onChange={(e) => {
+                                                    <select className="form-select" defaultValue='' id="typeSelector" onChange={(e) => {
                                                     props.formik.setFieldValue('type' , e.target.value)
                                                     }} name='type' aria-label="Floating label select example">
-                                                        <option selected disabled>یک مورد انتخاب کنید</option>
+                                                        <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         <option value="قراردادی">قراردادی</option>
                                                         <option value="بیمه ای">بیمه ای</option>
                                                     </select>
@@ -201,7 +195,7 @@ const ReportIndividualsDoc = (props) => {
                 </div>
 
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={conponentPDF} style={{direction:'rtl'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>

@@ -58,7 +58,7 @@ const ReportPropertyDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editProperty={props.editProperty} propToggle={props.propToggle} idNumber={idNumber}/>
+            <Modal editProperty={props.editProperty} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -81,7 +81,7 @@ const ReportPropertyDoc = (props) => {
                                         <div className="form-check ms-4">
                                             <input className="form-check-input" type="checkbox" value="فروخته شده" id="soldCheck" name='soldStatus'
                                             checked={props.formik.values.soldStatus} onChange={e => e.target.checked ?
-                                            props.formik.setFieldValue('soldStatus' , true) : props.formik.setFieldValue('soldStatus' , null)} />
+                                            props.formik.setFieldValue('soldStatus' , true) : props.formik.setFieldValue('soldStatus' , '')} />
                                             <label className="form-check-label" htmlFor="soldCheck">
                                             فروخته شده
                                             </label>
@@ -99,7 +99,7 @@ const ReportPropertyDoc = (props) => {
                         </div>
 
                         <div className="form-floating m-4" style={{width:'10%'}}>
-                                <select className="form-select" id="searchSelector"
+                                <select className="form-select" id="searchSelector" defaultValue=''
                                 aria-label="Search Selector" onChange={(e) =>
                                 {
                                   props.formik.setFieldValue('name' , '')
@@ -122,7 +122,7 @@ const ReportPropertyDoc = (props) => {
                             }
                                 }
                                     }>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
 
                                               {(() => {
                                                   if (props.propToggle === true){
@@ -197,9 +197,10 @@ const ReportPropertyDoc = (props) => {
                                                     props.formik.setFieldValue('part3plate' , e.target.value)
                                             }} placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                                 maxLength='3' className="c-form__input form-control"/>
-                                                <select id="carPlateSection2"  className="c-form__combo c-form__car-plate-input__section2" onChange={(e) => {
+                                                <select id="carPlateSection2" defaultValue=''  className="c-form__combo c-form__car-plate-input__section2" onChange={(e) => {
                                                     props.formik.setFieldValue('part2plate' , e.target.value)
                                             }}>
+                                                    <option value="" disabled>انتخاب کنید</option>
                                                     <option value="الف">الف</option>
                                                     <option value="ب">ب</option>
                                                     <option value="پ">پ</option>

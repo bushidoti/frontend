@@ -38,9 +38,6 @@ const Modal = (props) => {
       clearedStatus: contract.clearedStatus || '',
     },
     enableReinitialize: true,
-    onSubmit: (values) => {
-        console.log(values);
-    },
     });
 
      const postHandler = async () => {
@@ -196,7 +193,6 @@ const Modal = (props) => {
               }
             })
       }
-
     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChange(value){
@@ -679,7 +675,9 @@ const Modal = (props) => {
                                             <input className="form-check-input"  name='receivedDocument' type="checkbox" value="مدارک تحویل داده شده"
                                             id="receivedDocument" disabled={props.modalTitle === 'done' ? false : props.editDocument}
                                             checked={formik.values.receivedDocument}
-                                            onChange={formik.handleChange}
+                                            onChange={() => {
+                                                formik.setFieldValue('receivedDocument' , !formik.values.receivedDocument)
+                                            }}
                                         />
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده

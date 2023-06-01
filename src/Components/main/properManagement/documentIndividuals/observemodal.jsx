@@ -17,9 +17,11 @@ const ObserveModal = () => {
       }
 
      const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/persons/${contractId}/`)
-        const data = await response.json()
-        setContracts(data)
+        if (contractId !== ''){
+            const response = await fetch(`http://127.0.0.1:8000/api/persons/${contractId}/`)
+            const data = await response.json()
+            setContracts(data)
+        }
       }
 
      const handleId = (e) => {
@@ -58,10 +60,12 @@ const ObserveModal = () => {
         }
     }
         useEffect(() => {
-            fetchData()
-            fetchDataSpecific()
+            void fetchData()
+            void fetchDataSpecific()
 
-          }, [contractId])
+          },
+             // eslint-disable-next-line react-hooks/exhaustive-deps
+            [contractId])
 
   return (
       <Fragment>
@@ -85,86 +89,88 @@ const ObserveModal = () => {
                             <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtr">search</button>
                         </div>
                         {allContract.filter(contract => contract.national_id === search).map((data) => (
-                                  <div className="alert alert-success" role="alert">
+                                  <div className="alert alert-success" role="alert" key={data.id}>
                                     قرارداد با شماره ثبت {data.id} یافت شد.
-                                        </div>
-                                    ))}
-                {allContract.filter(contract => contract.national_id === search).map(() => (
-                    <Fragment>
-                        <div className="form-floating  col-4">
-                            <select className="form-select" id="typeDocument"
-                                    aria-label="Type Document" onChange={(e) => setTypeDocument(e.target.value)}>
-                                <option selected disabled>یک مورد انتخاب کنید</option>
-                                <option value="شناسنامه">شناسنامه</option>
-                                <option value="کارت ملی">کارت ملی</option>
-                                <option value="تضمین">تضمین</option>
-                                <option value="گواهی">گواهی</option>
-                                <option value="بازنشستگی">بازنشستگی</option>
-                            </select>
-                            <label htmlFor="typeDocument">نوع مدارک</label>
+                                  </div>
+                        ))}
+                        {(() => {
+                            if (allContract.filter(contract => contract.national_id === search).length !== 0){
+                                return (
+                                               <Fragment>
+                                                    <div className="form-floating  col-4">
+                                                        <select className="form-select" id="typeDocument" defaultValue=''
+                                                                aria-label="Type Document" onChange={(e) => setTypeDocument(e.target.value)}>
+                                                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                                                            <option value="شناسنامه">شناسنامه</option>
+                                                            <option value="کارت ملی">کارت ملی</option>
+                                                            <option value="تضمین">تضمین</option>
+                                                            <option value="گواهی">گواهی</option>
+                                                            <option value="بازنشستگی">بازنشستگی</option>
+                                                        </select>
+                                                        <label htmlFor="typeDocument">نوع مدارک</label>
+                                                    </div>
+
+                                                    <hr className='bg-primary my-5'/>
+
+                                                    <div className='row'>
+                                                            <div className="input-group mb-3">
+                                                                <Link className='text-decoration-none link-dark' download='document.pdf'
+                                                                              rel="noreferrer" to={handleOpenFile()} >
+                                                                        <button className="btn btn-outline-success"  type="button">
+                                                                        نمایش</button></Link>
+                                                                <select className="form-select" id="checkFileList" onChange={e => setSelectedFile(e.target.value)} defaultValue=''
+                                                                aria-label="checkFileList">
+                                                                <option value='' disabled>فایل مورد نظر را انتخاب کنید</option>
+                                                                  {(() => {
+
+                                                                      if (typeDocument === 'شناسنامه'){
+                                                                          return(
+                                                                              <Fragment>
+                                                                                    <option value="Birth_certificate1">صفحه 1</option>
+                                                                                    <option value="Birth_certificate2">صفحه 2</option>
+                                                                                    <option value="Birth_certificate3">صفحه 3</option>
+                                                                                    <option value="Birth_certificate4">صفحه 4</option>
+                                                                              </Fragment>
+                                                                          )
+                                                                      }else if (typeDocument === 'کارت ملی'){
+                                                                          return(
+                                                                              <Fragment>
+                                                                                    <option value="back_card">پشت</option>
+                                                                                    <option value="front_card">رو</option>
+                                                                              </Fragment>
+                                                                          )
+                                                                      }else if (typeDocument === 'تضمین'){
+                                                                          return(
+                                                                              <Fragment>
+                                                                                    <option value="bail">تضمین</option>
+                                                                              </Fragment>
+                                                                          )
+                                                                      }else if (typeDocument === 'گواهی'){
+                                                                          return(
+                                                                              <Fragment>
+                                                                                    <option value="certificateMedic">گواهی پزشکی</option>
+                                                                                    <option value="insurance">گواهی بیمه</option>
+                                                                                    <option value="police">گواهی پلیس</option>
+                                                                                    <option value="driveLicense">گواهینامه</option>
+                                                                              </Fragment>
+                                                                          )
+                                                                      }else if (typeDocument === 'بازنشستگی'){
+                                                                          return(
+                                                                              <Fragment>
+                                                                                    <option value="retired">حکم بازنشستگی</option>
+                                                                                    <option value="retired_card">کارت بازنشستگی</option>
+                                                                              </Fragment>
+                                                                          )
+                                                                      }
+                                                                  })()}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                     </Fragment>
+                                )
+                            }
+                        })()}
                         </div>
-
-                        <hr className='bg-primary my-5'/>
-
-                        <div className='row'>
-                                <div className="input-group mb-3">
-                                    <Link className='text-decoration-none link-dark' download='document.pdf'
-                                                  rel="noreferrer" to={handleOpenFile()} >
-                                            <button className="btn btn-outline-success"  type="button">
-                                            نمایش</button></Link>
-                                    <select className="form-select" id="checkFileList" onChange={e => setSelectedFile(e.target.value)}
-                                    aria-label="checkFileList">
-                                    <option selected disabled>فایل مورد نظر را انتخاب کنید</option>
-                                      {(() => {
-
-                                          if (typeDocument === 'شناسنامه'){
-                                              return(
-                                                  <Fragment>
-                                                        <option value="Birth_certificate1">صفحه 1</option>
-                                                        <option value="Birth_certificate1">صفحه 2</option>
-                                                        <option value="Birth_certificate1">صفحه 3</option>
-                                                        <option value="Birth_certificate1">صفحه 4</option>
-                                                  </Fragment>
-                                              )
-                                          }else if (typeDocument === 'کارت ملی'){
-                                              return(
-                                                  <Fragment>
-                                                        <option value="back_card">پشت</option>
-                                                        <option value="front_card">رو</option>
-                                                  </Fragment>
-                                              )
-                                          }else if (typeDocument === 'تضمین'){
-                                              return(
-                                                  <Fragment>
-                                                        <option value="bail">تضمین</option>
-                                                  </Fragment>
-                                              )
-                                          }else if (typeDocument === 'گواهی'){
-                                              return(
-                                                  <Fragment>
-                                                        <option value="certificateMedic">گواهی پزشکی</option>
-                                                        <option value="insurance">گواهی بیمه</option>
-                                                        <option value="police">گواهی پلیس</option>
-                                                        <option value="driveLicense">گواهینامه</option>
-                                                  </Fragment>
-                                              )
-                                          }else if (typeDocument === 'بازنشستگی'){
-                                              return(
-                                                  <Fragment>
-                                                        <option value="retired">حکم بازنشستگی</option>
-                                                        <option value="retired_card">کارت بازنشستگی</option>
-                                                  </Fragment>
-                                              )
-                                          }
-                                      })()}
-                                    </select>
-                                </div>
-                            </div>
-                         </Fragment>
-                            ))}
-
-                        </div>
-
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
                         </div>

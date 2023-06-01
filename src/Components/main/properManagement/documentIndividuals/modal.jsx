@@ -16,27 +16,24 @@ const Modal = (props) => {
 
     const formik = useFormik({
     initialValues: {
-      id: contract.id,
-      type: contract.type,
-      full_name: contract.full_name,
+      id: contract.id || '',
+      type: contract.type || '',
+      full_name: contract.full_name || '',
       date: contract.date,
-      national_id: contract.national_id,
-      sex: contract.sex,
-      office: contract.office,
-      job: contract.job,
-      approvedPrice: contract.approvedPrice,
-      commitmentPrice: contract.commitmentPrice,
-      typeBail: contract.typeBail,
-      firstBail: contract.firstBail,
-      secondBail: contract.secondBail,
-      clearedStatus: contract.clearedStatus,
-      clearedDate: contract.clearedDate,
-      receivedDocument: contract.receivedDocument,
+      national_id: contract.national_id || '',
+      sex: contract.sex || '',
+      office: contract.office || '',
+      job: contract.job || '',
+      approvedPrice: contract.approvedPrice || '',
+      commitmentPrice: contract.commitmentPrice || '',
+      typeBail: contract.typeBail || '',
+      firstBail: contract.firstBail || '',
+      secondBail: contract.secondBail || '',
+      clearedStatus: contract.clearedStatus || '',
+      clearedDate: contract.clearedDate || '',
+      receivedDocument: contract.receivedDocument || '',
     },
     enableReinitialize: true,
-    onSubmit: (values) => {
-        console.log(values);
-    },
     });
 
      function refreshPage() {
@@ -55,11 +52,12 @@ const Modal = (props) => {
         formik.setFieldValue('secondBail' , '')
         formik.setFieldValue('clearedStatus' , '')
         formik.setFieldValue('clearedDate' , '')
-        formik.setFieldValue('receivedDocument' , null)
+        formik.setFieldValue('receivedDocument' , '')
+        props.setIdNumber('')
       }
 
     const postHandler = async () => {
-          const response = await axios.post(
+          await axios.post(
             `http://127.0.0.1:8000/api/persons/`,
               {
               type: formik.values.type,
@@ -80,7 +78,7 @@ const Modal = (props) => {
         }
 
     const putHandler = async () => {
-          const response = await axios.put(
+         await axios.put(
             `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
               {
               type: formik.values.type,
@@ -104,7 +102,7 @@ const Modal = (props) => {
         }
 
     const putHandlerCleared = async () => {
-          const response = await axios.put(
+          await axios.put(
             `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
               {
               type: formik.values.type,
@@ -211,10 +209,11 @@ const Modal = (props) => {
         }
 
       const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/persons/`+ props.idNumber)
-        const data = await response.json()
-        setContracts(data)
-
+        if (props.idNumber !== null){
+            const response = await fetch(`http://127.0.0.1:8000/api/persons/`+ props.idNumber)
+            const data = await response.json()
+            setContracts(data)
+        }
       }
 
       const fetchLastData = async () => {
@@ -224,11 +223,12 @@ const Modal = (props) => {
 
       }
       useEffect(() => {
-            fetchData()
-            fetchLastData()
+            void fetchData()
+            void fetchLastData()
 
-          }, [props.idNumber])
-
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [props.idNumber])
     const handleSubmit = () => {
         if (props.ModalTitle === 'edit'){
             return putAlert
@@ -239,11 +239,6 @@ const Modal = (props) => {
         }
     }
 
-    const Required = () => {
-        return(
-            <Required/>
-        )
-    }
     Required()
    function refreshPages() {
         window.location.reload();
@@ -322,7 +317,7 @@ const Modal = (props) => {
                                             <select className="form-select" id="situationSelector"
                                             aria-label="situationSelector" disabled={props.editDocumentIndividuals} name='type' value={formik.values.type}
                                             onChange={formik.handleChange}>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="قراردادی">قراردادی</option>
                                                 <option value="بیمه ای">بیمه ای</option>
                                             </select>
@@ -346,7 +341,7 @@ const Modal = (props) => {
                                             <select className="form-select" id="sexSelector" name='sex' value={formik.values.sex}
                                              onChange={formik.handleChange}
                                             aria-label="sexSelector" disabled={props.editDocumentIndividuals} required>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="مونث">مونث</option>
                                                 <option value="مذکر">مذکر</option>
                                             </select>
@@ -539,8 +534,10 @@ const Modal = (props) => {
                                     </div>
 
                                     <div className="form-check col ms-4">
-                                            <input className="form-check-input" type="checkbox" name='clearedStatus' value="مدارک تحویل داده شده" checked={formik.values.receivedDocument}
-                                            onChange={formik.handleChange}
+                                            <input className="form-check-input" type="checkbox" name='receivedDocument' value="مدارک تحویل داده شده" checked={formik.values.receivedDocument}
+                                            onChange={() => {
+                                                formik.setFieldValue('receivedDocument' , !formik.values.receivedDocument)
+                                            }}
                                             id="receivedDocument" disabled={props.ModalTitle === 'done' ? false : props.editDocumentIndividuals}/>
                                             <label className="form-check-label" htmlFor="receivedDocument">
                                             مدارک تحویل داده شده

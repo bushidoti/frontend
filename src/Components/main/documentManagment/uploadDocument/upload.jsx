@@ -42,9 +42,12 @@ const UploadDocuments = () => {
     });
 
      const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/${contractId}/`)
-        const data = await response.json()
-        setContracts(data)
+         if (contractId !== ''){
+                const response = await fetch(`http://127.0.0.1:8000/api/documents/${contractId}/`)
+                const data = await response.json()
+                setContracts(data)
+         }
+
       }
 
       const fetchData = async () => {
@@ -60,13 +63,15 @@ const UploadDocuments = () => {
       }
 
           useEffect(() => {
-            fetchData()
-            fetchDataSpecific()
+            void fetchData()
+            void fetchDataSpecific()
 
-          }, [contractId])
+          },
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+          [contractId])
 
         const putHandler = async () => {
-              const response = await axios.put(
+            await axios.put(
                 `http://127.0.0.1:8000/api/documents/${contractId}/`,
                   {
                       contractNumber: formik.values.contractNumber,
@@ -136,14 +141,13 @@ const UploadDocuments = () => {
             formik.setFieldValue('doc_bail_2' , res)
           });
         }
-
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                      <div className="form-floating m-4 col-1">
-                        <select className="form-select" id="partitionSelect"
+                        <select className="form-select" defaultValue='' id="partitionSelect"
                         aria-label="partitionSelect" onChange={(e) => setPartitionSelect(e.target.value)}>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="قرارداد">قرارداد</option>
                             <option value="تضامین">تضامین</option>
                         </select>
@@ -160,12 +164,14 @@ const UploadDocuments = () => {
                                 <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                             </div>
                             {allContract.filter(contract => contract.contractNumber === search).map((data) => (
-                                <div className="alert alert-success" role="alert">
+                                <div className="alert alert-success" role="alert" key={data.id}>
                                     قرارداد با شماره ثبت {data.id} یافت شد.
                                 </div>
                             ))}
-                            {allContract.filter(contract => contract.contractNumber === search).map(() => (
-                            <div className= 'mt-5'>
+                         {(() => {
+                            if (allContract.filter(contract => contract.contractNumber === search).length !== 0){
+                                return (
+                                    <div className= 'mt-5'>
                                     {(() => {
                                         if (partitionSelect === 'قرارداد'){
                                             return (
@@ -219,7 +225,10 @@ const UploadDocuments = () => {
 
                                     })()}
                         </div>
-                    ))}
+                                )
+                            }
+                         })()}
+
 
                     </div>
                  </div>

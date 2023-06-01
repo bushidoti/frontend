@@ -632,7 +632,7 @@ const Modal = (props) => {
                                             <div className="input-group">
                                                 <label className="input-group-text"
                                                        htmlFor="factor-check">فایل {documents}</label>
-                                                <input type="file" className="form-control" id="factor-check" onChange={documents === 'حواله' ? checkBill : factor}/>
+                                                <input type="file" className="form-control" accept="application/pdf" id="factor-check" onChange={documents === 'حواله' ? checkBill : factor}/>
                                             </div>
                                         )
                                     }

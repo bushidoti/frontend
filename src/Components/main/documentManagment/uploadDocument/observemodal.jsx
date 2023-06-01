@@ -78,57 +78,62 @@ const ObserveModal = () => {
                                         <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                 </div>
                                  {allContract.filter(contract => contract.contractNumber === search).map((data) => (
-                                  <div className="alert alert-success" role="alert">
+                                  <div className="alert alert-success" role="alert" key={data.id}>
                                     قرارداد با شماره ثبت {data.id} یافت شد.
                                         </div>
                                     ))}
 
                                 <hr className='bg-primary my-5'/>
-                            {allContract.filter(contract => contract.contractNumber === search).map(() => (
-                                <Fragment>
-                                    <div className="form-floating col-4 mb-5">
-                                            <select className="form-select" id="partitionSelect" defaultValue=''
-                                            aria-label="partitionSelect" onChange={(e) => setPartitionSelect(e.target.value)}>
-                                                <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                <option value="قرارداد">قرارداد</option>
-                                                <option value="تضامین">تضامین</option>
-                                            </select>
-                                            <label htmlFor="partitionSelect">بخش</label>
-                                    </div>
-                                    <div className='row'>
-                                        <div className="input-group mb-3">
-                                            <Link className='text-decoration-none link-dark' download='document.pdf'
-                                                  rel="noreferrer" to={handleOpenFile()} >
-                                            <button className="btn btn-outline-success"  type="button">
-                                            نمایش</button></Link>
-                                            <select className="form-select" defaultValue='' id="checkFileBtn" onChange={e => setSelectedFile(e.target.value)}
-                                            aria-label="checkFileBtn">
-                                                <option value=''>فایل مورد نظر را انتخاب کنید</option>
-                                                {(() => {
-                                                    if (partitionSelect === 'قرارداد'){
-                                                        return (
-                                                            <Fragment>
-                                                                <option value="doc_1">صفحه اول</option>
-                                                                <option value="doc_2">صفحه دوم</option>
-                                                                <option value="doc_3">صفحه سوم</option>
-                                                                <option value="doc_4">صفحه چهارم</option>
-                                                            </Fragment>
-                                                        )
-                                                    }else if (partitionSelect === 'تضامین') {
-                                                        return (
-                                                            <Fragment>
-                                                                <option value="doc_bail_1">ضمانت اول</option>
-                                                                <option value="doc_bail_2">ضمانت دوم</option>
-                                                            </Fragment>
-                                                        )
-                                                    }
-                                                })()}
-                                            </select>
-                                        </div>
-                                     </div>
-                                    </Fragment>
-                                                    ))}
 
+
+                                {(() => {
+                                    if (allContract.filter(contract => contract.contractNumber === search).length !== 0){
+                                        return (
+                                           <Fragment>
+                                                <div className="form-floating col-4 mb-5">
+                                                        <select className="form-select" id="partitionSelect" defaultValue=''
+                                                        aria-label="partitionSelect" onChange={(e) => setPartitionSelect(e.target.value)}>
+                                                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                                                            <option value="قرارداد">قرارداد</option>
+                                                            <option value="تضامین">تضامین</option>
+                                                        </select>
+                                                        <label htmlFor="partitionSelect">بخش</label>
+                                                </div>
+                                                <div className='row'>
+                                                    <div className="input-group mb-3">
+                                                        <Link className='text-decoration-none link-dark' download='document.pdf'
+                                                              rel="noreferrer" to={handleOpenFile()} >
+                                                        <button className="btn btn-outline-success"  type="button">
+                                                        نمایش</button></Link>
+                                                        <select className="form-select" defaultValue='' id="checkFileBtn" onChange={e => setSelectedFile(e.target.value)}
+                                                        aria-label="checkFileBtn">
+                                                            <option value=''>فایل مورد نظر را انتخاب کنید</option>
+                                                            {(() => {
+                                                                if (partitionSelect === 'قرارداد'){
+                                                                    return (
+                                                                        <Fragment>
+                                                                            <option value="doc_1">صفحه اول</option>
+                                                                            <option value="doc_2">صفحه دوم</option>
+                                                                            <option value="doc_3">صفحه سوم</option>
+                                                                            <option value="doc_4">صفحه چهارم</option>
+                                                                        </Fragment>
+                                                                    )
+                                                                }else if (partitionSelect === 'تضامین') {
+                                                                    return (
+                                                                        <Fragment>
+                                                                            <option value="doc_bail_1">ضمانت اول</option>
+                                                                            <option value="doc_bail_2">ضمانت دوم</option>
+                                                                        </Fragment>
+                                                                    )
+                                                                }
+                                                            })()}
+                                                        </select>
+                                                    </div>
+                                                 </div>
+                                                </Fragment>
+                                        )
+                                    }
+                                })()}
                               </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>

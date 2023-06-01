@@ -15,28 +15,28 @@ const Modal = (props) => {
 
     const formik = useFormik({
     initialValues: {
-      id: property.id,
-      typeProperty: property.typeProperty,
-      name: property.name,
-      docNumber: property.docNumber,
-      plateMotor: property.plateMotor,
-      addressChassis: property.addressChassis,
-      landlord: property.landlord,
-      modelMeter: property.modelMeter,
-      madeOf: property.madeOf,
-      part1plate: property.part1plate,
-      part2plate: property.part2plate,
-      part3plate: property.part3plate,
-      cityPlate: property.cityPlate,
-      descriptionLocation: property.descriptionLocation,
-      paperDoc: property.paperDoc,
-      insurancePaper: property.insurancePaper,
-      gasCard: property.gasCard,
-      carCard: property.carCard,
-      description: property.description,
-      soldDate: property.soldDate,
-      buyer: property.buyer,
-      soldStatus: property.soldStatus,
+      id: property.id || '',
+      typeProperty: property.typeProperty || '',
+      name: property.name || '',
+      docNumber: property.docNumber || '',
+      plateMotor: property.plateMotor || '',
+      addressChassis: property.addressChassis || '',
+      landlord: property.landlord || '',
+      modelMeter: property.modelMeter || '',
+      madeOf: property.madeOf || '',
+      part1plate: property.part1plate || '',
+      part2plate: property.part2plate || '',
+      part3plate: property.part3plate || '',
+      cityPlate: property.cityPlate || '',
+      descriptionLocation: property.descriptionLocation || '',
+      paperDoc: property.paperDoc || '',
+      insurancePaper: property.insurancePaper || '',
+      gasCard: property.gasCard || '',
+      carCard: property.carCard || '',
+      description: property.description || '',
+      soldDate: property.soldDate || '',
+      buyer: property.buyer || '',
+      soldStatus: property.soldStatus || '',
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -67,6 +67,7 @@ const Modal = (props) => {
         formik.setFieldValue('soldDate' , '')
         formik.setFieldValue('buyer' , '')
         formik.setFieldValue('soldStatus' , '')
+        props.setIdNumber('')
       }
 
     const postHandler = async () => {
@@ -234,9 +235,12 @@ const Modal = (props) => {
         }
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/properties/`+ props.idNumber)
-        const data = await response.json()
-        setProperties(data)
+        if (props.idNumber !== null){
+            const response = await fetch(`http://127.0.0.1:8000/api/properties/`+ props.idNumber)
+            const data = await response.json()
+            setProperties(data)
+        }
+
 
       }
 
@@ -313,7 +317,7 @@ const Modal = (props) => {
                                             <select className="form-select" id="typePropertySelector"
                                                     aria-label="Type Property Selector" name='typeProperty' value={formik.values.typeProperty}
                                                     onChange={formik.handleChange} disabled={props.editProperty}>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 {props.propToggle ?
                                                     <Fragment>
                                                               <option value="ملک تجاری">ملک تجاری</option>

@@ -14,9 +14,11 @@ const ObserveModal = () => {
       }
 
      const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
-        const data = await response.json()
-        setProperties(data)
+        if (contractId !== ''){
+            const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
+            const data = await response.json()
+            setProperties(data)
+        }
       }
 
      const handleId = (e) => {
@@ -72,7 +74,7 @@ const ObserveModal = () => {
                             </div>
                             </div>
                               {allContract.filter(contract => contract.docNumber === search).map((data) => (
-                                    <div className="alert alert-success" role="alert">
+                                    <div className="alert alert-success" role="alert" key={data.id}>
                                         سند با شماره ثبت {data.id} یافت شد.
                                     </div>
                              ))}
@@ -83,9 +85,9 @@ const ObserveModal = () => {
                                                   rel="noreferrer" to={handleOpenFile()} >
                                             <button className="btn btn-outline-success"  type="button">
                                             نمایش</button></Link>
-                                    <select className="form-select" id="checkFileSelector" onChange={e => setSelectedFile(e.target.value)}
+                                    <select className="form-select" id="checkFileSelector" defaultValue='' onChange={e => setSelectedFile(e.target.value)}
                                     aria-label="checkFileBtn">
-                                        <option selected>فایل مورد نظر را انتخاب کنید</option>
+                                        <option value='' disabled>فایل مورد نظر را انتخاب کنید</option>
                                         <option value="greenCardFile">کارت سبز</option>
                                         <option value="carCardFile">کارت ماشین</option>
                                         <option value="gasCardFile">کارت سوخت</option>

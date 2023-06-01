@@ -37,18 +37,20 @@ const AddIndividualsDoc = (props) => {
             })
       }
        const deleteHandler = async (id) => {
-          const response = await axios.delete(
+          await axios.delete(
             `http://127.0.0.1:8000/api/persons/${id}`
           )
-            fetchData()
+             await fetchData()
        }
 
        useEffect(() => {
-            fetchData()
-          }, [props.formik.values.full_name])
+            void fetchData()
+          },
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+           [props.formik.values.full_name])
     return (
      <Fragment>
-            <Modal ModalTitle={props.modalTitle} editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber}/>
+            <Modal ModalTitle={props.modalTitle} editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
              <div className= 'plater  m-2 rounded-3 shadow-lg '>
 

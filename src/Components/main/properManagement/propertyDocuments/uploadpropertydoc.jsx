@@ -45,9 +45,12 @@ const UploadPropertyDoc = () => {
     });
 
     const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
-        const data = await response.json()
-        setProperties(data)
+        if (contractId !== ''){
+            const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
+            const data = await response.json()
+            setProperties(data)
+        }
+
       }
       const fetchData = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/properties")
@@ -68,7 +71,6 @@ const UploadPropertyDoc = () => {
       },
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [contractId])
-    console.log(partitionSelect)
     const putHandler = async () => {
        await axios.put(
             `http://127.0.0.1:8000/api/properties/${contractId}/`,
@@ -143,9 +145,9 @@ const UploadPropertyDoc = () => {
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                      <div className="form-floating m-4 col-2">
-                            <select className="form-select" id="partitionSelect"
+                            <select className="form-select" defaultValue='' id="partitionSelect"
                             aria-label="Partition Select" onChange={(e) => setPartitionSelect(e.target.value)}>
-                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                 <option value={'منقول'}>منقول</option>
                                 <option value={'غیر منقول'}>غیر منقول</option>
                             </select>
@@ -161,51 +163,54 @@ const UploadPropertyDoc = () => {
                                 <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                             </div>
                              {allContract.filter(contract => contract.docNumber === search && contract.type_form === (partitionSelect === 'منقول')).map((data) => (
-                                    <div className="alert alert-success" role="alert">
+                                    <div className="alert alert-success" role="alert" key={data.id}>
                                         سند با شماره ثبت {data.id} یافت شد.
                                     </div>
                              ))}
-
-                         {allContract.filter(contract => contract.docNumber === search && contract.type_form === (partitionSelect === 'منقول')).map(() => (
-                            <div className= 'mt-5'>
-                               <div className="input-group mb-3">
-                                   <label className='me-4'>فاکتور فروش</label>
-                                   <button className="btn btn-outline-secondary" type="button"
-                                   id="saleFactorBtn" onClick={putHandler}>بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" name='saleFactorFile'  accept="application/pdf" id="saleFactorInp"
-                                   aria-describedby="saleFactorBtn" aria-label="Upload" onChange={saleFactorFile}/>
-                               </div>
-                               <div className="input-group mb-3 align-items-center">
-                                   <label className='me-5'>بیمه نامه</label>
-                                   <button className="btn btn-outline-secondary" type="button"
-                                   id="insurancePaperBtn" onClick={putHandler}>بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" name='insurancePaperFile'  accept="application/pdf" id="insurancePaperInp"
-                                   aria-describedby="insurancePaperBtn" aria-label="Upload" onChange={insurancePaperFile}/>
-                               </div>
-                               <div className="input-group mb-3 align-items-center">
-                                   <label className='me-4'>کارت ماشین</label>
-                                   <button className="btn btn-outline-secondary" type="button" id="carCardBtn" onClick={putHandler}>بارگذاری</button>
-                                   <input type="file" className="form-control" id="carCardInp" name='carCardFile'  accept="application/pdf"
-                                   aria-describedby="carCardBtn" aria-label="Upload" onChange={carCardFile}/>
-                               </div>
-                               <div className="input-group mb-3 align-items-center">
-                                   <label className='me-5'>کارت سبز</label>
-                                   <button className="btn btn-outline-secondary" type="button"
-                                   id="greenCardBtn" onClick={putHandler}>بارگذاری
-                                   </button>
-                                   <input type="file" className="form-control" id="greenCardInp" name='greenCardFile'  accept="application/pdf"
-                                   aria-describedby="greenCardBtn" aria-label="Upload" onChange={greenCardFile}/>
-                               </div>
-                               <div className="input-group mb-3 align-items-center">
-                                   <label className='me-4'>کارت سوخت</label>
-                                   <button className="btn btn-outline-secondary" type="button" id="gasCardBtn" onClick={putHandler}>بارگذاری</button>
-                                   <input type="file" className="form-control" id="gasCardInp" name='gasCardFile'  accept="application/pdf"
-                                   aria-describedby="gasCardBtn" aria-label="Upload" onChange={gasCardFile}/>
-                               </div>
-                            </div>
-                         ))}
+                         {(() => {
+                             if (allContract.filter(contract => contract.docNumber === search && contract.type_form === (partitionSelect === 'منقول')).length !== 0){
+                                 return (
+                                         <div className= 'mt-5'>
+                                               <div className="input-group mb-3">
+                                                   <label className='me-4'>فاکتور فروش</label>
+                                                   <button className="btn btn-outline-secondary" type="button"
+                                                   id="saleFactorBtn" onClick={putHandler}>بارگذاری
+                                                   </button>
+                                                   <input type="file" className="form-control" name='saleFactorFile'  accept="application/pdf" id="saleFactorInp"
+                                                   aria-describedby="saleFactorBtn" aria-label="Upload" onChange={saleFactorFile}/>
+                                               </div>
+                                               <div className="input-group mb-3 align-items-center">
+                                                   <label className='me-5'>بیمه نامه</label>
+                                                   <button className="btn btn-outline-secondary" type="button"
+                                                   id="insurancePaperBtn" onClick={putHandler}>بارگذاری
+                                                   </button>
+                                                   <input type="file" className="form-control" name='insurancePaperFile'  accept="application/pdf" id="insurancePaperInp"
+                                                   aria-describedby="insurancePaperBtn" aria-label="Upload" onChange={insurancePaperFile}/>
+                                               </div>
+                                               <div className="input-group mb-3 align-items-center">
+                                                   <label className='me-4'>کارت ماشین</label>
+                                                   <button className="btn btn-outline-secondary" type="button" id="carCardBtn" onClick={putHandler}>بارگذاری</button>
+                                                   <input type="file" className="form-control" id="carCardInp" name='carCardFile'  accept="application/pdf"
+                                                   aria-describedby="carCardBtn" aria-label="Upload" onChange={carCardFile}/>
+                                               </div>
+                                               <div className="input-group mb-3 align-items-center">
+                                                   <label className='me-5'>کارت سبز</label>
+                                                   <button className="btn btn-outline-secondary" type="button"
+                                                   id="greenCardBtn" onClick={putHandler}>بارگذاری
+                                                   </button>
+                                                   <input type="file" className="form-control" id="greenCardInp" name='greenCardFile'  accept="application/pdf"
+                                                   aria-describedby="greenCardBtn" aria-label="Upload" onChange={greenCardFile}/>
+                                               </div>
+                                               <div className="input-group mb-3 align-items-center">
+                                                   <label className='me-4'>کارت سوخت</label>
+                                                   <button className="btn btn-outline-secondary" type="button" id="gasCardBtn" onClick={putHandler}>بارگذاری</button>
+                                                   <input type="file" className="form-control" id="gasCardInp" name='gasCardFile'  accept="application/pdf"
+                                                   aria-describedby="gasCardBtn" aria-label="Upload" onChange={gasCardFile}/>
+                                               </div>
+                                            </div>
+                                 )
+                             }
+                         })()}
                       </div>
                  </div>
         </Fragment>
