@@ -8,6 +8,7 @@ import {Required} from "../../required";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
+import options from "../../date-option";
 
 const Modal = (props) => {
     const [property, setProperties] = useState([])
@@ -228,7 +229,6 @@ const Modal = (props) => {
             })
       }
 
-    const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChangeSold(value){
             formik.setFieldValue('soldDate' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))

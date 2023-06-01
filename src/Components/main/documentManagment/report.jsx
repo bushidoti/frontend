@@ -9,6 +9,7 @@ import {CustomInputDate} from "../../../App";
 import {Toggler} from "./toggler";
 import { useReactToPrint } from "react-to-print";
 import fixNumbers from '.././persianNumbers'
+import options from "../date-option";
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
@@ -30,7 +31,6 @@ const Report = (props) => {
           [props.formik.values])
 
 
-     const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
      function handleChange(value){
             props.formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))

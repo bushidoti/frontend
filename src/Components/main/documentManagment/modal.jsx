@@ -9,6 +9,7 @@ import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { NumericFormat } from 'react-number-format';
+import options from "../date-option";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
@@ -193,7 +194,6 @@ const Modal = (props) => {
               }
             })
       }
-    const options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
 
     function handleChange(value){
             formik.setFieldValue('dateContract' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
