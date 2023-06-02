@@ -6,6 +6,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {useReactToPrint} from "react-to-print";
 import options from '../../date-option'
+import fixNumbers from "../../persianNumbers"
 
 const ObserveModal = (props) => {
   const [search , setSearch] = useState('')
@@ -33,16 +34,6 @@ const ObserveModal = (props) => {
             props.formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
 
-  const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
-        arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
-        fixNumbers = function (str) {
-            if (typeof str === 'string') {
-                for (let i = 0; i < 10; i++) {
-                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-                }
-            }
-            return str;
-        };
 
   useEffect(() => {
           void fetchData()
@@ -156,7 +147,7 @@ const ObserveModal = (props) => {
                   </div>
                   <hr className='bg-primary m-4'/>
                   <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '60vh'}}>
-                    <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
+                    <table ref={componentPDF} className="table table-hover text-center align-middle table-bordered border-primary" style={{direction:'rtl'}}>
                         <thead className= 'bg-light'>
                         <tr>
                             <th scope="col">ردیف</th>
@@ -176,7 +167,7 @@ const ObserveModal = (props) => {
                         <tbody>
 
                     {(products.length > 0 && products.filter(products => products.product ===  props.idNumber).map((data , i) => (
-                        <tr key={data.id}>
+                        <tr key={data.id} style={{backgroundColor:`${data.obsolete === true || data.operator === 'اصلاح ورود' ? 'hsl(120, 61%, 80%)' : '' }`}}>
                             <th scope="row">{i}</th>
                             <td>{data.document_type}</td>
                             <td>{data.document_code}</td>
@@ -187,7 +178,7 @@ const ObserveModal = (props) => {
                             <td>{data.consumable}</td>
                             <td>{data.buyer}</td>
                             <td>{data.receiver}</td>
-                            <td>...</td>
+                            <td>{data.amendment}</td>
                             <td>
                                 <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش" onClick={() => {
                                    props.setIdNumberProduct(data.id)

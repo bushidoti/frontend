@@ -8,8 +8,9 @@ const Modal = (props) => {
      const [product, setProduct] = useState([])
      const [products, setProducts] = useState([])
      const [autoIncrement, setAutoIncrement] = useState([])
-    let today = new Date().toLocaleDateString('fa-IR');
+     const [increase, setIncrease] = useState('')
 
+    let today = new Date().toLocaleDateString('fa-IR');
     const formik = useFormik({
     initialValues: {
       code: product.code || "",
@@ -18,8 +19,8 @@ const Modal = (props) => {
       category: product.category || "",
       input: props.modalTitle === 'edit' ? products.input || "" : "",
       output: props.modalTitle === 'edit' ? products.output || "" : "",
-      operator: products.operator,
-      left_stock: product.left_stock,
+      operator: products.operator || "",
+      left_stock: product.left_stock || "",
       scale: props.modalTitle === 'edit' ? products.scale || "" : product.scale || "",
       document_type: props.modalTitle === 'edit' ? products.document_type || "" : product.document_type || "",
       document_code: props.modalTitle === 'edit' ? products.document_code  || "" : product.document_code || "",
@@ -28,12 +29,12 @@ const Modal = (props) => {
       buyer: props.modalTitle === 'edit' ? products.buyer || "" : '',
       receiver: props.modalTitle === 'edit' ? products.receiver || "" : '',
       product: null,
+      amendment: products.amendment || "",
       factor: '',
       checkBill: '',
     },
     enableReinitialize: true,
     });
-
      function reader(file, callback) {
               const fr = new FileReader();
               fr.onload = () => callback(null, fr.result);
@@ -97,6 +98,130 @@ const Modal = (props) => {
               }
             })
       }
+      const postHandlerUpdate = async () => {
+         if (increase === 'افزایش' && formik.values.operator === 'ورود'){
+                  await axios.post(
+                    `http://127.0.0.1:8000/api/allproducts/`,
+                      {
+                      input: formik.values.input || null,
+                      name: formik.values.name,
+                      scale: formik.values.scale,
+                      afterOperator:(props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                                    - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
+                      date: today.replaceAll('/' , '-'),
+                      receiver:formik.values.receiver,
+                      operator:'ورود',
+                      document_type: products.document_type,
+                      document_code: products.document_code,
+                      product: formik.values.code,
+                      factor: products.factor,
+                      checkBill: products.checkBill,
+                      amendment: formik.values.amendment,
+                       obsolete: true,
+                })
+         }else  if (increase === 'کاهش' && formik.values.operator === 'ورود'){
+                  await axios.post(
+                    `http://127.0.0.1:8000/api/allproducts/`,
+                      {
+                      output: formik.values.input || null,
+                      name: formik.values.name,
+                      scale: formik.values.scale,
+                      afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                                    - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.input,
+                      date: today.replaceAll('/' , '-'),
+                      receiver:formik.values.receiver,
+                      operator:'خروج',
+                      document_type: products.document_type,
+                      document_code: products.document_code,
+                      product: formik.values.code,
+                      factor: products.factor,
+                      checkBill: products.checkBill,
+                      amendment: formik.values.amendment,
+                      obsolete: true,
+
+                })
+         }else  if (increase === 'کاهش' && formik.values.operator === 'خروج'){
+                  await axios.post(
+                    `http://127.0.0.1:8000/api/allproducts/`,
+                      {
+                      input: formik.values.output || null,
+                      name: formik.values.name,
+                      scale: formik.values.scale,
+                      afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                                    - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.output,
+                      date: today.replaceAll('/' , '-'),
+                      receiver:formik.values.receiver,
+                      operator:'ورود',
+                      document_type: products.document_type,
+                      document_code: products.document_code,
+                      product: formik.values.code,
+                      factor: products.factor,
+                      checkBill: products.checkBill,
+                      amendment: formik.values.amendment,
+                      obsolete: true,
+
+                })
+         }else  if (increase === 'افزایش' && formik.values.operator === 'خروج'){
+                  await axios.post(
+                    `http://127.0.0.1:8000/api/allproducts/`,
+                      {
+                      output: formik.values.output || null,
+                      name: formik.values.name,
+                      scale: formik.values.scale,
+                      afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+                                    - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
+                      date: today.replaceAll('/' , '-'),
+                      receiver:formik.values.receiver,
+                      operator:'خروج',
+                      document_type: products.document_type,
+                      document_code: products.document_code,
+                      product: formik.values.code,
+                      factor: products.factor,
+                      checkBill: products.checkBill,
+                      amendment: formik.values.amendment,
+                      obsolete: true,
+
+                })
+         }
+
+
+
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+    const putHandlerUpdate = async () => {
+           await axios.put(
+            `http://127.0.0.1:8000/api/allproducts/${products.id}/`,
+              {
+              product: formik.values.code,
+              amendment: formik.values.amendment,
+         })
+        }
+
+    const postAlertUpdate = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت تغییرات این کالا مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'تغییرات کالا ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandlerUpdate(),
+                  putHandlerUpdate(),
+                )
+              }
+            })
+      }
 
     const postHandlerProductInput = async () => {
            await axios.post(
@@ -106,7 +231,7 @@ const Modal = (props) => {
               name: formik.values.name,
               scale: formik.values.scale,
               afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
-                            - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
+              - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
               date: today.replaceAll('/' , '-'),
               receiver:formik.values.receiver,
               operator:'ورود',
@@ -225,8 +350,6 @@ const Modal = (props) => {
          })
         }
 
-
-
     useEffect(() => {
           void fetchData()
           void fetchDataAutoIncrement()
@@ -244,6 +367,8 @@ const Modal = (props) => {
             return null
         }else if (props.modalTitle === 'register'){
             return postAlert
+        }else if (props.modalTitle === 'edit'){
+            return postAlertUpdate
         }
     }
 
@@ -284,6 +409,8 @@ const Modal = (props) => {
         formik.setFieldValue('receiver' , '')
         formik.setFieldValue('product' , '')
         formik.setFieldValue('operator' , '')
+        formik.setFieldValue('amendment' , '')
+        setIncrease('')
         document.getElementById("documentType").selectedIndex = '0' ;
         props.setIdNumberProduct('')
         if (props.modalTitle !== 'edit'){
@@ -315,7 +442,7 @@ const Modal = (props) => {
                                                     return (
                                                         'ورود'
                                                     )
-                                                }else{
+                                                }else if (props.modalTitle === 'edit'){
                                                     return (
                                                         'ویرایش کالا'
                                                     )
@@ -454,10 +581,26 @@ const Modal = (props) => {
                                         })()}
                             </div>
                             <div className='d-flex gap-2 mb-3'>
-
-                                  <div className="col-3 form-floating">
-                                    <input type="number" className="form-control" id="count" value={props.modalTitle === 'entry' ? formik.values.input : formik.values.output }  onChange={formik.handleChange}
-                                          name={props.modalTitle === 'entry' ? "input" : "output"} placeholder="560" required/>
+                                     {(() => {
+                                    if ((props.modalTitle === 'edit')){
+                                        return(
+                                 <div className="form-floating  col-4">
+                                    <select className="form-select" id="increase" name='increase' aria-label="Document Type"
+                                    value={increase} onChange={(e) => {
+                                    setIncrease(e.target.value)}}>
+                                                <option  value='' disabled>انتخاب کنید</option>
+                                                <option value="افزایش">افزایش</option>
+                                                <option value="کاهش">کاهش</option>
+                                            </select>
+                                            <label htmlFor="increase">تغییر</label>
+                              </div>
+                                        )
+                                    }
+                                })()}
+                                  <div className="col-2 form-floating">
+                                    <input type="number" className="form-control" id="count"
+                                           value={props.modalTitle === 'entry' || formik.values.operator === 'ورود' ? formik.values.input : formik.values.output }  onChange={formik.handleChange}
+                                          name={props.modalTitle === 'entry' || formik.values.operator === 'ورود'  ? "input" : "output"} placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">
                                          تعداد  را وارد کنید.
@@ -637,7 +780,20 @@ const Modal = (props) => {
                                         )
                                     }
                                 })()}
-
+                              {(() => {
+                                    if ((props.modalTitle === 'edit')){
+                                        return(
+                                               <div className="col form-floating">
+                                                    <textarea className="form-control" name='amendment' id="amendment" value={formik.values.amendment}
+                                                    onChange={formik.handleChange} placeholder="..."/>
+                                                        <label htmlFor="amendment">توضیحات</label>
+                                                     <div className="invalid-feedback">
+                                                         شناسه {documents}  را وارد کنید.
+                                                     </div>
+                                               </div>
+                                        )
+                                    }
+                                })()}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
