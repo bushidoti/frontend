@@ -130,11 +130,6 @@ const WarHouse = (props) => {
                             title="کاردکس" onClick={() => {
                                 setIdNumber(data.code)
                             }}>visibility</button>
-                            <button id='moveBtn' className= 'btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain"
-                            title="جا به جایی" onClick={() => {
-                                setIdNumber(data.code)
-                                props.setModalTitle('move')
-                            }}>upload</button>
                             <button id='exitBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain"
                             title="خروج" onClick={() => {
                                 setIdNumber(data.code)

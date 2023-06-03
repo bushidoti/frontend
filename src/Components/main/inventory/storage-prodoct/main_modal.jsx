@@ -228,69 +228,6 @@ const Modal = (props) => {
             })
       }
 
-    const postHandlerProductMove = async () => {
-           await axios.post(
-            `http://127.0.0.1:8000/api/allproducts/`,
-              {
-              output: formik.values.output,
-              name: formik.values.name,
-              scale: formik.values.scale,
-              afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
-              - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
-              date: today.replaceAll('/' , '-'),
-              receiver:formik.values.receiver,
-              operator:'جا به جایی',
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
-              product: formik.values.code,
-              factor: formik.values.factor,
-              inventory_dst: formik.values.inventory_dst,
-              amendment: `جا به جا شده به ${formik.values.inventory_dst}`,
-
-         })
-         await axios.post(
-            `http://127.0.0.1:8000/api/pendingProducts/`,
-              {
-              input: formik.values.output,
-              name: formik.values.name,
-              scale: formik.values.scale,
-              date: today.replaceAll('/' , '-'),
-              receiver:formik.values.receiver,
-              operator:'جا به جایی',
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
-              factor: formik.values.factor,
-              inventory_src: formik.values.inventory,
-              inventory_dst: formik.values.inventory_dst,
-              amendment: `دریافت شده از  ${formik.values.inventory}`,
-
-         })
-           setTimeout(
-                    refreshPages, 3000)
-        }
-
-    const postAlertProductsMove = () => {
-          Swal.fire({
-              title: 'مطمئنید?',
-              text: "آیا از ثبت جا به جایی این کالا مطمئنید ؟",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'انصراف',
-              confirmButtonText: 'بله, ثبت کن!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire(
-                  'ثبت شد!',
-                  'کالا ثبت شد.',
-                  'success',
-                  'ok',
-                  postHandlerProductMove(),
-                )
-              }
-            })
-      }
     const postHandlerProductInput = async () => {
            await axios.post(
             `http://127.0.0.1:8000/api/allproducts/`,
@@ -431,8 +368,6 @@ const Modal = (props) => {
             return postAlertProductsInput
         }else if (props.modalTitle === 'remove'){
             return postAlertProductsOutput
-        }else if (props.modalTitle === 'move'){
-            return postAlertProductsMove
         }else if (props.modalTitle === 'register'){
             return postAlert
         }else if (props.modalTitle === 'edit'){
@@ -498,10 +433,6 @@ const Modal = (props) => {
                                                     return (
                                                         'ثبت کالا جدید'
                                                     )
-                                                }else if (props.modalTitle === 'move'){
-                                                    return (
-                                                        'جا به جایی'
-                                                    )
                                                 }else if (props.modalTitle === 'remove'){
                                                     return (
                                                         'خروج'
@@ -565,47 +496,7 @@ const Modal = (props) => {
 
                                                             </Fragment>
                                                         )
-                                                    }else if (props.modalTitle === 'move'){
-                                                    return (
-                                                            <Fragment>
-                                                                     <div className="col form-floating">
-                                                                        <input type="text" className="form-control" id="contractNumber"
-                                                                        placeholder="..." value={formik.values.name} required disabled/>
-                                                                        <div className="invalid-feedback">
-                                                                        لطفا نام کالا را وارد کنید.
-                                                                        </div>
-                                                                        <label htmlFor="contractNumber">نام کالا</label>
-                                                                  </div>
-                                                                  <div className="col-3 form-floating">
-                                                                        <input type="text" className="form-control" id="sourceStorage"
-                                                                        placeholder="چابهار" required value={formik.values.inventory} disabled />
-                                                                        <div className="invalid-feedback">
-                                                                            لطفا انبار مبدا را وارد کنید.
-                                                                        </div>
-                                                                        <label htmlFor="sourceStorage">انبار مبدا</label>
-                                                                  </div>
-                                                                  <div className="col form-floating">
-                                                                        <input className="form-control" type='search'
-                                                                        name='inventory_dst' value={formik.values.inventory_dst} onChange={formik.handleChange} list="destinationStorageList" id="destinationStorage"
-                                                                        placeholder="اداری" required/>
-                                                                        <label htmlFor="destinationStorage">انبار مقصد</label>
-                                                                        <datalist id="destinationStorageList">
-                                                                            <option value="دفترمرکزی"/>
-                                                                            <option value="چابهار"/>
-                                                                            <option value="دزفول"/>
-                                                                            <option value="جاسک"/>
-                                                                            <option value="بیشه کلا"/>
-                                                                            <option value="اورهال تهران"/>
-                                                                            <option value="اورهال اصفهان"/>
-                                                                        </datalist>
-                                                                         <div className="invalid-feedback">
-                                                                         انبار مقصد  را انتخاب کنید.
-                                                                     </div>
-                                                                  </div>
-
-                                                            </Fragment>
-                                                    )
-                                                }else if (props.modalTitle === 'edit'){
+                                                    }else if (props.modalTitle === 'edit'){
                                                     return (
                                                             <Fragment>
                                                                           {(() => {
@@ -776,13 +667,6 @@ const Modal = (props) => {
                                                 }else if (props.modalTitle === 'remove'){
                                                     return(
                                                           <option value="حواله">حواله</option>
-                                                    )
-                                                }else if (props.modalTitle === 'move'){
-                                                    return(
-                                                        <Fragment>
-                                                          <option value="حواله">حواله</option>
-                                                          <option value="فاکتور">فاکتور</option>
-                                                        </Fragment>
                                                     )
                                                 }else if (props.modalTitle === 'edit'){
                                                     return(
