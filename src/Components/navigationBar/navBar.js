@@ -86,12 +86,12 @@ const NavBar = (props) => {
                                 </span>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                   <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
-                                  <li><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link></li>
                                      <li>
                                     <hr className="dropdown-divider bg-primary"></hr>
                                   </li>
                                   <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
                                   <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
+                                  <li><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link></li>
                                   <li>
                                     <hr className="dropdown-divider bg-primary"></hr>
                                   </li>

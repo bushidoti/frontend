@@ -1,13 +1,14 @@
 import React, {Fragment, useEffect, useState} from "react";
 import axios from "axios";
-import Modal from "./main_modal";
 import {useFormik} from "formik";
+import Swal from "sweetalert2";
 
-const PendingProduct = (props) => {
+const PendingProduct = () => {
    const [pendingList, setPendingList] = useState([])
    const [message, setMessage] = useState('');
    const [idNumberProduct, setIdNumberProduct] = useState(null)
    const [products, setProducts] = useState([])
+   const [inventoryCode, setInventoryCode] = useState([])
 
    const formik = useFormik({
     initialValues: {
@@ -36,7 +37,7 @@ const PendingProduct = (props) => {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
               });
-              setMessage(data.message);
+              await setMessage(data.message);
         })()
     }, []);
 
@@ -46,19 +47,84 @@ const PendingProduct = (props) => {
         setPendingList(data)
       }
 
-   const fetchDataAllProducts = async () => {
-        if (idNumberProduct !== null) {
-            const response = await fetch(`http://127.0.0.1:8000/api/pendingProducts/` + idNumberProduct)
-            const data = await response.json()
-            setProducts(data)
-        }
+   const fetchDataInventory = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/product`)
+        const data = await response.json()
+        setInventoryCode(data)
       }
+
+   const fetchDataAllProducts = async () => {
+       if (idNumberProduct !== null){
+           const response = await fetch(`http://127.0.0.1:8000/api/pendingProducts/` + idNumberProduct)
+            const data = await response.json()
+             await setProducts(data)
+       }
+
+
+      }
+
    useEffect(() => {
             void fetchData()
             void fetchDataAllProducts()
+            void fetchDataInventory()
+
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
         [idNumberProduct])
+
+      function refreshPages() {
+            window.location.reload()
+        }
+
+      let today = new Date().toLocaleDateString('fa-IR');
+
+      const postHandlerProduct = async () => {
+           await axios.post(
+            `http://127.0.0.1:8000/api/allproducts/`,
+              {
+              input: products.input,
+              afterOperator: (products.filter(products => products.product ===  1020006).reduce((a,v) =>   a + v.input , 0 ))
+                - (products.filter(products => products.product ===  1020006).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
+              name: formik.values.name,
+              scale: formik.values.scale,
+              date: today.replaceAll('/' , '-'),
+              receiver:formik.values.receiver,
+              operator:'ورود',
+              document_type: formik.values.document_type,
+              document_code: formik.values.document_code,
+              product: inventoryCode.filter(product => product.inventory === message && product.name === formik.values.name)[0].code,
+              checkBill: formik.values.checkBill,
+              factor: formik.values.factor,
+              amendment: formik.values.amendment,
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+
+    const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت جا به جایی این کالا مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'کالا ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandlerProduct(),
+                )
+              }
+            })
+      }
+
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
@@ -88,10 +154,16 @@ const PendingProduct = (props) => {
                             <button id='exitBtn' className= 'btn btn-danger   material-symbols-outlined ms-2'
                             title="رد" onClick={() => {
                                 setIdNumberProduct(data.id)
+                                console.log(inventoryCode.filter(product => product.inventory === message && product.name === formik.values.name)[0].code)
+
+
                             }} disabled={data.inventory_src ===  message}>close</button>
                             <button id='entryBtn' className= 'btn btn-success   material-symbols-outlined ms-2'
                             title="تایید" onClick={() => {
-                                setIdNumberProduct(data.id)
+                               setIdNumberProduct(data.id)
+                                postAlert()
+
+
                             }} disabled={data.inventory_src ===  message}>done</button>
                         </td>
                     </tr>

@@ -28,6 +28,7 @@ const WarHouse = (props) => {
         })()
     }, []);
 
+
     const fetchData = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/product/?code=${props.formik.values.code}`)
         const data = await response.json()
