@@ -115,7 +115,6 @@ const Modal = (props) => {
                       document_code: products.document_code,
                       product: formik.values.code,
                       factor: products.factor,
-                      checkBill: products.checkBill,
                       amendment: formik.values.amendment,
                        obsolete: true,
                 })
@@ -135,7 +134,6 @@ const Modal = (props) => {
                       document_code: products.document_code,
                       product: formik.values.code,
                       factor: products.factor,
-                      checkBill: products.checkBill,
                       amendment: formik.values.amendment,
                       obsolete: true,
 
@@ -150,12 +148,11 @@ const Modal = (props) => {
                       afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
                                     - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.output,
                       date: today.replaceAll('/' , '-'),
-                      receiver:formik.values.receiver,
+                      buyer:formik.values.buyer,
                       operator:'ورود',
                       document_type: products.document_type,
                       document_code: products.document_code,
                       product: formik.values.code,
-                      factor: products.factor,
                       checkBill: products.checkBill,
                       amendment: formik.values.amendment,
                       obsolete: true,
@@ -171,12 +168,11 @@ const Modal = (props) => {
                       afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
                                     - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
                       date: today.replaceAll('/' , '-'),
-                      receiver:formik.values.receiver,
+                      buyer:formik.values.buyer,
                       operator:'خروج',
                       document_type: products.document_type,
                       document_code: products.document_code,
                       product: formik.values.code,
-                      factor: products.factor,
                       checkBill: products.checkBill,
                       amendment: formik.values.amendment,
                       obsolete: true,
@@ -194,8 +190,15 @@ const Modal = (props) => {
            await axios.put(
             `http://127.0.0.1:8000/api/allproducts/${products.id}/`,
               {
+              date: today.replaceAll('/' , '-'),
+              buyer:formik.values.buyer,
+              receiver:formik.values.receiver,
+              document_type: products.document_type,
+              document_code: products.document_code,
+              checkBill: products.checkBill,
+              factor: products.factor,
               product: formik.values.code,
-              amendment: formik.values.amendment,
+              amendment: 'اصلاح شده است',
          })
         }
 
