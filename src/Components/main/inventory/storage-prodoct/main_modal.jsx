@@ -55,6 +55,7 @@ const Modal = (props) => {
                 formik.setFieldValue('checkBill' , res)
               });
         }
+
      const postHandler = async () => {
            await axios.post(
             `http://127.0.0.1:8000/api/product/`,
@@ -71,6 +72,20 @@ const Modal = (props) => {
               scale: formik.values.scale,
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
+         })
+         await axios.post(
+            `http://127.0.0.1:8000/api/allproducts/`,
+              {
+              input: formik.values.input,
+              name: formik.values.name,
+              scale: formik.values.scale,
+              afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
+              - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
+              date: today.replaceAll('/' , '-'),
+              operator:'ثبت اولیه',
+              document_type: formik.values.document_type,
+              document_code: formik.values.document_code,
+              product: handleAutoIncrement(),
          })
            setTimeout(
                     refreshPages, 3000)
@@ -101,7 +116,7 @@ const Modal = (props) => {
             })
       }
       const postHandlerUpdate = async () => {
-         if (increase === 'افزایش' && formik.values.operator === 'ورود'){
+         if (increase === 'افزایش' && (formik.values.operator === 'ورود' || formik.values.operator === 'ثبت اولیه')){
                   await axios.post(
                     `http://127.0.0.1:8000/api/allproducts/`,
                       {
@@ -120,7 +135,7 @@ const Modal = (props) => {
                       amendment: formik.values.amendment,
                        obsolete: true,
                 })
-         }else  if (increase === 'کاهش' && formik.values.operator === 'ورود'){
+         }else  if (increase === 'کاهش' && (formik.values.operator === 'ورود' || formik.values.operator === 'ثبت اولیه')){
                   await axios.post(
                     `http://127.0.0.1:8000/api/allproducts/`,
                       {
@@ -559,8 +574,9 @@ const Modal = (props) => {
                                 })()}
                                   <div className="col-2 form-floating">
                                     <input type="number" className="form-control" id="count"
-                                           value={props.modalTitle === 'entry' || formik.values.operator ===  'ورود' || props.modalTitle === 'register' ? formik.values.input : formik.values.output }
-                                           onChange={formik.handleChange} name={props.modalTitle === 'entry' || formik.values.operator === 'ورود' || props.modalTitle === 'register' ? "input" : "output"}
+                                           value={props.modalTitle === 'entry' || formik.values.operator ===  'ورود' || props.modalTitle === 'register' || formik.values.operator === 'ثبت اولیه' ? formik.values.input : formik.values.output }
+                                           onChange={formik.handleChange}
+                                           name={props.modalTitle === 'entry' || formik.values.operator === 'ورود' || props.modalTitle === 'register' || formik.values.operator === 'ثبت اولیه'? "input" : "output"}
                                            placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">
