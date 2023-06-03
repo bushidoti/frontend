@@ -668,8 +668,8 @@ const Modal = (props) => {
                                 })()}
                                   <div className="col-2 form-floating">
                                     <input type="number" className="form-control" id="count"
-                                           value={props.modalTitle === 'entry' || formik.values.operator === 'ورود' ? formik.values.input : formik.values.output }
-                                           onChange={formik.handleChange} name={props.modalTitle === 'entry' || formik.values.operator === 'ورود'  ? "input" : "output"}
+                                           value={props.modalTitle === 'entry' || formik.values.operator ===  'ورود' || props.modalTitle === 'register' ? formik.values.input : formik.values.output }
+                                           onChange={formik.handleChange} name={props.modalTitle === 'entry' || formik.values.operator === 'ورود' || props.modalTitle === 'register' ? "input" : "output"}
                                            placeholder="560" required/>
                                         <label htmlFor="count">تعداد</label>
                                      <div className="invalid-feedback">

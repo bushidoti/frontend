@@ -24,6 +24,7 @@ import {Page403} from "./Components/page403/403Page";
 import {useFormik} from "formik";
 import Home from "./Components/home/home";
 import axios from "axios";
+import PendingProduct from "./Components/main/inventory/storage-prodoct/pending_product";
 
 
 function App() {
@@ -209,6 +210,7 @@ function App() {
                           <Route path="property" element={<Property />} />
                           <Route path="report-properties" element={<ReportProperty />} />
                           <Route path="warehouse-handling" element={<StorageHandling />} />
+                          <Route path="pending-products" element={<PendingProduct setModalTitle={setModalTitle} modalTitle={modalTitle}/>} />
                           <Route path="/logout" element={<Logout/>}/>
                         </Fragment>
                         :
