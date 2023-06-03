@@ -29,7 +29,7 @@ export const ContactUS =  () => {
     return (
         <Fragment>
             <div className='justify-content-center row  rounded-2'>
-                     <div className= 'div-contact rounded-end   shadow-lg col-5 '>
+                     <div className= 'div-contact rounded-end shadow-lg col-5 ' style={{backgroundColor:'hsl(0, 0%, 90%)'}}>
                       <form onSubmit={handleOnSubmit}>
                          <div className='m-4'>
                          <div className='d-flex gap-4'>
