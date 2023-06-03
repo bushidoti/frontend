@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import NavBar from "./Components/navigationBar/navBar";
 import Main from "./Components/main/documentManagment/main";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -23,12 +23,16 @@ import ToastLogin from "./Components/navigationBar/login/toast";
 import {Page403} from "./Components/page403/403Page";
 import {useFormik} from "formik";
 import Home from "./Components/home/home";
+import axios from "axios";
 
 
 function App() {
     const [isRepair , setIsRepair] = useState('')
     const [modalTitle , setModalTitle] = useState('')
     const [isAuth, setIsAuth] = useState(false);
+    const [message, setMessage] = useState('');
+
+
     const formikDocumentSearch = useFormik({
             initialValues: {
                   employer: '',
@@ -156,6 +160,17 @@ function App() {
         document.getElementById("searchSelector").selectedIndex = "0";
     };
 
+     useEffect(() => {
+            (async () => {
+                const {data} = await (await axios.get('http://localhost:8000/home/', {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              }));
+              setMessage(data.message);
+        })()
+    }, []);
+
     const handleForm = (e) => {
         formikDocumentSearch.resetForm()
         if(e.target.value === 'پیمانکار') {
@@ -174,12 +189,16 @@ function App() {
        <Fragment >
           <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar isAuth={isAuth} setDocToggle={setDocToggle} formik={formikDocumentSearch} setIsAuth={setIsAuth}/>} >
+                <Route path="/" element={<NavBar isAuth={isAuth} message={message} setDocToggle={setDocToggle} formik={formikDocumentSearch} setIsAuth={setIsAuth}/>} >
                     {isAuth ?
                         <Fragment>
-                          <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                          <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
-                          <Route path="upload" element={<UploadDocuments/>} />
+                            {message === 'حسین شاه محمدلو' ?
+                                <Fragment>
+                                      <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
+                                      <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
+                                      <Route path="upload" element={<UploadDocuments/>} />
+                                </Fragment>
+                                : null}
                           <Route path="addpropertydoc" element={<AddPropertyDoc formik={formikPropertySearch} handleEditProperty={handleEditProperty} editProperty={editProperty} handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                           <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
                           <Route path="reportindividualsdoc" element={<ReportIndividualsDoc formik={formikPersonalSearch} handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>

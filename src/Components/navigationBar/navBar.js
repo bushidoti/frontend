@@ -6,11 +6,14 @@ import {Link, Outlet} from "react-router-dom";
 const NavBar = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
    useEffect(() => {
      if (localStorage.getItem('access_token') !== null) {
         props.setIsAuth(true);
       }
     }, [props, props.isAuth]);
+
+
 
     return (
         <Fragment>
@@ -34,26 +37,28 @@ const NavBar = (props) => {
                   </li>
                     {props.isAuth ?
                         <Fragment>
-                                  <li className="nav-item dropdown">
-                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                  مدیریت قراردادها
-                                </span>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                   <li> <Link className='dropdown-item' to="/main" onClick={() => {
-                                      props.formik.resetForm()
-                                      props.setDocToggle(null)
-                                   }}>ثبت قرارداد</Link></li>
-                                    <li>
-                                    <hr className="dropdown-divider bg-primary"></hr>
-                                  </li>
-                                  <li><Link className= 'dropdown-item' to= '/report' onClick={() => {
-                                      props.formik.resetForm()
-                                      props.setDocToggle(null)
-                                   }}>گزارش</Link></li>
-                                  <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
-                                </ul>
-                              </li>
+                            {props.message === 'حسین شاه محمدلو' ?
+                                   <li className="nav-item dropdown">
+                                        <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                          مدیریت قراردادها
+                                        </span>
+                                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                           <li> <Link className='dropdown-item' to="/main" onClick={() => {
+                                              props.formik.resetForm()
+                                              props.setDocToggle(null)
+                                           }}>ثبت قرارداد</Link></li>
+                                            <li>
+                                            <hr className="dropdown-divider bg-primary"></hr>
+                                          </li>
+                                          <li><Link className= 'dropdown-item' to= '/report' onClick={() => {
+                                              props.formik.resetForm()
+                                              props.setDocToggle(null)
+                                           }}>گزارش</Link></li>
+                                          <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
+                                        </ul>
+                                   </li>
+                                : null}
                                  <li className="nav-item dropdown">
                                 <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">
