@@ -10,8 +10,8 @@ export const Benefits = () => {
               </div>
                <div className='d-flex gap-2'>
                        <div className="col form-floating">
-                        <select className="form-select" id="typeLine" aria-label="Type Add" required>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                        <select className="form-select" defaultValue='' id="typeLine" aria-label="Type Add" required>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">سیم کارت</option>
                             <option value="تعمیرات">ثابت</option>
                         </select>

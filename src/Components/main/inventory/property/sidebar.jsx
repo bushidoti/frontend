@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 export const SideBar = (props) => {
+
     return(
         <Fragment>
             <div className="flex-shrink-0 p-3 bg-white m-4 rounded" style={{width:'280px'}} >
@@ -15,7 +16,9 @@ export const SideBar = (props) => {
                         </button>
                         <div className="collapse  mt-2" id="equipmentsCollapse" data-bs-parent="#autoClose">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><button  className='btn  d-flex gap-2 dropdown-item' value='safetyEquipment' onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <li><button  className='btn  d-flex gap-2 dropdown-item'  value='safetyEquipment' onClick={(e) => {
+                                        props.setShowForm(e.target.value)
+                                    }}>
                                     <span className="material-symbols-outlined">health_and_safety</span>
                                     تجهیزات ایمنی</button></li>
                                     <li><button className='btn  d-flex gap-2 dropdown-item' value='airportEquipment' onClick={(e) => props.setShowForm(e.target.value)}><span
@@ -55,6 +58,8 @@ export const SideBar = (props) => {
                                      <span className="material-symbols-outlined">luggage</span>اثاثه تاسیساتی</button></li>
                                     <li><button className='btn d-flex  gap-2 dropdown-item' value='airportFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
                                     <span className="material-symbols-outlined">flight</span>اثاثه فرودگاهی</button></li>
+                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='digitalFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <span className="material-symbols-outlined">devices</span>اثاثه دیجیتال</button></li>
                               </ul>
                         </div>
                     </li>

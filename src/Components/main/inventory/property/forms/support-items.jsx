@@ -9,6 +9,22 @@ export const SupportItems = () => {
                 <label  id="idNumber">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
+                      <div className="col form-floating mb-3 ">
+                        <select className="form-select" id="typetools" defaultValue='' aria-label="Type Add" required>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                            <option value="اداری">اداری</option>
+                            <option value="تاسیسات">تاسیسات</option>
+                            <option value="الکترونیک">الکترونیک</option>
+                            <option value="آشپزخانه">آشپزخانه</option>
+                            <option value="تجهیزاتی">تجهیزاتی</option>
+                            <option value="ابزارآلات">ابزارآلات</option>
+                            <option value="متفرقه">متفرقه</option>
+                        </select>
+                        <label htmlFor="typetools">نوع قلم</label>
+                           <div className="invalid-feedback">
+                             نوع قلم را انتخاب کنید.
+                         </div>
+                    </div>
                      <div className="col form-floating mb-3">
                         <input type="text" className="form-control" id="nameTools"
                                placeholder="فلش درایو" required/>
@@ -25,7 +41,10 @@ export const SupportItems = () => {
                              مدل را وارد کنید.
                          </div>
                      </div>
-                     <div className="col form-floating mb-3">
+                </div>
+                <hr className='bg-primary mb-5'/>
+                <div className='d-flex col gap-2'>
+                      <div className="col-2 form-floating mb-3">
                         <input type="text" className="form-control" id="user"
                                placeholder="شرکت عقاب عسلویه" required/>
                             <label htmlFor="user">یوزر</label>
@@ -33,9 +52,6 @@ export const SupportItems = () => {
                              یوزر را وارد کنید.
                          </div>
                      </div>
-                </div>
-                <hr className='bg-primary mb-5'/>
-                <div className='d-flex gap-2'>
                         <div className="col-4 form-floating">
                             <input type="text" className="form-control" id="locationUse"
                             placeholder="شرکت" required/>
@@ -43,6 +59,14 @@ export const SupportItems = () => {
                                 <div className="invalid-feedback">
                                 محل استفاده را وارد کنید.
                                 </div>
+                       </div>
+                             <div className="col form-floating">
+                                    <textarea className="form-control" id="describeRepair"
+                                    placeholder="...." required/>
+                                    <label htmlFor="describeRepair">شرح تعمیرات</label>
+                                    <div className="invalid-feedback">
+                                    شرح تعمیرات را وارد کنید.
+                                    </div>
                        </div>
             </div>
         </Fragment>

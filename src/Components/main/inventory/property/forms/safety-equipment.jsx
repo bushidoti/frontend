@@ -12,8 +12,8 @@ export const SafetyEquipment = () => {
               </div>
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                        <select className="form-select" defaultValue='' id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
                             <option value="تعمیرات">تعمیرات</option>
                         </select>
@@ -106,6 +106,7 @@ export const SafetyEquipment = () => {
                                 )
                             }
                         })()}
+
         </Fragment>
     )
 }

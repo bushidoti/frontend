@@ -12,8 +12,8 @@ export const AirportEquipment = () => {
               </div>
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                        <select className="form-select" id="typeAdd" defaultValue='' aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
                             <option value="تعمیرات">تعمیرات</option>
                         </select>
@@ -27,8 +27,8 @@ export const AirportEquipment = () => {
                                 return (
                                     <Fragment>
                                            <div className="col form-floating mb-3 ">
-                                            <select className="form-select" id="typeRepair" aria-label="Type Repair" required>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                            <select className="form-select" defaultValue='' id="typeRepair" aria-label="Type Repair" required>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تعویض روغن">تعویض روغن</option>
                                                 <option value="تعویض باتری">تعویض باتری</option>
                                                 <option value="تعویض قطعات">تعویض قطعات</option>

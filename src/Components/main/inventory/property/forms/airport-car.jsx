@@ -11,8 +11,8 @@ export const AirportCar = () => {
               </div>
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
-                            <option selected disabled>یک مورد انتخاب کنید</option>
+                        <select className="form-select" id="typeAdd" defaultValue='' aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
                             <option value="تعمیرات">تعمیرات</option>
                         </select>
@@ -26,8 +26,8 @@ export const AirportCar = () => {
                            return (
                                <Fragment>
                                          <div className="col form-floating mb-3 ">
-                                            <select className="form-select" id="typeRepair" aria-label="Type Repair" required>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                            <select className="form-select" defaultValue='' id="typeRepair" aria-label="Type Repair" required>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تعویض روغن">تعویض روغن</option>
                                                 <option value="تعویض باتری">تعویض باتری</option>
                                                 <option value="تعویض قطعات">تعویض قطعات</option>
@@ -126,7 +126,8 @@ export const AirportCar = () => {
                                                             <span className="c-form__car-plate-input__iran">ایران</span>
                                                             <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                                             maxLength='3' className="c-form__input form-control"/>
-                                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2">
+                                                            <select id="carPlateSection2" defaultValue='' className="c-form__combo c-form__car-plate-input__section2">
+                                                                <option value="" disabled>انتخاب</option>
                                                                 <option value="الف">الف</option>
                                                                 <option value="ب">ب</option>
                                                                 <option value="پ">پ</option>

@@ -6,7 +6,6 @@ const StorageHandling = (props) => {
     const [handling , setHandling] = useState('')
     return (
         <Fragment>
-        <Modal modalTitle={props.modalTitle}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4'>
                   <div className='d-flex gap-2 align-items-center'>
@@ -25,9 +24,9 @@ const StorageHandling = (props) => {
                                     </label>
                                 </div>
                           <div className="form-floating">
-                                <select className="form-select" id="branch"
+                                <select className="form-select" id="branch" defaultValue=''
                                     aria-label="branch">
-                                    <option selected disabled>یک مورد انتخاب کنید</option>
+                                    <option value='' disabled>یک مورد انتخاب کنید</option>
                                     <option value="دفترمرکزی">دفترمرکزی</option>
                                     <option value="چابهار">چابهار</option>
                                     <option value="دزفول">دزفول</option>

@@ -11,13 +11,13 @@ const ReportProperty = () => {
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
                         <div className="form-floating">
-                                <select className="form-select" id="typeProperty"
+                                <select className="form-select" id="typeProperty" defaultValue=''
                                 aria-label="Type Property" onChange={(e) => {
                                   setTypeProperty(e.target.value)
                                   document.getElementById("searchList").selectedIndex = "0";
                                   setSearchFor('')
                                 } }>
-                                                <option selected disabled>یک مورد انتخاب کنید</option>
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تجهیزات ایمنی">تجهیزات ایمنی</option>
                                                 <option value="تجهیزات فرودگاهی">تجهیزات فرودگاهی</option>
                                                 <option value="اثاثه الکترونیکی">اثاثه الکترونیکی</option>
@@ -47,9 +47,9 @@ const ReportProperty = () => {
                     <hr className='bg-primary mb-5'/>
 
                         <div className="form-floating m-4 col-1">
-                                <select className="form-select" id="searchList"
+                                <select className="form-select" id="searchList" defaultValue=''
                                 aria-label="Search List" onChange={(e) => setSearchFor(e.target.value)}>
-                                    <option selected disabled>یک مورد انتخاب کنید</option>
+                                    <option value='' disabled>یک مورد انتخاب کنید</option>
                                     {(() => {
                                         if (typeProperty === 'تجهیزات ایمنی'){
                                             return(
@@ -213,7 +213,8 @@ const ReportProperty = () => {
                                                 <span className="c-form__car-plate-input__iran">ایران</span>
                                                 <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                                 maxLength='3' className="c-form__input form-control"/>
-                                                <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2">
+                                                <select id="carPlateSection2" defaultValue='' className="c-form__combo c-form__car-plate-input__section2">
+                                                    <option value="">انتخاب</option>
                                                     <option value="الف">الف</option>
                                                     <option value="ب">ب</option>
                                                     <option value="پ">پ</option>
