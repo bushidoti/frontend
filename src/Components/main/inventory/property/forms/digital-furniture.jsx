@@ -85,14 +85,17 @@ export const DigitalFurniture = () => {
                             if (typeDigital === 'کامپیوتر' || typeDigital === 'لپ تاپ'){
                                return (
                                    <Fragment>
-                                       <div className="col form-floating mb-3">
+                                       {typeDigital === 'لپ تاپ' ?
+                                        <div className="col form-floating mb-3">
                                             <input type="text" className="form-control" id="nameFurniture"
                                                    placeholder="لپ تاپ" required/>
                                                 <label htmlFor="nameFurniture">مدل لپ تاپ</label>
                                              <div className="invalid-feedback">
                                                  مدل لپ تاپ را وارد کنید.
                                              </div>
-                                         </div>
+                                        </div>
+                                           : null }
+
                                       <div className="col form-floating mb-3">
                                             <input type="text" className="form-control" id="nameFurniture"
                                                    placeholder="لپ تاپ" required/>
