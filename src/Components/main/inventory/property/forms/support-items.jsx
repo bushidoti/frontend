@@ -63,9 +63,9 @@ export const SupportItems = () => {
                              <div className="col form-floating">
                                     <textarea className="form-control" id="describeRepair"
                                     placeholder="...." required/>
-                                    <label htmlFor="describeRepair">شرح تعمیرات</label>
+                                    <label htmlFor="describeRepair">شرح</label>
                                     <div className="invalid-feedback">
-                                    شرح تعمیرات را وارد کنید.
+                                    شرح را وارد کنید.
                                     </div>
                        </div>
             </div>
