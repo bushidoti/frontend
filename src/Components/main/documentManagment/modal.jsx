@@ -10,6 +10,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { NumericFormat } from 'react-number-format';
 import options from "../date-option";
+import Url from "../../config";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
@@ -43,7 +44,7 @@ const Modal = (props) => {
 
      const postHandler = async () => {
           await axios.post(
-            `http://127.0.0.1:8000/api/documents/`,
+            `${Url}/api/documents/`,
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
@@ -69,7 +70,7 @@ const Modal = (props) => {
 
        const putHandler = async () => {
          await axios.put(
-            `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
+            `${Url}/api/documents/${props.idNumber}/`,
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
@@ -98,7 +99,7 @@ const Modal = (props) => {
 
        const putHandlerCleared = async () => {
            await axios.put(
-            `http://127.0.0.1:8000/api/documents/${props.idNumber}/`,
+            `${Url}/api/documents/${props.idNumber}/`,
               {
               contractNumber: formik.values.contractNumber,
               employer: formik.values.employer,
@@ -205,14 +206,14 @@ const Modal = (props) => {
 
     const fetchData = async () => {
         if (props.idNumber !== null){
-            const response = await fetch(`http://127.0.0.1:8000/api/documents/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/documents/`+ props.idNumber)
             const data = await response.json()
             setContracts(data)
             }
       }
 
     const fetchLastData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents`)
+        const response = await fetch(`${Url}/api/documents`)
         const data = await response.json()
         setLastID(data)
 

@@ -38,6 +38,7 @@ const NavBar = (props) => {
                     {props.isAuth ?
                         <Fragment>
                             {props.message === 'حسین شاه محمدلو' ?
+                                <Fragment>
                                    <li className="nav-item dropdown">
                                         <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +59,7 @@ const NavBar = (props) => {
                                           <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
                                         </ul>
                                    </li>
-                                : null}
+
                                  <li className="nav-item dropdown">
                                 <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,6 +80,8 @@ const NavBar = (props) => {
                                     <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
                                 </ul>
                               </li>
+                            </Fragment>
+                             : null}
                                  <li className="nav-item dropdown">
                                 <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">

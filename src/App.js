@@ -25,6 +25,7 @@ import {useFormik} from "formik";
 import Home from "./Components/home/home";
 import axios from "axios";
 import PendingProperty from "./Components/main/inventory/storage-prodoct/pending_product";
+import Url from "./Components/config";
 
 
 function App() {
@@ -163,7 +164,7 @@ function App() {
 
      useEffect(() => {
             (async () => {
-                const {data} = await (await axios.get('http://localhost:8000/home/', {
+                const {data} = await (await axios.get(`${Url}/home/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -197,15 +198,15 @@ function App() {
                                 <Fragment>
                                       <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                                       <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
-                                      <Route path="upload" element={<UploadDocuments/>} />
+                                      <Route path="upload" element={<UploadDocuments/>}/>
+                                      <Route path="addpropertydoc" element={<AddPropertyDoc formik={formikPropertySearch} handleEditProperty={handleEditProperty} editProperty={editProperty} handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
+                                      <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
+                                      <Route path="reportindividualsdoc" element={<ReportIndividualsDoc formik={formikPersonalSearch} handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
+                                      <Route path="reportpropertydoc" element={<ReportPropertyDoc formik={formikPropertySearch} search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
+                                      <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
+                                      <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                                 </Fragment>
                                 : null}
-                          <Route path="addpropertydoc" element={<AddPropertyDoc formik={formikPropertySearch} handleEditProperty={handleEditProperty} editProperty={editProperty} handleFormProp={handleFormProperty} propToggle={propertyToggle} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
-                          <Route path="addIndividualsDoc" element={<AddIndividualsDoc handleEditDocumentIndividuals={handleEditDocumentIndividuals}  editDocumentIndividuals={editDocumentIndividuals} formik={formikPersonalSearch} modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
-                          <Route path="reportindividualsdoc" element={<ReportIndividualsDoc formik={formikPersonalSearch} handleEditDocumentIndividuals={handleEditDocumentIndividuals} editDocumentIndividuals={editDocumentIndividuals}/>}/>
-                          <Route path="reportpropertydoc" element={<ReportPropertyDoc formik={formikPropertySearch} search={searchProp} handleFormPropertyreport={handleFormPropertyreport} setSearch={setSearchProp}  propToggle={propertyToggle} handleEditProperty={handleEditProperty} editProperty={editProperty} />} />
-                          <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc />} />
-                          <Route path="uploadpropertydoc" element={<UploadPropertyDoc />} />
                           <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
                           <Route path="property" element={<Property />} />
                           <Route path="report-properties" element={<ReportProperty />} />

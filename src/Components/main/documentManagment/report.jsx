@@ -10,6 +10,7 @@ import {Toggler} from "./toggler";
 import { useReactToPrint } from "react-to-print";
 import fixNumbers from '.././persianNumbers'
 import options from "../date-option";
+import Url from "../../config";
 
 const Report = (props) => {
       const [contract, setContracts] = useState([])
@@ -18,7 +19,7 @@ const Report = (props) => {
 
     const fetchData = async () => {
         const response = await
-        fetch(`http://127.0.0.1:8000/api/documents/?employer=${props.formik.values.employer}
+        fetch(`${Url}/api/documents/?employer=${props.formik.values.employer}
         &typeContract=${props.formik.values.typeContract}&id=${props.formik.values.id}&contractNumber=${props.formik.values.contractNumber}
         &dateContract=${fixNumbers(props.formik.values.dateContract)}&topicContract=${props.formik.values.topicContract}&clearedStatus=${props.formik.values.clearedStatus}`)
         const data = await response.json()

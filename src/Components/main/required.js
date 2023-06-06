@@ -1,8 +1,6 @@
-import React from "react";
 export const Required = () => {
     return(
         (() => {
-      'use strict'
 
       const forms = document.querySelectorAll('.needs-validation')
 

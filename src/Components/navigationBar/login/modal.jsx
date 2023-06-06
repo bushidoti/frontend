@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import {Required} from "../../main/required";
 import axios from "axios";
+import Url from '../../config'
 
 const Modal = (props) => {
     const submit = async e => {
@@ -11,7 +12,7 @@ const Modal = (props) => {
             password: props.password,
           };
 
-        const {data} = await axios.post('http://localhost:8000/token/', user ,{headers: {
+        const {data} = await axios.post(`${Url}/token/`, user ,{headers: {
             'Content-Type': 'application/json'
         }}, {withCredentials: true});
         localStorage.clear();
@@ -33,7 +34,8 @@ const Modal = (props) => {
                     <form className='needs-validation' onSubmit={submit} noValidate>
                         <div className="container modal-body">
                           <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="userName" autoComplete="on" name='username' value={props.username} onChange={e => props.setUsername(e.target.value)}
+                                    <input type="text" className="form-control" id="userName" autoComplete="on"
+                                           name='username' value={props.username} onChange={e => props.setUsername(e.target.value)}
                                            placeholder="نام کاربری" required/>
                                     <label htmlFor="userName">نام کاربری</label>
                                     <div className="invalid-feedback">

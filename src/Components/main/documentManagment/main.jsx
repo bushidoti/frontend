@@ -4,13 +4,14 @@ import {Link} from "react-router-dom";
 import {Toggler} from "./toggler";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Url from "../../config";
 
 const Main = (props) => {
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/documents/?employer=${props.formik.values.employer}`)
+        const response = await fetch(`${Url}/api/documents/?employer=${props.formik.values.employer}`)
         const data = await response.json()
         setContracts(data)
       }
@@ -40,7 +41,7 @@ const Main = (props) => {
 
       const deleteHandler = async (id) => {
         await axios.delete(
-            `http://127.0.0.1:8000/api/documents/${id}`
+            `${Url}/api/documents/${id}`
           )
             await fetchData()
         }

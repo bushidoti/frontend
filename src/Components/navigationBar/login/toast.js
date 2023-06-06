@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Toast from 'react-bootstrap/Toast';
 import axios from "axios";
+import Url from '../../config'
 
 function ToastLogin() {
   const [showA, setShowA] = useState(true);
@@ -8,7 +9,7 @@ function ToastLogin() {
 
     useEffect(() => {
             (async () => {
-                const {data} = await (await axios.get('http://localhost:8000/home/', {
+                const {data} = await (await axios.get(`${Url}/home/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
