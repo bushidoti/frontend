@@ -1,5 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import Url from "../../../config";
+
 const ObserveModal = () => {
     const [search , setSearch] = useState('')
     const [allContract, setAllContract] = useState([])
@@ -8,14 +10,14 @@ const ObserveModal = () => {
     const [selectedFile, setSelectedFile] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/properties")
+        const response = await fetch(`${Url}/api/properties`)
         const data = await response.json()
         setAllContract(data)
       }
 
      const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
+            const response = await fetch(`${Url}/api/properties/${contractId}/`)
             const data = await response.json()
             setProperties(data)
         }

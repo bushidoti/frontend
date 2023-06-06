@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {useFormik} from "formik";
 import axios from "axios";
+import Url from "../../../config";
 
 const UploadIndividualsDoc = () => {
     const [typeDocument , setTypeDocument] = useState('')
@@ -45,7 +46,7 @@ const UploadIndividualsDoc = () => {
 
     const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`http://127.0.0.1:8000/api/persons/${contractId}/`)
+            const response = await fetch(`${Url}/api/persons/${contractId}/`)
             const data = await response.json()
             setContracts(data)
         }
@@ -53,7 +54,7 @@ const UploadIndividualsDoc = () => {
       }
 
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/persons")
+        const response = await fetch(`${Url}/api/persons`)
         const data = await response.json()
         setAllContract(data)
       }
@@ -67,14 +68,13 @@ const UploadIndividualsDoc = () => {
     useEffect(() => {
         void fetchData()
         void fetchDataSpecific()
-
       },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [contractId])
 
     const putHandler = async () => {
             await axios.put(
-                `http://127.0.0.1:8000/api/persons/${contractId}/`,
+                `${Url}/api/persons/${contractId}/`,
                   {
                           id: formik.values.id,
                           type: formik.values.type,

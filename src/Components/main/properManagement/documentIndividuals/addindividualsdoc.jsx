@@ -3,13 +3,14 @@ import {Link} from "react-router-dom";
 import Modal from "./modal";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Url from "../../../config";
 
 const AddIndividualsDoc = (props) => {
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/persons/?full_name=${props.formik.values.full_name}`)
+        const response = await fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}`)
         const data = await response.json()
         setContracts(data)
       }
@@ -38,7 +39,7 @@ const AddIndividualsDoc = (props) => {
       }
        const deleteHandler = async (id) => {
           await axios.delete(
-            `http://127.0.0.1:8000/api/persons/${id}`
+            `${Url}/api/persons/${id}`
           )
              await fetchData()
        }

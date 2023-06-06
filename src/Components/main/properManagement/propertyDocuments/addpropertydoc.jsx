@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Modal from "./modal";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Url from "../../../config";
 
 const AddPropertyDoc = (props) => {
     const [property, setProperties] = useState([])
@@ -10,7 +11,7 @@ const AddPropertyDoc = (props) => {
 
     const fetchData = async () => {
         if (props.formik.values.docNumber !== null){
-            const response = await fetch(`http://127.0.0.1:8000/api/properties/?docNumber=${props.formik.values.docNumber}`)
+            const response = await fetch(`${Url}/api/properties/?docNumber=${props.formik.values.docNumber}`)
             const data = await response.json()
             setProperties(data)
         }
@@ -42,7 +43,7 @@ const AddPropertyDoc = (props) => {
 
       const deleteHandler = async (id) => {
         await axios.delete(
-            `http://127.0.0.1:8000/api/properties/${id}`
+            `${Url}/api/properties/${id}`
           )
             fetchData()
         }

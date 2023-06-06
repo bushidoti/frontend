@@ -7,6 +7,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import {useReactToPrint} from "react-to-print";
 import options from '../../date-option'
 import fixNumbers from "../../persianNumbers"
+import Url from "../../../config";
 
 const ObserveModal = (props) => {
   const [search , setSearch] = useState('')
@@ -17,14 +18,14 @@ const ObserveModal = (props) => {
 
   const fetchData = async () => {
       if (props.idNumber !== null){
-            const response = await fetch(`http://127.0.0.1:8000/api/product/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/product/`+ props.idNumber)
             const data = await response.json()
             setProduct(data)
       }
   }
 
   const fetchDataProducts = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`)
+        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`)
         const data = await response.json()
         setProducts(data)
       }

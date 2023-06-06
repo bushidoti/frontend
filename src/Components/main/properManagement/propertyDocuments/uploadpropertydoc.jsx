@@ -1,6 +1,8 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {useFormik} from "formik";
 import axios from "axios";
+import Url from "../../../config";
+
 const UploadPropertyDoc = () => {
     const [search , setSearch] = useState('')
     const [property, setProperties] = useState([])
@@ -46,14 +48,14 @@ const UploadPropertyDoc = () => {
 
     const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`http://127.0.0.1:8000/api/properties/${contractId}/`)
+            const response = await fetch(`${Url}/api/properties/${contractId}/`)
             const data = await response.json()
             setProperties(data)
         }
 
       }
       const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/properties")
+        const response = await fetch(`${Url}/api/properties`)
         const data = await response.json()
         setAllContract(data)
       }
@@ -73,7 +75,7 @@ const UploadPropertyDoc = () => {
           [contractId])
     const putHandler = async () => {
        await axios.put(
-            `http://127.0.0.1:8000/api/properties/${contractId}/`,
+            `${Url}/api/properties/${contractId}/`,
               {
               typeProperty: formik.values.typeProperty,
               name: formik.values.name,

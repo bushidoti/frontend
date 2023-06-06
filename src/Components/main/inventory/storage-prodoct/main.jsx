@@ -4,6 +4,7 @@ import Modal from "./main_modal";
 import BillCheckmodal from "./bill&checkmodal";
 import axios from "axios";
 import { memo } from "react";
+import Url from "../../../config";
 
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
@@ -19,7 +20,7 @@ const WarHouse = (props) => {
 
     useEffect(() => {
             (async () => {
-                const {data} = await axios.get('http://localhost:8000/home/', {
+                const {data} = await axios.get(`${Url}/home/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -30,13 +31,13 @@ const WarHouse = (props) => {
 
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/product/?code=${props.formik.values.code}`)
+        const response = await fetch(`${Url}/api/product/?code=${props.formik.values.code}`)
         const data = await response.json()
         setProduct(data)
       }
 
     const fetchDataProducts = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/allproducts`)
+        const response = await fetch(`${Url}/api/allproducts`)
         const data = await response.json()
         setProducts(data)
       }

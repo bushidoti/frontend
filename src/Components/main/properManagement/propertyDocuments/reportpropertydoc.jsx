@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./observemodal";
 import {useReactToPrint} from "react-to-print";
+import Url from "../../../config";
 
 const ReportPropertyDoc = (props) => {
     const [property, setProperties] = useState([])
@@ -10,7 +11,7 @@ const ReportPropertyDoc = (props) => {
 
     const fetchData = async () => {
         const response = await
-        fetch(`http://127.0.0.1:8000/api/properties/?name=${props.formik.values.name}&docNumber=${props.formik.values.docNumber}
+        fetch(`${Url}/api/properties/?name=${props.formik.values.name}&docNumber=${props.formik.values.docNumber}
         &landlord=${props.formik.values.landlord}&madeOf=${props.formik.values.madeOf}
         &plateMotor=${props.formik.values.plateMotor}&id=${props.formik.values.id}&typeProperty=${props.formik.values.typeProperty}
         &part1plate=${props.formik.values.part1plate}&part2plate=${props.formik.values.part2plate}&part3plate=${props.formik.values.part3plate}

@@ -1,5 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import Url from "../../../config";
 
 
 const ObserveModal = () => {
@@ -11,14 +12,14 @@ const ObserveModal = () => {
     const [typeDocument , setTypeDocument] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/persons")
+        const response = await fetch(`${Url}/api/persons`)
         const data = await response.json()
         setAllContract(data)
       }
 
      const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`http://127.0.0.1:8000/api/persons/${contractId}/`)
+            const response = await fetch(`${Url}/api/persons/${contractId}/`)
             const data = await response.json()
             setContracts(data)
         }

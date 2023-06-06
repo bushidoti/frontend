@@ -9,6 +9,7 @@ import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
 import options from "../../date-option";
+import Url from "../../../config";
 
 const Modal = (props) => {
     const [property, setProperties] = useState([])
@@ -73,7 +74,7 @@ const Modal = (props) => {
 
     const postHandler = async () => {
            await axios.post(
-            `http://127.0.0.1:8000/api/properties/`,
+            `${Url}/api/properties/`,
               {
               typeProperty: formik.values.typeProperty,
               name: formik.values.name,
@@ -101,7 +102,7 @@ const Modal = (props) => {
 
     const putHandler = async () => {
        await axios.put(
-            `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
+            `${Url}/api/properties/${props.idNumber}/`,
               {
               typeProperty: formik.values.typeProperty,
               name: formik.values.name,
@@ -131,7 +132,7 @@ const Modal = (props) => {
 
     const putHandlerCleared = async () => {
         await axios.put(
-            `http://127.0.0.1:8000/api/properties/${props.idNumber}/`,
+            `${Url}/api/properties/${props.idNumber}/`,
               {
                       typeProperty: formik.values.typeProperty,
                       name: formik.values.name,
@@ -236,16 +237,14 @@ const Modal = (props) => {
 
     const fetchData = async () => {
         if (props.idNumber !== null){
-            const response = await fetch(`http://127.0.0.1:8000/api/properties/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/properties/`+ props.idNumber)
             const data = await response.json()
             setProperties(data)
         }
-
-
       }
 
     const fetchLastData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/properties`)
+        const response = await fetch(`${Url}/api/properties`)
         const data = await response.json()
         setLastID(data)
       }

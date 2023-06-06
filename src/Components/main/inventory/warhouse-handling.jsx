@@ -1,8 +1,7 @@
 import React, {Fragment, useState} from "react";
 import {Product} from "./storage-prodoct/handling/product";
-import Modal from "./storage-prodoct/main_modal";
 
-const StorageHandling = (props) => {
+const StorageHandling = () => {
     const [handling , setHandling] = useState('')
     return (
         <Fragment>

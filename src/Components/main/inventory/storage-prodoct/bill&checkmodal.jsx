@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
 import {Link} from "react-router-dom";
+import Url from "../../../config";
 
 const BillCheckModal = (props) => {
   const [product, setProduct] = useState([])
@@ -16,13 +17,13 @@ const BillCheckModal = (props) => {
     });
 
   const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/allproducts`)
+        const response = await fetch(`${Url}/api/allproducts`)
         const data = await response.json()
         setProduct(data)
       }
 
   const fetchDataSpecific = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck }
+        const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck }
         &document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' }`)
         const data = await response.json()
         setFile(data)

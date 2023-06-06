@@ -9,6 +9,7 @@ import {CustomInputDate} from "../../../../App";
 import {useReactToPrint} from "react-to-print";
 import options from "../../date-option"
 import fixNumbers from "../../persianNumbers"
+import Url from "../../../config";
 
 const ReportIndividualsDoc = (props) => {
     const [search , setSearch] = useState('')
@@ -18,7 +19,7 @@ const ReportIndividualsDoc = (props) => {
 
     const fetchData = async () => {
         const response = await
-        fetch(`http://127.0.0.1:8000/api/persons/?full_name=${props.formik.values.full_name}
+        fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}
         &sex=${props.formik.values.sex}&id=${props.formik.values.id}&office=${props.formik.values.office}
         &date=${fixNumbers(props.formik.values.date)}&national_id=${props.formik.values.national_id}
         &clearedStatus=${props.formik.values.clearedStatus}&type=${props.formik.values.type}&job=${props.formik.values.job}`)

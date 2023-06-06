@@ -10,6 +10,7 @@ import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
 import options from "../../date-option"
+import Url from "../../../config";
 
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
@@ -59,7 +60,7 @@ const Modal = (props) => {
 
     const postHandler = async () => {
           await axios.post(
-            `http://127.0.0.1:8000/api/persons/`,
+            `${Url}/api/persons/`,
               {
               type: formik.values.type,
               full_name: formik.values.full_name,
@@ -80,7 +81,7 @@ const Modal = (props) => {
 
     const putHandler = async () => {
          await axios.put(
-            `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
+            `${Url}/api/persons/${props.idNumber}/`,
               {
               type: formik.values.type,
               full_name: formik.values.full_name,
@@ -104,7 +105,7 @@ const Modal = (props) => {
 
     const putHandlerCleared = async () => {
           await axios.put(
-            `http://127.0.0.1:8000/api/persons/${props.idNumber}/`,
+            `${Url}/api/persons/${props.idNumber}/`,
               {
               type: formik.values.type,
               full_name: formik.values.full_name,
@@ -210,14 +211,14 @@ const Modal = (props) => {
 
       const fetchData = async () => {
         if (props.idNumber !== null){
-            const response = await fetch(`http://127.0.0.1:8000/api/persons/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/persons/`+ props.idNumber)
             const data = await response.json()
             setContracts(data)
         }
       }
 
       const fetchLastData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/persons`)
+        const response = await fetch(`${Url}/api/persons`)
         const data = await response.json()
         setLastID(data)
 

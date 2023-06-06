@@ -3,6 +3,7 @@ import {Required} from "../../required";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {useFormik} from "formik";
+import Url from "../../../config";
 
 const Modal = (props) => {
      const [product, setProduct] = useState([])
@@ -58,7 +59,7 @@ const Modal = (props) => {
 
      const postHandler = async () => {
            await axios.post(
-            `http://127.0.0.1:8000/api/product/`,
+            `${Url}/api/product/`,
               {
               code: handleAutoIncrement(),
               name: formik.values.name,
@@ -74,7 +75,7 @@ const Modal = (props) => {
               document_code: formik.values.document_code,
          })
          await axios.post(
-            `http://127.0.0.1:8000/api/allproducts/`,
+            `${Url}/api/allproducts/`,
               {
               input: formik.values.input,
               name: formik.values.name,
@@ -118,7 +119,7 @@ const Modal = (props) => {
       const postHandlerUpdate = async () => {
          if (increase === 'افزایش' && (formik.values.operator === 'ورود' || formik.values.operator === 'ثبت اولیه')){
                   await axios.post(
-                    `http://127.0.0.1:8000/api/allproducts/`,
+                    `${Url}/api/allproducts/`,
                       {
                       input: formik.values.input || null,
                       name: formik.values.name,
@@ -137,7 +138,7 @@ const Modal = (props) => {
                 })
          }else  if (increase === 'کاهش' && (formik.values.operator === 'ورود' || formik.values.operator === 'ثبت اولیه')){
                   await axios.post(
-                    `http://127.0.0.1:8000/api/allproducts/`,
+                    `${Url}/api/allproducts/`,
                       {
                       output: formik.values.input || null,
                       name: formik.values.name,
@@ -157,7 +158,7 @@ const Modal = (props) => {
                 })
          }else  if (increase === 'کاهش' && formik.values.operator === 'خروج'){
                   await axios.post(
-                    `http://127.0.0.1:8000/api/allproducts/`,
+                    `${Url}/api/allproducts/`,
                       {
                       input: formik.values.output || null,
                       name: formik.values.name,
@@ -177,7 +178,7 @@ const Modal = (props) => {
                 })
          }else  if (increase === 'افزایش' && formik.values.operator === 'خروج'){
                   await axios.post(
-                    `http://127.0.0.1:8000/api/allproducts/`,
+                    `${Url}/api/allproducts/`,
                       {
                       output: formik.values.output || null,
                       name: formik.values.name,
@@ -205,7 +206,7 @@ const Modal = (props) => {
 
     const putHandlerUpdate = async () => {
            await axios.put(
-            `http://127.0.0.1:8000/api/allproducts/${products.id}/`,
+            `${Url}/api/allproducts/${products.id}/`,
               {
               date: today.replaceAll('/' , '-'),
               buyer:formik.values.buyer,
@@ -245,7 +246,7 @@ const Modal = (props) => {
 
     const postHandlerProductInput = async () => {
            await axios.post(
-            `http://127.0.0.1:8000/api/allproducts/`,
+            `${Url}/api/allproducts/`,
               {
               input: formik.values.input,
               name: formik.values.name,
@@ -266,7 +267,7 @@ const Modal = (props) => {
 
     const postHandlerProductOutput = async () => {
            await axios.post(
-            `http://127.0.0.1:8000/api/allproducts/`,
+            `${Url}/api/allproducts/`,
               {
               consumable: formik.values.consumable,
               output: formik.values.output,
@@ -334,7 +335,7 @@ const Modal = (props) => {
 
     const fetchData = async () => {
            if (props.idNumber !== null) {
-               const response = await fetch(`http://127.0.0.1:8000/api/product/` + props.idNumber)
+               const response = await fetch(`${Url}/api/product/` + props.idNumber)
                const data = await response.json()
                setProduct(data)
            }
@@ -343,7 +344,7 @@ const Modal = (props) => {
 
       const fetchDataAllProducts = async () => {
         if (props.idNumberProduct !== null) {
-            const response = await fetch(`http://127.0.0.1:8000/api/allproducts/` + props.idNumberProduct)
+            const response = await fetch(`${Url}/api/allproducts/` + props.idNumberProduct)
             const data = await response.json()
             setProducts(data)
         }
@@ -351,14 +352,14 @@ const Modal = (props) => {
 
 
     const fetchDataAutoIncrement = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/autoIncrement/1`)
+        const response = await fetch(`${Url}/api/autoIncrement/1`)
         const data = await response.json()
         setAutoIncrement(data)
       }
 
     const putHandlerAutoIncrement = async () => {
            await axios.put(
-            `http://127.0.0.1:8000/api/autoIncrement/1/`,
+            `${Url}/api/autoIncrement/1/`,
               {
               oghab101: props.message === 'دفتر مرکزی' ? autoIncrement.oghab101+1 : autoIncrement.oghab101,
               oghab102: props.message === 'چابهار' ? autoIncrement.oghab102+1 : autoIncrement.oghab102,
