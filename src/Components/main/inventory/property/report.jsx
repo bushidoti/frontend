@@ -24,6 +24,7 @@ const ReportProperty = () => {
                                                 <option value="اثاثه اداری">اثاثه اداری</option>
                                                 <option value="اثاثه تاسیساتی">اثاثه تاسیساتی</option>
                                                 <option value="اثاثه فرودگاهی">اثاثه فرودگاهی</option>
+                                                <option value="اثاثه دیجیتالی">اثاثه دیجیتالی</option>
                                                 <option value="خودرو فرودگاهی">خودرو فرودگاهی</option>
                                                 <option value="خودرو اداری">خودرو اداری</option>
                                                 <option value="ابزار آلات غیر صنعتی">ابزار آلات غیر صنعتی</option>
@@ -259,7 +260,7 @@ const ReportProperty = () => {
                             })()}
             </div>
                 <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '37vh'}}>
-                    <table className="table table-hover text-center align-middle table-striped">
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
                          <thead className= 'bg-light sticky-top'>
                             <tr>
                                 {(() => {

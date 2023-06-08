@@ -5,13 +5,10 @@ import Url from "../../../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export const SafetyEquipment = (props) => {
+export const SafetyEquipment = () => {
     const form = useContext(Contextform)
-    const [autoIncrement, setAutoIncrement] = useState([])
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])
-    const [message, setMessage] = useState('');
-
     let today = new Date().toLocaleDateString('fa-IR');
     const formik = useFormik({
     initialValues: {
@@ -31,11 +28,6 @@ export const SafetyEquipment = (props) => {
         window.location.reload()
     }
 
-    const fetchDataAutoIncrement = async () => {
-        const response = await fetch(`${Url}/api/autoincrementproperty/1`)
-        const data = await response.json()
-        setAutoIncrement(data)
-      }
 
       const fetchDataName = async () => {
             const response = await fetch(`${Url}/api/safetyequipment/${formik.values.code}`)
@@ -58,7 +50,7 @@ export const SafetyEquipment = (props) => {
               user: formik.values.user,
               use_for: formik.values.use_for,
               install_location: formik.values.install_location,
-              inventory: message,
+              inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          })
@@ -70,13 +62,13 @@ export const SafetyEquipment = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              safety_equipment_01: message === 'دفتر مرکزی' ? autoIncrement.safety_equipment_01+1 : autoIncrement.safety_equipment_01,
-              safety_equipment_02: message === 'چابهار' ? autoIncrement.safety_equipment_02+1 : autoIncrement.safety_equipment_02,
-              safety_equipment_03: message === 'دزفول' ? autoIncrement.safety_equipment_03+1 : autoIncrement.safety_equipment_03,
-              safety_equipment_04: message === 'جاسک' ? autoIncrement.safety_equipment_04+1 : autoIncrement.safety_equipment_04,
-              safety_equipment_05: message === 'بیشه کلا' ? autoIncrement.safety_equipment_05+1 : autoIncrement.safety_equipment_05,
-              safety_equipment_06: message === 'اورهال تهران' ? autoIncrement.safety_equipment_06+1 : autoIncrement.safety_equipment_06,
-              safety_equipment_07: message === 'اورهال اصفهان' ? autoIncrement.safety_equipment_07+1 : autoIncrement.safety_equipment_07,
+              safety_equipment_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.safety_equipment_01+1 : form.autoIncrement.safety_equipment_01,
+              safety_equipment_02: form.message === 'چابهار' ? form.autoIncrement.safety_equipment_02+1 : form.autoIncrement.safety_equipment_02,
+              safety_equipment_03: form.message === 'دزفول' ? form.autoIncrement.safety_equipment_03+1 : form.autoIncrement.safety_equipment_03,
+              safety_equipment_04: form.message === 'جاسک' ? form.autoIncrement.safety_equipment_04+1 : form.autoIncrement.safety_equipment_04,
+              safety_equipment_05: form.message === 'بیشه کلا' ? form.autoIncrement.safety_equipment_05+1 : form.autoIncrement.safety_equipment_05,
+              safety_equipment_06: form.message === 'اورهال تهران' ? form.autoIncrement.safety_equipment_06+1 : form.autoIncrement.safety_equipment_06,
+              safety_equipment_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.safety_equipment_07+1 : form.autoIncrement.safety_equipment_07,
          })
         }
 
@@ -141,38 +133,24 @@ export const SafetyEquipment = (props) => {
       }
 
     const handleAutoIncrement = () => {
-        if (message === 'دفتر مرکزی') {
-            return autoIncrement.safety_equipment_01
-        } else if (message === 'چابهار') {
-            return autoIncrement.safety_equipment_02
-        } else if (message === 'دزفول') {
-            return autoIncrement.safety_equipment_03
-        } else if (message === 'جاسک') {
-            return autoIncrement.safety_equipment_04
-        } else if (message === 'بیشه کلا') {
-            return autoIncrement.safety_equipment_05
-        } else if (message === 'اورهال تهران') {
-            return autoIncrement.safety_equipment_06
-        } else if (message === 'اورهال اصفهان') {
-            return autoIncrement.safety_equipment_07
+        if (form.message === 'دفتر مرکزی') {
+            return form.autoIncrement.safety_equipment_01
+        } else if (form.message === 'چابهار') {
+            return form.autoIncrement.safety_equipment_02
+        } else if (form.message === 'دزفول') {
+            return form.autoIncrement.safety_equipment_03
+        } else if (form.message === 'جاسک') {
+            return form.autoIncrement.safety_equipment_04
+        } else if (form.message === 'بیشه کلا') {
+            return form.autoIncrement.safety_equipment_05
+        } else if (form.message === 'اورهال تهران') {
+            return form.autoIncrement.safety_equipment_06
+        } else if (form.message === 'اورهال اصفهان') {
+            return form.autoIncrement.safety_equipment_07
         }
     }
 
-
-
      useEffect(() => {
-            (async () => {
-                const {data} = await axios.get(`${Url}/home/`, {
-                headers: {
-                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                }
-              });
-              setMessage(data.message);
-        })()
-    }, []);
-
-     useEffect(() => {
-          void fetchDataAutoIncrement()
           void fetchDataProperty()
           void fetchDataName()
           },
@@ -219,7 +197,7 @@ export const SafetyEquipment = (props) => {
                                                 <select className="form-select" defaultValue='' id="register_code"
                                                     onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                    {(property.filter(property => property.inventory ===  message).map((data) => (
+                                                    {(property.filter(property => property.inventory ===  form.message).map((data) => (
                                                         <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
                                                     )))}
                                                 </select>
