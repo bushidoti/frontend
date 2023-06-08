@@ -1,18 +1,207 @@
-import React, {Fragment, useContext} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import {Contextform} from "../contextform";
+import {useFormik} from "formik";
+import Url from "../../../../config";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-export const SafetyEquipment = () => {
+export const SafetyEquipment = (props) => {
     const form = useContext(Contextform)
+    const [autoIncrement, setAutoIncrement] = useState([])
+    const [property, setProperty] = useState([])
+    const [getName, setGetName] = useState([])
+    const [message, setMessage] = useState('');
+
+    let today = new Date().toLocaleDateString('fa-IR');
+    const formik = useFormik({
+    initialValues: {
+          code: "",
+          name: "",
+          inventory: "",
+          install_location: "",
+          user: "",
+          use_for: "",
+          description: "",
+          type_register: "",
+        },
+        enableReinitialize: true,
+        });
+
+    function refreshPages() {
+        window.location.reload()
+    }
+
+    const fetchDataAutoIncrement = async () => {
+        const response = await fetch(`${Url}/api/autoincrementproperty/1`)
+        const data = await response.json()
+        setAutoIncrement(data)
+      }
+
+      const fetchDataName = async () => {
+            const response = await fetch(`${Url}/api/safetyequipment/${formik.values.code}`)
+            const data = await response.json()
+            setGetName(data)
+          }
+
+    const fetchDataProperty = async () => {
+        const response = await fetch(`${Url}/api/safetyequipment`)
+        const data = await response.json()
+        setProperty(data)
+      }
+
+    const postHandler = async () => {
+           await axios.post(
+            `${Url}/api/safetyequipment/`,
+              {
+              code: handleAutoIncrement(),
+              name: formik.values.name,
+              user: formik.values.user,
+              use_for: formik.values.use_for,
+              install_location: formik.values.install_location,
+              inventory: message,
+              type_register: 'ثبت اولیه',
+              date: today.replaceAll('/' , '-'),
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+      const putHandlerAutoIncrement = async () => {
+           await axios.put(
+            `${Url}/api/autoincrementproperty/1/`,
+              {
+              safety_equipment_01: message === 'دفتر مرکزی' ? autoIncrement.safety_equipment_01+1 : autoIncrement.safety_equipment_01,
+              safety_equipment_02: message === 'چابهار' ? autoIncrement.safety_equipment_02+1 : autoIncrement.safety_equipment_02,
+              safety_equipment_03: message === 'دزفول' ? autoIncrement.safety_equipment_03+1 : autoIncrement.safety_equipment_03,
+              safety_equipment_04: message === 'جاسک' ? autoIncrement.safety_equipment_04+1 : autoIncrement.safety_equipment_04,
+              safety_equipment_05: message === 'بیشه کلا' ? autoIncrement.safety_equipment_05+1 : autoIncrement.safety_equipment_05,
+              safety_equipment_06: message === 'اورهال تهران' ? autoIncrement.safety_equipment_06+1 : autoIncrement.safety_equipment_06,
+              safety_equipment_07: message === 'اورهال اصفهان' ? autoIncrement.safety_equipment_07+1 : autoIncrement.safety_equipment_07,
+         })
+        }
+
+    const postAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت این اموال مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'اموال ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandler(),
+                  putHandlerAutoIncrement(),
+                )
+              }
+            })
+      }
+
+    const postHandlerRepair = async () => {
+           await axios.post(
+            `${Url}/api/repairedsafetyequipment/`,
+              {
+              safety_equipment: formik.values.code,
+              name: getName.name,
+              description: formik.values.description,
+              date: today.replaceAll('/' , '-'),
+         })
+           setTimeout(
+                    refreshPages, 3000)
+        }
+
+    const postAlertRepair = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: "آیا از ثبت تعمیر این اموال مطمئنید ؟",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'اموال ثبت شد.',
+                  'success',
+                  'ok',
+                  postHandlerRepair(),
+                )
+              }
+            })
+      }
+
+    const handleAutoIncrement = () => {
+        if (message === 'دفتر مرکزی') {
+            return autoIncrement.safety_equipment_01
+        } else if (message === 'چابهار') {
+            return autoIncrement.safety_equipment_02
+        } else if (message === 'دزفول') {
+            return autoIncrement.safety_equipment_03
+        } else if (message === 'جاسک') {
+            return autoIncrement.safety_equipment_04
+        } else if (message === 'بیشه کلا') {
+            return autoIncrement.safety_equipment_05
+        } else if (message === 'اورهال تهران') {
+            return autoIncrement.safety_equipment_06
+        } else if (message === 'اورهال اصفهان') {
+            return autoIncrement.safety_equipment_07
+        }
+    }
+
+
+
+     useEffect(() => {
+            (async () => {
+                const {data} = await axios.get(`${Url}/home/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setMessage(data.message);
+        })()
+    }, []);
+
+     useEffect(() => {
+          void fetchDataAutoIncrement()
+          void fetchDataProperty()
+          void fetchDataName()
+          },
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+        [formik.values.code])
+
+     const handleSubmit = () => {
+        if (formik.values.type_register === 'ثبت اولیه'){
+            return postAlert
+        }else  if (formik.values.type_register === 'تعمیرات'){
+            return postAlertRepair
+        }
+    }
     return(
+    <form className='needs-validation' noValidate>
         <Fragment>
-               <div className="form-floating justify-content-center mb-5">
-                <input type="text" id="idNumber" className="w-25 form-control" aria-label="Username"
-                aria-describedby="basic-addon1" value='' disabled required/>
-                <label  id="idNumber">کد ثبت</label>
-              </div>
+                 {formik.values.type_register === 'ثبت اولیه' ?
+                        <div className="form-floating justify-content-center mb-5">
+                            <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
+                            aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
+                            <label  htmlFor="register_code">کد ثبت</label>
+                        </div>
+                     : null}
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
-                        <select className="form-select" defaultValue='' id="typeAdd" aria-label="Type Add" onChange={(e) => form.setIsRepair(e.target.value)} required>
+                        <select className="form-select" defaultValue='' id="typeAdd" name='type_register' aria-label="Type Add" onChange={(e) => {
+                           form.setIsRepair(e.target.value)
+                            formik.setFieldValue('type_register' , e.target.value)
+                        }} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
                             <option value="تعمیرات">تعمیرات</option>
@@ -27,9 +216,14 @@ export const SafetyEquipment = () => {
                                 return(
                                     <Fragment>
                                         <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="idNumber"
-                                                   placeholder="103500" required/>
-                                                <label htmlFor="idNumber">کد</label>
+                                                <select className="form-select" defaultValue='' id="register_code"
+                                                    onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
+                                                    <option value='' disabled>یک مورد انتخاب کنید</option>
+                                                    {(property.filter(property => property.inventory ===  message).map((data) => (
+                                                        <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
+                                                    )))}
+                                                </select>
+                                            <label htmlFor="register_code">کد</label>
                                              <div className="invalid-feedback">
                                                  کد را وارد کنید.
                                              </div>
@@ -40,7 +234,7 @@ export const SafetyEquipment = () => {
                                 return(
                                        <Fragment>
                                            <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="nameEquipment"
+                                                <input type="text" className="form-control" name='name' id="nameEquipment" onChange={formik.handleChange}
                                                        placeholder="کلاه ایمنی" required/>
                                                     <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                  <div className="invalid-feedback">
@@ -48,9 +242,9 @@ export const SafetyEquipment = () => {
                                                  </div>
                                              </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="forUse"
+                                                <input type="text" className="form-control" id="use_for" name='use_for' onChange={formik.handleChange}
                                                        placeholder="ساختمان" required/>
-                                                    <label htmlFor="forUse">مورد استفاده</label>
+                                                    <label htmlFor="use_for">مورد استفاده</label>
                                                  <div className="invalid-feedback">
                                                      مورد استفاده را وارد کنید.
                                                  </div>
@@ -69,7 +263,7 @@ export const SafetyEquipment = () => {
                                         <hr className='bg-primary mb-5'/>
                                         <div className='d-flex gap-2'>
                                         <div className="col form-floating">
-                                            <textarea className="form-control" id="describeRepair"
+                                            <textarea className="form-control" name='description' id="describeRepair" onChange={formik.handleChange}
                                             placeholder="...." required/>
                                             <label htmlFor="describeRepair">شرح تعمیرات</label>
                                             <div className="invalid-feedback">
@@ -85,7 +279,7 @@ export const SafetyEquipment = () => {
                                          <hr className='bg-primary mb-5'/>
                                         <div className='d-flex gap-2'>
                                             <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="user"
+                                                    <input type="text" className="form-control" id="user" name='user' onChange={formik.handleChange}
                                                     placeholder="فرودگاه" required/>
                                                         <label htmlFor="user">یوزر</label>
                                                         <div className="invalid-feedback">
@@ -94,9 +288,9 @@ export const SafetyEquipment = () => {
                                                </div>
 
                                                <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="location"
+                                                    <input type="text" className="form-control" id="install_location" name='install_location' onChange={formik.handleChange}
                                                     placeholder="شرکت" required/>
-                                                        <label htmlFor="location">محل نصب</label>
+                                                        <label htmlFor="install_location">محل نصب</label>
                                                         <div className="invalid-feedback">
                                                         محل نصب را وارد کنید.
                                                         </div>
@@ -106,7 +300,10 @@ export const SafetyEquipment = () => {
                                 )
                             }
                         })()}
-
+                 <div className='d-flex flex-column mt-2'>
+                      <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                 </div>
         </Fragment>
+        </form>
     )
 }
