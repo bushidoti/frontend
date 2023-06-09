@@ -237,7 +237,7 @@ export const DigitalFurniture = () => {
                                                     <select className="form-select" defaultValue='' id="register_code"
                                                         onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                        {(property.filter(property => property.inventory ===  form.message).map((data) => (
+                                                        {(property.filter(property => property.inventory ===  form.message && property.type_furniture ===  formik.values.type_furniture).map((data) => (
                                                             <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
                                                         )))}
                                                     </select>
@@ -317,7 +317,10 @@ export const DigitalFurniture = () => {
                                          </div>
                                        {typeDigital === 'کامپیوتر' ?
                                           <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="power"  name='power' onChange={formik.handleChange}
+                                                <input type="text" className="form-control" id="power"  name='power' onChange={(e) => {
+                                                            formik.setFieldValue('power' , e.target.value)
+                                                            formik.setFieldValue('name' , "کامپیوتر")
+                                                        }}
                                                        placeholder="1400" required/>
                                                     <label htmlFor="power">مدل پاور</label>
                                                  <div className="invalid-feedback">
