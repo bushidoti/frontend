@@ -4,7 +4,8 @@ import {useFormik} from "formik";
 import Url from "../../../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
-export const AirportCar = () => {
+
+export const AirportCar = (props) => {
     const form = useContext(Contextform)
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])
@@ -39,18 +40,30 @@ export const AirportCar = () => {
     }
 
     const fetchDataName = async () => {
+        if (props.showForm === 'airportCar'){
             const response = await fetch(`${Url}/api/airportvehicle/${formik.values.code}`)
             const data = await response.json()
             setGetName(data)
+        }else if (props.showForm === 'personalCar'){
+            const response = await fetch(`${Url}/api/officevehicle/${formik.values.code}`)
+            const data = await response.json()
+            setGetName(data)
+        }
           }
 
     const fetchDataProperty = async () => {
-        const response = await fetch(`${Url}/api/airportvehicle`)
-        const data = await response.json()
-        setProperty(data)
+        if (props.showForm === 'airportCar'){
+            const response = await fetch(`${Url}/api/airportvehicle`)
+            const data = await response.json()
+            setProperty(data)
+        }else if (props.showForm === 'personalCar'){
+            const response = await fetch(`${Url}/api/officevehicle`)
+            const data = await response.json()
+            setProperty(data)
+        }
       }
-
     const postHandler = async () => {
+        if (props.showForm === 'airportCar'){
            await axios.post(
             `${Url}/api/airportvehicle/`,
               {
@@ -69,12 +82,35 @@ export const AirportCar = () => {
               inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
-         })
+         })}else if (props.showForm === 'personalCar'){
+            await axios.post(
+                `${Url}/api/officevehicle/`,
+                  {
+                  code: handleAutoIncrement(),
+                  name: formik.values.name,
+                  user: formik.values.user,
+                  model: formik.values.model,
+                  year_made: formik.values.year_made,
+                  motor: formik.values.motor,
+                  plate1: formik.values.plate1,
+                  plate2: formik.values.plate2,
+                  plate3: formik.values.plate3,
+                  plate4: formik.values.plate4,
+                  chassis: formik.values.chassis,
+                  owner: formik.values.owner,
+                  inventory: form.message,
+                  type_register: 'ثبت اولیه',
+                  date: today.replaceAll('/' , '-'),
+             })
+    }
+
+
            setTimeout(
                     refreshPages, 3000)
         }
 
     const putHandlerAutoIncrement = async () => {
+        if (props.showForm === 'airportCar'){
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -85,8 +121,20 @@ export const AirportCar = () => {
               airport_vehicle_05: form.message === 'بیشه کلا' ? form.autoIncrement.airport_vehicle_05+1 : form.autoIncrement.airport_vehicle_05,
               airport_vehicle_06: form.message === 'اورهال تهران' ? form.autoIncrement.airport_vehicle_06+1 : form.autoIncrement.airport_vehicle_06,
               airport_vehicle_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.airport_vehicle_07+1 : form.autoIncrement.airport_vehicle_07,
+         })}else if (props.showForm === 'personalCar'){
+            await axios.put(
+            `${Url}/api/autoincrementproperty/1/`,
+              {
+              office_vehicle_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.office_vehicle_01+1 : form.autoIncrement.office_vehicle_01,
+              office_vehicle_02: form.message === 'چابهار' ? form.autoIncrement.office_vehicle_02+1 : form.autoIncrement.office_vehicle_02,
+              office_vehicle_03: form.message === 'دزفول' ? form.autoIncrement.office_vehicle_03+1 : form.autoIncrement.office_vehicle_03,
+              office_vehicle_04: form.message === 'جاسک' ? form.autoIncrement.office_vehicle_04+1 : form.autoIncrement.office_vehicle_04,
+              office_vehicle_05: form.message === 'بیشه کلا' ? form.autoIncrement.office_vehicle_05+1 : form.autoIncrement.office_vehicle_05,
+              office_vehicle_06: form.message === 'اورهال تهران' ? form.autoIncrement.office_vehicle_06+1 : form.autoIncrement.office_vehicle_06,
+              office_vehicle_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.office_vehicle_07+1 : form.autoIncrement.office_vehicle_07,
          })
         }
+    }
 
     const postAlert = () => {
           Swal.fire({
@@ -113,6 +161,7 @@ export const AirportCar = () => {
       }
 
     const postHandlerRepair = async () => {
+        if (props.showForm === 'airportCar'){
            await axios.post(
             `${Url}/api/repairedairportvehicle/`,
               {
@@ -123,7 +172,18 @@ export const AirportCar = () => {
               name: getName.name,
               description: formik.values.description,
               date: today.replaceAll('/' , '-'),
-         })
+         })}else if (props.showForm === 'personalCar'){
+            await axios.post(
+            `${Url}/api/repairedofficevehicle/`,
+              {
+              office_vehicle: formik.values.code,
+              year_changed: formik.values.year_changed,
+              repaired_type: formik.values.repaired_type,
+              kilometer: formik.values.kilometer,
+              name: getName.name,
+              description: formik.values.description,
+              date: today.replaceAll('/' , '-'),
+         })}
            setTimeout(
                     refreshPages, 3000)
         }
@@ -152,6 +212,7 @@ export const AirportCar = () => {
       }
 
     const handleAutoIncrement = () => {
+    if (props.showForm === 'airportCar'){
         if (form.message === 'دفتر مرکزی') {
             return form.autoIncrement.airport_vehicle_01
         } else if (form.message === 'چابهار') {
@@ -167,6 +228,23 @@ export const AirportCar = () => {
         } else if (form.message === 'اورهال اصفهان') {
             return form.autoIncrement.airport_vehicle_07
         }
+    }else if (props.showForm === 'personalCar'){
+        if (form.message === 'دفتر مرکزی') {
+            return form.autoIncrement.office_vehicle_01
+        } else if (form.message === 'چابهار') {
+            return form.autoIncrement.office_vehicle_02
+        } else if (form.message === 'دزفول') {
+            return form.autoIncrement.office_vehicle_03
+        } else if (form.message === 'جاسک') {
+            return form.autoIncrement.office_vehicle_04
+        } else if (form.message === 'بیشه کلا') {
+            return form.autoIncrement.office_vehicle_05
+        } else if (form.message === 'اورهال تهران') {
+            return form.autoIncrement.office_vehicle_06
+        } else if (form.message === 'اورهال اصفهان') {
+            return form.autoIncrement.office_vehicle_07
+        }
+    }
     }
 
      useEffect(() => {

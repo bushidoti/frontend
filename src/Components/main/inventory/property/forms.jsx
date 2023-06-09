@@ -85,11 +85,11 @@ export const Forms =  (props) => {
                                             )
                                         }else if (props.showForm === 'airportCar'){
                                             return (
-                                                     <AirportCar/>
+                                                     <AirportCar showForm={props.showForm}/>
                                             )
                                         }else if (props.showForm === 'personalCar'){
                                             return (
-                                                     <AirportCar/>
+                                                     <AirportCar showForm={props.showForm}/>
                                             )
                                         }else if (props.showForm === 'industrialEquipment'){
                                             return (
