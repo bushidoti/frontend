@@ -5,7 +5,7 @@ import Url from "../../../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export const AirportCar = (props) => {
+export const Vehicles = (props) => {
     const form = useContext(Contextform)
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])

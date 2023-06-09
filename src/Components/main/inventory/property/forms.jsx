@@ -5,7 +5,7 @@ import {ElectronicFurniture} from "./forms/electronic-furniture";
 import {OfficeFurniture} from "./forms/office-furniture";
 import {Furniture} from "./forms/furniture";
 import {AirportFurniture} from "./forms/airport-furniture";
-import {AirportCar} from "./forms/airport-car";
+import {Vehicles} from "./forms/airport-car";
 import {IndustrialEquipment} from "./forms/industrial-equipment";
 import {SupportItems} from "./forms/support-items";
 import {Benefits} from "./forms/benefits";
@@ -85,11 +85,11 @@ export const Forms =  (props) => {
                                             )
                                         }else if (props.showForm === 'airportCar'){
                                             return (
-                                                     <AirportCar showForm={props.showForm}/>
+                                                     <Vehicles showForm={props.showForm}/>
                                             )
                                         }else if (props.showForm === 'personalCar'){
                                             return (
-                                                     <AirportCar showForm={props.showForm}/>
+                                                     <Vehicles showForm={props.showForm}/>
                                             )
                                         }else if (props.showForm === 'industrialEquipment'){
                                             return (

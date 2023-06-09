@@ -29,7 +29,7 @@ export const SafetyEquipment = () => {
     }
 
 
-      const fetchDataName = async () => {
+    const fetchDataName = async () => {
             const response = await fetch(`${Url}/api/safetyequipment/${formik.values.code}`)
             const data = await response.json()
             setGetName(data)
