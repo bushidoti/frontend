@@ -1,6 +1,5 @@
 import React, {Fragment} from "react";
 export const SideBar = (props) => {
-
     return(
         <Fragment>
             <div className="flex-shrink-0 p-3 bg-white m-4 rounded" style={{width:'280px'}} >

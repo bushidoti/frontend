@@ -172,15 +172,16 @@ export const AirportEquipment = () => {
             return postAlertRepair
         }
     }
-    
     return(
     <form className='needs-validation' noValidate>
         <Fragment>
+             {formik.values.type_register === 'ثبت اولیه' ?
                <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="Username"
                 aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
                 <label  id="register_code">کد ثبت</label>
               </div>
+             : null}
                <div className='d-flex gap-2'>
                     <div className="col form-floating mb-3 ">
                         <select className="form-select" id="typeAdd" defaultValue='' aria-label="Type Add" onChange={(e) => {
@@ -226,7 +227,7 @@ export const AirportEquipment = () => {
                                              <div className="invalid-feedback">
                                                  کد را وارد کنید.
                                              </div>
-                                         </div>
+                                          </div>
                                     </Fragment>
 
                                 )

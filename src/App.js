@@ -16,7 +16,6 @@ import WarHouse from "./Components/main/inventory/storage-prodoct/main";
 import Property from "./Components/main/inventory/property/main";
 import {Footer} from "./Components/footer/footer";
 import ReportProperty from "./Components/main/inventory/property/report";
-import {Contextform} from "./Components/main/inventory/property/contextform";
 import StorageHandling from "./Components/main/inventory/warhouse-handling";
 import {Logout} from "./Components/navigationBar/login/logout";
 import ToastLogin from "./Components/navigationBar/login/toast";
@@ -29,7 +28,6 @@ import Url from "./Components/config";
 
 
 function App() {
-    const [isRepair , setIsRepair] = useState('')
     const [modalTitle , setModalTitle] = useState('')
     const [isAuth, setIsAuth] = useState(false);
     const [message, setMessage] = useState('');
@@ -184,10 +182,6 @@ function App() {
     };
     /*پایان مدیریت قرارداد*/
   return (
-<Contextform.Provider value={{
-                    isRepair:isRepair,
-                    setIsRepair:setIsRepair
-                }}>
        <Fragment >
           <BrowserRouter>
             <Routes>
@@ -208,7 +202,7 @@ function App() {
                                 </Fragment>
                                 : null}
                           <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
-                          <Route path="property" element={<Property />} />
+                          <Route path="property" element={<Property/>} />
                           <Route path="report-properties" element={<ReportProperty />} />
                           <Route path="warehouse-handling" element={<StorageHandling />} />
                           <Route path="pending-products" element={<PendingProperty setModalTitle={setModalTitle} modalTitle={modalTitle}/>} />
@@ -233,10 +227,6 @@ function App() {
                 :
            null}
     </Fragment>
-</Contextform.Provider>
-
-
-
   );
 }
 export default App;
