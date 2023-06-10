@@ -25,6 +25,7 @@ const Report = (props) => {
         const data = await response.json()
         setContracts(data)
       }
+
       useEffect(() => {
             void fetchData()
           },
@@ -189,33 +190,33 @@ const Report = (props) => {
                             </thead>
 
                             <tbody>
-                                    {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
-                                <tr key={data.id}>
-                                    <th scope="row">{i}</th>
-                                    <td>{data.id}</td>
-                                    <td>{data.contractNumber}</td>
-                                    <td>{data.employer}</td>
-                                    <td>{data.topicContract}</td>
-                                    <td>{data.typeContract}</td>
-                                    <td>{data.dateContract}</td>
-                                    <td>{data.contractPrice}</td>
-                                    <td>{data.prePaidPrice}</td>
-                                    <td>{data.durationContract}</td>
-                                    <td>{data.goodPrice}</td>
-                                    <td>{data.typeBail1}</td>
-                                    <td>{data.firstBail} _ {data.secondBail}</td>
-                                    <td>{data.commitmentPrice}</td>
-                                    <td>{data.typeBail2}</td>
-                                    <td>{data.firstBail2} _ {data.secondBail2}</td>
-                                    <td>
-                                        <button className='btn btn-warning material-symbols-outlined' id='infoBtn'
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalMain" onClick={() => {
-                                            props.handleEditDocument()
-                                            setIdNumber(data.id)
+                                {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data,i) => (
+                                    <tr key={data.id}>
+                                        <th scope="row">{i}</th>
+                                        <td>{data.id}</td>
+                                        <td>{data.contractNumber}</td>
+                                        <td>{data.employer}</td>
+                                        <td>{data.topicContract}</td>
+                                        <td>{data.typeContract}</td>
+                                        <td>{data.dateContract}</td>
+                                        <td>{data.contractPrice}</td>
+                                        <td>{data.prePaidPrice}</td>
+                                        <td>{data.durationContract}</td>
+                                        <td>{data.goodPrice}</td>
+                                        <td>{data.typeBail1}</td>
+                                        <td>{data.firstBail} _ {data.secondBail}</td>
+                                        <td>{data.commitmentPrice}</td>
+                                        <td>{data.typeBail2}</td>
+                                        <td>{data.firstBail2} _ {data.secondBail2}</td>
+                                        <td>
+                                            <button className='btn btn-warning material-symbols-outlined' id='infoBtn'
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalMain" onClick={() => {
+                                                props.handleEditDocument()
+                                                setIdNumber(data.id)
 
-                                        }}>info
-                                        </button>
+                                            }}>info
+                                            </button>
                                     </td>
                                 </tr>
                             ))) ||

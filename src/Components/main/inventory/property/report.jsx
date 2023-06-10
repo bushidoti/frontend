@@ -1,9 +1,37 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Modal from "./modal";
+import Url from "../../../config";
+import axios from "axios";
 
 const ReportProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
     const [searchFor , setSearchFor] = useState('')
+    const [property, setProperty] = useState([])
+    const [message, setMessage] = useState('')
+
+    const fetchData = async () => {
+        const response = await fetch(`${Url}/api/${typeProperty}/`)
+        const data = await response.json()
+        setProperty(data)
+      }
+
+       useEffect(() => {
+            (async () => {
+                const {data} = await axios.get(`${Url}/home/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setMessage(data.message);
+        })()
+    }, []);
+
+     useEffect(() => {
+            void fetchData()
+          },
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [typeProperty])
+
     return (
         <Fragment>
             <Modal typeProperty={typeProperty}/>
@@ -18,19 +46,19 @@ const ReportProperty = () => {
                                   setSearchFor('')
                                 } }>
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                <option value="تجهیزات ایمنی">تجهیزات ایمنی</option>
-                                                <option value="تجهیزات فرودگاهی">تجهیزات فرودگاهی</option>
-                                                <option value="اثاثه الکترونیکی">اثاثه الکترونیکی</option>
-                                                <option value="اثاثه اداری">اثاثه اداری</option>
-                                                <option value="اثاثه تاسیساتی">اثاثه تاسیساتی</option>
-                                                <option value="اثاثه فرودگاهی">اثاثه فرودگاهی</option>
-                                                <option value="اثاثه دیجیتالی">اثاثه دیجیتالی</option>
-                                                <option value="خودرو فرودگاهی">خودرو فرودگاهی</option>
-                                                <option value="خودرو اداری">خودرو اداری</option>
-                                                <option value="ابزار آلات غیر صنعتی">ابزار آلات غیر صنعتی</option>
-                                                <option value="ابزار آلات صنعتی">ابزار آلات صنعتی</option>
-                                                <option value="اقلام پشتیبانی">اقلام پشتیبانی</option>
-                                                <option value="امتیازات">امتیازات</option>
+                                                <option value="safetyequipment">تجهیزات ایمنی</option>
+                                                <option value="airportequipment">تجهیزات فرودگاهی</option>
+                                                <option value="electronicfurniture">اثاثه الکترونیکی</option>
+                                                <option value="officefurniture">اثاثه اداری</option>
+                                                <option value="facilityfurniture">اثاثه تاسیساتی</option>
+                                                <option value="airportfurniture">اثاثه فرودگاهی</option>
+                                                <option value="digitalfurniture">اثاثه دیجیتالی</option>
+                                                <option value="airportvehicle">خودرو فرودگاهی</option>
+                                                <option value="officevehicle">خودرو اداری</option>
+                                                <option value="noneindustrialtool">ابزار آلات غیر صنعتی</option>
+                                                <option value="industrialtool">ابزار آلات صنعتی</option>
+                                                <option value="supportitem">اقلام پشتیبانی</option>
+                                                <option value="benefit">امتیازات</option>
                                 </select>
                                 <label htmlFor="typeProperty">نوع اموال</label>
                         </div>
@@ -52,7 +80,7 @@ const ReportProperty = () => {
                                 aria-label="Search List" onChange={(e) => setSearchFor(e.target.value)}>
                                     <option value='' disabled>یک مورد انتخاب کنید</option>
                                     {(() => {
-                                        if (typeProperty === 'تجهیزات ایمنی'){
+                                        if (typeProperty === 'safetyequipment'){
                                             return(
                                                 <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -62,7 +90,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل نصب</option>
                                                 </Fragment>
                                             )
-                                        }else if (typeProperty === 'تجهیزات فرودگاهی'){
+                                        }else if (typeProperty === 'airportequipment'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -74,7 +102,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'اثاثه الکترونیکی'){
+                                        }else if (typeProperty === 'electronicfurniture'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -85,7 +113,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'اثاثه اداری'){
+                                        }else if (typeProperty === 'officefurniture'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -95,7 +123,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل استفاده</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                        }else if (typeProperty === 'facilityfurniture'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -106,7 +134,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                        }else if (typeProperty === 'airportfurniture'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -115,7 +143,7 @@ const ReportProperty = () => {
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                        }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -129,7 +157,7 @@ const ReportProperty = () => {
                                                     <option value="مالکیت">مالکیت</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                        }else if (typeProperty === 'noneindustrialtool'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -139,7 +167,7 @@ const ReportProperty = () => {
                                                     <option value="مکان استفاده">مکان استفاده</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                        }else if (typeProperty === 'industrialtool'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -150,17 +178,18 @@ const ReportProperty = () => {
                                                     <option value="یوزر">یوزر</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'اقلام پشتیبانی'){
+                                        }else if (typeProperty === 'supportitem'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نوع قلم">نوع قلم</option>
                                                     <option value="نام اقلام">نام اقلام</option>
                                                     <option value="مدل">مدل</option>
                                                     <option value="مکان استفاده">مکان استفاده</option>
                                                     <option value="یوزر">یوزر</option>
                                                   </Fragment>
                                             )
-                                        }else if (typeProperty === 'امتیازات'){
+                                        }else if (typeProperty === 'benefit'){
                                             return(
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
@@ -264,7 +293,7 @@ const ReportProperty = () => {
                          <thead className= 'bg-light sticky-top'>
                             <tr>
                                 {(() => {
-                                    if (typeProperty === 'تجهیزات فرودگاهی'){
+                                    if (typeProperty === 'airportequipment'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -278,7 +307,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'تجهیزات ایمنی'){
+                                    }else if (typeProperty === 'safetyequipment'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -290,7 +319,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'اثاثه الکترونیکی'){
+                                    }else if (typeProperty === 'electronicfurniture'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -303,7 +332,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'اثاثه اداری'){
+                                    }else if (typeProperty === 'officefurniture'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -315,7 +344,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                    }else if (typeProperty === 'facilityfurniture'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -328,7 +357,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                    }else if (typeProperty === 'airportfurniture'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -339,7 +368,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                    }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -355,7 +384,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                    }else if (typeProperty === 'noneindustrialtool'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -367,7 +396,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                    }else if (typeProperty === 'industrialtool'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -380,11 +409,12 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'اقلام پشتیبانی'){
+                                    }else if (typeProperty === 'supportitem'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
                                                 <th scope="col">کد ثبت</th>
+                                                <th scope="col">نوع قلم</th>
                                                 <th scope="col">نام اقلام</th>
                                                 <th scope="col">مدل</th>
                                                 <th scope="col">مکان استفاده</th>
@@ -392,7 +422,7 @@ const ReportProperty = () => {
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
-                                    }else if (typeProperty === 'امتیازات'){
+                                    }else if (typeProperty === 'benefit'){
                                         return (
                                            <Fragment>
                                                 <th scope="col">ردیف</th>
@@ -409,172 +439,193 @@ const ReportProperty = () => {
                             </tr>
                          </thead>
                         <tbody>
-                                <tr>
-                                         {(() => {
-                                    if (typeProperty === 'تجهیزات فرودگاهی'){
+                             {(() => {
+                                    if (typeProperty === 'airportequipment'){
                                         return (
-                                           <Fragment>
-                                            <th scope="row">1</th>
-                                            <td>ب/12/3</td>
-                                            <td>13/2ث</td>
-                                            <td>سجاد</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>
-                                                <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                            </td>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'تجهیزات ایمنی'){
-                                        return (
-                                            <Fragment>
-                                            <th scope="row">1</th>
-                                            <td>ب/12/3</td>
-                                            <td>13/2ث</td>
-                                            <td>سجاد</td>
-                                            <td>1401/12/1</td>
-                                            <td>1401/12/1</td>
-                                            <td>
-                                                <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                            </td>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'اثاثه الکترونیکی'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
+                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           <tr key={data.code}>
+                                                <th scope="row">{i}</th>
+                                                <td>{data.code}</td>
+                                                <td>{data.name}</td>
+                                                <td>{data.model}</td>
+                                                <td>{data.year_made}</td>
+                                                <td>{data.user}</td>
+                                                <td>{data.owner}</td>
+                                                <td>{data.install_location}</td>
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
                                                 </td>
-                                           </Fragment>
+                                           </tr>
+                                             )))
                                         )
-                                    }else if (typeProperty === 'اثاثه اداری'){
+                                    }else if (typeProperty === 'safetyequipment'){
                                         return (
-                                           <Fragment>
-                                                 <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
+                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                            <tr key={data.code}>
+                                                <th scope="row">{i}</th>
+                                                <td>{data.code}</td>
+                                                <td>{data.name}</td>
+                                                <td>{data.use_for}</td>
+                                                <td>{data.user}</td>
+                                                <td>{data.install_location}</td>
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
                                                 </td>
-                                           </Fragment>
+                                            </tr>
+                                                     )))
                                         )
-                                    }else if (typeProperty === 'اثاثه تاسیساتی'){
+                                    }else if (typeProperty === 'electronicfurniture'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.model}</td>
+                                                    <td>{data.year_buy}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>{data.install_location}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                             )))
                                         )
-                                    }else if (typeProperty === 'اثاثه فرودگاهی'){
+                                    }else if (typeProperty === 'officefurniture'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.year_made}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>{data.using_location}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
-                                    }else if (typeProperty === 'خودرو فرودگاهی' || typeProperty === 'خودرو اداری' ){
+                                    }else if (typeProperty === 'facilityfurniture'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.model}</td>
+                                                    <td>{data.year_buy}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>{data.install_location}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
-                                    }else if (typeProperty === 'ابزار آلات غیر صنعتی'){
+                                    }else if (typeProperty === 'airportfurniture'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.year_buy}</td>
+                                                    <td>{data.install_location}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
-                                    }else if (typeProperty === 'ابزار آلات صنعتی'){
+                                    }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.model}</td>
+                                                    <td>{data.plate4} / {data.plate3} - {data.plate2} - {data.plate1}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>{data.motor}</td>
+                                                    <td>{data.chassis}</td>
+                                                    <td>{data.year_made}</td>
+                                                    <td>{data.owner}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
-                                    }else if (typeProperty === 'اقلام پشتیبانی'){
+                                    }else if (typeProperty === 'noneindustrialtool'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>{data.year_buy}</td>
+                                                    <td>{data.using_location}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
-                                    }else if (typeProperty === 'امتیازات'){
+                                    }else if (typeProperty === 'industrialtool'){
                                         return (
-                                           <Fragment>
-                                                <th scope="row">1</th>
-                                                <td>ب/12/3</td>
-                                                <td>13/2ث</td>
-                                                <td>سجاد</td>
-                                                <td>1401/12/1</td>
-                                                <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
-                                                </td>
-                                           </Fragment>
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.model}</td>
+                                                    <td>{data.year_buy}</td>
+                                                    <td>{data.using_location}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
+                                        )
+                                    }else if (typeProperty === 'supportitem'){
+                                        return (
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.type_item}</td>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.model}</td>
+                                                    <td>{data.using_location}</td>
+                                                    <td>{data.user}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
+                                        )
+                                    }else if (typeProperty === 'benefit'){
+                                        return (
+                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                                <tr key={data.code}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.code}</td>
+                                                    <td>{data.number_type}</td>
+                                                    <td>{data.using_location}</td>
+                                                    <td>{data.number}</td>
+                                                    <td>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    </td>
+                                                </tr>
+                                           )))
                                         )
                                     }
                                 })()}
-                        </tr>
                     </tbody>
                 </table>
             </div>
