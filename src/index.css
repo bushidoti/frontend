@@ -164,3 +164,13 @@ code {
   background-color: var(--bs-tertiary-bg);
 }
 
+@media print {
+  @page {
+      size: A4 landscape;
+      margin: 10px;
+        }
+     body {
+       white-space:nowrap!important;
+       font-size: 1vw ;
+  }
+}

@@ -1,18 +1,26 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import Url from "../../../config";
 import axios from "axios";
+import {useReactToPrint} from "react-to-print";
 
 const ReportProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
     const [searchFor , setSearchFor] = useState('')
     const [property, setProperty] = useState([])
     const [message, setMessage] = useState('')
+    const componentPDF= useRef();
+
+    const generatePDF= useReactToPrint({
+        content: ()=>componentPDF.current, documentTitle:"Data",pageStyle:''
+    });
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/${typeProperty}/`)
-        const data = await response.json()
-        setProperty(data)
+        if (typeProperty !== ''){
+                const response = await fetch(`${Url}/api/${typeProperty}/`)
+                const data = await response.json()
+                setProperty(data)
+        }
       }
 
        useEffect(() => {
@@ -70,7 +78,7 @@ const ReportProperty = () => {
                         </div>
                     </div>
                     <div className= 'd-flex gap-2'>
-                        <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print">print</button>
+                        <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print" onClick={generatePDF}>print</button>
                     </div>
                         </div>
                     <hr className='bg-primary mb-5'/>
@@ -99,6 +107,15 @@ const ReportProperty = () => {
                                                     <option value="سال ساخت">سال ساخت</option>
                                                     <option value="یوزر">یوزر</option>
                                                     <option value="مالکیت">مالکیت</option>
+                                                    <option value="محل نصب">محل نصب</option>
+                                                  </Fragment>
+                                            )
+                                        }else if (typeProperty === 'digitalfurniture'){
+                                            return(
+                                                  <Fragment>
+                                                    <option value="کد ثبت">کد ثبت</option>
+                                                    <option value="نام اثاث">نام اثاث</option>
+                                                    <option value="مدل">مدل</option>
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
@@ -288,9 +305,9 @@ const ReportProperty = () => {
                                     }
                             })()}
             </div>
-                <div className= 'm-4 table-responsive rounded-3' style={{maxHeight : '37vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
-                         <thead className= 'bg-light sticky-top'>
+                <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
+                         <thead className= 'bg-light'>
                             <tr>
                                 {(() => {
                                     if (typeProperty === 'airportequipment'){
@@ -316,6 +333,16 @@ const ReportProperty = () => {
                                                 <th scope="col">مورد استفاده</th>
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">محل نصب</th>
+                                                <th scope="col"></th>
+                                           </Fragment>
+                                        )
+                                    }else if (typeProperty === 'digitalfurniture'){
+                                        return (
+                                           <Fragment>
+                                                <th scope="col">ردیف</th>
+                                                <th scope="col">کد ثبت</th>
+                                                <th scope="col">نام اثاث</th>
+                                                <th scope="col">مدل</th>
                                                 <th scope="col"></th>
                                            </Fragment>
                                         )
@@ -468,6 +495,20 @@ const ReportProperty = () => {
                                                 <td>{data.use_for}</td>
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
+                                                <td>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                </td>
+                                            </tr>
+                                                     )))
+                                        )
+                                    }else if (typeProperty === 'digitalfurniture'){
+                                        return (
+                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                            <tr key={data.code}>
+                                                <th scope="row">{i}</th>
+                                                <td>{data.code}</td>
+                                                <td>{data.name}</td>
+                                                <td>{data.model}</td>
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
                                                 </td>
