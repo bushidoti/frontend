@@ -3,6 +3,7 @@ import Modal from "./modal";
 import Url from "../../../config";
 import axios from "axios";
 import {useReactToPrint} from "react-to-print";
+import {useFormik} from "formik";
 
 const ReportProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
@@ -10,6 +11,30 @@ const ReportProperty = () => {
     const [property, setProperty] = useState([])
     const [message, setMessage] = useState('')
     const componentPDF= useRef();
+    const formik = useFormik({
+            initialValues: {
+                  code: '',
+                  name: '',
+                  user: '',
+                  install_location: '',
+                  model: '',
+                  year_made: '',
+                  owner: '',
+                  use_for: '',
+                  chassis: '',
+                  motor: '',
+                  plate1: '',
+                  plate2: '',
+                  plate3: '',
+                  plate4: '',
+                  year_buy: '',
+                  using_location: '',
+                  number_type: '',
+                  number: '',
+                  type_item: '',
+            },
+            enableReinitialize: true,
+        });
 
     const generatePDF= useReactToPrint({
         content: ()=>componentPDF.current, documentTitle:"Data",pageStyle:''
@@ -17,12 +42,26 @@ const ReportProperty = () => {
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/`)
+                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}`)
                 const data = await response.json()
                 setProperty(data)
         }
       }
-
+    
+      
+    const handleSearch = () => {
+        if (searchFor === 'کد ثبت'){
+            return 'code'
+        }else if (searchFor === 'مورد استفاده'){
+            return 'use_for'
+        }else if (searchFor === 'یوزر'){
+            return 'user'
+        }else if (searchFor === 'محل نصب'){
+            return 'install_location'
+        }
+      
+    }
+      
        useEffect(() => {
             (async () => {
                 const {data} = await axios.get(`${Url}/home/`, {
@@ -38,7 +77,7 @@ const ReportProperty = () => {
             void fetchData()
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          [typeProperty])
+          [typeProperty, formik.values])
 
     return (
         <Fragment>
@@ -85,7 +124,21 @@ const ReportProperty = () => {
 
                         <div className="form-floating m-4 col-1">
                                 <select className="form-select" id="searchList" defaultValue=''
-                                aria-label="Search List" onChange={(e) => setSearchFor(e.target.value)}>
+                                aria-label="Search List" onChange={(e) =>
+                        {
+                          formik.setFieldValue('code' , '')
+                          formik.setFieldValue('name' , '')
+                          formik.setFieldValue('user' , '')
+                          formik.setFieldValue('install_location' , '')
+                          formik.setFieldValue('use_for' , '')
+                          setSearchFor(e.target.value)
+                          if (searchFor !== 'نام تجهیزات') {
+                                document.getElementById('searchBox').value = ''
+                            }
+
+
+                        }}
+                           >
                                     <option value='' disabled>یک مورد انتخاب کنید</option>
                                     {(() => {
                                         if (typeProperty === 'safetyequipment'){
@@ -225,7 +278,7 @@ const ReportProperty = () => {
                                     if(searchFor === 'نام تجهیزات'){
                                         return (
                                              <div className="col-3 form-floating">
-                                                <input className="form-control" type='search' list="nameEquipmentList" id="nameEquipment" placeholder="نقاله" required/>
+                                                <input className="form-control" type='search' list="nameEquipmentList" id="nameEquipment" name='name' onChange={formik.handleChange} placeholder="نقاله" required/>
                                                 <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                 <datalist id="nameEquipmentList">
                                                     <option value="X RAY"/>
@@ -297,8 +350,8 @@ const ReportProperty = () => {
                                     } else {
                                         return (
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder={`جستوجو براساس ${searchFor}`}
-                                                aria-label="searchBox" aria-describedby="search"/>
+                                                <input type="text" className="form-control" name={handleSearch()} onChange={formik.handleChange} placeholder={`جستوجو براساس ${searchFor}`}
+                                                aria-label="searchBox" id='searchBox' aria-describedby="search"/>
                                                 <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                             </div>
                                         )
