@@ -42,11 +42,11 @@ const ReportProperty = () => {
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}`)
+                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}&year_buy=${formik.values.year_buy}&model=${formik.values.model}&using_location=${formik.values.using_location}&year_made=${formik.values.year_made}&motor=${formik.values.motor}&chassis=${formik.values.chassis}&owner=${formik.values.owner}&plate1=${formik.values.plate1}&plate2=${formik.values.plate2}&plate3=${formik.values.plate3}&plate4=${formik.values.plate4}&type_item=${formik.values.type_item}&number_type=${formik.values.number_type}&number=${formik.values.number}`)
                 const data = await response.json()
                 setProperty(data)
         }
-      }
+    }
     
       
     const handleSearch = () => {
@@ -58,6 +58,34 @@ const ReportProperty = () => {
             return 'user'
         }else if (searchFor === 'محل نصب'){
             return 'install_location'
+        }else if (searchFor === 'محل استفاده'){
+            return 'using_location'
+        }else if (searchFor === 'سال خرید'){
+            return 'year_buy'
+        }else if (searchFor === 'مدل'){
+            return 'model'
+        }else if (searchFor === 'نام اثاث'){
+            return 'name'
+        }else if (searchFor === 'سال ساخت'){
+            return 'year_made'
+        }else if (searchFor === 'نام خودرو'){
+            return 'name'
+        }else if (searchFor === 'شماره شاسی'){
+            return 'chassis'
+        }else if (searchFor === 'شماره موتور'){
+            return 'motor'
+        }else if (searchFor === 'مالکیت'){
+            return 'owner'
+        }else if (searchFor === 'نام ابزار'){
+            return 'name'
+        }else if (searchFor === 'مکان استفاده'){
+            return 'using_location'
+        }else if (searchFor === 'نام اقلام'){
+            return 'name'
+        }else if (searchFor === 'نوع قلم'){
+            return 'type_item'
+        }else if (searchFor === 'شماره'){
+            return 'number'
         }
       
     }
@@ -130,9 +158,17 @@ const ReportProperty = () => {
                           formik.setFieldValue('name' , '')
                           formik.setFieldValue('user' , '')
                           formik.setFieldValue('install_location' , '')
-                          formik.setFieldValue('use_for' , '')
+                          formik.setFieldValue('using_location' , '')
+                          formik.setFieldValue('year_made' , '')
+                          formik.setFieldValue('model' , '')
+                          formik.setFieldValue('type_item' , '')
+                          formik.setFieldValue('plate1' , '')
+                          formik.setFieldValue('plate2' , '')
+                          formik.setFieldValue('plate3' , '')
+                          formik.setFieldValue('plate4' , '')
+                          formik.setFieldValue('year_buy' , '')
                           setSearchFor(e.target.value)
-                          if (searchFor !== 'نام تجهیزات') {
+                          if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک') {
                                 document.getElementById('searchBox').value = ''
                             }
 
@@ -178,7 +214,7 @@ const ReportProperty = () => {
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام اثاث">نام اثاث</option>
                                                     <option value="مدل">مدل</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال خرید">سال خرید</option>
                                                     <option value="یوزر">یوزر</option>
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
@@ -188,9 +224,9 @@ const ReportProperty = () => {
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال ساخت">سال ساخت</option>
                                                     <option value="یوزر">یوزر</option>
-                                                    <option value="محل نصب">محل استفاده</option>
+                                                    <option value="محل استفاده">محل استفاده</option>
                                                   </Fragment>
                                             )
                                         }else if (typeProperty === 'facilityfurniture'){
@@ -199,7 +235,7 @@ const ReportProperty = () => {
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام اثاث">نام اثاث</option>
                                                     <option value="مدل">مدل</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال خرید">سال خرید</option>
                                                     <option value="یوزر">یوزر</option>
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
@@ -209,7 +245,7 @@ const ReportProperty = () => {
                                                   <Fragment>
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال خرید">سال خرید</option>
                                                     <option value="محل نصب">محل نصب</option>
                                                   </Fragment>
                                             )
@@ -233,7 +269,7 @@ const ReportProperty = () => {
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام ابزار">نام ابزار</option>
                                                     <option value="یوزر">یوزر</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال خرید">سال خرید</option>
                                                     <option value="مکان استفاده">مکان استفاده</option>
                                                   </Fragment>
                                             )
@@ -243,7 +279,7 @@ const ReportProperty = () => {
                                                     <option value="کد ثبت">کد ثبت</option>
                                                     <option value="نام ابزار">نام ابزار</option>
                                                     <option value="مدل">مدل</option>
-                                                    <option value="سال">سال</option>
+                                                    <option value="سال خرید">سال خرید</option>
                                                     <option value="مکان استفاده">مکان استفاده</option>
                                                     <option value="یوزر">یوزر</option>
                                                   </Fragment>
@@ -294,7 +330,7 @@ const ReportProperty = () => {
                                     }else if (searchFor === 'نوع خط'){
                                         return (
                                               <div className="col-3 form-floating">
-                                                    <input className="form-control" type='search' list="typeLineList" id="typeLine" placeholder="02133229964" required/>
+                                                    <input className="form-control" type='search' list="typeLineList" name='number_type' onChange={formik.handleChange} id="typeLine" placeholder="02133229964" required/>
                                                     <label htmlFor="typeLine">نوع خط</label>
                                                     <datalist id="typeLineList">
                                                         <option value="سیم کارت"/>
@@ -308,12 +344,12 @@ const ReportProperty = () => {
                                     }else if (searchFor === 'پلاک'){
                                         return (
                                               <div className="mt-2 input-group">
-                                                <input className="form-control c-form__input c-form__car-plate-input__section4" type="tel" maxLength='2' placeholder="⚊ ⚊"
+                                                <input className="form-control c-form__input c-form__car-plate-input__section4" name='plate4' onChange={formik.handleChange} type="tel" maxLength='2' placeholder="⚊ ⚊"
                                                 id="carPlateSection4"/>
                                                 <span className="c-form__car-plate-input__iran">ایران</span>
-                                                <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" aria-label="First name"
+                                                <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" name='plate3' onChange={formik.handleChange} aria-label="First name"
                                                 maxLength='3' className="c-form__input form-control"/>
-                                                <select id="carPlateSection2" defaultValue='' className="c-form__combo c-form__car-plate-input__section2">
+                                                <select id="carPlateSection2" defaultValue='' name='plate2' onChange={formik.handleChange} className="c-form__combo c-form__car-plate-input__section2">
                                                     <option value="">انتخاب</option>
                                                     <option value="الف">الف</option>
                                                     <option value="ب">ب</option>
@@ -343,7 +379,7 @@ const ReportProperty = () => {
                                                     <option value="D">D</option>
                                                     <option value="S">S</option>
                                                 </select>
-                                                <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
+                                                <input type="tel" placeholder="⚊ ⚊" name='plate1' onChange={formik.handleChange} id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
                                                 <button className="btn input-group-text c-form__car-plate-input rounded-8"></button>
                                           </div>
                                         )

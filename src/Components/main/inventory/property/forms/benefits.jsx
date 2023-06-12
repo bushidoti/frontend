@@ -108,8 +108,8 @@ export const Benefits = () => {
                        <div className="col form-floating">
                         <select className="form-select" defaultValue='' id="typeLine" name='number_type' onChange={formik.handleChange} aria-label="Type Add" required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
-                            <option value="ثبت اولیه">سیم کارت</option>
-                            <option value="تعمیرات">ثابت</option>
+                            <option value="سیم کارت">سیم کارت</option>
+                            <option value="ثابت">ثابت</option>
                         </select>
                         <label htmlFor="typeLine">نوع خط</label>
                            <div className="invalid-feedback">
