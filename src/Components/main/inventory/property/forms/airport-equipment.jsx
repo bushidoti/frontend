@@ -175,7 +175,7 @@ export const AirportEquipment = () => {
     return(
     <form className='needs-validation' noValidate>
         <Fragment>
-             {formik.values.type_register === 'ثبت اولیه' ?
+             {formik.values.type_register === 'ثبت اولیه' && form.editStatus === false ?
                <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="Username"
                 aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>

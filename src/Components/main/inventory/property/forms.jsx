@@ -19,6 +19,7 @@ export const Forms =  (props) => {
      const [autoIncrement, setAutoIncrement] = useState([])
      const [message, setMessage] = useState('')
      const [isRepair , setIsRepair] = useState('')
+     const [editStatus, setEditStatus] = useState(false)
 
      const fetchDataAutoIncrement = async () => {
         const response = await fetch(`${Url}/api/autoincrementproperty/1`)
@@ -47,7 +48,8 @@ export const Forms =  (props) => {
                     autoIncrement:autoIncrement,
                     message:message,
                     isRepair:isRepair,
-                    setIsRepair:setIsRepair
+                    setIsRepair:setIsRepair,
+                    editStatus:editStatus
         }}>
         <Fragment>
             <div className= 'd-flex justify-content-around m-4 w-100 rounded'>

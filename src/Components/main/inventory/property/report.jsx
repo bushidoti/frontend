@@ -10,6 +10,7 @@ const ReportProperty = () => {
     const [searchFor , setSearchFor] = useState('')
     const [property, setProperty] = useState([])
     const [message, setMessage] = useState('')
+    const [editStatus, setEditStatus] = useState(false)
     const componentPDF= useRef();
     const formik = useFormik({
             initialValues: {
@@ -109,13 +110,17 @@ const ReportProperty = () => {
 
     return (
         <Fragment>
-            <Modal typeProperty={typeProperty}/>
+            <Modal typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
                         <div className="form-floating">
                                 <select className="form-select" id="typeProperty" defaultValue=''
                                 aria-label="Type Property" onChange={(e) => {
+                                  formik.resetForm()
+                                  if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک' && searchFor !== 'نوع خط') {
+                                        document.getElementById('searchBox').value = ''
+                                    }
                                   setTypeProperty(e.target.value)
                                   document.getElementById("searchList").selectedIndex = "0";
                                   setSearchFor('')
@@ -154,21 +159,9 @@ const ReportProperty = () => {
                                 <select className="form-select" id="searchList" defaultValue=''
                                 aria-label="Search List" onChange={(e) =>
                         {
-                          formik.setFieldValue('code' , '')
-                          formik.setFieldValue('name' , '')
-                          formik.setFieldValue('user' , '')
-                          formik.setFieldValue('install_location' , '')
-                          formik.setFieldValue('using_location' , '')
-                          formik.setFieldValue('year_made' , '')
-                          formik.setFieldValue('model' , '')
-                          formik.setFieldValue('type_item' , '')
-                          formik.setFieldValue('plate1' , '')
-                          formik.setFieldValue('plate2' , '')
-                          formik.setFieldValue('plate3' , '')
-                          formik.setFieldValue('plate4' , '')
-                          formik.setFieldValue('year_buy' , '')
+                          formik.resetForm()
                           setSearchFor(e.target.value)
-                          if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک') {
+                          if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک' && searchFor !== 'نوع خط') {
                                 document.getElementById('searchBox').value = ''
                             }
 
@@ -569,7 +562,7 @@ const ReportProperty = () => {
                                                 <td>{data.owner}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                 </td>
                                            </tr>
                                              )))
@@ -585,7 +578,7 @@ const ReportProperty = () => {
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -599,7 +592,7 @@ const ReportProperty = () => {
                                                 <td>{data.name}</td>
                                                 <td>{data.model}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -616,7 +609,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                              )))
@@ -632,7 +625,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -649,7 +642,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -664,7 +657,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -684,7 +677,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.owner}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -700,7 +693,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -717,7 +710,7 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -734,7 +727,7 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -749,7 +742,7 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.number}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain">info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
                                                     </td>
                                                 </tr>
                                            )))

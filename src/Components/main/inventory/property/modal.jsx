@@ -11,14 +11,16 @@ import {SupportItems} from "./forms/support-items";
 import {Benefits} from "./forms/benefits";
 import {DustrialEquipment} from "./forms/dustrial-equipment";
 import  {Contextform} from "./contextform"
+import {DigitalFurniture} from "./forms/digital-furniture";
 
 const Modal = (props) => {
- const [isRepair , setIsRepair] = useState('')
+  const [isRepair , setIsRepair] = useState('')
 
   return (
      <Contextform.Provider value={{
                     isRepair:isRepair,
-                    setIsRepair:setIsRepair
+                    setIsRepair:setIsRepair,
+                    editStatus:props.editStatus
         }}>
       <Fragment>
              <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
@@ -28,39 +30,36 @@ const Modal = (props) => {
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">ویرایش مدرک</h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                            aria-label="Close" onClick={() => props.setEditStatus(false)}></button>
                         </div>
                         <div className="container modal-body">
                             {(() => {
-                                if (props.typeProperty === 'تجهیزات ایمنی'){
+                                if (props.typeProperty === 'safetyequipment'){
                                     return <SafetyEquipment/>
-                                }else if (props.typeProperty === 'تجهیزات فرودگاهی'){
+                                }else if (props.typeProperty === 'airportequipment'){
                                     return <AirportEquipment/>
-                                }else if (props.typeProperty === 'اثاثه الکترونیکی'){
+                                }else if (props.typeProperty === 'electronicfurniture'){
                                     return <ElectronicFurniture/>
-                                }else if (props.typeProperty === 'اثاثه اداری'){
+                                }else if (props.typeProperty === 'officefurniture'){
                                     return <OfficeFurniture/>
-                                }else if (props.typeProperty === 'اثاثه تاسیساتی'){
+                                }else if (props.typeProperty === 'digitalfurniture'){
+                                    return <DigitalFurniture/>
+                                }else if (props.typeProperty === 'facilityfurniture'){
                                     return <Furniture/>
-                                }else if (props.typeProperty === 'اثاثه فرودگاهی'){
+                                }else if (props.typeProperty === 'airportfurniture'){
                                     return <AirportFurniture/>
-                                }else if (props.typeProperty === 'خودرو فرودگاهی' || props.typeProperty === 'خودرو اداری' ){
+                                }else if (props.typeProperty === 'airportvehicle' || props.typeProperty === 'officevehicle' ){
                                     return <Vehicles/>
-                                }else if (props.typeProperty === 'ابزار آلات غیر صنعتی'){
+                                }else if (props.typeProperty === 'noneindustrialtool'){
                                     return <IndustrialEquipment/>
-                                }else if (props.typeProperty === 'ابزار آلات صنعتی'){
+                                }else if (props.typeProperty === 'industrialtool'){
                                     return <DustrialEquipment/>
-                                }else if (props.typeProperty === 'اقلام پشتیبانی'){
+                                }else if (props.typeProperty === 'supportitem'){
                                     return <SupportItems/>
-                                }else if (props.typeProperty === 'امتیازات'){
+                                }else if (props.typeProperty === 'benefit'){
                                     return <Benefits/>
                                 }
                             })()}
-                            </div>
-
-                            <div className="modal-footer">
-                                <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
-                                <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
                             </div>
                     </div>
                 </div>

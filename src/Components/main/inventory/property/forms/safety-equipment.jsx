@@ -167,7 +167,7 @@ export const SafetyEquipment = () => {
     return(
     <form className='needs-validation' noValidate>
         <Fragment>
-                 {formik.values.type_register === 'ثبت اولیه' ?
+                 {formik.values.type_register === 'ثبت اولیه' || form.editStatus ?
                         <div className="form-floating justify-content-center mb-5">
                             <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
                             aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
@@ -175,7 +175,8 @@ export const SafetyEquipment = () => {
                         </div>
                      : null}
                <div className='d-flex gap-2'>
-                    <div className="col form-floating mb-3 ">
+                   {form.editStatus === false ?
+                       <div className="col form-floating mb-3">
                         <select className="form-select" defaultValue='' id="typeAdd" name='type_register' aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
                             formik.setFieldValue('type_register' , e.target.value)
@@ -189,6 +190,8 @@ export const SafetyEquipment = () => {
                              نوع ثبت را انتخاب کنید.
                          </div>
                     </div>
+                       : null}
+
                     {(() => {
                             if (form.isRepair === 'تعمیرات'){
                                 return(
@@ -208,7 +211,7 @@ export const SafetyEquipment = () => {
                                          </div>
                                     </Fragment>
                                 )
-                            }else if (form.isRepair === 'ثبت اولیه') {
+                            }else if (form.isRepair === 'ثبت اولیه' || form.editStatus) {
                                 return(
                                        <Fragment>
                                            <div className="col form-floating mb-3">
@@ -251,7 +254,7 @@ export const SafetyEquipment = () => {
                                        </div>
                                     </Fragment>
                                 )
-                            }else if (form.isRepair === 'ثبت اولیه') {
+                            }else if (form.isRepair === 'ثبت اولیه' || form.editStatus) {
                                 return(
                                        <Fragment>
                                          <hr className='bg-primary mb-5'/>
