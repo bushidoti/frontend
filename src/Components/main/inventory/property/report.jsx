@@ -9,6 +9,8 @@ const ReportProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
     const [searchFor , setSearchFor] = useState('')
     const [property, setProperty] = useState([])
+    const [idNumber, setIdNumber] = useState(null)
+
     const [message, setMessage] = useState('')
     const [editStatus, setEditStatus] = useState(false)
     const componentPDF= useRef();
@@ -110,7 +112,7 @@ const ReportProperty = () => {
 
     return (
         <Fragment>
-            <Modal typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus}/>
+            <Modal typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
@@ -562,7 +564,10 @@ const ReportProperty = () => {
                                                 <td>{data.owner}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                 </td>
                                            </tr>
                                              )))
@@ -578,7 +583,10 @@ const ReportProperty = () => {
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -592,7 +600,10 @@ const ReportProperty = () => {
                                                 <td>{data.name}</td>
                                                 <td>{data.model}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -609,7 +620,10 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                              )))
@@ -625,7 +639,10 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -642,7 +659,10 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -657,7 +677,10 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -677,7 +700,10 @@ const ReportProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.owner}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -693,7 +719,10 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -710,7 +739,10 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -727,7 +759,10 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -742,7 +777,10 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.number}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => setEditStatus(true)}>info</button>
+                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                            setEditStatus(true)
+                                                            setIdNumber(data.code)
+                                                        }}>info</button>
                                                     </td>
                                                 </tr>
                                            )))

@@ -101,7 +101,7 @@ export const Benefits = () => {
         <Fragment>
               <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
-                aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
+                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
                 <label  htmlFor="register_code">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>

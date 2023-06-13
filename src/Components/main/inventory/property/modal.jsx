@@ -15,12 +15,12 @@ import {DigitalFurniture} from "./forms/digital-furniture";
 
 const Modal = (props) => {
   const [isRepair , setIsRepair] = useState('')
-
   return (
      <Contextform.Provider value={{
                     isRepair:isRepair,
                     setIsRepair:setIsRepair,
-                    editStatus:props.editStatus
+                    editStatus:props.editStatus,
+                    idNumber:props.idNumber
         }}>
       <Fragment>
              <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
@@ -30,7 +30,10 @@ const Modal = (props) => {
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">ویرایش مدرک</h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
-                            aria-label="Close" onClick={() => props.setEditStatus(false)}></button>
+                            aria-label="Close" onClick={() => {
+                                props.setIdNumber('')
+                                props.setEditStatus(false)
+                            }}></button>
                         </div>
                         <div className="container modal-body">
                             {(() => {

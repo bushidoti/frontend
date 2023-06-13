@@ -170,7 +170,7 @@ export const SafetyEquipment = () => {
                  {formik.values.type_register === 'ثبت اولیه' || form.editStatus ?
                         <div className="form-floating justify-content-center mb-5">
                             <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
-                            aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
+                            aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
                             <label  htmlFor="register_code">کد ثبت</label>
                         </div>
                      : null}
@@ -179,7 +179,7 @@ export const SafetyEquipment = () => {
                        <div className="col form-floating mb-3">
                         <select className="form-select" defaultValue='' id="typeAdd" name='type_register' aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
-                            formik.setFieldValue('type_register' , e.target.value)
+                           formik.setFieldValue('type_register' , e.target.value)
                         }} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>

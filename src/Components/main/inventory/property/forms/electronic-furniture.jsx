@@ -169,14 +169,15 @@ export const ElectronicFurniture = () => {
     return(
      <form className='needs-validation' noValidate>
         <Fragment>
-               {formik.values.type_register === 'ثبت اولیه' ?
+               {formik.values.type_register === 'ثبت اولیه' || form.editStatus ?
                <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="Username"
-                aria-describedby="register_code" value={handleAutoIncrement()} disabled required/>
+                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
                 <label  htmlFor="register_code">کد ثبت</label>
               </div>
              : null}
                <div className='d-flex gap-2'>
+                   {form.editStatus === false ?
                     <div className="col form-floating mb-3 ">
                         <select className="form-select" defaultValue='' id="typeAdd" aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
@@ -191,6 +192,7 @@ export const ElectronicFurniture = () => {
                              نوع ثبت را انتخاب کنید.
                          </div>
                     </div>
+                      : null}
                    {(() => {
                        if (form.isRepair === 'تعمیرات'){
                            return (
@@ -210,7 +212,7 @@ export const ElectronicFurniture = () => {
                                      </div>
                                </Fragment>
                            )
-                       }else if (form.isRepair === 'ثبت اولیه'){
+                       }else if (form.isRepair === 'ثبت اولیه' || form.editStatus){
                            return (
                                <Fragment>
                                       <div className="col form-floating mb-3">
@@ -252,7 +254,7 @@ export const ElectronicFurniture = () => {
                                      </div>
                                 </Fragment>
                             )
-                        }else if (form.isRepair === 'ثبت اولیه'){
+                        }else if (form.isRepair === 'ثبت اولیه' || form.editStatus){
                             return(
                                 <Fragment>
                                  <hr className='bg-primary mb-5'/>
