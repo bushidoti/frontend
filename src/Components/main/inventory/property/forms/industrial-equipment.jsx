@@ -104,12 +104,13 @@ export const IndustrialEquipment = () => {
         <Fragment>
                <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
-                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
+                aria-describedby="register_code" value={form.editStatus ?  form.idNumber : handleAutoIncrement() || ''} disabled required/>
                 <label  htmlFor="register_code">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
                      <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="nameTools" name='name' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="nameTools" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="پیچ گوشتی" required/>
                             <label htmlFor="nameTools">نام ابزار</label>
                          <div className="invalid-feedback">
@@ -117,7 +118,8 @@ export const IndustrialEquipment = () => {
                          </div>
                      </div>
                       <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="user" name='user' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="user" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="تاسیسات" required/>
                             <label htmlFor="user">یوزر</label>
                          <div className="invalid-feedback">
@@ -125,7 +127,8 @@ export const IndustrialEquipment = () => {
                          </div>
                      </div>
                      <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="year" name='year_buy' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="year" name='year_buy' value={form.editStatus ? form.formik.values.year_buy : formik.values.year_buy}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="1400" required/>
                             <label htmlFor="year">سال خرید</label>
                          <div className="invalid-feedback">
@@ -136,7 +139,8 @@ export const IndustrialEquipment = () => {
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex gap-2'>
                         <div className="col-4 form-floating">
-                            <input type="text" className="form-control" id="locationUse" name='using_location' onChange={formik.handleChange}
+                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
                                 <div className="invalid-feedback">

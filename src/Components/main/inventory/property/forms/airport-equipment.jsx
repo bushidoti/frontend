@@ -239,7 +239,8 @@ export const AirportEquipment = () => {
                                        <Fragment>
                                              <div className="col-2 form-floating">
                                                     <input className="form-control" list="nameEquipmentList" type='search' name='name' id="nameEquipment"
-                                                    onChange={formik.handleChange} placeholder="نقاله" required/>
+                                                    value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} placeholder="نقاله" required/>
                                                     <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                     <datalist id="nameEquipmentList" >
                                                         <option value="X RAY"/>
@@ -252,7 +253,8 @@ export const AirportEquipment = () => {
                                                     </div>
                                                </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="model" name='model' onChange={formik.handleChange}
+                                                <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="12BA" required/>
                                                     <label htmlFor="model">مدل</label>
                                                  <div className="invalid-feedback">
@@ -260,7 +262,8 @@ export const AirportEquipment = () => {
                                                  </div>
                                              </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="number" className="form-control" id="MadeOf" name='year_made' onChange={formik.handleChange}
+                                                <input type="number" className="form-control" id="MadeOf" name='year_made' value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="2020" required/>
                                                     <label htmlFor="MadeOf">سال ساخت</label>
                                                  <div className="invalid-feedback">
@@ -299,7 +302,8 @@ export const AirportEquipment = () => {
                                       <hr className='bg-primary mb-5'/>
                                       <div className='d-flex gap-2'>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="user" name='user' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="user" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="فرودگاه" required/>
                                                 <label htmlFor="user">یوزر</label>
                                                 <div className="invalid-feedback">
@@ -307,7 +311,8 @@ export const AirportEquipment = () => {
                                                 </div>
                                        </div>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="owner" name='owner' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="owner" name='owner' value={form.editStatus ? form.formik.values.owner : formik.values.owner}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="فرودگاه" required/>
                                                 <label htmlFor="owner">مالکیت</label>
                                                 <div className="invalid-feedback">
@@ -315,7 +320,8 @@ export const AirportEquipment = () => {
                                                 </div>
                                        </div>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="location" name='install_location' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="شرکت" required/>
                                                 <label htmlFor="location">محل نصب</label>
                                                 <div className="invalid-feedback">

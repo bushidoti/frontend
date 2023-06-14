@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 
 export const DigitalFurniture = () => {
     const form = useContext(Contextform)
-    const [typeCommunication , setTypeCommunication] = useState('')
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])
     let today = new Date().toLocaleDateString('fa-IR');
@@ -342,8 +341,8 @@ export const DigitalFurniture = () => {
                                            <div className="col-3 form-floating mb-3 ">
                                                     <select className="form-select"  id="typeCommunication" value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                             aria-label="Type Add" onChange={(e) => {
-                                                            setTypeCommunication(e.target.value)
-                                                        (form.editStatus ?  form.formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('name' , e.target.value) )
+                                                            (form.editStatus ?  form.formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('name' , e.target.value))
+                                                            form.setTypeCommunication(e.target.value)
                                                         }} required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         <option value="تلفن">تلفن</option>
@@ -355,7 +354,7 @@ export const DigitalFurniture = () => {
                                                          نوع ابزار را انتخاب کنید.
                                                      </div>
                                            </div>
-                                            {typeCommunication === 'تلفن' ?
+                                            {form.typeCommunication === 'تلفن' ?
                                                  <div className="col-3 form-floating mb-3 ">
                                                     <select className="form-select"  id="isSantral" name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
@@ -374,9 +373,9 @@ export const DigitalFurniture = () => {
                                                 <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="لپ تاپ" required/>
-                                                    <label htmlFor="model">مدل {typeCommunication}</label>
+                                                    <label htmlFor="model">مدل {form.typeCommunication}</label>
                                                  <div className="invalid-feedback">
-                                                     مدل {typeCommunication} را وارد کنید.
+                                                     مدل {form.typeCommunication} را وارد کنید.
                                                  </div>
                                              </div>
                                    </Fragment>

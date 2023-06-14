@@ -48,6 +48,10 @@ const Modal = (props) => {
           hdd: property.hdd || '',
           case: property.case || '',
           type_furniture: property.type_furniture || '',
+          type_item: property.type_item || '',
+          number_type: property.number_type || '',
+          number: property.number || '',
+
 
         },
         enableReinitialize: true,
@@ -76,6 +80,8 @@ const Modal = (props) => {
                     formik:formik,
                     setTypeDigital:props.setTypeDigital,
                     typeDigital:props.typeDigital,
+                    typeCommunication:props.typeCommunication,
+                    setTypeCommunication:props.setTypeCommunication,
         }}>
       <Fragment>
              <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"

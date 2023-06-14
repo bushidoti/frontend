@@ -101,12 +101,13 @@ export const Benefits = () => {
         <Fragment>
               <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
-                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
+                aria-describedby="register_code" value={form.editStatus ?  form.idNumber : handleAutoIncrement() || ''} disabled required/>
                 <label  htmlFor="register_code">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
                        <div className="col form-floating">
-                        <select className="form-select" defaultValue='' id="typeLine" name='number_type' onChange={formik.handleChange} aria-label="Type Add" required>
+                        <select className="form-select" id="typeLine" name='number_type' value={form.editStatus ? form.formik.values.number_type : formik.values.number_type}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} aria-label="Type Add" required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="سیم کارت">سیم کارت</option>
                             <option value="ثابت">ثابت</option>
@@ -117,7 +118,8 @@ export const Benefits = () => {
                          </div>
                     </div>
                         <div className="col-4 form-floating">
-                            <input type="text" className="form-control" id="locationUse" name='using_location' onChange={formik.handleChange}
+                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
                                 <div className="invalid-feedback">
@@ -125,7 +127,8 @@ export const Benefits = () => {
                                 </div>
                        </div>
                       <div className="col form-floating">
-                        <input type="text" className="form-control" id="number" name='number' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="number" name='number' value={form.editStatus ? form.formik.values.number : formik.values.number}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="تاسیسات" required/>
                             <label htmlFor="number">شماره</label>
                          <div className="invalid-feedback">

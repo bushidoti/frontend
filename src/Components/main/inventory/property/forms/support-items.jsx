@@ -107,12 +107,13 @@ export const SupportItems = () => {
         <Fragment>
                <div className="form-floating justify-content-center mb-5">
                 <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
-                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement()} disabled required/>
+                aria-describedby="register_code" value={form.editStatus ?  form.idNumber :handleAutoIncrement() || ''} disabled required/>
                 <label  htmlFor="register_code">کد ثبت</label>
               </div>
                <div className='d-flex gap-2'>
                       <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typetools" defaultValue='' aria-label="Type Add" name='type_item' onChange={formik.handleChange} required>
+                        <select className="form-select" id="typetools"  aria-label="Type Add" name='type_item' value={form.editStatus ? form.formik.values.type_item : formik.values.type_item}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="اداری">اداری</option>
                             <option value="تاسیسات">تاسیسات</option>
@@ -128,7 +129,8 @@ export const SupportItems = () => {
                          </div>
                     </div>
                      <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="nameTools" name='name' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="nameTools" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="فلش درایو" required/>
                             <label htmlFor="nameTools">نام اقلام</label>
                          <div className="invalid-feedback">
@@ -136,7 +138,8 @@ export const SupportItems = () => {
                          </div>
                      </div>
                       <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="model" name='model' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="تاسیسات" required/>
                             <label htmlFor="model">مدل</label>
                          <div className="invalid-feedback">
@@ -147,7 +150,8 @@ export const SupportItems = () => {
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex col gap-2'>
                       <div className="col-2 form-floating mb-3">
-                        <input type="text" className="form-control" id="user" name='user' onChange={formik.handleChange}
+                        <input type="text" className="form-control" id="user" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="شرکت عقاب عسلویه" required/>
                             <label htmlFor="user">یوزر</label>
                          <div className="invalid-feedback">
@@ -155,7 +159,8 @@ export const SupportItems = () => {
                          </div>
                      </div>
                         <div className="col-4 form-floating">
-                            <input type="text" className="form-control" id="locationUse" name='using_location' onChange={formik.handleChange}
+                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
                                 <div className="invalid-feedback">
@@ -163,7 +168,8 @@ export const SupportItems = () => {
                                 </div>
                        </div>
                              <div className="col form-floating">
-                                    <textarea className="form-control" id="describeRepair" name='description' onChange={formik.handleChange}
+                                    <textarea className="form-control" id="describeRepair" name='description' value={form.editStatus ? form.formik.values.description : formik.values.description}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                     placeholder="...." required/>
                                     <label htmlFor="describeRepair">شرح</label>
                                     <div className="invalid-feedback">

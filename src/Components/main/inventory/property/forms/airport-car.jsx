@@ -326,7 +326,8 @@ export const Vehicles = (props) => {
                            return (
                                <Fragment>
                                      <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="nameCar" name='name' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="nameCar" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="شاتر" required/>
                                             <label htmlFor="nameCar">نام خودرو</label>
                                          <div className="invalid-feedback">
@@ -334,7 +335,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                      <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="modelCar" name='model' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="modelCar" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="x55" required/>
                                             <label htmlFor="modelCar">مدل</label>
                                          <div className="invalid-feedback">
@@ -342,7 +344,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                        <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="madeOf" name='year_made' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="madeOf" name='year_made' value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="1388" required/>
                                             <label htmlFor="madeOf`">سال ساخت</label>
                                          <div className="invalid-feedback">
@@ -396,15 +399,18 @@ export const Vehicles = (props) => {
                                      <div className="col  form-floating">
                                          <div className="mt-1 input-group">
                                                             <input className="form-control c-form__input c-form__car-plate-input__section4"
-                                                            type="tel" name='plate4' onChange={formik.handleChange}
+                                                            type="tel" name='plate4' value={form.editStatus ? form.formik.values.plate4 : formik.values.plate4}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             maxLength='2' placeholder="⚊ ⚊"
                                                             id="carPlateSection4"/>
                                                             <span className="c-form__car-plate-input__iran">ایران</span>
                                                             <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊"
-                                                            aria-label="First name" name='plate3' onChange={formik.handleChange}
+                                                            aria-label="First name" name='plate3' value={form.editStatus ? form.formik.values.plate3 : formik.values.plate3}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             maxLength='3' className="c-form__input form-control"/>
-                                                            <select id="carPlateSection2" defaultValue=''
-                                                            className="c-form__combo c-form__car-plate-input__section2" name='plate2' onChange={formik.handleChange}>
+                                                            <select id="carPlateSection2"
+                                                            className="c-form__combo c-form__car-plate-input__section2" name='plate2' value={form.editStatus ? form.formik.values.plate2 : formik.values.plate2}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}>
                                                                 <option value="" disabled>انتخاب</option>
                                                                 <option value="الف">الف</option>
                                                                 <option value="ب">ب</option>
@@ -435,12 +441,14 @@ export const Vehicles = (props) => {
                                                                 <option value="S">S</option>
                                                             </select>
                                                             <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2'
-                                                            className="c-form__input form-control" name='plate1' onChange={formik.handleChange}/>
+                                                            className="c-form__input form-control" name='plate1' value={form.editStatus ? form.formik.values.plate1 : formik.values.plate1}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}/>
                                                             <span className="input-group-text c-form__car-plate-input rounded-8"></span>
                                                           </div>
                                                           </div>
                                       <div className="col-2 form-floating">
-                                        <input type="text" className="form-control" id="userCar" name='user' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="userCar" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="فرودگاه مهراباد" required/>
                                             <label htmlFor="userCar">یوزر</label>
                                          <div className="invalid-feedback">
@@ -448,7 +456,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                             <div className="col-2 form-floating mb-3">
-                                        <input type="text" className="form-control" id="ownerCar" name='owner' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="ownerCar" name='owner' value={form.editStatus ? form.formik.values.owner : formik.values.owner}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="فرودگاه مهراباد" required/>
                                             <label htmlFor="ownerCar">مالکیت</label>
                                          <div className="invalid-feedback">
@@ -467,7 +476,8 @@ export const Vehicles = (props) => {
                             <hr className='bg-primary mb-5'/>
                             <div className='d-flex gap-2'>
                                 <div className="col form-floating">
-                                        <input type="text" className="form-control" id="motorNumber" name='motor' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="motorNumber" name='motor' value={form.editStatus ? form.formik.values.motor : formik.values.motor}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="IN-12345678" required/>
                                             <label htmlFor="motorNumber">شماره موتور</label>
                                          <div className="invalid-feedback">
@@ -475,7 +485,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="chassisNumber" name='chassis' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="chassisNumber" name='chassis' value={form.editStatus ? form.formik.values.chassis : formik.values.chassis}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="123456789052314" required/>
                                             <label htmlFor="chassisNumber">شماره شاسی</label>
                                          <div className="invalid-feedback">
