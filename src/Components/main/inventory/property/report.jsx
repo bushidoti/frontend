@@ -10,6 +10,7 @@ const ReportProperty = () => {
     const [searchFor , setSearchFor] = useState('')
     const [property, setProperty] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const [typeDigital , setTypeDigital] = useState('')
 
     const [message, setMessage] = useState('')
     const [editStatus, setEditStatus] = useState(false)
@@ -112,7 +113,7 @@ const ReportProperty = () => {
 
     return (
         <Fragment>
-            <Modal typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
@@ -598,11 +599,12 @@ const ReportProperty = () => {
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
-                                                <td>{data.model}</td>
+                                                <td>{data.cpu}</td>
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setTypeDigital(data.type_furniture)
                                                         }}>info</button>
                                                 </td>
                                             </tr>

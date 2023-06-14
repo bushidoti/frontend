@@ -215,7 +215,7 @@ export const SafetyEquipment = () => {
                                 return(
                                        <Fragment>
                                            <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" name='name' id="nameEquipment" onChange={formik.handleChange}
+                                                <input type="text" className="form-control" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name} id="nameEquipment" onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="کلاه ایمنی" required/>
                                                     <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                  <div className="invalid-feedback">
@@ -223,7 +223,7 @@ export const SafetyEquipment = () => {
                                                  </div>
                                              </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="use_for" name='use_for' onChange={formik.handleChange}
+                                                <input type="text" className="form-control" id="use_for" name='use_for' value={form.editStatus ? form.formik.values.use_for : formik.values.use_for} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="ساختمان" required/>
                                                     <label htmlFor="use_for">مورد استفاده</label>
                                                  <div className="invalid-feedback">
@@ -260,7 +260,8 @@ export const SafetyEquipment = () => {
                                          <hr className='bg-primary mb-5'/>
                                         <div className='d-flex gap-2'>
                                             <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="user" name='user' onChange={formik.handleChange}
+                                                    <input type="text" className="form-control" id="user" name='user'
+                                                           value={form.editStatus ? form.formik.values.user : formik.values.user} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="فرودگاه" required/>
                                                         <label htmlFor="user">یوزر</label>
                                                         <div className="invalid-feedback">
@@ -269,7 +270,9 @@ export const SafetyEquipment = () => {
                                                </div>
 
                                                <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="install_location" name='install_location' onChange={formik.handleChange}
+                                                    <input type="text" className="form-control" id="install_location" name='install_location'
+                                                           value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                                    onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="شرکت" required/>
                                                         <label htmlFor="install_location">محل نصب</label>
                                                         <div className="invalid-feedback">

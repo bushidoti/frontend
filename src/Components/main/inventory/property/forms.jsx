@@ -20,6 +20,7 @@ export const Forms =  (props) => {
      const [message, setMessage] = useState('')
      const [isRepair , setIsRepair] = useState('')
      const [editStatus, setEditStatus] = useState(false)
+     const [typeDigital , setTypeDigital] = useState('')
 
      const fetchDataAutoIncrement = async () => {
         const response = await fetch(`${Url}/api/autoincrementproperty/1`)
@@ -48,6 +49,8 @@ export const Forms =  (props) => {
                     autoIncrement:autoIncrement,
                     message:message,
                     isRepair:isRepair,
+                    setTypeDigital:setTypeDigital,
+                    typeDigital:typeDigital,
                     setIsRepair:setIsRepair,
                     editStatus:editStatus
         }}>

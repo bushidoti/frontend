@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 
 export const DigitalFurniture = () => {
     const form = useContext(Contextform)
-    const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])
@@ -194,8 +193,8 @@ export const DigitalFurniture = () => {
              : null}
                <div className='d-flex gap-2'>
                    <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="type-digital" defaultValue='' aria-label="Type Add" onChange={(e) => {
-                            setTypeDigital(e.target.value)
+                        <select className="form-select" id="type-digital"  aria-label="Type Add" value={form.editStatus ? form.formik.values.type_furniture : formik.values.type_furniture} onChange={(e) => {
+                            form.setTypeDigital(e.target.value)
                             formik.setFieldValue('type_furniture' , e.target.value)
                         }} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -213,13 +212,13 @@ export const DigitalFurniture = () => {
                     </div>
                     {form.editStatus === false ?
                       <div className="col form-floating mb-3 ">
-                        <select className="form-select" defaultValue='' id="typeAdd" aria-label="Type Add" onChange={(e) => {
+                        <select className="form-select" defaultValue=''  id="typeAdd" aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
                             formik.setFieldValue('type_register' , e.target.value)
                         }}  required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="ثبت اولیه">ثبت اولیه</option>
-                            <option value="تعویض" disabled={typeDigital !== 'لپ تاپ' && typeDigital !== 'کامپیوتر' }>تعویض</option>
+                            <option value="تعویض" disabled={form.typeDigital !== 'لپ تاپ' && form.typeDigital !== 'کامپیوتر' }>تعویض</option>
                         </select>
                         <label htmlFor="typeAdd">نوع ثبت</label>
                            <div className="invalid-feedback">
@@ -232,11 +231,11 @@ export const DigitalFurniture = () => {
                   <div className='d-flex gap-2'>
                    {(() => {
                        if (form.isRepair === 'تعویض'){
-                            if (typeDigital === 'کامپیوتر' || typeDigital === 'لپ تاپ'){
+                            if (form.typeDigital === 'کامپیوتر' || form.typeDigital === 'لپ تاپ'){
                                 return (
                                    <Fragment>
                                              <div className="col form-floating mb-3">
-                                                    <select className="form-select" defaultValue='' id="register_code"
+                                                    <select className="form-select"  id="register_code"
                                                         onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         {(property.filter(property => property.inventory ===  form.message && property.type_furniture ===  formik.values.type_furniture).map((data) => (
@@ -250,10 +249,10 @@ export const DigitalFurniture = () => {
                                              </div>
 
                                          <div className="col form-floating mb-3 ">
-                                                <select className="form-select" id="typeRepair" defaultValue='' name='repaired_type'
+                                                <select className="form-select" id="typeRepair"  name='repaired_type'
                                                     onChange={formik.handleChange} aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                    {typeDigital === 'کامپیوتر'  ?
+                                                    {form.typeDigital === 'کامپیوتر'  ?
                                                         <Fragment>
                                                             <option value="سی پی یو">سی پی یو</option>
                                                             <option value="مادربرد">مادربرد</option>
@@ -276,13 +275,14 @@ export const DigitalFurniture = () => {
                            )
                         }
                        }else if (form.isRepair === 'ثبت اولیه' || form.editStatus){
-                            if (typeDigital === 'کامپیوتر' || typeDigital === 'لپ تاپ'){
+                            if (form.typeDigital === 'کامپیوتر' || form.typeDigital === 'لپ تاپ'){
                                return (
                                    <Fragment>
-                                       {typeDigital === 'لپ تاپ' ?
+                                       {form.typeDigital === 'لپ تاپ' ?
                                         <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="model"  name='model' onChange={(e) => {
-                                                            formik.setFieldValue('model' , e.target.value)
+                                            <input type="text" className="form-control" id="model"  name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                              onChange={(e) => {
+                                                  (form.editStatus ?  form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value) )
                                                             formik.setFieldValue('name' , "لپ تاپ")
                                                         }}
                                                    placeholder="لپ تاپ" required/>
@@ -294,7 +294,8 @@ export const DigitalFurniture = () => {
                                            : null }
 
                                       <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="cpu" name='cpu' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="cpu" name='cpu' value={form.editStatus ? form.formik.values.cpu : formik.values.cpu}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                    placeholder="لپ تاپ" required/>
                                                 <label htmlFor="cpu">مدل سی پی یو</label>
                                              <div className="invalid-feedback">
@@ -302,7 +303,8 @@ export const DigitalFurniture = () => {
                                              </div>
                                          </div>
                                          <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="motherboard" name='motherboard' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="motherboard" name='motherboard' value={form.editStatus ? form.formik.values.motherboard : formik.values.motherboard}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                    placeholder="1400" required/>
                                                 <label htmlFor="motherboard">مدل مادربرد</label>
                                              <div className="invalid-feedback">
@@ -310,17 +312,19 @@ export const DigitalFurniture = () => {
                                              </div>
                                          </div>
                                          <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="ram" name='ram' onChange={formik.handleChange}
+                                            <input type="text" className="form-control" id="ram" name='ram' value={form.editStatus ? form.formik.values.ram : formik.values.ram}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                    placeholder="1400" required/>
                                                 <label htmlFor="ram">فضای رم</label>
                                              <div className="invalid-feedback">
                                                  فضای رم را وارد کنید.
                                              </div>
                                          </div>
-                                       {typeDigital === 'کامپیوتر' ?
+                                       {form.typeDigital === 'کامپیوتر' ?
                                           <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="power"  name='power' onChange={(e) => {
-                                                            formik.setFieldValue('power' , e.target.value)
+                                                <input type="text" className="form-control" id="power"  name='power' value={form.editStatus ? form.formik.values.power : formik.values.power}
+                                                onChange={(e) => {
+                                                    (form.editStatus ?  form.formik.setFieldValue('power' , e.target.value) : formik.setFieldValue('power' , e.target.value) )
                                                             formik.setFieldValue('name' , "کامپیوتر")
                                                         }}
                                                        placeholder="1400" required/>
@@ -332,14 +336,14 @@ export const DigitalFurniture = () => {
                                            : null }
                                </Fragment>
                                )
-                           }else if (typeDigital === 'تلفن , سانترال و مودم'){
+                           }else if (form.typeDigital === 'تلفن , سانترال و مودم'){
                                 return (
                                     <Fragment>
                                            <div className="col-3 form-floating mb-3 ">
-                                                    <select className="form-select" defaultValue='' id="typeCommunication"
+                                                    <select className="form-select"  id="typeCommunication" value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                             aria-label="Type Add" onChange={(e) => {
                                                             setTypeCommunication(e.target.value)
-                                                            formik.setFieldValue('name' , e.target.value)
+                                                        (form.editStatus ?  form.formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('name' , e.target.value) )
                                                         }} required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         <option value="تلفن">تلفن</option>
@@ -353,7 +357,8 @@ export const DigitalFurniture = () => {
                                            </div>
                                             {typeCommunication === 'تلفن' ?
                                                  <div className="col-3 form-floating mb-3 ">
-                                                    <select className="form-select" defaultValue='' id="isSantral" name='phone_feature' onChange={formik.handleChange}
+                                                    <select className="form-select"  id="isSantral" name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         <option value="با سانترال">با سانترال</option>
@@ -366,7 +371,8 @@ export const DigitalFurniture = () => {
                                            </div>
                                                 : null }
                                            <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="model" name='model' onChange={formik.handleChange}
+                                                <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="لپ تاپ" required/>
                                                     <label htmlFor="model">مدل {typeCommunication}</label>
                                                  <div className="invalid-feedback">
@@ -375,11 +381,12 @@ export const DigitalFurniture = () => {
                                              </div>
                                    </Fragment>
                                 )
-                            }else if (typeDigital === 'دوربین'){
+                            }else if (form.typeDigital === 'دوربین'){
                                 return (
                                         <Fragment>
                                                    <div className="col-3 form-floating mb-3 ">
-                                                            <select className="form-select" defaultValue='' id="typeCamera" name='phone_feature' onChange={formik.handleChange}
+                                                            <select className="form-select"  id="typeCamera" name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                     aria-label="Type Add" required>
                                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                                                 <option value="آنالوگ">آنالوگ</option>
@@ -391,9 +398,10 @@ export const DigitalFurniture = () => {
                                                              </div>
                                                    </div>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' onChange={(e) => {
-                                                            formik.setFieldValue('model' , e.target.value)
-                                                            formik.setFieldValue('name' , "دوربین")
+                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                onChange={(e) => {
+                                                    (form.editStatus ? form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value) )
+                                                        formik.setFieldValue('name' , "دوربین")
                                                         }}
                                                                placeholder="لپ تاپ" required/>
                                                             <label htmlFor="model">مدل دوربین</label>
@@ -403,12 +411,13 @@ export const DigitalFurniture = () => {
                                                      </div>
                                         </Fragment>
                                 )
-                            }else if (typeDigital === 'مانیتور'){
+                            }else if (form.typeDigital === 'مانیتور'){
                                 return (
                                         <Fragment>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' onChange={(e) => {
-                                                            formik.setFieldValue('model' , e.target.value)
+                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                         onChange={(e) => {
+                                                             (form.editStatus ? form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value))
                                                             formik.setFieldValue('name' , "مانیتور")
                                                         }}
                                                                placeholder="لپ تاپ" required/>
@@ -419,11 +428,12 @@ export const DigitalFurniture = () => {
                                                      </div>
                                         </Fragment>
                                 )
-                            }else if (typeDigital === 'پرینتر'){
+                            }else if (form.typeDigital === 'پرینتر'){
                                 return (
                                         <Fragment>
                                                    <div className="col-3 form-floating mb-3 ">
-                                                            <select className="form-select" defaultValue='' id="typeCamera" name='name' onChange={formik.handleChange}
+                                                            <select className="form-select"  id="typeCamera" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                     aria-label="Type Add" required>
                                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                                                 <option value="پرینتر لیزری">پرینتر لیزری</option>
@@ -441,7 +451,8 @@ export const DigitalFurniture = () => {
                                                              </div>
                                                    </div>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' onChange={formik.handleChange}
+                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                placeholder="لپ تاپ" required/>
                                                             <label htmlFor="model">مدل پرینتر</label>
                                                          <div className="invalid-feedback">
@@ -456,7 +467,7 @@ export const DigitalFurniture = () => {
               </div>
                     {(() => {
                         if (form.isRepair === 'تعویض'){
-                            if (typeDigital === 'کامپیوتر' || typeDigital === 'لپ تاپ' ){
+                            if (form.typeDigital === 'کامپیوتر' || form.typeDigital === 'لپ تاپ' ){
                                 return(
                                     <Fragment>
                                          <hr className='bg-primary mb-5'/>
@@ -475,13 +486,14 @@ export const DigitalFurniture = () => {
                             }
 
                         }else if (form.isRepair === 'ثبت اولیه' || form.editStatus){
-                                if (typeDigital === 'کامپیوتر'){
+                                if (form.typeDigital === 'کامپیوتر'){
                                     return(
                                 <Fragment>
                                  <hr className='bg-primary mb-5'/>
                                  <div className='d-flex gap-2'>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="hdd" name='hdd' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="hdd" name='hdd' value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
+                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="12BA" required/>
                                             <label htmlFor="hdd">فضای هارد</label>
                                          <div className="invalid-feedback">
@@ -489,7 +501,8 @@ export const DigitalFurniture = () => {
                                          </div>
                                     </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="case" name='case' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="case" name='case' value={form.editStatus ? form.formik.values.case : formik.values.case}
+                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                         placeholder="فرودگاه" required/>
                                             <label htmlFor="case">مدل کیس</label>
                                             <div className="invalid-feedback">
@@ -497,7 +510,8 @@ export const DigitalFurniture = () => {
                                             </div>
                                     </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="install_location" name='install_location' onChange={formik.handleChange}
+                                        <input type="text" className="form-control" id="install_location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                         placeholder="فرودگاه" required/>
                                             <label htmlFor="install_location">محل نصب</label>
                                             <div className="invalid-feedback">
@@ -507,13 +521,14 @@ export const DigitalFurniture = () => {
                                     </div>
                                 </Fragment>
                             )
-                                }else if (typeDigital === 'لپ تاپ'){
+                                }else if (form.typeDigital === 'لپ تاپ'){
                                     return (
                                             <Fragment>
                                                  <hr className='bg-primary mb-5'/>
                                                  <div className='d-flex gap-2'>
                                                     <div className="col form-floating">
-                                                        <input type="text" className="form-control" id="hdd" name='hdd' onChange={formik.handleChange}
+                                                        <input type="text" className="form-control" id="hdd" name='hdd' value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
+                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                placeholder="12BA" required/>
                                                             <label htmlFor="hdd">فضای هارد</label>
                                                          <div className="invalid-feedback">
@@ -521,7 +536,8 @@ export const DigitalFurniture = () => {
                                                          </div>
                                                     </div>
                                                     <div className="col form-floating">
-                                                        <input type="text" className="form-control" id="install_location" name='install_location' onChange={formik.handleChange}
+                                                        <input type="text" className="form-control" id="install_location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                             onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                         placeholder="فرودگاه" required/>
                                                             <label htmlFor="install_location">محل نصب</label>
                                                             <div className="invalid-feedback">
