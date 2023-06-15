@@ -193,7 +193,7 @@ export const DigitalFurniture = () => {
              : null}
                <div className='d-flex gap-2'>
                    <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="type-digital"  aria-label="Type Add" value={form.editStatus ? form.formik.values.type_furniture : formik.values.type_furniture} onChange={(e) => {
+                        <select className="form-select" id="type-digital" disabled={form.viewOnly} aria-label="Type Add" value={form.editStatus ? form.formik.values.type_furniture : formik.values.type_furniture} onChange={(e) => {
                             form.setTypeDigital(e.target.value)
                             formik.setFieldValue('type_furniture' , e.target.value)
                         }} required>
@@ -280,7 +280,8 @@ export const DigitalFurniture = () => {
                                    <Fragment>
                                        {form.typeDigital === 'لپ تاپ' ?
                                         <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="model"  name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                            <input type="text" className="form-control" id="model"  name='model' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.model : formik.values.model}
                                               onChange={(e) => {
                                                   (form.editStatus ?  form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value) )
                                                             formik.setFieldValue('name' , "لپ تاپ")
@@ -294,7 +295,8 @@ export const DigitalFurniture = () => {
                                            : null }
 
                                       <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="cpu" name='cpu' value={form.editStatus ? form.formik.values.cpu : formik.values.cpu}
+                                            <input type="text" className="form-control" id="cpu" name='cpu' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.cpu : formik.values.cpu}
                                                onChange={form.editStatus ? form.formik.handleChange :
                                                    formik.handleChange}
                                                    placeholder="لپ تاپ" required/>
@@ -304,7 +306,8 @@ export const DigitalFurniture = () => {
                                              </div>
                                          </div>
                                          <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="motherboard" name='motherboard' value={form.editStatus ? form.formik.values.motherboard : formik.values.motherboard}
+                                            <input type="text" className="form-control" id="motherboard" name='motherboard' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.motherboard : formik.values.motherboard}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                    placeholder="1400" required/>
                                                 <label htmlFor="motherboard">مدل مادربرد</label>
@@ -313,7 +316,8 @@ export const DigitalFurniture = () => {
                                              </div>
                                          </div>
                                          <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="ram" name='ram' value={form.editStatus ? form.formik.values.ram : formik.values.ram}
+                                            <input type="text" className="form-control" id="ram" name='ram' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.ram : formik.values.ram}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                    placeholder="1400" required/>
                                                 <label htmlFor="ram">فضای رم</label>
@@ -323,7 +327,8 @@ export const DigitalFurniture = () => {
                                          </div>
                                        {form.typeDigital === 'کامپیوتر' ?
                                           <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="power"  name='power' value={form.editStatus ? form.formik.values.power : formik.values.power}
+                                                <input type="text" className="form-control" id="power"  name='power' disabled={form.viewOnly}
+                                                       value={form.editStatus ? form.formik.values.power : formik.values.power}
                                                 onChange={(e) => {
                                                     (form.editStatus ?  form.formik.setFieldValue('power' , e.target.value) : formik.setFieldValue('power' , e.target.value) )
                                                             formik.setFieldValue('name' , "کامپیوتر")
@@ -341,7 +346,8 @@ export const DigitalFurniture = () => {
                                 return (
                                     <Fragment>
                                            <div className="col-3 form-floating mb-3 ">
-                                                    <select className="form-select"  id="typeCommunication" value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                                    <select className="form-select"  id="typeCommunication" disabled={form.viewOnly}
+                                                            value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                             aria-label="Type Add" onChange={(e) => {
                                                             (form.editStatus ?  form.formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('name' , e.target.value))
                                                             form.setTypeCommunication(e.target.value)
@@ -358,7 +364,7 @@ export const DigitalFurniture = () => {
                                            </div>
                                             {form.typeCommunication === 'تلفن' ?
                                                  <div className="col-3 form-floating mb-3 ">
-                                                    <select className="form-select"  id="isSantral" name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
+                                                    <select className="form-select"  id="isSantral" disabled={form.viewOnly} name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -372,7 +378,7 @@ export const DigitalFurniture = () => {
                                            </div>
                                                 : null }
                                            <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                <input type="text" className="form-control" id="model" disabled={form.viewOnly} name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="لپ تاپ" required/>
                                                     <label htmlFor="model">مدل {form.typeCommunication}</label>
@@ -386,7 +392,7 @@ export const DigitalFurniture = () => {
                                 return (
                                         <Fragment>
                                                    <div className="col-3 form-floating mb-3 ">
-                                                            <select className="form-select"  id="typeCamera" name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
+                                                            <select className="form-select"  id="typeCamera" disabled={form.viewOnly} name='phone_feature' value={form.editStatus ? form.formik.values.phone_feature : formik.values.phone_feature}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                     aria-label="Type Add" required>
                                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -399,7 +405,7 @@ export const DigitalFurniture = () => {
                                                              </div>
                                                    </div>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                        <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly} value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                 onChange={(e) => {
                                                     (form.editStatus ? form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value) )
                                                         formik.setFieldValue('name' , "دوربین")
@@ -416,7 +422,7 @@ export const DigitalFurniture = () => {
                                 return (
                                         <Fragment>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                        <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly} value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                          onChange={(e) => {
                                                              (form.editStatus ? form.formik.setFieldValue('model' , e.target.value) : formik.setFieldValue('model' , e.target.value))
                                                             formik.setFieldValue('name' , "مانیتور")
@@ -433,7 +439,7 @@ export const DigitalFurniture = () => {
                                 return (
                                         <Fragment>
                                                    <div className="col-3 form-floating mb-3 ">
-                                                            <select className="form-select"  id="typeCamera" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                                            <select className="form-select"  id="typeCamera" name='name' disabled={form.viewOnly} value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                     aria-label="Type Add" required>
                                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -452,7 +458,7 @@ export const DigitalFurniture = () => {
                                                              </div>
                                                    </div>
                                                    <div className="col form-floating mb-3">
-                                                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                        <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly} value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                placeholder="لپ تاپ" required/>
                                                             <label htmlFor="model">مدل پرینتر</label>
@@ -493,7 +499,8 @@ export const DigitalFurniture = () => {
                                  <hr className='bg-primary mb-5'/>
                                  <div className='d-flex gap-2'>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="hdd" name='hdd' value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
+                                        <input type="text" className="form-control" id="hdd" name='hdd' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="12BA" required/>
                                             <label htmlFor="hdd">فضای هارد</label>
@@ -502,7 +509,8 @@ export const DigitalFurniture = () => {
                                          </div>
                                     </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="case" name='case' value={form.editStatus ? form.formik.values.case : formik.values.case}
+                                        <input type="text" className="form-control" id="case" name='case'  disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.case : formik.values.case}
                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                         placeholder="فرودگاه" required/>
                                             <label htmlFor="case">مدل کیس</label>
@@ -511,7 +519,8 @@ export const DigitalFurniture = () => {
                                             </div>
                                     </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="install_location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                        <input type="text" className="form-control" id="install_location" name='install_location' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                         placeholder="فرودگاه" required/>
                                             <label htmlFor="install_location">محل نصب</label>
@@ -528,7 +537,8 @@ export const DigitalFurniture = () => {
                                                  <hr className='bg-primary mb-5'/>
                                                  <div className='d-flex gap-2'>
                                                     <div className="col form-floating">
-                                                        <input type="text" className="form-control" id="hdd" name='hdd' value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
+                                                        <input type="text" className="form-control" id="hdd" name='hdd' disabled={form.viewOnly}
+                                                               value={form.editStatus ? form.formik.values.hdd : formik.values.hdd}
                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                                placeholder="12BA" required/>
                                                             <label htmlFor="hdd">فضای هارد</label>
@@ -537,7 +547,8 @@ export const DigitalFurniture = () => {
                                                          </div>
                                                     </div>
                                                     <div className="col form-floating">
-                                                        <input type="text" className="form-control" id="install_location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                                        <input type="text" className="form-control" id="install_location" disabled={form.viewOnly}
+                                                               name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                              onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                         placeholder="فرودگاه" required/>
                                                             <label htmlFor="install_location">محل نصب</label>
@@ -551,9 +562,11 @@ export const DigitalFurniture = () => {
                                 }
                         }
                     })()}
-             <div className='d-flex flex-column mt-2'>
-                      <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
-              </div>
+             {form.viewOnly ? null :
+                <div className='d-flex flex-column mt-2'>
+                          <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                </div>
+                 }
         </Fragment>
     </form>
 

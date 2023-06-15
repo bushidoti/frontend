@@ -238,7 +238,7 @@ export const AirportEquipment = () => {
                                 return(
                                        <Fragment>
                                              <div className="col-2 form-floating">
-                                                    <input className="form-control" list="nameEquipmentList" type='search' name='name' id="nameEquipment"
+                                                    <input className="form-control" list="nameEquipmentList" type='search' name='name' id="nameEquipment" disabled={form.viewOnly}
                                                     value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} placeholder="نقاله" required/>
                                                     <label htmlFor="nameEquipment">نام تجهیزات</label>
@@ -253,7 +253,8 @@ export const AirportEquipment = () => {
                                                     </div>
                                                </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                                <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly}
+                                                       value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="12BA" required/>
                                                     <label htmlFor="model">مدل</label>
@@ -262,7 +263,8 @@ export const AirportEquipment = () => {
                                                  </div>
                                              </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="number" className="form-control" id="MadeOf" name='year_made' value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
+                                                <input type="number" className="form-control" id="MadeOf" name='year_made' disabled={form.viewOnly}
+                                                       value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="2020" required/>
                                                     <label htmlFor="MadeOf">سال ساخت</label>
@@ -302,7 +304,8 @@ export const AirportEquipment = () => {
                                       <hr className='bg-primary mb-5'/>
                                       <div className='d-flex gap-2'>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="user" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                            <input type="text" className="form-control" id="user" name='user' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.user : formik.values.user}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="فرودگاه" required/>
                                                 <label htmlFor="user">یوزر</label>
@@ -311,7 +314,8 @@ export const AirportEquipment = () => {
                                                 </div>
                                        </div>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="owner" name='owner' value={form.editStatus ? form.formik.values.owner : formik.values.owner}
+                                            <input type="text" className="form-control" id="owner" name='owner' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.owner : formik.values.owner}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="فرودگاه" required/>
                                                 <label htmlFor="owner">مالکیت</label>
@@ -320,7 +324,8 @@ export const AirportEquipment = () => {
                                                 </div>
                                        </div>
                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                            <input type="text" className="form-control" id="location" name='install_location' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="شرکت" required/>
                                                 <label htmlFor="location">محل نصب</label>
@@ -333,9 +338,11 @@ export const AirportEquipment = () => {
                             )
                         }
                     })()}
-                 <div className='d-flex flex-column mt-2'>
-                      <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
-                 </div>
+                {form.viewOnly ? null :
+                    <div className='d-flex flex-column mt-2'>
+                              <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                    </div>
+                 }
         </Fragment>
     </form>
     )

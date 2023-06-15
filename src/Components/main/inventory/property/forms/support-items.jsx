@@ -112,7 +112,8 @@ export const SupportItems = () => {
               </div>
                <div className='d-flex gap-2'>
                       <div className="col form-floating mb-3 ">
-                        <select className="form-select" id="typetools"  aria-label="Type Add" name='type_item' value={form.editStatus ? form.formik.values.type_item : formik.values.type_item}
+                        <select className="form-select" id="typetools"  aria-label="Type Add" name='type_item' disabled={form.viewOnly}
+                                value={form.editStatus ? form.formik.values.type_item : formik.values.type_item}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="اداری">اداری</option>
@@ -129,7 +130,8 @@ export const SupportItems = () => {
                          </div>
                     </div>
                      <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="nameTools" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                        <input type="text" className="form-control" id="nameTools" name='name' disabled={form.viewOnly}
+                               value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="فلش درایو" required/>
                             <label htmlFor="nameTools">نام اقلام</label>
@@ -138,7 +140,8 @@ export const SupportItems = () => {
                          </div>
                      </div>
                       <div className="col form-floating mb-3">
-                        <input type="text" className="form-control" id="model" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                        <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly}
+                               value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="تاسیسات" required/>
                             <label htmlFor="model">مدل</label>
@@ -150,7 +153,8 @@ export const SupportItems = () => {
                 <hr className='bg-primary mb-5'/>
                 <div className='d-flex col gap-2'>
                       <div className="col-2 form-floating mb-3">
-                        <input type="text" className="form-control" id="user" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                        <input type="text" className="form-control" id="user" name='user' disabled={form.viewOnly}
+                               value={form.editStatus ? form.formik.values.user : formik.values.user}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="شرکت عقاب عسلویه" required/>
                             <label htmlFor="user">یوزر</label>
@@ -159,7 +163,8 @@ export const SupportItems = () => {
                          </div>
                      </div>
                         <div className="col-4 form-floating">
-                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                            <input type="text" className="form-control" id="locationUse" name='using_location' disabled={form.viewOnly}
+                                   value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
@@ -168,7 +173,8 @@ export const SupportItems = () => {
                                 </div>
                        </div>
                              <div className="col form-floating">
-                                    <textarea className="form-control" id="describeRepair" name='description' value={form.editStatus ? form.formik.values.description : formik.values.description}
+                                    <textarea className="form-control" id="describeRepair" name='description' disabled={form.viewOnly}
+                                              value={form.editStatus ? form.formik.values.description : formik.values.description}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                     placeholder="...." required/>
                                     <label htmlFor="describeRepair">شرح</label>
@@ -177,9 +183,12 @@ export const SupportItems = () => {
                                     </div>
                        </div>
             </div>
-              <div className='d-flex flex-column mt-2'>
+             {form.viewOnly ? null :
+                  <div className='d-flex flex-column mt-2'>
                       <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={postAlert}>done</button>
-              </div>
+                 </div>
+                 }
+
         </Fragment>
     </form>
     )

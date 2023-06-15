@@ -2,6 +2,8 @@ import React, {Fragment, useEffect, useState} from "react";
 
 import {useFormik} from "formik";
 import Url from "../../../config";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const MoveModal = (props) => {
   const [property, setProperty] = useState([])
@@ -11,6 +13,7 @@ const MoveModal = (props) => {
           code: property.code || '',
           name: property.name || '',
           inventory: property.inventory || '',
+          dst_inventory: property.dst_inventory || '',
           install_location: property.install_location || '',
           user: property.user || '',
           use_for: property.use_for || '',
@@ -38,7 +41,7 @@ const MoveModal = (props) => {
           type_item: property.type_item || '',
           number_type: property.number_type || '',
           number: property.number || '',
-
+          message: property.message || '',
 
         },
         enableReinitialize: true,
@@ -52,11 +55,51 @@ const MoveModal = (props) => {
         }
     }
 
+    const putHandler = async () => {
+         await axios.put(
+            `${Url}/api/${props.typeProperty}/${props.idNumber}/`,
+              {
+              code: formik.values.code,
+              dst_inventory: formik.values.dst_inventory,
+              message: formik.values.message,
+              movement_status: 'pending',
+         })
+        setTimeout(
+                    refreshPages, 3000)
+        }
+
+     const putAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: `آیا از این جا به جایی مطمئنید ؟`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, جا به جا کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ویرایش شد!',
+                  'اموال جا به جا شد.',
+                  'success',
+                  'ok',
+                  putHandler(),
+                )
+              }
+            })
+      }
+
      useEffect(() => {
             void fetchData()
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [props.typeProperty, formik.values , props.idNumber])
+
+     function refreshPages() {
+        window.location.reload()
+    }
 
   return (
       <Fragment>
@@ -73,9 +116,53 @@ const MoveModal = (props) => {
                                 props.setEditStatus(false)
                             }}></button>
                         </div>
+                    <form className='needs-validation' noValidate>
                         <div className="container modal-body">
-
+                            <div className="form-floating justify-content-center mb-5">
+                                <input type="text" id="register_code" className="w-25 form-control" aria-label="register_code"
+                                aria-describedby="register_code" value={formik.values.code} disabled required/>
+                                <label  htmlFor="register_code">کد ثبت</label>
+                            </div>
+                       <div className='d-flex gap-2'>
+                              <div className="col form-floating mb-3">
+                                        <input type="text" className="form-control" id="src_inventory" name='src_inventory' disabled
+                                               placeholder="ساختمان" value={formik.values.inventory} required/>
+                                            <label htmlFor="src_inventory">انبار مبدا</label>
+                                         <div className="invalid-feedback">
+                                             انبار مبدا را وارد کنید.
+                                         </div>
+                                 </div>
+                                 <div className="col form-floating mb-3">
+                                        <select className="form-select" defaultValue='' id="dst_inventory" name='dst_inventory' onChange={formik.handleChange} aria-label="Type Add" required>
+                                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                                            <option value='دفتر مرکزی'>دفتر مرکزی</option>
+                                            <option value='چابهار'>چابهار</option>
+                                            <option value='دزفول'>دزفول</option>
+                                            <option value='جاسک'>جاسک</option>
+                                            <option value='بیشه کلا'>بیشه کلا</option>
+                                            <option value='اورهال تهران'>اورهال تهران</option>
+                                            <option value='اورهال اصفهان'>اورهال تهران</option>
+                                        </select>
+                                    <label htmlFor="dst_inventory">انبار مقصد</label>
+                                     <div className="invalid-feedback">
+                                         انبار مقصد را وارد کنید.
+                                     </div>
+                            </div>
                         </div>
+                                <div className="col form-floating">
+                                    <textarea className="form-control" id="message" name='message' onChange={formik.handleChange}
+                                    placeholder="...." required/>
+                                    <label htmlFor="message">پیغام</label>
+                                    <div className="invalid-feedback">
+                                     پیغام را وارد کنید.
+                                    </div>
+                                </div>
+                        </div>
+                          <div className="modal-footer">
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={putAlert}>done</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>

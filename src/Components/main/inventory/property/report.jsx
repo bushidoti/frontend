@@ -13,6 +13,7 @@ const ReportProperty = () => {
     const [idNumber, setIdNumber] = useState(null)
     const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
+    const [viewOnly, setViewOnly] = useState(false)
 
 
     const [message, setMessage] = useState('')
@@ -116,7 +117,7 @@ const ReportProperty = () => {
 
     return (
         <Fragment>
-            <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
+            <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication} viewOnly={viewOnly} setViewOnly={setViewOnly}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <MoveModal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -394,8 +395,13 @@ const ReportProperty = () => {
                                     }
                             })()}
             </div>
+                    <div className='m-4'>
+                        <span className="dot bg-danger"></span><span> به معنی جا به جا شده و قفل شده</span>
+                        <span className="dot bg-warning ms-4"></span><span> به معنی ارسال شده برای تعمیر و موقتاً قفل شده</span>
+                        <span className="dot bg-success ms-4"></span><span> به معنی در انتظار تایید جا به جایی در مقصد</span>
+                    </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
+                    <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {(() => {
@@ -559,7 +565,7 @@ const ReportProperty = () => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                           <tr key={data.code}>
+                                           <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
@@ -569,11 +575,13 @@ const ReportProperty = () => {
                                                 <td>{data.owner}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                    <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                 </td>
                                            </tr>
@@ -582,7 +590,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'safetyequipment'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                            <tr key={data.code}>
+                                            <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
@@ -590,11 +598,13 @@ const ReportProperty = () => {
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                    <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                 </td>
                                             </tr>
@@ -603,19 +613,21 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                            <tr key={data.code}>
+                                            <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
                                                 <td>{data.model}</td>
                                                 <td>
-                                                    <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                    <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                             setTypeDigital(data.type_furniture)
                                                             setTypeCommunication(data.name)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                 </td>
                                             </tr>
@@ -624,7 +636,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -633,11 +645,13 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -646,7 +660,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -654,11 +668,13 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -667,7 +683,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -676,11 +692,13 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -689,18 +707,20 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -709,7 +729,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -721,11 +741,13 @@ const ReportProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.owner}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -734,7 +756,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -742,11 +764,13 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -755,7 +779,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -764,11 +788,13 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -777,7 +803,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'supportitem'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
+                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.type_item}</td>
@@ -786,11 +812,13 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                                        <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             move_item</button>
                                                     </td>
                                                 </tr>
@@ -810,8 +838,6 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
                                                     </td>
                                                 </tr>
                                            )))

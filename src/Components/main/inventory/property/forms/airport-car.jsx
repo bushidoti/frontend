@@ -326,7 +326,8 @@ export const Vehicles = (props) => {
                            return (
                                <Fragment>
                                      <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="nameCar" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                        <input type="text" className="form-control" id="nameCar" name='name' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="شاتر" required/>
                                             <label htmlFor="nameCar">نام خودرو</label>
@@ -335,7 +336,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                      <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="modelCar" name='model' value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                        <input type="text" className="form-control" id="modelCar" name='model' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.model : formik.values.model}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="x55" required/>
                                             <label htmlFor="modelCar">مدل</label>
@@ -344,7 +346,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                        <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="madeOf" name='year_made' value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
+                                        <input type="text" className="form-control" id="madeOf" name='year_made' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="1388" required/>
                                             <label htmlFor="madeOf`">سال ساخت</label>
@@ -398,17 +401,17 @@ export const Vehicles = (props) => {
                                     <div className='d-flex gap-2'>
                                      <div className="col  form-floating">
                                          <div className="mt-1 input-group">
-                                                            <input className="form-control c-form__input c-form__car-plate-input__section4"
+                                                            <input className="form-control c-form__input c-form__car-plate-input__section4" disabled={form.viewOnly}
                                                             type="tel" name='plate4' value={form.editStatus ? form.formik.values.plate4 : formik.values.plate4}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             maxLength='2' placeholder="⚊ ⚊"
                                                             id="carPlateSection4"/>
                                                             <span className="c-form__car-plate-input__iran">ایران</span>
-                                                            <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊"
+                                                            <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" disabled={form.viewOnly}
                                                             aria-label="First name" name='plate3' value={form.editStatus ? form.formik.values.plate3 : formik.values.plate3}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                             maxLength='3' className="c-form__input form-control"/>
-                                                            <select id="carPlateSection2"
+                                                            <select id="carPlateSection2" disabled={form.viewOnly}
                                                             className="c-form__combo c-form__car-plate-input__section2" name='plate2' value={form.editStatus ? form.formik.values.plate2 : formik.values.plate2}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}>
                                                                 <option value="" disabled>انتخاب</option>
@@ -440,14 +443,15 @@ export const Vehicles = (props) => {
                                                                 <option value="D">D</option>
                                                                 <option value="S">S</option>
                                                             </select>
-                                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2'
+                                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' disabled={form.viewOnly}
                                                             className="c-form__input form-control" name='plate1' value={form.editStatus ? form.formik.values.plate1 : formik.values.plate1}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}/>
                                                             <span className="input-group-text c-form__car-plate-input rounded-8"></span>
                                                           </div>
                                                           </div>
                                       <div className="col-2 form-floating">
-                                        <input type="text" className="form-control" id="userCar" name='user' value={form.editStatus ? form.formik.values.user : formik.values.user}
+                                        <input type="text" className="form-control" id="userCar" name='user' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.user : formik.values.user}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="فرودگاه مهراباد" required/>
                                             <label htmlFor="userCar">یوزر</label>
@@ -456,7 +460,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                             <div className="col-2 form-floating mb-3">
-                                        <input type="text" className="form-control" id="ownerCar" name='owner' value={form.editStatus ? form.formik.values.owner : formik.values.owner}
+                                        <input type="text" className="form-control" id="ownerCar" name='owner' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.owner : formik.values.owner}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="فرودگاه مهراباد" required/>
                                             <label htmlFor="ownerCar">مالکیت</label>
@@ -476,7 +481,8 @@ export const Vehicles = (props) => {
                             <hr className='bg-primary mb-5'/>
                             <div className='d-flex gap-2'>
                                 <div className="col form-floating">
-                                        <input type="text" className="form-control" id="motorNumber" name='motor' value={form.editStatus ? form.formik.values.motor : formik.values.motor}
+                                        <input type="text" className="form-control" id="motorNumber" name='motor' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.motor : formik.values.motor}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="IN-12345678" required/>
                                             <label htmlFor="motorNumber">شماره موتور</label>
@@ -485,7 +491,8 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                     <div className="col form-floating">
-                                        <input type="text" className="form-control" id="chassisNumber" name='chassis' value={form.editStatus ? form.formik.values.chassis : formik.values.chassis}
+                                        <input type="text" className="form-control" id="chassisNumber" name='chassis' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.chassis : formik.values.chassis}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="123456789052314" required/>
                                             <label htmlFor="chassisNumber">شماره شاسی</label>
@@ -498,9 +505,11 @@ export const Vehicles = (props) => {
                   )
               }
             })()}
+             {form.viewOnly ? null :
             <div className='d-flex flex-column mt-2'>
                       <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
             </div>
+                 }
         </Fragment>
       </form>
     )

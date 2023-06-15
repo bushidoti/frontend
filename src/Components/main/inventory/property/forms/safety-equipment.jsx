@@ -215,7 +215,8 @@ export const SafetyEquipment = () => {
                                 return(
                                        <Fragment>
                                            <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name} id="nameEquipment" onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
+                                                <input type="text" className="form-control" name='name' disabled={form.viewOnly}
+                                                       value={form.editStatus ? form.formik.values.name : formik.values.name} id="nameEquipment" onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="کلاه ایمنی" required/>
                                                     <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                  <div className="invalid-feedback">
@@ -223,7 +224,8 @@ export const SafetyEquipment = () => {
                                                  </div>
                                              </div>
                                              <div className="col form-floating mb-3">
-                                                <input type="text" className="form-control" id="use_for" name='use_for' value={form.editStatus ? form.formik.values.use_for : formik.values.use_for} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
+                                                <input type="text" className="form-control" id="use_for" name='use_for' disabled={form.viewOnly}
+                                                       value={form.editStatus ? form.formik.values.use_for : formik.values.use_for} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="ساختمان" required/>
                                                     <label htmlFor="use_for">مورد استفاده</label>
                                                  <div className="invalid-feedback">
@@ -260,7 +262,7 @@ export const SafetyEquipment = () => {
                                          <hr className='bg-primary mb-5'/>
                                         <div className='d-flex gap-2'>
                                             <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="user" name='user'
+                                                    <input type="text" className="form-control" id="user" name='user' disabled={form.viewOnly}
                                                            value={form.editStatus ? form.formik.values.user : formik.values.user} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="فرودگاه" required/>
                                                         <label htmlFor="user">یوزر</label>
@@ -270,7 +272,7 @@ export const SafetyEquipment = () => {
                                                </div>
 
                                                <div className="col form-floating">
-                                                    <input type="text" className="form-control" id="install_location" name='install_location'
+                                                    <input type="text" className="form-control" id="install_location" name='install_location' disabled={form.viewOnly}
                                                            value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                                     onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="شرکت" required/>
@@ -284,9 +286,12 @@ export const SafetyEquipment = () => {
                                 )
                             }
                         })()}
-                 <div className='d-flex flex-column mt-2'>
-                      <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
-                 </div>
+                 {form.viewOnly ? null :
+                      <div className='d-flex flex-column mt-2'>
+                          <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                     </div>
+                 }
+
         </Fragment>
         </form>
     )

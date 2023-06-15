@@ -3,6 +3,8 @@ import Modal from "./modal";
 import Url from "../../../config";
 import axios from "axios";
 import {useFormik} from "formik";
+import AgreementMove from "./agreement_modal";
+import Swal from "sweetalert2";
 
 const PendingProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
@@ -12,30 +14,45 @@ const PendingProperty = () => {
     const [typeCommunication , setTypeCommunication] = useState('')
     const [message, setMessage] = useState('')
     const [editStatus, setEditStatus] = useState(false)
+    const [viewOnly, setViewOnly] = useState(false)
     const formik = useFormik({
-            initialValues: {
-                  code: '',
-                  name: '',
-                  user: '',
-                  install_location: '',
-                  model: '',
-                  year_made: '',
-                  owner: '',
-                  use_for: '',
-                  chassis: '',
-                  motor: '',
-                  plate1: '',
-                  plate2: '',
-                  plate3: '',
-                  plate4: '',
-                  year_buy: '',
-                  using_location: '',
-                  number_type: '',
-                  number: '',
-                  type_item: '',
+        initialValues: {
+              code: property.code || '',
+              name: property.name || '',
+              inventory: property.inventory || '',
+              dst_inventory: property.dst_inventory || '',
+              install_location: property.install_location || '',
+              user: property.user || '',
+              use_for: property.use_for || '',
+              description: property.description || '',
+              type_register: property.type_register || '',
+              model: property.model || '',
+              year_made: property.year_made || '',
+              owner: property.owner || '',
+              plate1: property.plate1 || '',
+              using_location: property.using_location || '',
+              plate2: property.plate2 || '',
+              plate3: property.plate3 || '',
+              plate4: property.plate4 || '',
+              motor: property.motor || '',
+              chassis: property.chassis || '',
+              year_buy: property.year_buy || '',
+              phone_feature: property.phone_feature || '',
+              cpu: property.cpu || '',
+              motherboard: property.motherboard || '',
+              ram: property.ram || '',
+              power: property.power || '',
+              hdd: property.hdd || '',
+              case: property.case || '',
+              type_furniture: property.type_furniture || '',
+              type_item: property.type_item || '',
+              number_type: property.number_type || '',
+              number: property.number || '',
+              message: property.message || '',
+
             },
             enableReinitialize: true,
-        });
+            });
 
 
     const fetchData = async () => {
@@ -46,7 +63,43 @@ const PendingProperty = () => {
         }
     }
 
+    const putHandler = async () => {
+         await axios.put(
+            `${Url}/api/${typeProperty}/${idNumber}/`,
+              {
+              code: idNumber,
+              movement_status: 'denied',
+         })
+        setTimeout(
+                    refreshPages, 3000)
+        }
 
+    const closeAlert = () => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: `آیا از این ابطال این جا به جایی مطمئنید ؟`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, باطل کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'باطل شد!',
+                  'مورد باطل شد.',
+                  'success',
+                  'ok',
+                  putHandler(),
+                )
+              }
+            })
+      }
+
+     function refreshPages() {
+        window.location.reload()
+    }
        useEffect(() => {
             (async () => {
                 const {data} = await axios.get(`${Url}/home/`, {
@@ -66,7 +119,8 @@ const PendingProperty = () => {
 
     return (
         <Fragment>
-            <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
+            <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
+            <AgreementMove message={message} setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
@@ -88,7 +142,6 @@ const PendingProperty = () => {
                                                 <option value="noneindustrialtool">ابزار آلات غیر صنعتی</option>
                                                 <option value="industrialtool">ابزار آلات صنعتی</option>
                                                 <option value="supportitem">اقلام پشتیبانی</option>
-                                                <option value="benefit">امتیازات</option>
                                 </select>
                                 <label htmlFor="typeProperty">نوع اموال</label>
                         </div>
@@ -258,7 +311,7 @@ const PendingProperty = () => {
                              {(() => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                            <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -271,11 +324,17 @@ const PendingProperty = () => {
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                 </td>
                                            </tr>
@@ -283,7 +342,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'safetyequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                             <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -294,11 +353,20 @@ const PendingProperty = () => {
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onMouseEnter={() => {
+                                                        setIdNumber(data.code)
+                                                    }} onClick={async () => {
+                                                            closeAlert()
+                                                              console.log(idNumber)
+
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                 </td>
                                             </tr>
@@ -306,7 +374,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                             <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -315,13 +383,19 @@ const PendingProperty = () => {
                                                 <td>
                                                     <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                             setTypeDigital(data.type_furniture)
                                                             setTypeCommunication(data.name)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                 </td>
                                             </tr>
@@ -329,7 +403,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -341,11 +415,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -353,7 +433,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -364,11 +444,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -376,7 +462,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -388,11 +474,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -400,7 +492,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -410,11 +502,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -422,7 +520,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -437,11 +535,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -449,7 +553,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -460,11 +564,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -472,7 +582,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -484,11 +594,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
+                                                            setIdNumber(data.code)
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>
@@ -496,7 +612,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'supportitem'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -508,33 +624,17 @@ const PendingProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
-                                                            close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
-                                                            done</button>
-                                                    </td>
-                                                </tr>
-                                           )))
-                                        )
-                                    }else if (typeProperty === 'benefit'){
-                                        return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr key={data.code}>
-                                                    <th scope="row">{i}</th>
-                                                    <td>{data.code}</td>
-                                                    <td>{data.number_type}</td>
-                                                    <td>{data.using_location}</td>
-                                                    <td>{data.number}</td>
-                                                    <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
-                                                            setEditStatus(true)
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
                                                             setIdNumber(data.code)
-                                                        }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            closeAlert()
+                                                        }}>
                                                             close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
+                                                            setIdNumber(data.code)
+                                                        }}>
                                                             done</button>
                                                     </td>
                                                 </tr>

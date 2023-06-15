@@ -212,7 +212,8 @@ export const AirportFurniture = () => {
                            return(
                                <Fragment>
                                        <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="nameFurniture" name='name' value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                            <input type="text" className="form-control" id="nameFurniture" name='name' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="لپ تاپ" required/>
                                             <label htmlFor="nameFurniture">نام اثاث</label>
@@ -221,7 +222,8 @@ export const AirportFurniture = () => {
                                             </div>
                                        </div>
                                        <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="year" name='year_buy' value={form.editStatus ? form.formik.values.year_buy : formik.values.year_buy}
+                                            <input type="text" className="form-control" id="year" name='year_buy' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.year_buy : formik.values.year_buy}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                              placeholder="1400" required/>
                                              <label htmlFor="year">سال خرید</label>
@@ -258,7 +260,8 @@ export const AirportFurniture = () => {
                                  <hr className='bg-primary mb-5'/>
                                  <div className='d-flex gap-2'>
                                    <div className="col-4 form-floating">
-                                        <input type="text" className="form-control" id="location" name='install_location' value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
+                                        <input type="text" className="form-control" id="location" name='install_location' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                         placeholder="شرکت" required/>
                                             <label htmlFor="location">محل نصب</label>
@@ -271,9 +274,11 @@ export const AirportFurniture = () => {
                            )
                        }
                    })()}
-        <div className='d-flex flex-column mt-2'>
-                      <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
-              </div>
+            {form.viewOnly ? null :
+                <div className='d-flex flex-column mt-2'>
+                          <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                </div>
+                     }
         </Fragment>
     </form>
     )

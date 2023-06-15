@@ -82,6 +82,7 @@ const Modal = (props) => {
                     typeDigital:props.typeDigital,
                     typeCommunication:props.typeCommunication,
                     setTypeCommunication:props.setTypeCommunication,
+                    viewOnly:props.viewOnly,
         }}>
       <Fragment>
              <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
@@ -95,6 +96,7 @@ const Modal = (props) => {
                                 props.setIdNumber('')
                                 formik.resetForm()
                                 props.setEditStatus(false)
+                                props.setViewOnly(false)
                             }}></button>
                         </div>
                         <div className="container modal-body">
