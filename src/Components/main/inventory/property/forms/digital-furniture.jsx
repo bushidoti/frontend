@@ -63,7 +63,7 @@ export const DigitalFurniture = () => {
               hdd: formik.values.hdd,
               case: formik.values.case,
               type_furniture: formik.values.type_furniture,
-              model: formik.values.model,
+              model: form.typeDigital === 'کامپیوتر' ? formik.values.cpu : formik.values.model,
               install_location: formik.values.install_location,
               inventory: form.message,
               type_register: 'ثبت اولیه',
@@ -180,6 +180,7 @@ export const DigitalFurniture = () => {
             return postAlertRepair
         }
     }
+
     return(
      <form className='needs-validation' noValidate>
         <Fragment>
@@ -204,7 +205,7 @@ export const DigitalFurniture = () => {
                             <option value="دوربین">دوربین</option>
                             <option value="تلفن , سانترال و مودم">تلفن , سانترال و مودم</option>
                         </select>
-                        <label htmlFor="typetools">نوع اثاث دیجیتال</label>
+                        <label htmlFor="type-digital">نوع اثاث دیجیتال</label>
                            <div className="invalid-feedback">
                              نوع اثاث دیجیتال را انتخاب کنید.
                          </div>
@@ -234,7 +235,7 @@ export const DigitalFurniture = () => {
                                 return (
                                    <Fragment>
                                              <div className="col form-floating mb-3">
-                                                    <select className="form-select"  id="register_code"
+                                                    <select className="form-select"  id="register_code" defaultValue=''
                                                         onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         {(property.filter(property => property.inventory ===  form.message && property.type_furniture ===  formik.values.type_furniture).map((data) => (
@@ -294,7 +295,8 @@ export const DigitalFurniture = () => {
 
                                       <div className="col form-floating mb-3">
                                             <input type="text" className="form-control" id="cpu" name='cpu' value={form.editStatus ? form.formik.values.cpu : formik.values.cpu}
-                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
+                                               onChange={form.editStatus ? form.formik.handleChange :
+                                                   formik.handleChange}
                                                    placeholder="لپ تاپ" required/>
                                                 <label htmlFor="cpu">مدل سی پی یو</label>
                                              <div className="invalid-feedback">

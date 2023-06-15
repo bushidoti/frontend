@@ -174,7 +174,7 @@ const ObserveModal = (props) => {
                             <td>{data.document_code}</td>
                             <td>{data.date}</td>
                             <td>{data.operator}</td>
-                            <td>{data.operator === 'خروج' || data.operator === 'جا به جایی'? data.output : data.input }</td>
+                            <td>{data.operator === 'خروج' ? data.output : data.input }</td>
                             <td>{data.afterOperator}</td>
                             <td>{data.consumable}</td>
                             <td>{data.buyer}</td>

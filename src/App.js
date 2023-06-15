@@ -23,7 +23,7 @@ import {Page403} from "./Components/page403/403Page";
 import {useFormik} from "formik";
 import Home from "./Components/home/home";
 import axios from "axios";
-import PendingProperty from "./Components/main/inventory/storage-prodoct/pending_product";
+import PendingProperty from "./Components/main/inventory/property/pending_property";
 import Url from "./Components/config";
 
 
@@ -81,7 +81,7 @@ function App() {
             enableReinitialize: true,
         });
 
-     const handleProduct = (e) => {
+     const handleProduct = () => {
             formikProductSearch.resetForm()
             document.getElementById("searchSelector").selectedIndex = "0";
          };

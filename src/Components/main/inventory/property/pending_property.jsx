@@ -1,23 +1,17 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Modal from "./modal";
 import Url from "../../../config";
 import axios from "axios";
-import {useReactToPrint} from "react-to-print";
 import {useFormik} from "formik";
-import MoveModal from "./move_modal";
 
-const ReportProperty = () => {
+const PendingProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
-    const [searchFor , setSearchFor] = useState('')
     const [property, setProperty] = useState([])
     const [idNumber, setIdNumber] = useState(null)
     const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
-
-
     const [message, setMessage] = useState('')
     const [editStatus, setEditStatus] = useState(false)
-    const componentPDF= useRef();
     const formik = useFormik({
             initialValues: {
                   code: '',
@@ -43,60 +37,16 @@ const ReportProperty = () => {
             enableReinitialize: true,
         });
 
-    const generatePDF= useReactToPrint({
-        content: ()=>componentPDF.current, documentTitle:"Data",pageStyle:''
-    });
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}&year_buy=${formik.values.year_buy}&model=${formik.values.model}&using_location=${formik.values.using_location}&year_made=${formik.values.year_made}&motor=${formik.values.motor}&chassis=${formik.values.chassis}&owner=${formik.values.owner}&plate1=${formik.values.plate1}&plate2=${formik.values.plate2}&plate3=${formik.values.plate3}&plate4=${formik.values.plate4}&type_item=${formik.values.type_item}&number_type=${formik.values.number_type}&number=${formik.values.number}`)
+                const response = await fetch(`${Url}/api/${typeProperty}/`)
                 const data = await response.json()
                 setProperty(data)
         }
     }
-    
-      
-    const handleSearch = () => {
-        if (searchFor === 'کد ثبت'){
-            return 'code'
-        }else if (searchFor === 'مورد استفاده'){
-            return 'use_for'
-        }else if (searchFor === 'یوزر'){
-            return 'user'
-        }else if (searchFor === 'محل نصب'){
-            return 'install_location'
-        }else if (searchFor === 'محل استفاده'){
-            return 'using_location'
-        }else if (searchFor === 'سال خرید'){
-            return 'year_buy'
-        }else if (searchFor === 'مدل'){
-            return 'model'
-        }else if (searchFor === 'نام اثاث'){
-            return 'name'
-        }else if (searchFor === 'سال ساخت'){
-            return 'year_made'
-        }else if (searchFor === 'نام خودرو'){
-            return 'name'
-        }else if (searchFor === 'شماره شاسی'){
-            return 'chassis'
-        }else if (searchFor === 'شماره موتور'){
-            return 'motor'
-        }else if (searchFor === 'مالکیت'){
-            return 'owner'
-        }else if (searchFor === 'نام ابزار'){
-            return 'name'
-        }else if (searchFor === 'مکان استفاده'){
-            return 'using_location'
-        }else if (searchFor === 'نام اقلام'){
-            return 'name'
-        }else if (searchFor === 'نوع قلم'){
-            return 'type_item'
-        }else if (searchFor === 'شماره'){
-            return 'number'
-        }
-      
-    }
-      
+
+
        useEffect(() => {
             (async () => {
                 const {data} = await axios.get(`${Url}/home/`, {
@@ -117,20 +67,13 @@ const ReportProperty = () => {
     return (
         <Fragment>
             <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
-            <MoveModal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
                         <div className="form-floating">
                                 <select className="form-select" id="typeProperty" defaultValue=''
                                 aria-label="Type Property" onChange={(e) => {
-                                  formik.resetForm()
-                                  if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک' && searchFor !== 'نوع خط') {
-                                        document.getElementById('searchBox').value = ''
-                                    }
                                   setTypeProperty(e.target.value)
-                                  document.getElementById("searchList").selectedIndex = "0";
-                                  setSearchFor('')
                                 } }>
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="safetyequipment">تجهیزات ایمنی</option>
@@ -149,253 +92,10 @@ const ReportProperty = () => {
                                 </select>
                                 <label htmlFor="typeProperty">نوع اموال</label>
                         </div>
-                         <div className="form-check ms-4">
-                                <input className="form-check-input" type="checkbox" value="تعمیر شده" id="repaired" />
-                                <label className="form-check-label" htmlFor="repaired">
-                                تعمیر شده
-                                </label>
-                        </div>
-                    </div>
-                    <div className= 'd-flex gap-2'>
-                        <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print" onClick={generatePDF}>print</button>
                     </div>
                         </div>
-                    <hr className='bg-primary mb-5'/>
-
-                        <div className="form-floating m-4 col-1">
-                                <select className="form-select" id="searchList" defaultValue=''
-                                aria-label="Search List" onChange={(e) =>
-                        {
-                          formik.resetForm()
-                          setSearchFor(e.target.value)
-                          if (searchFor !== 'نام تجهیزات' && searchFor !== 'پلاک' && searchFor !== 'نوع خط') {
-                                document.getElementById('searchBox').value = ''
-                            }
-
-
-                        }}
-                           >
-                                    <option value='' disabled>یک مورد انتخاب کنید</option>
-                                    {(() => {
-                                        if (typeProperty === 'safetyequipment'){
-                                            return(
-                                                <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام تجهیزات">نام تجهیزات</option>
-                                                    <option value="مورد استفاده">مورد استفاده</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                </Fragment>
-                                            )
-                                        }else if (typeProperty === 'airportequipment'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام تجهیزات">نام تجهیزات</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="سال ساخت">سال ساخت</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="مالکیت">مالکیت</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'digitalfurniture'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'electronicfurniture'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="سال خرید">سال خرید</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'officefurniture'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="سال ساخت">سال ساخت</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="محل استفاده">محل استفاده</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'facilityfurniture'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="سال خرید">سال خرید</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'airportfurniture'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام اثاث">نام اثاث</option>
-                                                    <option value="سال خرید">سال خرید</option>
-                                                    <option value="محل نصب">محل نصب</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام خودرو">نام خودرو</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="پلاک">پلاک</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="شماره موتور">شماره موتور</option>
-                                                    <option value="شماره شاسی">شماره شاسی</option>
-                                                    <option value="سال ساخت">سال ساخت</option>
-                                                    <option value="مالکیت">مالکیت</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'noneindustrialtool'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام ابزار">نام ابزار</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                    <option value="سال خرید">سال خرید</option>
-                                                    <option value="مکان استفاده">مکان استفاده</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'industrialtool'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نام ابزار">نام ابزار</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="سال خرید">سال خرید</option>
-                                                    <option value="مکان استفاده">مکان استفاده</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'supportitem'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نوع قلم">نوع قلم</option>
-                                                    <option value="نام اقلام">نام اقلام</option>
-                                                    <option value="مدل">مدل</option>
-                                                    <option value="مکان استفاده">مکان استفاده</option>
-                                                    <option value="یوزر">یوزر</option>
-                                                  </Fragment>
-                                            )
-                                        }else if (typeProperty === 'benefit'){
-                                            return(
-                                                  <Fragment>
-                                                    <option value="کد ثبت">کد ثبت</option>
-                                                    <option value="نوع خط">نوع خط</option>
-                                                    <option value="مکان استفاده">مکان استفاده</option>
-                                                    <option value="شماره">شماره</option>
-                                                  </Fragment>
-                                            )
-                                        }
-                                    })()}
-                                </select>
-                                <label htmlFor="searchList">جستجو براساس</label>
-                        </div>
-                        <div className='col-4 m-4'>
-                                {(() => {
-                                    if(searchFor === 'نام تجهیزات'){
-                                        return (
-                                             <div className="col-3 form-floating">
-                                                <input className="form-control" type='search' list="nameEquipmentList" id="nameEquipment" name='name' onChange={formik.handleChange} placeholder="نقاله" required/>
-                                                <label htmlFor="nameEquipment">نام تجهیزات</label>
-                                                <datalist id="nameEquipmentList">
-                                                    <option value="X RAY"/>
-                                                    <option value="نقاله"/>
-                                                    <option value="کانتر"/>
-                                                    <option value="ایرکاندیشن"/>
-                                                </datalist>
-                                                <div className="invalid-feedback">
-                                                نام تجهیزات را وارد کنید.
-                                                </div>
-                                             </div>
-                                        )
-                                    }else if (searchFor === 'نوع خط'){
-                                        return (
-                                              <div className="col-3 form-floating">
-                                                    <input className="form-control" type='search' list="typeLineList" name='number_type' onChange={formik.handleChange} id="typeLine" placeholder="02133229964" required/>
-                                                    <label htmlFor="typeLine">نوع خط</label>
-                                                    <datalist id="typeLineList">
-                                                        <option value="سیم کارت"/>
-                                                        <option value="ثابت"/>
-                                                    </datalist>
-                                                    <div className="invalid-feedback">
-                                                    نوع خط را انتخاب کنید.
-                                                    </div>
-                                                </div>
-                                        )
-                                    }else if (searchFor === 'پلاک'){
-                                        return (
-                                              <div className="mt-2 input-group">
-                                                <input className="form-control c-form__input c-form__car-plate-input__section4" name='plate4' onChange={formik.handleChange} type="tel" maxLength='2' placeholder="⚊ ⚊"
-                                                id="carPlateSection4"/>
-                                                <span className="c-form__car-plate-input__iran">ایران</span>
-                                                <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" name='plate3' onChange={formik.handleChange} aria-label="First name"
-                                                maxLength='3' className="c-form__input form-control"/>
-                                                <select id="carPlateSection2" defaultValue='' name='plate2' onChange={formik.handleChange} className="c-form__combo c-form__car-plate-input__section2">
-                                                    <option value="">انتخاب</option>
-                                                    <option value="الف">الف</option>
-                                                    <option value="ب">ب</option>
-                                                    <option value="پ">پ</option>
-                                                    <option value="ت">ت</option>
-                                                    <option value="ث">ث</option>
-                                                    <option value="ج">ج</option>
-                                                    <option value="د">د</option>
-                                                    <option value="ز">ز</option>
-                                                    <option value="س">س</option>
-                                                    <option value="ش">ش</option>
-                                                    <option value="ص">ص</option>
-                                                    <option value="ط">ط</option>
-                                                    <option value="ع">ع</option>
-                                                    <option value="ف">ف</option>
-                                                    <option value="ق">ق</option>
-                                                    <option value="ک">ک</option>
-                                                    <option value="گ">گ</option>
-                                                    <option value="ل">ل</option>
-                                                    <option value="م">م</option>
-                                                    <option value="ن">ن</option>
-                                                    <option value="و">و</option>
-                                                    <option value="ه">ه</option>
-                                                    <option value="ی">ی</option>
-                                                    <option value="ژ">معلولین</option>
-                                                    <option value="تشریفات">تشریفات</option>
-                                                    <option value="D">D</option>
-                                                    <option value="S">S</option>
-                                                </select>
-                                                <input type="tel" placeholder="⚊ ⚊" name='plate1' onChange={formik.handleChange} id="carPlateSection1" maxLength='2' className="c-form__input form-control"/>
-                                                <button className="btn input-group-text c-form__car-plate-input rounded-8"></button>
-                                          </div>
-                                        )
-                                    } else {
-                                        return (
-                                            <div className="input-group mb-3">
-                                                <input type="text" className="form-control" name={handleSearch()} onChange={formik.handleChange} placeholder={`جستوجو براساس ${searchFor}`}
-                                                aria-label="searchBox" id='searchBox' aria-describedby="search"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
-                                            </div>
-                                        )
-                                    }
-                            })()}
-            </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {(() => {
@@ -573,8 +273,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                 </td>
                                            </tr>
                                              )))
@@ -594,8 +296,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -615,8 +319,10 @@ const ReportProperty = () => {
                                                             setTypeDigital(data.type_furniture)
                                                             setTypeCommunication(data.name)
                                                         }}>info</button>
-                                                    <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                 </td>
                                             </tr>
                                                      )))
@@ -637,8 +343,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                              )))
@@ -658,8 +366,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -680,8 +390,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -700,8 +412,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -725,8 +439,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -746,8 +462,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -768,8 +486,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -790,8 +510,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -810,8 +532,10 @@ const ReportProperty = () => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-secondary material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#moveModal">
-                                                            move_item</button>
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2'>
+                                                            close</button>
+                                                        <button className='btn btn-success material-symbols-outlined ms-2'>
+                                                            done</button>
                                                     </td>
                                                 </tr>
                                            )))
@@ -825,4 +549,4 @@ const ReportProperty = () => {
     </Fragment>
     )
 }
-export default ReportProperty;
+export default PendingProperty;
