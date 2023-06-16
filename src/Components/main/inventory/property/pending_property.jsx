@@ -63,18 +63,18 @@ const PendingProperty = () => {
         }
     }
 
-    const putHandler = async () => {
+    const putHandler = async (id) => {
          await axios.put(
-            `${Url}/api/${typeProperty}/${idNumber}/`,
+            `${Url}/api/${typeProperty}/${id}/`,
               {
-              code: idNumber,
+              code: id,
               movement_status: 'denied',
          })
         setTimeout(
                     refreshPages, 3000)
         }
 
-    const closeAlert = () => {
+    const closeAlert = (id) => {
           Swal.fire({
               title: 'مطمئنید?',
               text: `آیا از این ابطال این جا به جایی مطمئنید ؟`,
@@ -91,7 +91,7 @@ const PendingProperty = () => {
                   'مورد باطل شد.',
                   'success',
                   'ok',
-                  putHandler(),
+                  putHandler(id),
                 )
               }
             })
@@ -117,6 +117,15 @@ const PendingProperty = () => {
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [typeProperty, formik.values])
 
+    const prom = async  (id) => {
+     return  closeAlert(id)
+
+    }
+    const func = async (id) => {
+         await prom(id).then(res => {
+             setIdNumber(id)
+         });
+    }
     return (
         <Fragment>
             <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
@@ -327,9 +336,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -356,12 +364,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onMouseEnter={() => {
-                                                        setIdNumber(data.code)
-                                                    }} onClick={async () => {
-                                                            closeAlert()
-                                                              console.log(idNumber)
-
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -388,9 +392,8 @@ const PendingProperty = () => {
                                                             setTypeDigital(data.type_furniture)
                                                             setTypeCommunication(data.name)
                                                         }}>info</button>
-                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                    <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -418,9 +421,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -447,9 +449,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -477,9 +478,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -505,9 +505,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -538,9 +537,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -567,9 +565,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -597,9 +594,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
@@ -627,9 +623,8 @@ const PendingProperty = () => {
                                                             setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={() => {
-                                                            setIdNumber(data.code)
-                                                            closeAlert()
+                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
+                                                            await func(data.code)
                                                         }}>
                                                             close</button>
                                                         <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
