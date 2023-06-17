@@ -31,7 +31,7 @@ const AgreementMove = (props) => {
           plate4: property.plate4 || '',
           motor: property.motor || '',
           chassis: property.chassis || '',
-          year_buy: property.year_buy || '',
+          year_buy: property.year_buy || null,
           phone_feature: property.phone_feature || '',
           cpu: property.cpu || '',
           motherboard: property.motherboard || '',
