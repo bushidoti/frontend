@@ -134,29 +134,23 @@ const ReportProperty = () => {
                                   setTypeProperty(e.target.value)
                                   document.getElementById("searchList").selectedIndex = "0";
                                   setSearchFor('')
-                                } }>
-                                                <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                <option value="safetyequipment">تجهیزات ایمنی</option>
-                                                <option value="airportequipment">تجهیزات فرودگاهی</option>
-                                                <option value="electronicfurniture">اثاثه الکترونیکی</option>
-                                                <option value="officefurniture">اثاثه اداری</option>
-                                                <option value="facilityfurniture">اثاثه تاسیساتی</option>
-                                                <option value="airportfurniture">اثاثه فرودگاهی</option>
-                                                <option value="digitalfurniture">اثاثه دیجیتالی</option>
-                                                <option value="airportvehicle">خودرو فرودگاهی</option>
-                                                <option value="officevehicle">خودرو اداری</option>
-                                                <option value="noneindustrialtool">ابزار آلات غیر صنعتی</option>
-                                                <option value="industrialtool">ابزار آلات صنعتی</option>
-                                                <option value="supportitem">اقلام پشتیبانی</option>
-                                                <option value="benefit">امتیازات</option>
+                                }}>
+                                        <option value='' disabled>یک مورد انتخاب کنید</option>
+                                        <option value="safetyequipment">تجهیزات ایمنی</option>
+                                        <option value="airportequipment">تجهیزات فرودگاهی</option>
+                                        <option value="electronicfurniture">اثاثه الکترونیکی</option>
+                                        <option value="officefurniture">اثاثه اداری</option>
+                                        <option value="facilityfurniture">اثاثه تاسیساتی</option>
+                                        <option value="airportfurniture">اثاثه فرودگاهی</option>
+                                        <option value="digitalfurniture">اثاثه دیجیتالی</option>
+                                        <option value="airportvehicle">خودرو فرودگاهی</option>
+                                        <option value="officevehicle">خودرو اداری</option>
+                                        <option value="noneindustrialtool">ابزار آلات غیر صنعتی</option>
+                                        <option value="industrialtool">ابزار آلات صنعتی</option>
+                                        <option value="supportitem">اقلام پشتیبانی</option>
+                                        <option value="benefit">امتیازات</option>
                                 </select>
                                 <label htmlFor="typeProperty">نوع اموال</label>
-                        </div>
-                         <div className="form-check ms-4">
-                                <input className="form-check-input" type="checkbox" value="تعمیر شده" id="repaired" />
-                                <label className="form-check-label" htmlFor="repaired">
-                                تعمیر شده
-                                </label>
                         </div>
                     </div>
                     <div className= 'd-flex gap-2'>

@@ -79,31 +79,221 @@ const ObserveModal = (props) => {
                       <table ref={componentPDF}
                            className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
                             <thead className='bg-light'>
-                            <tr>
-                                <th scope="col">ردیف</th>
-                                <th scope="col">نام تجهیزات</th>
-                                <th scope="col">تاریخ ثبت</th>
-                                <th scope="col">شرح</th>
-                                <th scope="col">کد اموال</th>
-                            </tr>
+                            {(() => {
+                                if (props.typeProperty === 'safetyequipment' || props.typeProperty === 'facilityfurniture' || props.typeProperty === 'airportfurniture' || props.typeProperty === 'electronicfurniture' || props.typeProperty === 'officefurniture' || props.typeProperty === 'industrialtool'){
+                                    return (
+                                        <tr>
+                                            <th scope="col">ردیف</th>
+                                            <th scope="col">نام تجهیزات</th>
+                                            <th scope="col">تاریخ ثبت</th>
+                                            <th scope="col">شرح</th>
+                                            <th scope="col">کد اموال</th>
+                                        </tr>
+                                    )
+                                }else if (props.typeProperty === 'airportequipment' || props.typeProperty === 'digitalfurniture'){
+                                    return (
+                                     <tr>
+                                            <th scope="col">ردیف</th>
+                                            <th scope="col">نام تجهیزات</th>
+                                            <th scope="col">نوع تعمیر</th>
+                                            <th scope="col">تاریخ ثبت</th>
+                                            <th scope="col">شرح</th>
+                                            <th scope="col">کد اموال</th>
+                                        </tr>
+                                    )
+                                }else if (props.typeProperty === 'airportvehicle' || props.typeProperty === 'officevehicle'){
+                                    return (
+                                     <tr>
+                                            <th scope="col">ردیف</th>
+                                            <th scope="col">نام خودرو</th>
+                                            <th scope="col">نوع تعمیر</th>
+                                            <th scope="col">کیلومتر</th>
+                                            <th scope="col">سال تعویض</th>
+                                            <th scope="col">تاریخ ثبت</th>
+                                            <th scope="col">شرح</th>
+                                            <th scope="col">کد اموال</th>
+                                        </tr>
+                                    )
+                                }
+                            })()}
+
                             </thead>
 
                             <tbody>
-                                {(repaired.length > 0 && repaired.filter(property => property.safety_equipment ===  props.idNumber).map((data,i) => (
-                                    <tr key={data.id}>
-                                        <th scope="row">{i}</th>
-                                        <td>{data.name}</td>
-                                        <td>{data.date}</td>
-                                        <td>{data.description}</td>
-                                        <td>{data.safety_equipment}</td>
-                                    </tr>
-                            ))) ||
+                             {(() => {
+                                if (props.typeProperty === 'safetyequipment'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.safety_equipment ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.safety_equipment}</td>
+                                                </tr>
+                                        ))) ||
 
-                          <tr>
-                            <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
-                          </tr>
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
 
-                                    }
+
+                                    )
+                                }else if (props.typeProperty === 'airportequipment'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.airport_equipment ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.repaired_type}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.airport_equipment}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'digitalfurniture'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.digital_furniture ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.repaired_type}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.digital_furniture}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'facilityfurniture'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.facility_furniture ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.facility_furniture}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'airportfurniture'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.airport_furniture ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.airport_furniture}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'electronicfurniture'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.electronic_furniture ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.electronic_furniture}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'officefurniture'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.office_furniture ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.office_furniture}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'airportvehicle'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.airport_vehicle ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.repaired_type}</td>
+                                                    <td>{data.kilometer}</td>
+                                                    <td>{data.year_changed}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.airport_vehicle}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'officevehicle'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.office_vehicle ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.repaired_type}</td>
+                                                    <td>{data.kilometer}</td>
+                                                    <td>{data.year_changed}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.office_vehicle}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }else if (props.typeProperty === 'industrialtool'){
+                                    return (
+                                     (repaired.length > 0 && repaired.filter(property => property.industrial_tool ===  props.idNumber).map((data,i) => (
+                                                <tr key={data.id}>
+                                                    <th scope="row">{i}</th>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.description}</td>
+                                                    <td>{data.industrial_tool}</td>
+                                                </tr>
+                                        ))) ||
+
+                                      <tr>
+                                        <td colSpan="17" className='h3'>داده ای یافت نشد .....</td>
+                                      </tr>
+                                    )
+                                }
+                            })()}
+
                             </tbody>
                         </table>
                 </div>
