@@ -565,7 +565,7 @@ const ReportProperty = () => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                           <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                           <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
@@ -613,7 +613,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                            <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                            <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
@@ -636,7 +636,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -660,7 +660,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -683,7 +683,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -707,7 +707,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -729,7 +729,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -756,7 +756,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -779,7 +779,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.name}</td>
@@ -803,7 +803,7 @@ const ReportProperty = () => {
                                     }else if (typeProperty === 'supportitem'){
                                         return (
                                            (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
-                                                <tr style={{backgroundColor:`${data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null}`}} key={data.code}>
+                                                <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
                                                     <td>{data.type_item}</td>
