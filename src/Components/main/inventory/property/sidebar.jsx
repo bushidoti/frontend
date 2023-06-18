@@ -17,10 +17,14 @@ export const SideBar = (props) => {
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><button  className='btn  d-flex gap-2 dropdown-item'  value='safetyEquipment' onClick={(e) => {
                                         props.setShowForm(e.target.value)
+                                        props.setIsRepair('')
                                     }}>
                                     <span className="material-symbols-outlined">health_and_safety</span>
                                     تجهیزات ایمنی</button></li>
-                                    <li><button className='btn  d-flex gap-2 dropdown-item' value='airportEquipment' onClick={(e) => props.setShowForm(e.target.value)}><span
+                                    <li><button className='btn  d-flex gap-2 dropdown-item' value='airportEquipment' onClick={(e) => {
+                                      props.setShowForm(e.target.value)
+                                           props.setIsRepair('')
+                                    } }><span
                                     className="material-symbols-outlined">mode_fan</span>تجهیزات فرودگاهی</button></li>
                                 </ul>
                         </div>
@@ -32,11 +36,19 @@ export const SideBar = (props) => {
                         </button>
                         <div className="collapse mt-2" id="vehicleCollapse" data-bs-parent="#autoClose">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
                                     <li><button className='btn d-flex gap-2 dropdown-item' value='airportCar' data-bs-toggle="collapse"
-                                                data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}><span
+                                                data-bs-target="#collapse" onClick={(e) => {
+                                                    props.setShowForm(e.target.value)
+                                                    props.setIsRepair('')
+                                    } }><span
                                                 className="material-symbols-outlined">airport_shuttle</span>خودرو فرودگاهی</button></li>
+
                                     <li><button className='btn d-flex gap-2 dropdown-item' value='personalCar' data-bs-toggle="collapse"
-                                    data-bs-target="#collapse" onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">directions_car</span>
+                                    data-bs-target="#collapse" onClick={(e) => {
+                                       props.setShowForm(e.target.value)
+                                       props.setIsRepair('')
+                                    } }><span className="material-symbols-outlined">directions_car</span>
                                     خودرو اداری</button></li>
                                 </ul>
                         </div>
@@ -49,15 +61,30 @@ export const SideBar = (props) => {
                         <div className="collapse mt-2" id="furnitureCollapse" data-bs-parent="#autoClose">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     <li><button className='btn d-flex  gap-2 dropdown-item' value='electronicFurniture'
-                                    onClick={(e) => props.setShowForm(e.target.value)}><span className="material-symbols-outlined">ev_station</span>
+                                    onClick={(e) => {
+                                        props.setShowForm(e.target.value)
+                                        props.setIsRepair('')
+                                    }}><span className="material-symbols-outlined">ev_station</span>
                                     اثاثه الکترونیکی</button></li>
-                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='officeFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='officeFurniture' onClick={(e) => {
+                                        props.setShowForm(e.target.value)
+                                        props.setIsRepair('')
+                                    } }>
                                     <span className="material-symbols-outlined">desk</span>اثاثه اداری</button></li>
-                                     <li><button className='btn d-flex gap-2 dropdown-item' value='furniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                     <li><button className='btn d-flex gap-2 dropdown-item' value='furniture' onClick={(e) => {
+                                         props.setShowForm(e.target.value)
+                                         props.setIsRepair('')
+                                     } }>
                                      <span className="material-symbols-outlined">luggage</span>اثاثه تاسیساتی</button></li>
-                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='airportFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='airportFurniture' onClick={(e) => {
+                                        props.setShowForm(e.target.value)
+                                        props.setIsRepair('')
+                                    } }>
                                     <span className="material-symbols-outlined">flight</span>اثاثه فرودگاهی</button></li>
-                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='digitalFurniture' onClick={(e) => props.setShowForm(e.target.value)}>
+                                    <li><button className='btn d-flex  gap-2 dropdown-item' value='digitalFurniture' onClick={(e) => {
+                                        props.setShowForm(e.target.value)
+                                        props.setIsRepair('')
+                                    } }>
                                     <span className="material-symbols-outlined">devices</span>اثاثه دیجیتال</button></li>
                               </ul>
                         </div>
@@ -69,13 +96,25 @@ export const SideBar = (props) => {
                         </button>
                         <div className="collapse mt-2" id="propertyCollapse" data-bs-parent="#autoClose">
                             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><button className='btn d-flex gap-2 dropdown-item' value='industrialEquipment' onClick={(e) => props.setShowForm(e.target.value)}>
+                                <li><button className='btn d-flex gap-2 dropdown-item' value='industrialEquipment' onClick={(e) => {
+                                    props.setShowForm(e.target.value)
+                                    props.setIsRepair('')
+                                }}>
                                 <span className="material-symbols-outlined">construction</span>ابزار آلات غیر صنعتی</button></li>
-                                <li><button className='btn d-flex  gap-2 dropdown-item' value='supportItems' onClick={(e) => props.setShowForm(e.target.value)}>
+                                <li><button className='btn d-flex  gap-2 dropdown-item' value='supportItems' onClick={(e) => {
+                                    props.setShowForm(e.target.value)
+                                    props.setIsRepair('')
+                                }}>
                                 <span className="material-symbols-outlined float-end">storage</span>اقلام پشتیبانی</button></li>
-                                 <li><button className='btn d-flex gap-2 dropdown-item' value='benefits' onClick={(e) => props.setShowForm(e.target.value)}>
+                                 <li><button className='btn d-flex gap-2 dropdown-item' value='benefits' onClick={(e) => {
+                                     props.setShowForm(e.target.value)
+                                     props.setIsRepair('')
+                                 }}>
                                  <span className="material-symbols-outlined">deskphone</span>امتیازات</button></li>
-                                <li><button className='btn d-flex gap-2 dropdown-item' value='dustrialEquipment' onClick={(e) => props.setShowForm(e.target.value)}>
+                                <li><button className='btn d-flex gap-2 dropdown-item' value='dustrialEquipment' onClick={(e) => {
+                                    props.setShowForm(e.target.value)
+                                    props.setIsRepair('')
+                                }}>
                                 <span className="material-symbols-outlined">engineering</span>
                                 ابزار آلات صنعتی</button></li>
                             </ul>

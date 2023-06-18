@@ -67,7 +67,9 @@ const ObserveModal = (props) => {
                         <div className="modal-content">
                             <div className="modal-header mx-4">
                                 <div className="modal-title fs-5 h1 d-flex gap-2" id="exampleModalLabel"><span>{property.name}</span><span className="text-danger">{props.idNumber}</span></div>
-                                <button type="button" className="btn-close " data-bs-dismiss="modal"
+                                <button type="button" className="btn-close " data-bs-dismiss="modal" onClick={() => {
+                                    props.setIdNumber(null)
+                                }}
                                 aria-label="Close"></button>
                             </div>
                             <div className="modal-body">

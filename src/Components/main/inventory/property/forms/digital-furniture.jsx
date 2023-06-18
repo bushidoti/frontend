@@ -195,6 +195,8 @@ export const DigitalFurniture = () => {
                    <div className="col form-floating mb-3 ">
                         <select className="form-select" id="type-digital" disabled={form.viewOnly} aria-label="Type Add" value={form.editStatus ? form.formik.values.type_furniture : formik.values.type_furniture} onChange={(e) => {
                             form.setTypeDigital(e.target.value)
+                            form.setIsRepair(e.target.value)
+                            formik.resetForm()
                             formik.setFieldValue('type_furniture' , e.target.value)
                         }} required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -212,8 +214,8 @@ export const DigitalFurniture = () => {
                     </div>
                     {form.editStatus === false ?
                       <div className="col form-floating mb-3 ">
-                        <select className="form-select" defaultValue=''  id="typeAdd" aria-label="Type Add" onChange={(e) => {
-                           form.setIsRepair(e.target.value)
+                        <select className="form-select" id="typeAdd" aria-label="Type Add" value={formik.values.type_register} onChange={(e) => {
+                            form.setIsRepair(e.target.value)
                             formik.setFieldValue('type_register' , e.target.value)
                         }}  required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -249,7 +251,7 @@ export const DigitalFurniture = () => {
                                              </div>
 
                                          <div className="col form-floating mb-3 ">
-                                                <select className="form-select" id="typeRepair"  name='repaired_type'
+                                                <select className="form-select" defaultValue='' id="typeRepair"  name='repaired_type'
                                                     onChange={formik.handleChange} aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
                                                     {form.typeDigital === 'کامپیوتر'  ?

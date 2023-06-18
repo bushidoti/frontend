@@ -571,7 +571,7 @@ const ReportProperty = () => {
                                                 <td>{data.owner}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                    <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
                                                         construction</button>
@@ -598,7 +598,7 @@ const ReportProperty = () => {
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
                                                 <td>
-                                                    <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                    <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
                                                         construction</button>
@@ -623,7 +623,7 @@ const ReportProperty = () => {
                                                 <td>{data.name}</td>
                                                 <td>{data.model}</td>
                                                 <td>
-                                                    <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                    <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
                                                         construction</button>
@@ -653,7 +653,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>
@@ -680,7 +680,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>
@@ -708,7 +708,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>
@@ -734,7 +734,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.install_location}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>
@@ -765,7 +765,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.owner}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>
@@ -816,7 +816,7 @@ const ReportProperty = () => {
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
                                                     <td>
-                                                        <button className='btn btn-primary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
+                                                        <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
                                                         construction</button>

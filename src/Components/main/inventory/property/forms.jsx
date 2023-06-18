@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import {SafetyEquipment} from "./forms/safety-equipment";
 import {AirportEquipment} from "./forms/airport-equipment";
 import {ElectronicFurniture} from "./forms/electronic-furniture";
@@ -22,6 +22,7 @@ export const Forms =  (props) => {
      const [editStatus, setEditStatus] = useState(false)
      const [typeDigital , setTypeDigital] = useState('')
      const [typeCommunication , setTypeCommunication] = useState('')
+     const form = useContext(Contextform)
 
      const fetchDataAutoIncrement = async () => {
         const response = await fetch(`${Url}/api/autoincrementproperty/1`)
@@ -49,10 +50,10 @@ export const Forms =  (props) => {
         <Contextform.Provider value={{
                     autoIncrement:autoIncrement,
                     message:message,
-                    isRepair:isRepair,
+                    isRepair:form.isRepair,
                     setTypeDigital:setTypeDigital,
                     typeDigital:typeDigital,
-                    setIsRepair:setIsRepair,
+                    setIsRepair:form.setIsRepair,
                     typeCommunication:typeCommunication,
                     setTypeCommunication:setTypeCommunication,
                     editStatus:editStatus
