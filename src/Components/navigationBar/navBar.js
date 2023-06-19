@@ -130,7 +130,7 @@ const NavBar = (props) => {
 
             </div>
           </nav>
-                  <Outlet />
+                  <Outlet/>
 
         </Fragment>
 

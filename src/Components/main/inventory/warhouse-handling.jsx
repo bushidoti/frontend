@@ -1,8 +1,10 @@
 import React, {Fragment, useState} from "react";
 import {Product} from "./storage-prodoct/handling/product";
 
-const StorageHandling = () => {
+const StorageHandling = (props) => {
     const [handling , setHandling] = useState('')
+    const [inventory, setInventory] = useState('')
+
     return (
         <Fragment>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
@@ -23,10 +25,10 @@ const StorageHandling = () => {
                                     </label>
                                 </div>
                           <div className="form-floating">
-                                <select className="form-select" id="branch" defaultValue=''
+                                <select className="form-select" id="branch" defaultValue='' onChange={e => setInventory(e.target.value)}
                                     aria-label="branch">
                                     <option value='' disabled>یک مورد انتخاب کنید</option>
-                                    <option value="دفترمرکزی">دفترمرکزی</option>
+                                    <option value="دفتر مرکزی">دفتر مرکزی</option>
                                     <option value="چابهار">چابهار</option>
                                     <option value="دزفول">دزفول</option>
                                     <option value="جاسک">جاسک</option>
@@ -44,7 +46,7 @@ const StorageHandling = () => {
             {(() => {
                 if (handling === 'انبار'){
                     return (
-                        <Product/>
+                        <Product inventory={inventory} setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} formik={props.formik}/>
                     )
                 }
             })()}

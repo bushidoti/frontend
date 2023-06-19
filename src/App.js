@@ -205,7 +205,7 @@ function App() {
                           <Route path="property" element={<Property/>} />
                           <Route path="report-properties" element={<ReportProperty />} />
                             {message === 'حسین شاه محمدلو' ?
-                          <Route path="warehouse-handling" element={<StorageHandling />} />
+                          <Route path="warehouse-handling" element={<StorageHandling formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                                 : null}
                           <Route path="pending-products" element={<PendingProperty setModalTitle={setModalTitle} modalTitle={modalTitle}/>} />
                           <Route path="/logout" element={<Logout/>}/>
