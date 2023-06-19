@@ -96,9 +96,14 @@ const NavBar = (props) => {
                                   <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
                                   <li><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link></li>
                                   <li>
-                                    <hr className="dropdown-divider bg-primary"></hr>
                                   </li>
-                                    <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
+                                    {props.message === 'حسین شاه محمدلو' ?
+                                        <Fragment>
+                                        <hr className="dropdown-divider bg-primary"></hr>
+                                        <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
+                                        </Fragment>
+                                                                     : null}
+
                                 </ul>
                               </li>
                         </Fragment>
