@@ -40,9 +40,9 @@ export const Product = (props) => {
                     </div>
                 </div>
                 <div className='d-flex'>
-                    <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '50vh'}}>
+                    <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '40vh'}}>
                           <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
-                                <thead className= 'bg-light'>
+                                <thead className= 'bg-light sticky-top'>
                                 <tr>
                                     <th scope="col">کد</th>
                                     <th scope="col">نام</th>
@@ -50,6 +50,11 @@ export const Product = (props) => {
                                     <th scope="col">خروج</th>
                                     <th scope="col">مانده</th>
                                     <th scope="col"></th>
+                                    <th scope="col">مانده</th>
+                                    <th scope="col">شمارش</th>
+                                    <th scope="col">کسری/اضافه</th>
+                                    <th scope="col">نتیجه</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,52 +72,11 @@ export const Product = (props) => {
                                                     setIdNumber(data.code)
                                                 }}>visibility</button>
                                         </td>
-                                    </tr>
-                                         ))) ||
-                                         <tr>
-                                            <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                     </div>
-                    <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '50vh'}}>
-                          <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
-                                <thead className= 'bg-light'>
-                                <tr>
-                                    <th scope="col">مانده</th>
-                                    <th scope="col">شمارش</th>
-                                    <th scope="col">کسری/اضافه</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {(product.length > 0 && product.filter(product => product.inventory ===  props.inventory).map((data) => (
-                                <tr key={data.code}>
-                                    <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
-                                            - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
-                                    <td><input type="text"  id='searchBox' className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
-                                    aria-label="searchBox" aria-describedby="search" /></td>
-                                    <td>0</td>
-                                </tr>
-                                        ))) ||
-                                         <tr>
-                                            <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                     </div>
-
-                    <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '50vh'}}>
-                          <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
-                                <thead className= 'bg-light'>
-                                <tr>
-                                    <th scope="col">نتیجه</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {(product.length > 0 && product.filter(product => product.inventory ===  props.inventory).map((data) => (
-                                    <tr key={data.code}>
+                                        <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
+                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
+                                        <td><input type="text"  id='searchBox' className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
+                                        aria-label="searchBox" aria-describedby="search" /></td>
+                                        <td>0</td>
                                         <td>
                                             <div className="input-group">
                                                 <input type="text"  id='resultInp' className="form-control" placeholder='نتیجه را بنویسید'
@@ -129,7 +93,6 @@ export const Product = (props) => {
                                 </tbody>
                             </table>
                      </div>
-
                 </div>
 
             </Fragment>

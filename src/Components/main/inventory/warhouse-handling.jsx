@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from "react";
 import {Product} from "./storage-prodoct/handling/product";
+import {PropertyHandling} from "./property/handeling/property-handling";
 
 const StorageHandling = (props) => {
     const [handling , setHandling] = useState('')
@@ -18,7 +19,7 @@ const StorageHandling = (props) => {
                                     </label>
                                 </div>
                                 <div className="form-check">
-                                    <input className="form-check-input" value='اموال' type="radio" disabled
+                                    <input className="form-check-input" value='اموال' type="radio"
                                     name="flexRadioDefault" id="property" onChange={(e) => setHandling(e.target.value)}/>
                                     <label className="form-check-label" htmlFor="property">
                                     اموال
@@ -43,10 +44,15 @@ const StorageHandling = (props) => {
                 <button className= 'btn btn-primary' id='handlingBtn'>انبارگردانی</button>
                 </div>
             </div>
+            <hr className='bg-primary mb-5'/>
             {(() => {
                 if (handling === 'انبار'){
                     return (
                         <Product inventory={inventory} setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} formik={props.formik}/>
+                    )
+                }else if (handling === 'اموال'){
+                    return (
+                        <PropertyHandling inventory={inventory} setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} formik={props.formik}/>
                     )
                 }
             })()}
