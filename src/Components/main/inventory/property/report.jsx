@@ -560,7 +560,11 @@ const ReportProperty = () => {
                              {(() => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                            <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -578,6 +582,7 @@ const ReportProperty = () => {
                                                     <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                           setViewOnly(true)
                                                         }}>info</button>
                                                     <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -589,7 +594,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'safetyequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                             <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -605,6 +614,7 @@ const ReportProperty = () => {
                                                     <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                     <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -616,7 +626,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                             <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -632,6 +646,7 @@ const ReportProperty = () => {
                                                             setIdNumber(data.code)
                                                             setTypeDigital(data.type_furniture)
                                                             setTypeCommunication(data.name)
+                                                             setViewOnly(true)
                                                         }}>info</button>
                                                     <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -643,7 +658,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -660,6 +679,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -671,7 +691,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -687,6 +711,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -698,7 +723,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -715,6 +744,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -726,7 +756,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -741,6 +775,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -752,7 +787,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -772,6 +811,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -783,7 +823,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -795,6 +839,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -806,7 +851,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -823,6 +872,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -834,7 +884,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'supportitem'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -847,6 +901,7 @@ const ReportProperty = () => {
                                                         <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
+                                                            setViewOnly(true)
                                                         }}>info</button>
                                                         <button className='btn btn-secondary material-symbols-outlined ms-2' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#moveModal" onClick={() => {
                                                             setIdNumber(data.code)
@@ -858,7 +913,11 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'benefit'){
                                         return (
-                                           (property.length > 0 && property.filter(property => property.inventory === message).map((data,i) => (
+                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                              return property.inventory
+                                          }else{
+                                              return (property.inventory === message)
+                                          }}).map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -868,6 +927,7 @@ const ReportProperty = () => {
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
+                                                            setViewOnly(true)
                                                             setIdNumber(data.code)
                                                         }}>info</button>
                                                     </td>

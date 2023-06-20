@@ -7,7 +7,7 @@ export const PropertyHandling = (props) => {
     const [idNumber, setIdNumber] = useState(null)
     const [typeProperty , setTypeProperty] = useState('')
     const [editStatus, setEditStatus] = useState(false)
-    const [viewOnly, setViewOnly] = useState(false)
+    const [viewOnly, setViewOnly] = useState(true)
     const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
 
@@ -83,6 +83,7 @@ export const PropertyHandling = (props) => {
                                         <td>
                                            <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                     setEditStatus(true)
+                                                     setViewOnly(true)
                                                     setIdNumber(data.code)
                                                      setTypeDigital(data.type_furniture)
                                                      setTypeCommunication(data.name)
