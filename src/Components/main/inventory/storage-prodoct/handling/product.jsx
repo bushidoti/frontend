@@ -9,6 +9,7 @@ export const Product = (props) => {
     const [product, setProduct] = useState({})
     const [products, setProducts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const [code, setCode] = useState('')
     const [idNumberProduct, setIdNumberProduct] = useState(null)
     const [count, setCount] = useState({})
     let today = new Date().toLocaleDateString('fa-IR');
@@ -18,12 +19,13 @@ export const Product = (props) => {
     const formik = useFormik({
     initialValues: {
       result: "",
+      code: "",
     },
     enableReinitialize: true,
     });
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/`)
+        const response = await fetch(`${Url}/api/product/?code=${formik.values.code}`)
         const data = await response.json()
         setProduct(data)
         const quantities = data.reduce((a, b) => ({ ...a, [b.code]: b.count}), {})
@@ -43,7 +45,7 @@ export const Product = (props) => {
 
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [])
+        [formik.values.code])
 
     const postHandler = async (id) => {
          await axios.post(
@@ -95,7 +97,7 @@ export const Product = (props) => {
     }
     const func = async (id) => {
          await prom(id).then(res => {
-             formik.setFieldValue('code' , id)
+             setCode(id)
          });
     }
 
@@ -106,13 +108,14 @@ export const Product = (props) => {
             setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
                  <div className='m-4'>
                     <div className="input-group mb-3">
-                        <input type="text"  id='searchBox' className="form-control" placeholder='جستجو براساس کد کالا'
+                        <input type="text"  id='searchBox' className="form-control" value={formik.values.code}
+                    onChange={e => formik.setFieldValue('code' , e.target.value)} placeholder='جستجو براساس کد کالا'
                         aria-label="searchBox" aria-describedby="search" />
                         <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                     </div>
                 </div>
                    <div className='m-4'>
-                        <span className="dot bg-danger"></span><span> به معنی یک بار انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>
+                        <span className="dot bg-warning ms-4"></span><span> به معنی یک بار انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>
                    </div>
                 <div className='d-flex'>
                     <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '40vh'}}>
@@ -132,15 +135,16 @@ export const Product = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {(product.length > 0 && product.filter(product => product.inventory ===  props.inventory).map((data) => (
+                                {(product.length > 0 && product.filter(product => product.inventory ===  props.inventory).map((data , i) => (
                                     <tr key={data.code}
-                                    style={{backgroundColor:`${(data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options) ? 'hsl(0, 100%, 80%)' : null)}`}}>
+                                    style={{backgroundColor:`${(data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options) ? 'hsl(60, 100%, 90%)' : null)}`}}>
                                         <th scope="row">{data.code}</th>
                                         <td>{data.name}</td>
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))}</td>
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
                                         <td>
-                                             <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal"
+                                             <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined'
+                                             data-bs-toggle="modal" disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} data-bs-target="#observeModal"
                                                 title="کاردکس" onClick={() => {
                                                     setIdNumber(data.code)
                                                 }}>visibility</button>
@@ -148,17 +152,19 @@ export const Product = (props) => {
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
                                                 - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
 
-                                        <td><input type="number"  id='count' name={`count`} onChange={e => setCount({...count, [data.code]: e.target.value})}
+                                        <td><input type="number"  id={`count${i}`} name={`count`} onChange={e => setCount({...count, [data.code]: e.target.value})}
                                         value={count[data.code] || ''} className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
-                                        aria-label="searchBox" aria-describedby="search" /></td>
+                                        aria-label="count" aria-describedby="count" /></td>
 
                                         <td style={{direction:'ltr'}}>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
                                                 - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 )) - count[data.code]}</td>
                                         <td>
                                             <div className="input-group">
-                                                <input type="text"  id='resultInp' disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} onChange={e => formik.setFieldValue('result' , e.target.value)} className="form-control" placeholder='نتیجه را بنویسید'
+                                                <input type="text"  id={`resultInp${i}`} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
+                                                onChange={e => formik.setFieldValue('result' , e.target.value)} className="form-control" placeholder='نتیجه را بنویسید'
                                                 aria-label="result" aria-describedby="result"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} type="button" id="resultBtn" onClick={async () => {
+                                                <button className="btn btn-outline-success material-symbols-outlined"
+                                                disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} type="button" id="resultBtn" onClick={async () => {
                                                     await func(data.code)
                                                 }}>done</button>
                                             </div>
@@ -166,7 +172,7 @@ export const Product = (props) => {
                                     </tr>
                                          ))) ||
                                          <tr>
-                                            <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
+                                            <td colSpan="9" className='h3'>داده ای یافت نشد .....</td>
                                         </tr>
                                     }
                                 </tbody>

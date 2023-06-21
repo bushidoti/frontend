@@ -1,6 +1,9 @@
 import React, {Fragment, useEffect, useState} from "react";
 import Url from "../../../../config";
 import Modal from "../modal";
+import {useFormik} from "formik";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export const PropertyHandling = (props) => {
     const [property, setProperty] = useState([])
@@ -9,11 +12,24 @@ export const PropertyHandling = (props) => {
     const [editStatus, setEditStatus] = useState(false)
     const [viewOnly, setViewOnly] = useState(true)
     const [typeDigital , setTypeDigital] = useState('')
+    const [code, setCode] = useState('')
+
     const [typeCommunication , setTypeCommunication] = useState('')
+    let today = new Date().toLocaleDateString('fa-IR');
+    const options = {
+              year: "numeric",
+            };
+    const formik = useFormik({
+        initialValues: {
+          last_handling_result: "",
+          code: "",
+        },
+        enableReinitialize: true,
+        });
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/`)
+                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}`)
                 const data = await response.json()
                 setProperty(data)
         }
@@ -23,8 +39,52 @@ export const PropertyHandling = (props) => {
             void fetchData()
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [typeProperty])
+        [typeProperty , formik.values.code])
 
+    const putHandler = async (id) => {
+         await axios.put(
+            `${Url}/api/${typeProperty}/${id}/`,
+              {
+              code: id,
+              last_handling_result: formik.values.last_handling_result,
+              last_handling_date: today.replaceAll('/' , '-'),
+              yearly_handling: new Date().toLocaleDateString('fa-IR' , options ),
+         })
+          await fetchData()
+        }
+
+    const closeAlert = (id) => {
+          Swal.fire({
+              title: 'مطمئنید?',
+              text: `آیا از ثبت نتیجه انبارگردانی این کالا مطمئنید ؟`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'انصراف',
+              confirmButtonText: 'بله, ثبت کن!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'ثبت شد!',
+                  'نتیجه ثبت و در بازه یک ساله در قسمت انبارگردانی قفل شد.',
+                  'success',
+                  'ok',
+                  putHandler(id),
+                )
+              }
+            })
+      }
+
+    const prom = async  (id) => {
+     return  closeAlert(id)
+
+    }
+    const func = async (id) => {
+         await prom(id).then(res => {
+             setCode('code' , id)
+         });
+    }
     return (
            <Fragment>
             <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication} viewOnly={viewOnly} setViewOnly={setViewOnly}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
@@ -55,13 +115,13 @@ export const PropertyHandling = (props) => {
                     </div>
                     <div className="input-group mb-3">
                         <input type="text"  id='searchBox' className="form-control" placeholder='جستجو براساس کد کالا'
+                    onChange={e => formik.setFieldValue('code' , e.target.value)}
                         aria-label="searchBox" aria-describedby="search" />
                         <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                     </div>
                     <div className='m-4'>
                         <span className="dot bg-danger"></span><span> به معنی جا به جا شده و قفل شده</span>
-                        <span className="dot bg-warning ms-4"></span><span> به معنی ارسال شده برای تعمیر و موقتاً قفل شده</span>
-                        <span className="dot bg-success ms-4"></span><span> به معنی در انتظار تایید جا به جایی در مقصد</span>
+                        <span className="dot bg-warning ms-4"></span><span> به معنی یک بار انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>
                     </div>
                 </div>
                 <div className='d-flex'>
@@ -77,7 +137,7 @@ export const PropertyHandling = (props) => {
                                 </thead>
                                 <tbody>
                                 {(property.length > 0 && property.filter(product => product.inventory ===  props.inventory).map((data) => (
-                                    <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
+                                    <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options) ? 'hsl(60, 100%, 90%)' : null) }`}} key={data.code}>
                                         <th scope="row">{data.code}</th>
                                         <td>{data.name || data.number}</td>
                                         <td>
@@ -91,9 +151,13 @@ export const PropertyHandling = (props) => {
                                         </td>
                                         <td>
                                             <div className="input-group">
-                                                <input type="text"  id='resultInp' className="form-control" placeholder='نتیجه را بنویسید' disabled={data.movement_status === 'received'}
-                                                aria-label="result" aria-describedby="result"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="resultBtn" disabled={data.movement_status === 'received'}>done</button>
+                                                <input type="text"  id='last_handling_result' name='last_handling_result' className="form-control" placeholder='نتیجه را بنویسید' value={data.last_handling_result}
+                                                disabled={data.movement_status === 'received' || data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} onChange={formik.handleChange}
+                                                aria-label="last_handling_result" aria-describedby="last_handling_result"/>
+                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="resultBtn"
+                                                disabled={data.movement_status === 'received' || data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} onClick={async () => {
+                                                    await func(data.code)
+                                                }}>done</button>
                                             </div>
                                         </td>
                                     </tr>
