@@ -58,7 +58,7 @@ export const PropertyHandling = (props) => {
                         aria-label="searchBox" aria-describedby="search" />
                         <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                     </div>
-                       <div className='m-4'>
+                    <div className='m-4'>
                         <span className="dot bg-danger"></span><span> به معنی جا به جا شده و قفل شده</span>
                         <span className="dot bg-warning ms-4"></span><span> به معنی ارسال شده برای تعمیر و موقتاً قفل شده</span>
                         <span className="dot bg-success ms-4"></span><span> به معنی در انتظار تایید جا به جایی در مقصد</span>

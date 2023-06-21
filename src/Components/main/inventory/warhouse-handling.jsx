@@ -40,9 +40,6 @@ const StorageHandling = (props) => {
                                 <label htmlFor="branch">شعبه</label>
                           </div>
                         </div>
-                <div className= 'd-flex gap-2'>
-                <button className= 'btn btn-primary' id='handlingBtn'>انبارگردانی</button>
-                </div>
             </div>
             <hr className='bg-primary mb-5'/>
             {(() => {
