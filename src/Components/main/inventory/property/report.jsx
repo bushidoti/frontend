@@ -396,7 +396,7 @@ const ReportProperty = () => {
                         <span className="dot bg-warning ms-4"></span><span> به معنی ارسال شده برای تعمیر و موقتاً قفل شده</span>
                         <span className="dot bg-success ms-4"></span><span> به معنی در انتظار تایید جا به جایی در مقصد</span>
                     </div>
-                <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
+                <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '35vh'}}>
                     <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
                          <thead className= 'bg-light'>
                             <tr>

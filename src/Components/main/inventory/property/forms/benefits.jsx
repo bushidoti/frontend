@@ -106,7 +106,7 @@ export const Benefits = () => {
               </div>
                <div className='d-flex gap-2'>
                        <div className="col form-floating">
-                        <select className="form-select" id="typeLine" name='number_type' value={form.editStatus ? form.formik.values.number_type : formik.values.number_type}
+                        <select className="form-select" id="typeLine" name='number_type' value={form.editStatus ? form.formik.values.number_type : formik.values.number_type} disabled={form.viewOnly}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange} aria-label="Type Add" required>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="سیم کارت">سیم کارت</option>
@@ -118,7 +118,7 @@ export const Benefits = () => {
                          </div>
                     </div>
                         <div className="col-4 form-floating">
-                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                            <input type="text" className="form-control" id="locationUse" name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location} disabled={form.viewOnly}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                             placeholder="شرکت" required/>
                                 <label htmlFor="locationUse">محل استفاده</label>
@@ -127,7 +127,7 @@ export const Benefits = () => {
                                 </div>
                        </div>
                       <div className="col form-floating">
-                        <input type="text" className="form-control" id="number" name='number' value={form.editStatus ? form.formik.values.number : formik.values.number}
+                        <input type="text" className="form-control" id="number" name='number' value={form.editStatus ? form.formik.values.number : formik.values.number} disabled={form.viewOnly}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                placeholder="تاسیسات" required/>
                             <label htmlFor="number">شماره</label>

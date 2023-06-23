@@ -150,14 +150,16 @@ export const Product = (props) => {
                                                 }}>visibility</button>
                                         </td>
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
-                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
+                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))
+                                        }</td>
 
-                                        <td><input type="number"  id={`count${i}`} name={`count`} onChange={e => setCount({...count, [data.code]: e.target.value})}
+                                        <td><input type="number"  id={`count${i}`} name={`count`}
+                                       onChange={e => setCount({...count, [data.code]: e.target.value})} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
                                         value={count[data.code] || ''} className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
                                         aria-label="count" aria-describedby="count" /></td>
 
-                                        <td style={{direction:'ltr'}}>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
-                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 )) - count[data.code]}</td>
+                                        <td style={{direction:'ltr'}}>{count[data.code] - ((products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
+                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 )))}</td>
                                         <td>
                                             <div className="input-group">
                                                 <input type="text"  id={`resultInp${i}`} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
