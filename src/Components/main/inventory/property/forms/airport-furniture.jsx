@@ -28,13 +28,21 @@ export const AirportFurniture = () => {
     }
 
     const fetchDataName = async () => {
-        const response = await fetch(`${Url}/api/airportfurniture/${formik.values.code}`)
+        const response = await fetch(`${Url}/api/airportfurniture/${formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setGetName(data)
       }
 
     const fetchDataProperty = async () => {
-        const response = await fetch(`${Url}/api/airportfurniture`)
+        const response = await fetch(`${Url}/api/airportfurniture`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProperty(data)
       }
@@ -50,7 +58,11 @@ export const AirportFurniture = () => {
               inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -66,7 +78,11 @@ export const AirportFurniture = () => {
               airport_furniture_05: form.message === 'بیشه کلا' ? form.autoIncrement.airport_furniture_05+1 : form.autoIncrement.airport_furniture_05,
               airport_furniture_06: form.message === 'اورهال تهران' ? form.autoIncrement.airport_furniture_06+1 : form.autoIncrement.airport_furniture_06,
               airport_furniture_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.airport_furniture_07+1 : form.autoIncrement.airport_furniture_07,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     const postAlert = () => {
@@ -101,7 +117,11 @@ export const AirportFurniture = () => {
               name: getName.name,
               description: formik.values.description,
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }

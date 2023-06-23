@@ -51,14 +51,22 @@ const AgreementMove = (props) => {
         });
 
      const fetchDataAutoIncrement = async () => {
-        const response = await fetch(`${Url}/api/autoincrementproperty/1`)
+        const response = await fetch(`${Url}/api/autoincrementproperty/1`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setAutoIncrement(data)
       }
 
      const fetchData = async () => {
         if (props.typeProperty !== '' && props.idNumber !== null){
-                const response = await fetch(`${Url}/api/${props.typeProperty}/${props.idNumber}`)
+                const response = await fetch(`${Url}/api/${props.typeProperty}/${props.idNumber}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                 const data = await response.json()
                 setProperty(data)
         }
@@ -71,7 +79,11 @@ const AgreementMove = (props) => {
               code: formik.values.code,
               sign_received: formik.values.sign_received,
               movement_status: 'received',
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         setTimeout(
                     refreshPages, 3000)
         }
@@ -88,7 +100,11 @@ const AgreementMove = (props) => {
               airport_equipment_05: props.message === 'بیشه کلا' ? autoIncrement.airport_equipment_05+1 : autoIncrement.airport_equipment_05,
               airport_equipment_06: props.message === 'اورهال تهران' ? autoIncrement.airport_equipment_06+1 : autoIncrement.airport_equipment_06,
               airport_equipment_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_equipment_07+1 : autoIncrement.airport_equipment_07,
-         })}else if (props.typeProperty === 'safetyequipment') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'safetyequipment') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -99,7 +115,11 @@ const AgreementMove = (props) => {
               safety_equipment_05: props.message === 'بیشه کلا' ? autoIncrement.safety_equipment_05+1 : autoIncrement.safety_equipment_05,
               safety_equipment_06: props.message === 'اورهال تهران' ? autoIncrement.safety_equipment_06+1 : autoIncrement.safety_equipment_06,
               safety_equipment_07: props.message === 'اورهال اصفهان' ? autoIncrement.safety_equipment_07+1 : autoIncrement.safety_equipment_07,
-         })}else if (props.typeProperty === 'electronicfurniture') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'electronicfurniture') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -110,7 +130,11 @@ const AgreementMove = (props) => {
               electronic_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.electronic_furniture_05+1 : autoIncrement.electronic_furniture_05,
               electronic_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.electronic_furniture_06+1 : autoIncrement.electronic_furniture_06,
               electronic_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.electronic_furniture_07+1 : autoIncrement.electronic_furniture_07,
-         })}else if (props.typeProperty === 'officefurniture') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'officefurniture') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -121,7 +145,11 @@ const AgreementMove = (props) => {
               office_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.office_furniture_05+1 : autoIncrement.office_furniture_05,
               office_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.office_furniture_06+1 : autoIncrement.office_furniture_06,
               office_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.office_furniture_07+1 : autoIncrement.office_furniture_07,
-         })}else if (props.typeProperty === 'facilityfurniture') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'facilityfurniture') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -132,7 +160,11 @@ const AgreementMove = (props) => {
               facility_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.facility_furniture_05+1 : autoIncrement.facility_furniture_05,
               facility_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.facility_furniture_06+1 : autoIncrement.facility_furniture_06,
               facility_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.facility_furniture_07+1 : autoIncrement.facility_furniture_07,
-         })}else if (props.typeProperty === 'airportfurniture') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'airportfurniture') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -143,7 +175,11 @@ const AgreementMove = (props) => {
               airport_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.airport_furniture_05+1 : autoIncrement.airport_furniture_05,
               airport_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.airport_furniture_06+1 : autoIncrement.airport_furniture_06,
               airport_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_furniture_07+1 : autoIncrement.airport_furniture_07,
-         })}else if (props.typeProperty === 'digitalfurniture') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'digitalfurniture') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -154,7 +190,11 @@ const AgreementMove = (props) => {
               digital_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.digital_furniture_05+1 : autoIncrement.digital_furniture_05,
               digital_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.digital_furniture_06+1 : autoIncrement.digital_furniture_06,
               digital_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.digital_furniture_07+1 : autoIncrement.digital_furniture_07,
-         })}else if (props.typeProperty === 'airportvehicle') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'airportvehicle') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -165,7 +205,11 @@ const AgreementMove = (props) => {
               airport_vehicle_05: props.message === 'بیشه کلا' ? autoIncrement.airport_vehicle_05+1 : autoIncrement.airport_vehicle_05,
               airport_vehicle_06: props.message === 'اورهال تهران' ? autoIncrement.airport_vehicle_06+1 : autoIncrement.airport_vehicle_06,
               airport_vehicle_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_vehicle_07+1 : autoIncrement.airport_vehicle_07,
-         })}else if (props.typeProperty === 'officevehicle') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'officevehicle') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -176,7 +220,11 @@ const AgreementMove = (props) => {
               office_vehicle_05: props.message === 'بیشه کلا' ? autoIncrement.office_vehicle_05+1 : autoIncrement.office_vehicle_05,
               office_vehicle_06: props.message === 'اورهال تهران' ? autoIncrement.office_vehicle_06+1 : autoIncrement.office_vehicle_06,
               office_vehicle_07: props.message === 'اورهال اصفهان' ? autoIncrement.office_vehicle_07+1 : autoIncrement.office_vehicle_07,
-         })}else if (props.typeProperty === 'noneindustrialtool') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'noneindustrialtool') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -187,7 +235,11 @@ const AgreementMove = (props) => {
               none_industrial_tools_05: props.message === 'بیشه کلا' ? autoIncrement.none_industrial_tools_05+1 : autoIncrement.none_industrial_tools_05,
               none_industrial_tools_06: props.message === 'اورهال تهران' ? autoIncrement.none_industrial_tools_06+1 : autoIncrement.none_industrial_tools_06,
               none_industrial_tools_07: props.message === 'اورهال اصفهان' ? autoIncrement.none_industrial_tools_07+1 : autoIncrement.none_industrial_tools_07,
-         })}else if (props.typeProperty === 'industrialtool') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'industrialtool') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -198,7 +250,11 @@ const AgreementMove = (props) => {
               industrial_tools_05: props.message === 'بیشه کلا' ? autoIncrement.industrial_tools_05+1 : autoIncrement.industrial_tools_05,
               industrial_tools_06: props.message === 'اورهال تهران' ? autoIncrement.industrial_tools_06+1 : autoIncrement.industrial_tools_06,
               industrial_tools_07: props.message === 'اورهال اصفهان' ? autoIncrement.industrial_tools_07+1 : autoIncrement.industrial_tools_07,
-         })}else if (props.typeProperty === 'supportitem') {
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}else if (props.typeProperty === 'supportitem') {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
@@ -209,7 +265,11 @@ const AgreementMove = (props) => {
               support_item_05: props.message === 'بیشه کلا' ? autoIncrement.support_item_05+1 : autoIncrement.support_item_05,
               support_item_06: props.message === 'اورهال تهران' ? autoIncrement.support_item_06+1 : autoIncrement.support_item_06,
               support_item_07: props.message === 'اورهال اصفهان' ? autoIncrement.support_item_07+1 : autoIncrement.electronic_furniture_07,
-         })}
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })}
 
         }
 
@@ -248,7 +308,11 @@ const AgreementMove = (props) => {
               number_type: formik.values.number_type,
               number: formik.values.number,
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }

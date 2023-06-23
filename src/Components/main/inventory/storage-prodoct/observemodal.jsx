@@ -18,14 +18,22 @@ const ObserveModal = (props) => {
 
   const fetchData = async () => {
       if (props.idNumber !== null){
-            const response = await fetch(`${Url}/api/product/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/product/`+ props.idNumber, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
             const data = await response.json()
             setProduct(data)
       }
   }
 
   const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`)
+        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProducts(data)
       }

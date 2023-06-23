@@ -31,13 +31,21 @@ const WarHouse = (props) => {
 
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/?code=${props.formik.values.code}`)
+        const response = await fetch(`${Url}/api/product/?code=${props.formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProduct(data)
       }
 
     const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts`)
+        const response = await fetch(`${Url}/api/allproducts`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProducts(data)
       }

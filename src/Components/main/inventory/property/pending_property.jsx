@@ -57,7 +57,11 @@ const PendingProperty = () => {
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/`)
+                const response = await fetch(`${Url}/api/${typeProperty}/`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                 const data = await response.json()
                 setProperty(data)
         }
@@ -69,7 +73,11 @@ const PendingProperty = () => {
               {
               code: id,
               movement_status: 'denied',
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         setTimeout(
                     refreshPages, 3000)
         }

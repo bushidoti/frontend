@@ -17,14 +17,22 @@ const BillCheckModal = (props) => {
     });
 
   const fetchData = async () => {
-        const response = await fetch(`${Url}/api/allproducts`)
+        const response = await fetch(`${Url}/api/allproducts`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProduct(data)
       }
 
   const fetchDataSpecific = async () => {
         const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck }
-        &document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' }`)
+        &document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' }`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setFile(data)
       }

@@ -42,7 +42,11 @@ export const SupportItems = () => {
               inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -58,7 +62,11 @@ export const SupportItems = () => {
               support_item_05: form.message === 'بیشه کلا' ? form.autoIncrement.support_item_05+1 : form.autoIncrement.support_item_05,
               support_item_06: form.message === 'اورهال تهران' ? form.autoIncrement.support_item_06+1 : form.autoIncrement.support_item_06,
               support_item_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.support_item_07+1 : form.autoIncrement.support_item_07,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     const postAlert = () => {

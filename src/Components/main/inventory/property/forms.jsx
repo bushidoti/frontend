@@ -25,7 +25,11 @@ export const Forms =  (props) => {
      const form = useContext(Contextform)
 
      const fetchDataAutoIncrement = async () => {
-        const response = await fetch(`${Url}/api/autoincrementproperty/1`)
+        const response = await fetch(`${Url}/api/autoincrementproperty/1`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setAutoIncrement(data)
       }

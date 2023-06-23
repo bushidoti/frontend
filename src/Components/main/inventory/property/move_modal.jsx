@@ -49,7 +49,11 @@ const MoveModal = (props) => {
 
      const fetchData = async () => {
         if (props.typeProperty !== '' && props.idNumber !== null){
-                const response = await fetch(`${Url}/api/${props.typeProperty}/${props.idNumber}`)
+                const response = await fetch(`${Url}/api/${props.typeProperty}/${props.idNumber}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                 const data = await response.json()
                 setProperty(data)
         }
@@ -63,7 +67,11 @@ const MoveModal = (props) => {
               dst_inventory: formik.values.dst_inventory,
               message: formik.values.message,
               movement_status: 'pending',
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         setTimeout(
                     refreshPages, 3000)
         }

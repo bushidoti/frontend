@@ -37,13 +37,21 @@ export const DigitalFurniture = () => {
     }
 
     const fetchDataName = async () => {
-        const response = await fetch(`${Url}/api/digitalfurniture/${formik.values.code}`)
+        const response = await fetch(`${Url}/api/digitalfurniture/${formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setGetName(data)
       }
 
     const fetchDataProperty = async () => {
-        const response = await fetch(`${Url}/api/digitalfurniture`)
+        const response = await fetch(`${Url}/api/digitalfurniture`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProperty(data)
       }
@@ -68,7 +76,11 @@ export const DigitalFurniture = () => {
               inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
             setTimeout(
                     refreshPages, 3000)
         }
@@ -84,7 +96,11 @@ export const DigitalFurniture = () => {
               digital_furniture_05: form.message === 'بیشه کلا' ? form.autoIncrement.digital_furniture_05+1 : form.autoIncrement.digital_furniture_05,
               digital_furniture_06: form.message === 'اورهال تهران' ? form.autoIncrement.digital_furniture_06+1 : form.autoIncrement.digital_furniture_06,
               digital_furniture_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.digital_furniture_07+1 : form.autoIncrement.digital_furniture_07,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     const postAlert = () => {
@@ -120,7 +136,11 @@ export const DigitalFurniture = () => {
               name: getName.name,
               description: formik.values.description,
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }

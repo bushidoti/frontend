@@ -51,7 +51,11 @@ const ReportProperty = () => {
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}&year_buy=${formik.values.year_buy}&model=${formik.values.model}&using_location=${formik.values.using_location}&year_made=${formik.values.year_made}&motor=${formik.values.motor}&chassis=${formik.values.chassis}&owner=${formik.values.owner}&plate1=${formik.values.plate1}&plate2=${formik.values.plate2}&plate3=${formik.values.plate3}&plate4=${formik.values.plate4}&type_item=${formik.values.type_item}&number_type=${formik.values.number_type}&number=${formik.values.number}`)
+                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}&name=${formik.values.name}&user=${formik.values.user}&install_location=${formik.values.install_location}&use_for=${formik.values.use_for}&year_buy=${formik.values.year_buy}&model=${formik.values.model}&using_location=${formik.values.using_location}&year_made=${formik.values.year_made}&motor=${formik.values.motor}&chassis=${formik.values.chassis}&owner=${formik.values.owner}&plate1=${formik.values.plate1}&plate2=${formik.values.plate2}&plate3=${formik.values.plate3}&plate4=${formik.values.plate4}&type_item=${formik.values.type_item}&number_type=${formik.values.number_type}&number=${formik.values.number}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                 const data = await response.json()
                 setProperty(data)
         }

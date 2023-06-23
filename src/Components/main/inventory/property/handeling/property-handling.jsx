@@ -29,7 +29,11 @@ export const PropertyHandling = (props) => {
 
     const fetchData = async () => {
         if (typeProperty !== ''){
-                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}`)
+                const response = await fetch(`${Url}/api/${typeProperty}/?code=${formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                 const data = await response.json()
                 setProperty(data)
         }
@@ -49,7 +53,11 @@ export const PropertyHandling = (props) => {
               last_handling_result: formik.values.last_handling_result,
               last_handling_date: today.replaceAll('/' , '-'),
               yearly_handling: new Date().toLocaleDateString('fa-IR' , options ),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
           await fetchData()
         }
 

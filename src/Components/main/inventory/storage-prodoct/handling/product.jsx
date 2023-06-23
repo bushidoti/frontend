@@ -25,7 +25,11 @@ export const Product = (props) => {
     });
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/?code=${formik.values.code}`)
+        const response = await fetch(`${Url}/api/product/?code=${formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProduct(data)
         const quantities = data.reduce((a, b) => ({ ...a, [b.code]: b.count}), {})
@@ -34,7 +38,11 @@ export const Product = (props) => {
       }
 
     const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts`)
+        const response = await fetch(`${Url}/api/allproducts`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProducts(data)
       }
@@ -54,7 +62,11 @@ export const Product = (props) => {
               product: id,
               date: today.replaceAll('/' , '-'),
               result: formik.values.result,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
        const putHandler = async (id) => {
@@ -63,7 +75,11 @@ export const Product = (props) => {
               {
               code: id,
               yearly_handling: new Date().toLocaleDateString('fa-IR' , options ),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
           await fetchData()
         }
 

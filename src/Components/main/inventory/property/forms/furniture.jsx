@@ -30,13 +30,21 @@ export const Furniture = () => {
     }
 
     const fetchDataName = async () => {
-        const response = await fetch(`${Url}/api/facilityfurniture/${formik.values.code}`)
+        const response = await fetch(`${Url}/api/facilityfurniture/${formik.values.code}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setGetName(data)
       }
 
     const fetchDataProperty = async () => {
-        const response = await fetch(`${Url}/api/facilityfurniture`)
+        const response = await fetch(`${Url}/api/facilityfurniture`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setProperty(data)
       }
@@ -54,7 +62,11 @@ export const Furniture = () => {
               inventory: form.message,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -70,7 +82,11 @@ export const Furniture = () => {
               facility_furniture_05: form.message === 'بیشه کلا' ? form.autoIncrement.facility_furniture_05+1 : form.autoIncrement.facility_furniture_05,
               facility_furniture_06: form.message === 'اورهال تهران' ? form.autoIncrement.facility_furniture_06+1 : form.autoIncrement.facility_furniture_06,
               facility_furniture_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.facility_furniture_07+1 : form.autoIncrement.facility_furniture_07,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     const postAlert = () => {
@@ -105,7 +121,11 @@ export const Furniture = () => {
               name: getName.name,
               description: formik.values.description,
               date: today.replaceAll('/' , '-'),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }

@@ -73,7 +73,11 @@ const Modal = (props) => {
               scale: formik.values.scale,
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
          await axios.post(
             `${Url}/api/allproducts/`,
               {
@@ -87,7 +91,11 @@ const Modal = (props) => {
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
               product: handleAutoIncrement(),
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -135,7 +143,11 @@ const Modal = (props) => {
                       factor: products.factor,
                       amendment: formik.values.amendment,
                        obsolete: true,
-                })
+                }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
          }else  if (increase === 'کاهش' && (formik.values.operator === 'ورود' || formik.values.operator === 'ثبت اولیه')){
                   await axios.post(
                     `${Url}/api/allproducts/`,
@@ -155,7 +167,11 @@ const Modal = (props) => {
                       amendment: formik.values.amendment,
                       obsolete: true,
 
-                })
+                }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
          }else  if (increase === 'کاهش' && formik.values.operator === 'خروج'){
                   await axios.post(
                     `${Url}/api/allproducts/`,
@@ -175,7 +191,11 @@ const Modal = (props) => {
                       amendment: formik.values.amendment,
                       obsolete: true,
 
-                })
+                }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
          }else  if (increase === 'افزایش' && formik.values.operator === 'خروج'){
                   await axios.post(
                     `${Url}/api/allproducts/`,
@@ -195,7 +215,11 @@ const Modal = (props) => {
                       amendment: formik.values.amendment,
                       obsolete: true,
 
-                })
+                }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
          }
 
 
@@ -217,7 +241,11 @@ const Modal = (props) => {
               factor: products.factor,
               product: formik.values.code,
               amendment: 'اصلاح شده است',
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     const postAlertUpdate = () => {
@@ -260,7 +288,11 @@ const Modal = (props) => {
               document_code: formik.values.document_code,
               product: formik.values.code,
               factor: formik.values.factor,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -282,7 +314,11 @@ const Modal = (props) => {
               document_code: formik.values.document_code,
               product: formik.values.code,
               checkBill: formik.values.checkBill,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -335,7 +371,11 @@ const Modal = (props) => {
 
     const fetchData = async () => {
            if (props.idNumber !== null) {
-               const response = await fetch(`${Url}/api/product/` + props.idNumber)
+               const response = await fetch(`${Url}/api/product/` + props.idNumber, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
                const data = await response.json()
                setProduct(data)
            }
@@ -344,7 +384,11 @@ const Modal = (props) => {
 
       const fetchDataAllProducts = async () => {
         if (props.idNumberProduct !== null) {
-            const response = await fetch(`${Url}/api/allproducts/` + props.idNumberProduct)
+            const response = await fetch(`${Url}/api/allproducts/` + props.idNumberProduct, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
             const data = await response.json()
             setProducts(data)
         }
@@ -352,7 +396,11 @@ const Modal = (props) => {
 
 
     const fetchDataAutoIncrement = async () => {
-        const response = await fetch(`${Url}/api/autoIncrement/1`)
+        const response = await fetch(`${Url}/api/autoIncrement/1`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         const data = await response.json()
         setAutoIncrement(data)
       }
@@ -368,7 +416,11 @@ const Modal = (props) => {
               oghab105: props.message === 'بیشه کلا' ? autoIncrement.oghab105+1 : autoIncrement.oghab105,
               oghab106: props.message === 'اورهال تهران' ? autoIncrement.oghab106+1 : autoIncrement.oghab106,
               oghab107: props.message === 'اورهال اصفهان' ? autoIncrement.oghab107+1 : autoIncrement.oghab107,
-         })
+         }, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            })
         }
 
     useEffect(() => {
