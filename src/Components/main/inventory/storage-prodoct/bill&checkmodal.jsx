@@ -27,8 +27,7 @@ const BillCheckModal = (props) => {
       }
 
   const fetchDataSpecific = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck }
-        &document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' }`, {
+        const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck || props.handling}&document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' || 'انبارگردانی'}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -45,9 +44,11 @@ const BillCheckModal = (props) => {
 
    const handleOpenFile = () => {
        if (props.modalTitle === 'factor') {
-           return file[0].factor
+           return file
        } else if (props.modalTitle === 'check') {
-           return file[0].checkBill || ""
+           return file
+       } else if (props.modalTitle === 'handling') {
+           return file
        }
    }
 
@@ -85,29 +86,40 @@ const BillCheckModal = (props) => {
                                             <th scope="col">کد کالا</th>
                                             <th scope="col">نام کالا</th>
                                             <th scope="col">تعداد</th>
-                                            <th scope="col">
-                                            {(() => {
-                                                if (props.modalTitle === 'factor'){
-                                                    return  'گیرنده'
-                                                }else if (props.modalTitle === 'check') {
-                                                    return 'خریدار'
-                                                }
-                                            })()}
+                                            {props.modalTitle === 'handling' ?  null :
+                                               <th scope="col">
+                                                    {(() => {
+                                                        if (props.modalTitle === 'factor'){
+                                                            return  'گیرنده'
+                                                        }else if (props.modalTitle === 'check') {
+                                                            return 'مورد مصرف'
+                                                        }
+                                                    })()}
                                             </th>
+                                            }
+                                            {props.modalTitle === 'factor' ? <th>خریدار</th> : ''}
+
                                             <th scope="col">تاریخ</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                     {(product.length > 0 &&
-                                    product.filter(product =>
-                                    (product.document_code === props.factor && product.document_type === 'فاکتور')
-                                    || (product.document_code === props.billCheck && product.document_type === 'حواله') ).map((data , i) => (
+                                    product.filter(product => {if (props.modalTitle === 'factor'){
+                                        return product.document_code === props.factor && product.document_type === 'فاکتور'
+                                    }else if (props.modalTitle === 'check'){
+                                        return product.document_code === props.billCheck && product.document_type === 'حواله'
+                                    }else if (props.modalTitle === 'handling'){
+                                        return product.document_code === props.handling && product.document_type === 'انبارگردانی'
+                                    }}).map((data , i) => (
                                         <tr key={data.id}>
                                             <th scope="row">{i}</th>
                                             <td>{data.product}</td>
                                             <td>{data.name}</td>
                                             <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
-                                            <td>{data.document_type === 'حواله' ? data.buyer : data.receiver}</td>
+                                        {props.modalTitle === 'handling' ?  null :
+                                             <td>{data.document_type === 'حواله' ? data.consumable : data.receiver}</td>
+                                        }
+                                        {data.document_type === 'فاکتور' ? <td>{data.buyer}</td> : ''}
                                             <td>{data.date}</td>
                                         </tr>
                                         ))) ||

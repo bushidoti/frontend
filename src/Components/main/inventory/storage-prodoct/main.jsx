@@ -1,10 +1,11 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
 import BillCheckmodal from "./bill&checkmodal";
 import axios from "axios";
 import { memo } from "react";
 import Url from "../../../config";
+import {useReactToPrint} from "react-to-print";
 
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
@@ -12,11 +13,18 @@ const WarHouse = (props) => {
     const [idNumberProduct, setIdNumberProduct] = useState(null)
     const [factorBtn, setFactorBtn] = useState(true)
     const [checkBtn, setCheckBtn] = useState(true)
+    const [handleBtn, setHandleBtn] = useState(true)
     const [message, setMessage] = useState('');
     const [factor, setFactor] = useState('');
     const [billCheck, setBillCheck] = useState('');
+    const [handling, setHandling] = useState('');
     const [products, setProducts] = useState([])
-
+    const [search , setSearch] = useState('')
+    const componentPDF= useRef();
+    const generatePDF= useReactToPrint({
+        content: ()=>componentPDF.current,
+        documentTitle:"Data",
+    });
 
     useEffect(() => {
             (async () => {
@@ -31,7 +39,7 @@ const WarHouse = (props) => {
 
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/?code=${props.formik.values.code}`, {
+        const response = await fetch(`${Url}/api/product/?name=${props.formik.values.name}&code=${props.formik.values.code}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -55,10 +63,11 @@ const WarHouse = (props) => {
             void fetchData()
             void fetchDataProducts()
                  handleCheckFactor()
-                 handleCheckCheck()
+                 handleHandling()
+                 handleCheck()
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props.formik.values.code, idNumberProduct , factor , billCheck])
+        [props.formik.values.code, idNumberProduct , factor , billCheck , props.formik.values.name , handling])
 
 
     const handleCheckFactor = () => {
@@ -66,10 +75,16 @@ const WarHouse = (props) => {
             return setFactorBtn(false)
         }else return setFactorBtn(true)
     }
-      const handleCheckCheck = () => {
+    const handleCheck = () => {
         if (products.filter(product => product.document_code === billCheck && product.document_code !== '' && product.document_type === 'حواله')[0]){
             return setCheckBtn(false)
         }else return setCheckBtn(true)
+    }
+
+     const handleHandling = () => {
+        if (products.filter(product => product.document_code === handling && product.document_code !== '' && product.document_type === 'انبارگردانی')[0]){
+            return setHandleBtn(false)
+        }else return setHandleBtn(true)
     }
 
     return (
@@ -78,7 +93,7 @@ const WarHouse = (props) => {
         setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
         <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
-        <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor}/>
+        <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <div className='d-flex gap-2'>
@@ -87,34 +102,53 @@ const WarHouse = (props) => {
                         data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
                         <input type="text" className="form-control" onChange={e => {
                                  setFactor(e.target.value)
-
                         }} placeholder="شماره فاکتور" value={factor}
                         aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
                     </div>
-                     <div className="input-group mb-3">
+                    <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="checkBtn"
                                 data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
                         <input type="text" className="form-control" id="checkInp" onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>
+                    <div className="input-group mb-3">
+                        <button className="btn btn-outline-secondary" type="button" id="handlingBtn"
+                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={handleBtn} onClick={() => props.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
+                        <input type="text" className="form-control" id="handlingInp" onChange={e => setHandling(e.target.value)} value={handling} placeholder="شناسه انبارگردانی"
+                        aria-label="شناسه انبارگردانی" aria-describedby="handlingBtn"/>
+                    </div>
                 </div>
                 <div className= 'd-flex gap-2'>
+                <button className="btn btn-outline-secondary material-symbols-outlined h-100"  style={{width:'50px'}} type="button" id="print" onClick={generatePDF}>print</button>
                 <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
                 data-bs-target="#modalMain" onClick={() =>  props.setModalTitle('register')}>ثبت کالا جدید</button>
                 </div>
             </div>
 
             <div className='m-4'>
+                <div className="form-floating my-2 col-1">
+                        <select className="form-select" defaultValue='' id="searchSelector" onChange={(e) => {
+                            props.formik.setFieldValue('code' , '')
+                            props.formik.setFieldValue('name' , '')
+                            setSearch(e.target.value)
+                        }}
+                            aria-label="Search Select">
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                            <option value="کد">کد</option>
+                            <option value="نام کالا">نام کالا</option>
+                        </select>
+                        <label htmlFor="searchSelector">جستجو براساس</label>
+                </div>
                 <div className="input-group mb-3">
-                    <input type="text"  id='searchBox' className="form-control" value={props.formik.values.code}
-                    onChange={e => props.formik.setFieldValue('code' , e.target.value)} placeholder='جستجو براساس کد کالا'
+                    <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? props.formik.values.name : props.formik.values.code}
+                    onChange={e => search === 'نام کالا' ? props.formik.setFieldValue('name' , e.target.value) : props.formik.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
                     aria-label="searchBox" aria-describedby="search" />
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
 
-            <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
+            <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '47vh'}}>
+                <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
                     <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">کد</th>

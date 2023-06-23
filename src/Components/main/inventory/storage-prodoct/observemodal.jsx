@@ -29,7 +29,7 @@ const ObserveModal = (props) => {
   }
 
   const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}`, {
+        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}&operator=${props.formik.values.operator}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -42,7 +42,6 @@ const ObserveModal = (props) => {
   function handleChange(value){
             props.formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
-
 
   useEffect(() => {
           void fetchData()
@@ -77,11 +76,13 @@ const ObserveModal = (props) => {
                                                 aria-label="Search Select" onChange={(e) => {
                                                     props.formik.setFieldValue('consumable' , '')
                                                     props.formik.setFieldValue('date' , '')
+                                                    props.formik.setFieldValue('operator' , '')
                                                     setSearch(e.target.value)
                                             }}>
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                                 <option value="تاریخ ثبت">تاریخ ثبت</option>
                                                 <option value="مورد مصرف">مورد مصرف</option>
+                                                <option value="عملیات">عملیات</option>
                                             </select>
                                             <label htmlFor="searchSelector">جستجو براساس</label>
                                       </div>
@@ -105,22 +106,19 @@ const ObserveModal = (props) => {
                                  locale={persian_fa}
                              />
                               )
-                            } else if (search === 'گروه') {
+                            }else if (search === 'عملیات') {
                                     return (
-                                        <div className="col-2 form-floating">
-                                            <input className="form-control" type='search' list="groupProductList" id="groupProduct" placeholder="اجاره"/>
-                                            <label htmlFor="groupProduct">گروه</label>
-                                            <datalist id="groupProductList">
-                                                <option value="اداری"/>
-                                                <option value="ترابری"/>
-                                                <option value="تاسیسات"/>
-                                                <option value="تجهیزات"/>
-                                                <option value="آشپزخانه"/>
-                                                <option value="آبدارخانه"/>
-                                                <option value="بهداشتی"/>
-                                                <option value="پشتیبانی"/>
-                                            </datalist>
-                                        </div>
+                                        <div className="form-floating m-4 col-1">
+                                            <select className="form-select" defaultValue='' id="searchOperation"
+                                            onChange={e => props.formik.setFieldValue('operator' , e.target.value)}
+                                                aria-label="Search Operation">
+                                                <option value='' disabled>یک مورد انتخاب کنید</option>
+                                                <option value="ورود">ورود</option>
+                                                <option value="خروج">خروج</option>
+                                                <option value="ثبت اولیه">ثبت اولیه</option>
+                                            </select>
+                                            <label htmlFor="searchOperation">جستجو براساس</label>
+                                      </div>
                                     )
                                 }else if (search === 'مورد مصرف') {
                                     return (
@@ -176,7 +174,7 @@ const ObserveModal = (props) => {
                         <tbody>
 
                     {(products.length > 0 && products.filter(products => products.product ===  props.idNumber).map((data , i) => (
-                        <tr key={data.id} style={{backgroundColor:`${data.obsolete === true || data.operator === 'اصلاح ورود' ? 'hsl(120, 61%, 80%)' : '' }`}}>
+                        <tr key={data.id} style={{backgroundColor:`${data.obsolete === true  ? data.operator === 'ورود' ?  'hsl(120, 61%, 80%)' : 'hsl(0, 100%, 80%)' : '' }`}}>
                             <th scope="row">{i}</th>
                             <td>{data.document_type}</td>
                             <td>{data.document_code}</td>
@@ -206,8 +204,11 @@ const ObserveModal = (props) => {
                 </div>
               </div>
                     <div className="modal-footer mx-4">
-                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
-                        <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={() => {
+                            props.handleProduct()
+                            setSearch('')
+                            props.setIdNumber('')
+                        }}>close</button>
                     </div>
                 </div>
             </div>

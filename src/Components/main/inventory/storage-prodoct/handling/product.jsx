@@ -1,9 +1,10 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Url from "../../../../config";
 import ObserveModal from "../observemodal";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useReactToPrint} from "react-to-print";
 
 export const Product = (props) => {
     const [product, setProduct] = useState({})
@@ -13,6 +14,12 @@ export const Product = (props) => {
     const [idNumberProduct, setIdNumberProduct] = useState(null)
     const [count, setCount] = useState({})
     let today = new Date().toLocaleDateString('fa-IR');
+    const componentPDF= useRef();
+    const generatePDF= useReactToPrint({
+        content: ()=>componentPDF.current,
+        documentTitle:"Data",
+    });
+
    const options = {
               year: "numeric",
             };
@@ -123,6 +130,9 @@ export const Product = (props) => {
             <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber}
             setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
                  <div className='m-4'>
+                     <div className= 'my-2'>
+                                <button className="btn btn-outline-secondary material-symbols-outlined" type="button" id="print" onClick={generatePDF}>print</button>
+                     </div>
                     <div className="input-group mb-3">
                         <input type="text"  id='searchBox' className="form-control" value={formik.values.code}
                     onChange={e => formik.setFieldValue('code' , e.target.value)} placeholder='جستجو براساس کد کالا'
@@ -135,8 +145,8 @@ export const Product = (props) => {
                    </div>
                 <div className='d-flex'>
                     <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '40vh'}}>
-                          <table className="table table-hover text-center align-middle table-bordered border-primary">
-                                <thead className= 'bg-light sticky-top'>
+                          <table className="table table-hover text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
+                                <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">کد</th>
                                     <th scope="col">نام</th>
@@ -174,8 +184,8 @@ export const Product = (props) => {
                                         value={count[data.code] || ''} className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
                                         aria-label="count" aria-describedby="count" /></td>
 
-                                        <td style={{direction:'ltr'}}>{count[data.code] - ((products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
-                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 )))}</td>
+                                        <td style={{direction:'ltr'}}>{count[data.code] ? count[data.code] - ((products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
+                                                - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))) : 0}</td>
                                         <td>
                                             <div className="input-group">
                                                 <input type="text"  id={`resultInp${i}`} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}

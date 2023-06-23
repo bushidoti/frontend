@@ -71,8 +71,6 @@ const Modal = (props) => {
               date: today.replaceAll('/' , '-'),
               left_stock: formik.values.input,
               scale: formik.values.scale,
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -137,6 +135,7 @@ const Modal = (props) => {
                       date: today.replaceAll('/' , '-'),
                       receiver:formik.values.receiver,
                       operator:'ورود',
+                      buyer:formik.values.buyer,
                       document_type: products.document_type,
                       document_code: products.document_code,
                       product: formik.values.code,
@@ -159,6 +158,7 @@ const Modal = (props) => {
                                     - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.input,
                       date: today.replaceAll('/' , '-'),
                       receiver:formik.values.receiver,
+                      buyer:formik.values.buyer,
                       operator:'خروج',
                       document_type: products.document_type,
                       document_code: products.document_code,
@@ -182,7 +182,6 @@ const Modal = (props) => {
                       afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
                                     - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.output,
                       date: today.replaceAll('/' , '-'),
-                      buyer:formik.values.buyer,
                       operator:'ورود',
                       document_type: products.document_type,
                       document_code: products.document_code,
@@ -206,7 +205,6 @@ const Modal = (props) => {
                       afterOperator: (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.input , 0 ))
                                     - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
                       date: today.replaceAll('/' , '-'),
-                      buyer:formik.values.buyer,
                       operator:'خروج',
                       document_type: products.document_type,
                       document_code: products.document_code,
@@ -227,7 +225,6 @@ const Modal = (props) => {
            setTimeout(
                     refreshPages, 3000)
         }
-
     const putHandlerUpdate = async () => {
            await axios.put(
             `${Url}/api/allproducts/${products.id}/`,
@@ -283,6 +280,7 @@ const Modal = (props) => {
               - (props.products.filter(products => products.product ===  props.idNumber).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
               date: today.replaceAll('/' , '-'),
               receiver:formik.values.receiver,
+              buyer:formik.values.buyer,
               operator:'ورود',
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
@@ -308,7 +306,6 @@ const Modal = (props) => {
               name: formik.values.name,
               scale: formik.values.scale,
               date: today.replaceAll('/' , '-'),
-              buyer:formik.values.buyer,
               operator:'خروج',
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
@@ -685,83 +682,50 @@ const Modal = (props) => {
 
                                                             </Fragment>
                                                         )
-                                                    }else if (props.modalTitle === 'edit'){
-                                            return (
-                                                <Fragment>
+                                                    }
+                                        })()}
+                                      </div>
+
+                                <div className='d-flex gap-2 mb-3'>
+                                    {(() => {
+                                            if (props.modalTitle === 'edit'){
+                                                return (
+                                                      <Fragment>
                                                     {(() => {
+
                                                         if (formik.values.operator === 'ورود'){
                                                             return (
+                                                                <Fragment>
                                                                   <div className="col form-floating">
-                                                        <input type="text" className="form-control" id="receiver"
-                                                        name='receiver' value={formik.values.receiver} onChange={formik.handleChange}
-                                                        placeholder="560" required/>
-                                                            <label htmlFor="receiver">گیرنده</label>
-                                                         <div className="invalid-feedback">
-                                                             گیرنده  را وارد کنید.
-                                                         </div>
-                                                          </div>
-                                                            )
-                                                        }else if (formik.values.operator === 'خروج'){
-                                                            return (
-                                                            <div className="col form-floating">
-                                                                <input type="text" className="form-control" id="buyer" name='buyer' value={formik.values.buyer} onChange={formik.handleChange}
-                                                                       placeholder="560" required/>
-                                                                    <label htmlFor="buyer">خریدار</label>
-                                                                 <div className="invalid-feedback">
-                                                                     خریدار  را وارد کنید.
-                                                                 </div>
-                                                              </div>
+                                                                    <input type="text" className="form-control" id="receiver"
+                                                                    name='receiver' value={formik.values.receiver} onChange={formik.handleChange}
+                                                                    placeholder="560" required/>
+                                                                        <label htmlFor="receiver">گیرنده</label>
+                                                                     <div className="invalid-feedback">
+                                                                         گیرنده  را وارد کنید.
+                                                                     </div>
+                                                                  </div>
+                                                                <div className="col form-floating">
+                                                                            <input type="text" className="form-control" id="buyer" name='buyer' value={formik.values.buyer} onChange={formik.handleChange}
+                                                                                   placeholder="560" required/>
+                                                                                <label htmlFor="buyer">خریدار</label>
+                                                                             <div className="invalid-feedback">
+                                                                                 خریدار  را وارد کنید.
+                                                                             </div>
+                                                                        </div>
+                                                                </Fragment>
                                                             )
                                                         }
                                                     })()}
                                                 </Fragment>
-                                            )
-                                        }
-                                        })()}
-                                      </div>
+                                                )
+                                            }
+
+                                     })()}
+                                </div>
+
                             <hr className='bg-primary my-4'/>
                             <div className='d-flex gap-2 mb-3'>
-                              <div className="form-floating  col-4">
-                                <select className="form-select" id="documentType" name='document_type' aria-label="Document Type"
-                                disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
-                                value={formik.values.document_type} onChange={(e) => {
-                                setDocument(e.target.value)
-                                formik.setFieldValue('document_type' , e.target.value)}}>
-                                            <option  value='' disabled>انتخاب کنید</option>
-                                             {(() => {
-                                                if (props.modalTitle === 'entry'){
-                                                    return(
-                                                      <option value="فاکتور">فاکتور</option>
-                                                    )
-                                                }else if (props.modalTitle === 'remove'){
-                                                    return(
-                                                          <option value="حواله">حواله</option>
-                                                    )
-                                                }else if (props.modalTitle === 'edit'){
-                                                    return(
-                                                        <Fragment>
-                                                          <option value="حواله">حواله</option>
-                                                          <option value="فاکتور">فاکتور</option>
-                                                        </Fragment>
-                                                    )
-                                                }
-                                            })()}
-                                            <option value="انبارگردانی">انبارگردانی</option>
-                                            <option value="سند">سند</option>
-                                        </select>
-                                        <label htmlFor="documentType">مدرک</label>
-                              </div>
-                                 <div className="col form-floating">
-                                    <input type="text" className="form-control" name='document_code' disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
-                                    id="documentId" value={formik.values.document_code}
-                                    onChange={formik.handleChange}
-
-                                           placeholder="560"/>
-                                        <label htmlFor="documentId">شناسه {documents}</label>
-                                     <div className="invalid-feedback">
-                                         شناسه {documents}  را وارد کنید.
-                                     </div>
-                                   </div>
                                         {(() => {
                                         if (props.modalTitle === 'entry'){
                                                         return (
@@ -774,12 +738,7 @@ const Modal = (props) => {
                                                                          گیرنده  را وارد کنید.
                                                                      </div>
                                                                   </div>
-                                                            </Fragment>
-                                                        )
-                                                    }else if (props.modalTitle === 'remove'){
-                                                    return (
-                                                            <Fragment>
-                                                                       <div className="col form-floating">
+                                                                <div className="col form-floating">
                                                                             <input type="text" className="form-control" id="buyer" value={formik.values.buyer}
                                                                                onChange={formik.handleChange} name='buyer' placeholder="560" required/>
                                                                                 <label htmlFor="buyer">خریدار</label>
@@ -788,10 +747,72 @@ const Modal = (props) => {
                                                                              </div>
                                                                         </div>
                                                             </Fragment>
-                                                    )
-                                                }
+                                                        )
+                                                    }
                                         })()}
                              </div>
+                              <div className='d-flex gap-2 mb-3'>
+                                <div className="form-floating  col-4">
+                                <select className="form-select" id="documentType" name='document_type' aria-label="Document Type"
+                                disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
+                                defaultValue='' onChange={(e) => {
+                                setDocument(e.target.value)
+                                formik.setFieldValue('document_type' , e.target.value)}}>
+                                            <option  value='' disabled>انتخاب کنید</option>
+                                             {(() => {
+                                                if (props.modalTitle === 'entry'){
+                                                    return(
+                                                      <Fragment>
+                                                            <option value="فاکتور">فاکتور</option>
+                                                            <option value="متفرقه">متفرقه</option>
+                                                            <option value="انبارگردانی">انبارگردانی</option>
+                                                            <option value="سند">سند</option>
+                                                      </Fragment>
+                                                    )
+                                                }else if (props.modalTitle === 'remove'){
+                                                    return(
+                                                        <Fragment>
+                                                            <option value="حواله">حواله</option>
+                                                            <option value="متفرقه">متفرقه</option>
+                                                            <option value="سند">سند</option>
+                                                            <option value="انبارگردانی">انبارگردانی</option>
+                                                        </Fragment>
+                                                    )
+                                                }else if (props.modalTitle === 'edit'){
+                                                    return(
+                                                        <Fragment>
+                                                          <option value="حواله">حواله</option>
+                                                          <option value="فاکتور">فاکتور</option>
+                                                          <option value="متفرقه">متفرقه</option>
+                                                          <option value="سند">سند</option>
+                                                        </Fragment>
+                                                    )
+                                                }else if (props.modalTitle === 'register'){
+                                                    return(
+                                                        <Fragment>
+                                                          <option value="انبارگردانی">انبارگردانی</option>
+                                                          <option value="فاکتور">فاکتور</option>
+                                                          <option value="سند">سند</option>
+                                                          <option value="متفرقه">متفرقه</option>
+                                                        </Fragment>
+                                                    )
+                                                }
+                                            })()}
+
+                                        </select>
+                                        <label htmlFor="documentType">مدرک</label>
+                              </div>
+                             <div className="col form-floating">
+                                <input type="text" className="form-control" name='document_code' disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
+                                id="documentId" value={formik.values.document_code}
+                                onChange={formik.handleChange}
+                                       placeholder="560"/>
+                                    <label htmlFor="documentId">شناسه {documents}</label>
+                                 <div className="invalid-feedback">
+                                     شناسه {documents}  را وارد کنید.
+                                 </div>
+                               </div>
+                          </div>
                                 {(() => {
                                     if ((props.modalTitle === 'entry' && documents === 'فاکتور') || (props.modalTitle === 'remove' && documents === 'حواله')){
                                         return(
@@ -819,7 +840,7 @@ const Modal = (props) => {
                                 })()}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
                             <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
                         </div>
                     </form>
