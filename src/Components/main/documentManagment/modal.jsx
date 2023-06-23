@@ -363,7 +363,7 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="idNumber" value={props.modalTitle === 'add' ? lastID.slice(-1)[0].id + 1 :formik.values.id}
+                                <input type="text" id="idNumber" value={props.modalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id}
                                        className="w-25 form-control" aria-label="idNumber"
                                 aria-describedby="basic-addon1" disabled required/>
                                 <label  id="idNumber">شماره ثبت</label>

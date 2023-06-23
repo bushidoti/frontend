@@ -328,7 +328,7 @@ const Modal = (props) => {
                         <div className="container modal-body">
 
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="numberId" value={props.ModalTitle === 'add' ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="Username"
+                                <input type="text" id="numberId" value={props.ModalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="Username"
                                 aria-describedby="basic-addon1" disabled required/>
                                 <label  htmlFor="numberId">شماره ثبت</label>
                             </div>

@@ -27,14 +27,16 @@ const BillCheckModal = (props) => {
       }
 
   const fetchDataSpecific = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck || props.handling}&document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله' || 'انبارگردانی'}`, {
+      if (props.modalTitle !== ''){
+            const response = await fetch(`${Url}/api/allproducts/?document_code=15&document_type=فاکتور`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
             })
-        const data = await response.json()
-        setFile(data)
+              const data = await response.json()
+              setFile(data)
       }
+  }
    useEffect(() => {
             void fetchData()
             void fetchDataSpecific()
@@ -51,7 +53,6 @@ const BillCheckModal = (props) => {
            return file
        }
    }
-
   return (
       <Fragment>
          <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="billCheckModal" tabIndex="-1" aria-labelledby="billCheckModalLabel" aria-hidden="true">
@@ -74,8 +75,9 @@ const BillCheckModal = (props) => {
                             <div className="modal-body">
                                  <div className= 'd-flex mx-4 my-2 gap-2'>
                                 <button className= 'btn btn-primary material-symbols-outlined'  id='export&print' onClick={generatePDF}>print</button>
-                                <Link className='text-decoration-none link-dark' download='document.pdf'
-                                rel="noreferrer" to={handleOpenFile()} ><button className= 'btn btn-warning material-symbols-outlined'  id='export&print'>download</button></Link>
+                                     {props.modalTitle === 'handling' ? '' :  <Link className='text-decoration-none link-dark' download='document.pdf'
+                                rel="noreferrer" to={handleOpenFile()} ><button className= 'btn btn-warning material-symbols-outlined'  id='export&print'>download</button></Link> }
+
                                 </div>
                                 <hr className='bg-primary mx-4'/>
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
