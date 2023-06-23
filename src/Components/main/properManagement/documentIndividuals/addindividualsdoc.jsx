@@ -10,7 +10,11 @@ const AddIndividualsDoc = (props) => {
     const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}`)
+        const response = await fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         const data = await response.json()
         setContracts(data)
       }
@@ -39,7 +43,11 @@ const AddIndividualsDoc = (props) => {
       }
        const deleteHandler = async (id) => {
           await axios.delete(
-            `${Url}/api/persons/${id}`
+            `${Url}/api/persons/${id}` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              }
           )
              await fetchData()
        }

@@ -11,7 +11,11 @@ const AddPropertyDoc = (props) => {
 
     const fetchData = async () => {
         if (props.formik.values.docNumber !== null){
-            const response = await fetch(`${Url}/api/properties/?docNumber=${props.formik.values.docNumber}`)
+            const response = await fetch(`${Url}/api/properties/?docNumber=${props.formik.values.docNumber}` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
             const data = await response.json()
             setProperties(data)
         }
@@ -43,7 +47,11 @@ const AddPropertyDoc = (props) => {
 
       const deleteHandler = async (id) => {
         await axios.delete(
-            `${Url}/api/properties/${id}`
+            `${Url}/api/properties/${id}` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              }
           )
             fetchData()
         }

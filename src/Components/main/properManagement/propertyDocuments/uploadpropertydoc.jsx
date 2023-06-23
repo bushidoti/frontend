@@ -48,14 +48,22 @@ const UploadPropertyDoc = () => {
 
     const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`${Url}/api/properties/${contractId}/`)
+            const response = await fetch(`${Url}/api/properties/${contractId}/` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
             const data = await response.json()
             setProperties(data)
         }
 
       }
       const fetchData = async () => {
-        const response = await fetch(`${Url}/api/properties`)
+        const response = await fetch(`${Url}/api/properties` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         const data = await response.json()
         setAllContract(data)
       }
@@ -103,7 +111,11 @@ const UploadPropertyDoc = () => {
               carCardFile: formik.values.carCardFile,
               greenCardFile: formik.values.greenCardFile,
               gasCardFile: formik.values.gasCardFile,
-         })
+         }, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         }
 
     function reader(file, callback) {

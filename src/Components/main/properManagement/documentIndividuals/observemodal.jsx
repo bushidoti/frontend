@@ -12,14 +12,22 @@ const ObserveModal = () => {
     const [typeDocument , setTypeDocument] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/persons`)
+        const response = await fetch(`${Url}/api/persons` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         const data = await response.json()
         setAllContract(data)
       }
 
      const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`${Url}/api/persons/${contractId}/`)
+            const response = await fetch(`${Url}/api/persons/${contractId}/` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
             const data = await response.json()
             setContracts(data)
         }

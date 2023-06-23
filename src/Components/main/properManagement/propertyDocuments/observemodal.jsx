@@ -10,14 +10,22 @@ const ObserveModal = () => {
     const [selectedFile, setSelectedFile] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/properties`)
+        const response = await fetch(`${Url}/api/properties` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         const data = await response.json()
         setAllContract(data)
       }
 
      const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`${Url}/api/properties/${contractId}/`)
+            const response = await fetch(`${Url}/api/properties/${contractId}/` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
             const data = await response.json()
             setProperties(data)
         }

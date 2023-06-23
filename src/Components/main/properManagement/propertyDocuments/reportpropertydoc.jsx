@@ -16,7 +16,11 @@ const ReportPropertyDoc = (props) => {
         &plateMotor=${props.formik.values.plateMotor}&id=${props.formik.values.id}&typeProperty=${props.formik.values.typeProperty}
         &part1plate=${props.formik.values.part1plate}&part2plate=${props.formik.values.part2plate}&part3plate=${props.formik.values.part3plate}
         &cityPlate=${props.formik.values.cityPlate}&addressChassis=${props.formik.values.addressChassis}&modelMeter=${props.formik.values.modelMeter}
-        &descriptionLocation=${props.formik.values.descriptionLocation}&soldStatus=${props.formik.values.soldStatus}`)
+        &descriptionLocation=${props.formik.values.descriptionLocation}&soldStatus=${props.formik.values.soldStatus}` , {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              })
         const data = await response.json()
         setProperties(data)
       }
