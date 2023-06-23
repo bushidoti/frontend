@@ -126,7 +126,11 @@ const WarHouse = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {(product.length > 0 && product.filter(product => product.inventory ===  message).map((data) => (
+                    {(product.length > 0 && product.filter(product => {if (message === 'حسین شاه محمدلو'){
+                                              return product.inventory
+                                          }else{
+                                              return (product.inventory === message)
+                                          }}).map((data) => (
                     <tr key={data.code}>
                         <th scope="row">{data.code}</th>
                         <td>{data.name}</td>
