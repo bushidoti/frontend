@@ -63,7 +63,11 @@ const Modal = (props) => {
               secondBail2: formik.values.secondBail2,
               topicContract: formik.values.topicContract,
               typeContract: formik.values.typeContract,
-         })
+         }, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
            setTimeout(
                     refreshPages, 3000)
         }
@@ -92,7 +96,11 @@ const Modal = (props) => {
               receivedDocument: formik.values.receivedDocument,
               clearedStatus: formik.values.clearedStatus,
 
-         })
+         }, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         setTimeout(
                     refreshPages, 3000)
         }
@@ -121,7 +129,11 @@ const Modal = (props) => {
               receivedDocument: formik.values.receivedDocument,
               clearedStatus: true,
 
-         })
+         } , {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         setTimeout(
                     refreshPages, 3000)
         }
@@ -206,14 +218,22 @@ const Modal = (props) => {
 
     const fetchData = async () => {
         if (props.idNumber !== null){
-            const response = await fetch(`${Url}/api/documents/`+ props.idNumber)
+            const response = await fetch(`${Url}/api/documents/`+ props.idNumber, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        } )
             const data = await response.json()
             setContracts(data)
             }
       }
 
     const fetchLastData = async () => {
-        const response = await fetch(`${Url}/api/documents`)
+        const response = await fetch(`${Url}/api/documents` , {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         const data = await response.json()
         setLastID(data)
 

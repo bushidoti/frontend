@@ -11,14 +11,22 @@ const ObserveModal = () => {
     const [partitionSelect , setPartitionSelect] = useState('')
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/documents`)
+        const response = await fetch(`${Url}/api/documents`, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         const data = await response.json()
         setAllContract(data)
       }
 
      const fetchDataSpecific = async () => {
         if (contractId !== ''){
-            const response = await fetch(`${Url}/api/documents/${contractId}/`)
+            const response = await fetch(`${Url}/api/documents/${contractId}/`, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
             const data = await response.json()
             setContracts(data)
         }

@@ -44,7 +44,11 @@ const UploadDocuments = () => {
 
      const fetchDataSpecific = async () => {
          if (contractId !== ''){
-                const response = await fetch(`${Url}/api/documents/${contractId}/`)
+                const response = await fetch(`${Url}/api/documents/${contractId}/`, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
                 const data = await response.json()
                 setContracts(data)
          }
@@ -52,7 +56,11 @@ const UploadDocuments = () => {
       }
 
       const fetchData = async () => {
-        const response = await fetch(`${Url}/api/documents`)
+        const response = await fetch(`${Url}/api/documents`, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         const data = await response.json()
         setAllContract(data)
       }
@@ -97,7 +105,11 @@ const UploadDocuments = () => {
                       doc_4: formik.values.doc_4,
                       doc_bail_1: formik.values.doc_bail_1,
                       doc_bail_2: formik.values.doc_bail_2,
-             })
+             }, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         }
 
        function reader(file, callback) {

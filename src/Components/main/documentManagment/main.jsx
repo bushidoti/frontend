@@ -11,7 +11,11 @@ const Main = (props) => {
     const [idNumber, setIdNumber] = useState(null)
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/documents/?employer=${props.formik.values.employer}`)
+        const response = await fetch(`${Url}/api/documents/?employer=${props.formik.values.employer}`, {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         const data = await response.json()
         setContracts(data)
       }
@@ -41,7 +45,11 @@ const Main = (props) => {
 
       const deleteHandler = async (id) => {
         await axios.delete(
-            `${Url}/api/documents/${id}`
+            `${Url}/api/documents/${id}`, {
+                 headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+            }
           )
             await fetchData()
         }

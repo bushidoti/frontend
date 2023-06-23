@@ -21,7 +21,11 @@ const Report = (props) => {
         const response = await
         fetch(`${Url}/api/documents/?employer=${props.formik.values.employer}
         &typeContract=${props.formik.values.typeContract}&id=${props.formik.values.id}&contractNumber=${props.formik.values.contractNumber}
-        &dateContract=${fixNumbers(props.formik.values.dateContract)}&topicContract=${props.formik.values.topicContract}&clearedStatus=${props.formik.values.clearedStatus}`)
+        &dateContract=${fixNumbers(props.formik.values.dateContract)}&topicContract=${props.formik.values.topicContract}&clearedStatus=${props.formik.values.clearedStatus}` , {
+             headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+        })
         const data = await response.json()
         setContracts(data)
       }
