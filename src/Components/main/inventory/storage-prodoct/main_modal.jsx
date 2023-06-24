@@ -89,6 +89,8 @@ const Modal = (props) => {
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
               factor: formik.values.factor,
+              receiver:formik.values.receiver,
+              buyer:formik.values.buyer,
               product: handleAutoIncrement(),
          }, {
                  headers: {
@@ -480,6 +482,7 @@ const Modal = (props) => {
         formik.setFieldValue('operator' , '')
         formik.setFieldValue('amendment' , '')
         setIncrease('')
+        setDocument('')
         document.getElementById("documentType").selectedIndex = '0' ;
         props.setIdNumberProduct('')
         if (props.modalTitle !== 'edit'){
@@ -728,7 +731,7 @@ const Modal = (props) => {
                             <hr className='bg-primary my-4'/>
                             <div className='d-flex gap-2 mb-3'>
                                         {(() => {
-                                        if (props.modalTitle === 'entry'){
+                                        if (props.modalTitle === 'entry' || props.modalTitle === 'register'){
                                                         return (
                                                             <Fragment>
                                                                   <div className="col form-floating">
@@ -739,7 +742,8 @@ const Modal = (props) => {
                                                                          گیرنده  را وارد کنید.
                                                                      </div>
                                                                   </div>
-                                                                <div className="col form-floating">
+                                                                {documents === 'فاکتور' ?
+                                                                      <div className="col form-floating">
                                                                             <input type="text" className="form-control" id="buyer" value={formik.values.buyer}
                                                                                onChange={formik.handleChange} name='buyer' placeholder="560" required/>
                                                                                 <label htmlFor="buyer">خریدار</label>
@@ -747,6 +751,8 @@ const Modal = (props) => {
                                                                                  خریدار  را وارد کنید.
                                                                              </div>
                                                                         </div>
+                                                                    :  null}
+
                                                             </Fragment>
                                                         )
                                                     }
