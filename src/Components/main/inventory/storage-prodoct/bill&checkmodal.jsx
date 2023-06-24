@@ -26,40 +26,19 @@ const BillCheckModal = (props) => {
         setProduct(data)
       }
 
-  const fetchDataSpecific = async () => {
-            const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck}&document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله'}`, {
-                 headers: {
-                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                }
-            })
-              const data = await response.json()
-              setFile(data)
-
-  }
    useEffect(() => {
             void fetchData()
-            void fetchDataSpecific()
           },
         // eslint-disable-next-line react-hooks/exhaustive-deps
        [props.modalTitle])
 
    const handleOpenFile = () => {
        if (props.modalTitle === 'factor') {
-           return file[0].factor || ''
+           return product.filter(product => product.document_code === props.factor && product.document_type === 'فاکتور')[0].factor || ''
        } else if (props.modalTitle === 'check') {
-           return file[0].checkBill || ''
+           return product.filter(product => product.document_code === props.billCheck && product.document_type === 'حواله')[0].checkBill || ''
        }
    }
-
-   const prom = async  () => {
-     return  fetchDataSpecific
-    }
-
-    const func = async () => {
-         await prom().then(res => {
-              handleOpenFile()
-         });
-    }
 
   return (
       <Fragment>

@@ -88,6 +88,7 @@ const Modal = (props) => {
               operator:'ثبت اولیه',
               document_type: formik.values.document_type,
               document_code: formik.values.document_code,
+              factor: formik.values.factor,
               product: handleAutoIncrement(),
          }, {
                  headers: {
@@ -814,7 +815,7 @@ const Modal = (props) => {
                                </div>
                           </div>
                                 {(() => {
-                                    if ((props.modalTitle === 'entry' && documents === 'فاکتور') || (props.modalTitle === 'remove' && documents === 'حواله')){
+                                    if (((props.modalTitle === 'entry' || props.modalTitle === 'register') && documents === 'فاکتور') || (props.modalTitle === 'remove' && documents === 'حواله')){
                                         return(
                                             <div className="input-group">
                                                 <label className="input-group-text"
