@@ -5,7 +5,6 @@ import Url from "../../../config";
 
 const BillCheckModal = (props) => {
   const [product, setProduct] = useState([])
-  const [file, setFile] = useState([])
 
 
 
@@ -51,13 +50,16 @@ const BillCheckModal = (props) => {
                                         return  `شماره فاکتور ${props.factor}`
                                     }else if (props.modalTitle === 'check') {
                                         return `شماره حواله ${props.billCheck}`
-                                    }
+                                    }else if (props.modalTitle === 'handling') {
+                                            return `شناسه انبارگردانی ${props.handling}`
+                                        }
                                 })()}</h1>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
                                 aria-label="Close" onClick={() => {
                                     props.setBillCheck('')
                                     props.setModalTitle('')
                                     props.setFactor('')
+                                    props.setHandling('')
                                 }}></button>
                             </div>
                             <div className="modal-body">
@@ -70,6 +72,19 @@ const BillCheckModal = (props) => {
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
                                     <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
                                         <thead className= 'bg-light'>
+                                        <tr>
+                                            <td colSpan='7'>
+                                                {(() => {
+                                                    if (props.modalTitle === 'factor'){
+                                                        return  `شماره فاکتور ${props.factor}`
+                                                    }else if (props.modalTitle === 'check') {
+                                                        return `شماره حواله ${props.billCheck}`
+                                                    }else if (props.modalTitle === 'handling') {
+                                                        return `شناسه انبارگردانی ${props.handling}`
+                                                    }
+                                                })()}
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <th scope="col">ردیف</th>
                                             <th scope="col">کد کالا</th>
@@ -87,7 +102,7 @@ const BillCheckModal = (props) => {
                                             </th>
                                             }
                                             {props.modalTitle === 'factor' ? <th>خریدار</th> : ''}
-
+                                            {props.modalTitle === 'check' ? <th>گیرنده</th> : ''}
                                             <th scope="col">تاریخ</th>
                                         </tr>
                                         </thead>
@@ -101,22 +116,51 @@ const BillCheckModal = (props) => {
                                         return product.document_code === props.handling && product.document_type === 'انبارگردانی'
                                     }}).map((data , i) => (
                                         <tr key={data.id}>
-                                            <th scope="row">{i}</th>
-                                            <td>{data.product}</td>
-                                            <td>{data.name}</td>
-                                            <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
-                                        {props.modalTitle === 'handling' ?  null :
-                                             <td>{data.document_type === 'حواله' ? data.consumable : data.receiver}</td>
-                                        }
-                                        {data.document_type === 'فاکتور' ? <td>{data.buyer}</td> : ''}
+                                                <th scope="row">{i}</th>
+                                                <td>{data.product}</td>
+                                                <td>{data.name}</td>
+                                                <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
+                                            {props.modalTitle === 'handling' ?  null :
+                                                 <td>{data.document_type === 'حواله' ? data.consumable : data.receiver}</td>
+                                            }
+                                            {data.document_type === 'فاکتور' ? <td>{data.buyer}</td> : ''}
+                                            {data.document_type === 'حواله' ? <td>{data.receiver}</td> : ''}
                                             <td>{data.date}</td>
                                         </tr>
                                         ))) ||
 
-                                      <tr>
+                                       <tr>
                                           <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
                                        </tr>
                                     }
+                                    <tr>
+                                         {props.modalTitle === 'factor' ?
+                                             <Fragment>
+                                                   <td colSpan="3">مهر و امضای خریدار</td>
+                                                   <td colSpan="4">مهر و امضای گیرنده</td>
+                                             </Fragment>
+                                             :
+                                             null
+                                         }
+                                          {props.modalTitle === 'check' ?
+                                             <Fragment>
+                                                   <td colSpan="4">مهر و امضای تحویل دهنده</td>
+                                                   <td colSpan="3">مهر و امضای گیرنده</td>
+                                             </Fragment>
+                                             :
+                                             null
+                                         }
+                                          {props.modalTitle === 'handling' ?
+                                             <Fragment>
+                                                   <td colSpan="2">مهر و امضای انباردار</td>
+                                                   <td colSpan="2">مهر و امضای حسابرس</td>
+                                                   <td colSpan="3">مهر و امضای مدیر</td>
+                                             </Fragment>
+                                             :
+                                             null
+                                         }
+
+                                    </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -126,7 +170,7 @@ const BillCheckModal = (props) => {
                                     props.setBillCheck('')
                                     props.setModalTitle('')
                                     props.setFactor('')
-                                }}>close</button>
+                        }}>close</button>
                     </div>
                 </div>
             </div>
