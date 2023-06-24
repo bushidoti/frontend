@@ -27,15 +27,14 @@ const BillCheckModal = (props) => {
       }
 
   const fetchDataSpecific = async () => {
-      if (props.modalTitle !== ''){
-            const response = await fetch(`${Url}/api/allproducts/?document_code=15&document_type=فاکتور`, {
+            const response = await fetch(`${Url}/api/allproducts/?document_code=${props.modalTitle === 'factor' ? props.factor : props.billCheck}&document_type=${props.modalTitle === 'factor' ? 'فاکتور' : 'حواله'}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
             })
               const data = await response.json()
               setFile(data)
-      }
+
   }
    useEffect(() => {
             void fetchData()
@@ -46,13 +45,22 @@ const BillCheckModal = (props) => {
 
    const handleOpenFile = () => {
        if (props.modalTitle === 'factor') {
-           return file
+           return file[0].factor || ''
        } else if (props.modalTitle === 'check') {
-           return file
-       } else if (props.modalTitle === 'handling') {
-           return file
+           return file[0].checkBill || ''
        }
    }
+
+   const prom = async  () => {
+     return  fetchDataSpecific
+    }
+
+    const func = async () => {
+         await prom().then(res => {
+              handleOpenFile()
+         });
+    }
+
   return (
       <Fragment>
          <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="billCheckModal" tabIndex="-1" aria-labelledby="billCheckModalLabel" aria-hidden="true">
@@ -69,6 +77,7 @@ const BillCheckModal = (props) => {
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
                                 aria-label="Close" onClick={() => {
                                     props.setBillCheck('')
+                                    props.setModalTitle('')
                                     props.setFactor('')
                                 }}></button>
                             </div>
@@ -76,8 +85,7 @@ const BillCheckModal = (props) => {
                                  <div className= 'd-flex mx-4 my-2 gap-2'>
                                 <button className= 'btn btn-primary material-symbols-outlined'  id='export&print' onClick={generatePDF}>print</button>
                                      {props.modalTitle === 'handling' ? '' :  <Link className='text-decoration-none link-dark' download='document.pdf'
-                                rel="noreferrer" to={handleOpenFile()} ><button className= 'btn btn-warning material-symbols-outlined'  id='export&print'>download</button></Link> }
-
+                                rel="noreferrer"  to={handleOpenFile()}><button className= 'btn btn-warning material-symbols-outlined' id='export&print'>download</button></Link> }
                                 </div>
                                 <hr className='bg-primary mx-4'/>
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>

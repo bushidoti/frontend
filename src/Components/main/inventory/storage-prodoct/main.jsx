@@ -93,7 +93,7 @@ const WarHouse = (props) => {
         setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
         <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
-        <BillCheckmodal modalTitle={props.modalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
+        <BillCheckmodal modalTitle={props.modalTitle} setModalTitle={props.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <div className='d-flex gap-2'>
