@@ -90,7 +90,10 @@ const ObserveModal = (props) => {
                                         <button className="btn btn-outline-secondary material-symbols-outlined h-75" type="button" id="print" onClick={generatePDF}>print</button>
                                    </div>
                                 </div>
-
+                    <div className='m-4'>
+                        <span className="dot bg-success"></span><span> به معنی اصلاح بدلیل کسری</span>
+                        <span className="dot bg-danger ms-4"></span><span> به معنی اصلاح بدلیل اضافه بودن</span>
+                    </div>
                     <div className='m-4'>
                         {(() => {
                             if (search === 'تاریخ ثبت') {
