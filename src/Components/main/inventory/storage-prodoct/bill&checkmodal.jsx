@@ -143,8 +143,11 @@ const BillCheckModal = (props) => {
                                 </div>
                         </div>
                     <div className="modal-footer mx-4">
-                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
-                        <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
+                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={() => {
+                                    props.setBillCheck('')
+                                    props.setModalTitle('')
+                                    props.setFactor('')
+                                }}>close</button>
                     </div>
                 </div>
             </div>
