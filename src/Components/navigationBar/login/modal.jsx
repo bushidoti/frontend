@@ -26,7 +26,7 @@ const Modal = (props) => {
       <Fragment>
      <div className="modal fade "  id="modalLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered   " >
-                    <div className="modal-content">
+                    <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                         <div className="modal-header">
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
                             aria-label="Close"></button>
@@ -49,15 +49,6 @@ const Modal = (props) => {
                                     <div className="invalid-feedback">
                                     رمز عبور را وارد کنید.
                                     </div>
-                          </div>
-                          <div className="d-flex   mb-4">
-                                   <div className="form-check ">
-                                            <input className="form-check-input" type="checkbox" value='true'
-                                            id="rememberMe"/>
-                                            <label className="form-check-label" htmlFor="rememberMe">
-                                            مرا به خاطر بسپار
-                                            </label>
-                                   </div>
                           </div>
                         </div>
                         <div className="modal-footer justify-content-center">

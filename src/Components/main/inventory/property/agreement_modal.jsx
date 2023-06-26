@@ -554,7 +554,7 @@ const AgreementMove = (props) => {
              <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="agreementModal" tabIndex="-1" aria-labelledby="moveModalLabel"
              aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered  modal-lg " >
-                    <div className="modal-content">
+                    <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">جا به جایی</h1>
                             <button type="button" className="btn-close " data-bs-dismiss="modal"

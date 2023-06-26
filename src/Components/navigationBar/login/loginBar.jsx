@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import { ReactComponent as Logo } from "./avatar.svg";
 import Modal from './modal'
+import {Link} from "react-router-dom";
 
 export const Profile = (props) => {
 
@@ -8,15 +9,15 @@ export const Profile = (props) => {
         <Fragment>
                 <Modal username={props.username} setUsername={props.setUsername} password={props.password} setPassword={props.setPassword}/>
                <div className="dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <Logo/>
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
                     {props.isAuth ?
-                        <li><a className="dropdown-item" href='/logout'>خروج</a></li>
+                        <li><Link className="dropdown-item" to='/logout'>خروج</Link></li>
                         :
-                        <li><a className="dropdown-item"  data-bs-toggle="modal" data-bs-target="#modalLogin">ورود</a></li>
+                        <li><Link className="dropdown-item" to="#" data-bs-toggle="modal" data-bs-target="#modalLogin">ورود</Link></li>
                     }
                 </ul>
               </div>

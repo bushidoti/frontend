@@ -68,7 +68,7 @@ const ObserveModal = () => {
       <Fragment>
          <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false"  id="observModal" tabIndex="-1" aria-labelledby="observModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered  modal-lg " >
-                        <div className="modal-content">
+                        <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                             <div className="modal-header">
                                 <h1 className="modal-title fs-5" id="exampleModalLabel">نمایش مدارک</h1>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal"
