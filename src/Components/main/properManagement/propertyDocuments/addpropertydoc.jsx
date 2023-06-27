@@ -103,10 +103,13 @@ const AddPropertyDoc = (props) => {
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
+               <div className='m-4'>
+                    <span className="dot bg-danger"></span><span> به معنی فروخته شده و قفل شده</span>
+               </div>
             {props.propToggle === null ?  null :
                 <Fragment>
                     <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                        <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
+                        <table className="table table-hover text-center align-middle table-bordered border-primary">
                             <thead className= 'bg-light'>
                             <tr>
                                 <th scope="col">شماره ثبت</th>
@@ -127,20 +130,20 @@ const AddPropertyDoc = (props) => {
                             </thead>
                             <tbody>
                             {(property.length > 0 && property.filter(property => property.type_form === !props.propToggle).map((data) => (
-                            <tr key={data.id}>
+                            <tr key={data.id} style={{backgroundColor:`${(data.soldStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                                 <th scope="row">{data.id}</th>
                                 <td>{data.typeProperty}</td>
                                 <td>{data.name}</td>
                                 <td>{!props.propToggle ? data.descriptionLocation : data.addressChassis }</td>
                                 <td>
-                                    <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'
+                                    <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' disabled={data.soldStatus}
                                      data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                      props.setModalTitle('edit')
                                      setIdNumber(data.id)
                                      }}>edit</button>
-                                    <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                                    <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' disabled={data.soldStatus} onClick={() =>
                                     deleteAlert(data.id)} >delete</button>
-                                    <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2'
+                                    <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2' disabled={data.soldStatus}
                                     data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                     setIdNumber(data.id)
                                     props.setModalTitle('done')

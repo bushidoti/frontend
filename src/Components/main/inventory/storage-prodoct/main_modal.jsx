@@ -236,11 +236,11 @@ const Modal = (props) => {
               buyer:formik.values.buyer,
               receiver:formik.values.receiver,
               document_type: products.document_type,
-              document_code: products.document_code,
+              document_code: formik.values.document_code,
               checkBill: products.checkBill,
               factor: products.factor,
               product: formik.values.code,
-              amendment: 'اصلاح شده است',
+              amendment: 'اصلاح شده است' ,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -494,7 +494,7 @@ const Modal = (props) => {
   return (
       <Fragment>
          <div className="modal fade"  id="modalMain" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
-                    <div className="modal-dialog" >
+                    <div className="modal-dialog modal-lg">
                         <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                             <div className="modal-header">
                                 <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -527,7 +527,7 @@ const Modal = (props) => {
                                     <input type="text" id="idNumber" className="w-25 form-control"
                                        value={props.modalTitle === 'register' ? handleAutoIncrement() : formik.values.code}
                                        aria-label="Username" aria-describedby="basic-addon1" disabled required/>
-                                    <label  id="idNumber">کد کالا</label>
+                                    <label  htmlFor="idNumber">کد کالا</label>
                                 </div>
                             <div className='d-flex gap-2 mb-3'>
                                         {(() => {
@@ -741,8 +741,7 @@ const Modal = (props) => {
                               <div className='d-flex gap-2 mb-3'>
                                 <div className="form-floating  col-4">
                                 <select className="form-select" id="documentType" name='document_type' aria-label="Document Type" value={formik.values.document_type}
-                                disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
-                                defaultValue='' onChange={(e) => {
+                                disabled={formik.values.operator === 'خروج' || formik.values.operator ===  'ورود' || formik.values.operator === 'ثبت اولیه'} onChange={(e) => {
                                 setDocument(e.target.value)
                                 formik.setFieldValue('document_type' , e.target.value)}}>
                                             <option  value='' disabled>انتخاب کنید</option>
@@ -771,6 +770,7 @@ const Modal = (props) => {
                                                           <option value="حواله">حواله</option>
                                                           <option value="فاکتور">فاکتور</option>
                                                           <option value="متفرقه">متفرقه</option>
+                                                          <option value="انبارگردانی">انبارگردانی</option>
                                                           <option value="سند">سند</option>
                                                         </Fragment>
                                                     )
@@ -790,7 +790,7 @@ const Modal = (props) => {
                                         <label htmlFor="documentType">مدرک</label>
                               </div>
                              <div className="col form-floating">
-                                <input type="text" className="form-control" name='document_code' disabled={formik.values.operator === 'خروج' || formik.values.operator === 'ورود'}
+                                <input type="text" className="form-control" name='document_code'
                                 id="documentId" value={formik.values.document_code}
                                 onChange={formik.handleChange}
                                        placeholder="560"/>

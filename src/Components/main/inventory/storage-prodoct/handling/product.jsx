@@ -10,9 +10,11 @@ export const Product = (props) => {
     const [product, setProduct] = useState({})
     const [products, setProducts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
-    const [code, setCode] = useState('')
-    const [idNumberProduct, setIdNumberProduct] = useState(null)
+    const [setCode] = useState('')
+    const [setIdNumberProduct] = useState(null)
     const [count, setCount] = useState({})
+    const [search , setSearch] = useState('')
+
     let today = new Date().toLocaleDateString('fa-IR');
     const componentPDF= useRef();
     const generatePDF= useReactToPrint({
@@ -27,12 +29,13 @@ export const Product = (props) => {
     initialValues: {
       result: "",
       code: "",
+      name: "",
     },
     enableReinitialize: true,
     });
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/?code=${formik.values.code}`, {
+        const response = await fetch(`${Url}/api/product/?code=${formik.values.code}&name=${formik.values.name}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -60,7 +63,7 @@ export const Product = (props) => {
 
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [formik.values.code])
+        [formik.values.code , formik.values.name])
 
     const postHandler = async (id) => {
          await axios.post(
@@ -133,12 +136,25 @@ export const Product = (props) => {
                      <div className= 'my-2'>
                                 <button className="btn btn-outline-secondary material-symbols-outlined" type="button" id="print" onClick={generatePDF}>print</button>
                      </div>
-                    <div className="input-group mb-3">
-                        <input type="text"  id='searchBox' className="form-control" value={formik.values.code}
-                    onChange={e => formik.setFieldValue('code' , e.target.value)} placeholder='جستجو براساس کد کالا'
-                        aria-label="searchBox" aria-describedby="search" />
-                        <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
-                    </div>
+                 <div className="form-floating my-2 col-1">
+                        <select className="form-select" defaultValue='' id="searchSelector" onChange={(e) => {
+                            formik.setFieldValue('code' , '')
+                            formik.setFieldValue('name' , '')
+                            setSearch(e.target.value)
+                        }}
+                            aria-label="Search Select">
+                            <option value='' disabled>یک مورد انتخاب کنید</option>
+                            <option value="کد">کد</option>
+                            <option value="نام کالا">نام کالا</option>
+                        </select>
+                        <label htmlFor="searchSelector">جستجو براساس</label>
+                </div>
+                <div className="input-group mb-3">
+                    <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? formik.values.name : formik.values.code}
+                    onChange={e => search === 'نام کالا' ? formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
+                    aria-label="searchBox" aria-describedby="search" />
+                    <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
+                </div>
                 </div>
                    <div className='m-4'>
                         <span className="dot bg-warning ms-4"></span><span> به معنی یک بار انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>

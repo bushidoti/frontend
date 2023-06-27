@@ -78,9 +78,11 @@ const AddIndividualsDoc = (props) => {
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
              </div>
-
+               <div className='m-4'>
+                    <span className="dot bg-danger"></span><span> به معنی تسویه شده و قفل شده</span>
+               </div>
             <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
+                <table className="table table-hover text-center align-middle table-bordered border-primary">
                     <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">شماره ثبت</th>
@@ -93,20 +95,20 @@ const AddIndividualsDoc = (props) => {
                     </thead>
                     <tbody>
                     {(contract.length > 0 && contract.map((data) => (
-                        <tr key={data.id}>
+                        <tr key={data.id} style={{backgroundColor:`${(data.clearedStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                             <th scope="row">{data.id}</th>
                             <td>{data.type}</td>
                             <td>{data.full_name}</td>
                             <td>{data.job}</td>
                             <td>{data.office}</td>
                             <td>
-                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" disabled={data.clearedStatus} onClick={() => {
                                     setIdNumber(data.id)
                                     props.setModalTitle('edit')
                                 }}>edit</button>
-                                <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                                <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' disabled={data.clearedStatus} onClick={() =>
                                 deleteAlert(data.id)}>delete</button>
-                                <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
+                                <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" disabled={data.clearedStatus} onClick={() => {
                                     setIdNumber(data.id)
                                     props.setModalTitle('done')
                                     props.handleEditDocumentIndividuals()

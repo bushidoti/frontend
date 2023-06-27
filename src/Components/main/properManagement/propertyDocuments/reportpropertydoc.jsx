@@ -63,7 +63,7 @@ const ReportPropertyDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editProperty={props.editProperty} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editProperty={props.editProperty} ModalTitle={props.modalTitle} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -252,9 +252,12 @@ const ReportPropertyDoc = (props) => {
                                     }
                             })()}
             </div>
+            <div className='m-4'>
+                <span className="dot bg-danger"></span><span> به معنی فروخته شده و قفل شده</span>
+            </div>
             {props.propToggle === null ? null :
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {props.propToggle ?
@@ -295,7 +298,7 @@ const ReportPropertyDoc = (props) => {
                          </thead>
                         <tbody>
                             {(property.length > 0 && property.filter(property => property.type_form === !props.propToggle).map((data) => (
-                                <tr key={data.id}>
+                                <tr key={data.id} style={{backgroundColor:`${(data.soldStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                                     <th scope="row">1</th>
                                     <td>{data.id}</td>
                                     <td>{data.typeProperty}</td>
@@ -329,6 +332,7 @@ const ReportPropertyDoc = (props) => {
                                                 data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                             props.handleEditProperty()
                                             setIdNumber(data.id)
+                                            props.setModalTitle('visit')
                                         }}>info</button>
                                     </td>
                                 </Fragment>

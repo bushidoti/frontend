@@ -37,75 +37,81 @@ const NavBar = (props) => {
                   </li>
                     {props.isAuth ?
                         <Fragment>
-                            {props.message === 'حسین شاه محمدلو' ?
+                            {props.message === 'حسین شاه محمدلو' || props.permission === 'اداری'?
                                 <Fragment>
-                                   <li className="nav-item dropdown">
-                                        <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                    {props.message === 'حسین شاه محمدلو' ?
+                                        <li className="nav-item dropdown">
+                                        <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                              data-bs-toggle="dropdown" aria-expanded="false">
                                           مدیریت قراردادها
                                         </span>
-                                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                           <li> <Link className='dropdown-item' to="/main" onClick={() => {
-                                              props.formik.resetForm()
-                                              props.setDocToggle(null)
-                                           }}>ثبت قرارداد</Link></li>
-                                            <li>
-                                            <hr className="dropdown-divider bg-primary"></hr>
-                                          </li>
-                                          <li><Link className= 'dropdown-item' to= '/report' onClick={() => {
-                                              props.formik.resetForm()
-                                              props.setDocToggle(null)
-                                           }}>گزارش</Link></li>
-                                          <li><Link className= 'dropdown-item' to= '/upload'>بارگزاری مدارک</Link></li>
-                                        </ul>
-                                   </li>
-
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><Link className='dropdown-item' to="/main" onClick={() => {
+                                                    props.formik.resetForm()
+                                                    props.setDocToggle(null)
+                                                }}>ثبت قرارداد</Link></li>
+                                                <li>
+                                                    <hr className="dropdown-divider bg-primary"></hr>
+                                                </li>
+                                                <li><Link className='dropdown-item' to='/report' onClick={() => {
+                                                    props.formik.resetForm()
+                                                    props.setDocToggle(null)
+                                                }}>گزارش</Link></li>
+                                                <li><Link className='dropdown-item' to='/upload'>بارگزاری مدارک</Link>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    : null}
                                  <li className="nav-item dropdown">
-                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                  مدیریت اسناد
-                                </span>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                  <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
-                                  <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
-                                  <li>
-                                    <hr className="dropdown-divider bg-primary"></hr>
-                                  </li>
-                                    <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
-                                    <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
-                                  <li>
-                                    <hr className="dropdown-divider bg-primary"></hr>
-                                  </li>
-                                    <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
-                                    <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
-                                </ul>
+                                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                      مدیریت اسناد
+                                    </span>
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
+                                      <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
+                                      <li>
+                                        <hr className="dropdown-divider bg-primary"></hr>
+                                      </li>
+                                        <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
+                                        <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
+                                      <li>
+                                        <hr className="dropdown-divider bg-primary"></hr>
+                                      </li>
+                                        <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
+                                        <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
+                                    </ul>
                               </li>
                             </Fragment>
                              : null}
-                                 <li className="nav-item dropdown">
-                                <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
+                            {props.permission !== 'اداری' ?
+                                <li className="nav-item dropdown">
+                                <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                      data-bs-toggle="dropdown" aria-expanded="false">
                                   انبارداری
                                 </span>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                  <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
-                                     <li>
-                                    <hr className="dropdown-divider bg-primary"></hr>
-                                  </li>
-                                  <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
-                                  <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
-                                  <li><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link></li>
-                                  <li>
-                                  </li>
-                                    {props.message === 'حسین شاه محمدلو' ?
-                                        <Fragment>
-                                        <hr className="dropdown-divider bg-primary"></hr>
-                                        <li><Link className='dropdown-item' to='/warehouse-handling'>انبارگردانی</Link></li>
-                                        </Fragment>
-                                                                     : null}
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><Link className='dropdown-item ' to='/warehouse'>انبار</Link></li>
+                                        <li>
+                                            <hr className="dropdown-divider bg-primary"></hr>
+                                        </li>
+                                        <li><Link className='dropdown-item' to='/property'>اموال</Link></li>
+                                        <li><Link className='dropdown-item' to='/report-properties'>گزارش</Link></li>
+                                        <li><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        {props.message === 'حسین شاه محمدلو' ?
+                                            <Fragment>
+                                                <hr className="dropdown-divider bg-primary"></hr>
+                                                <li><Link className='dropdown-item'
+                                                          to='/warehouse-handling'>انبارگردانی</Link></li>
+                                            </Fragment>
+                                            : null}
 
-                                </ul>
-                              </li>
+                                    </ul>
+                                </li>
+                            : null}
                         </Fragment>
                         :
                         null

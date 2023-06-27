@@ -72,7 +72,7 @@ const ObserveModal = (props) => {
       <Fragment>
          <div className="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" id="observeModal" tabIndex="-1" aria-labelledby="observeModalLabel" aria-hidden="true">
                     <div className="modal-dialog  modal-fullscreen" >
-                        <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
+                        <div className="modal-content">
                             <div className="modal-header mx-4">
                                 <div className="modal-title fs-5 h1 d-flex gap-2" id="exampleModalLabel"><span>{property.name}</span><span className="text-danger">{props.idNumber}</span></div>
                                 <button type="button" className="btn-close " data-bs-dismiss="modal" onClick={() => {

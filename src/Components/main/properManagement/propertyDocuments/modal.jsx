@@ -36,9 +36,9 @@ const Modal = (props) => {
       gasCard: property.gasCard || '',
       carCard: property.carCard || '',
       description: property.description || '',
-      soldDate: property.soldDate || '',
+      soldDate: property.soldDate || null,
       buyer: property.buyer || '',
-      soldStatus: property.soldStatus || '',
+      soldStatus: property.soldStatus || null,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -311,7 +311,7 @@ const Modal = (props) => {
                                             return (
                                                 'ثبت سند'
                                             )
-                                        }else{
+                                        }else if (props.ModalTitle === 'visit'){
                                             return (
                                                 'نمایش اطلاعات'
                                             )
@@ -424,15 +424,16 @@ const Modal = (props) => {
                                           :
 
                                           <div className="mt-2 input-group">
-                                            <input className="form-control c-form__input c-form__car-plate-input__section4" name='cityPlate' value={formik.values.cityPlate}
+                                            <input className="form-control c-form__input c-form__car-plate-input__section4" name='cityPlate' value={formik.values.cityPlate} disabled={props.ModalTitle === 'done' ? false : props.editProperty}
                                             onChange={formik.handleChange} type="tel" maxLength='2' placeholder="⚊ ⚊"
                                             id="carPlateSection4"/>
                                             <span className="c-form__car-plate-input__iran">ایران</span>
-                                            <input type="tel"  id="carPlateSection3" name='part3plate' value={formik.values.part3plate}
+                                            <input type="tel"  id="carPlateSection3" name='part3plate' value={formik.values.part3plate} disabled={props.ModalTitle === 'done' ? false : props.editProperty}
                                             onChange={formik.handleChange} placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                             maxLength='3' className="c-form__input form-control"/>
-                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2"
+                                            <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2" disabled={props.ModalTitle === 'done' ? false : props.editProperty}
                                             name='part2plate' value={formik.values.part2plate} onChange={formik.handleChange}>
+                                                <option value="">انتخاب</option>
                                                 <option value="الف">الف</option>
                                                 <option value="ب">ب</option>
                                                 <option value="پ">پ</option>
@@ -461,7 +462,7 @@ const Modal = (props) => {
                                                 <option value="D">D</option>
                                                 <option value="S">S</option>
                                             </select>
-                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1"
+                                            <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" disabled={props.ModalTitle === 'done' ? false : props.editProperty}
                                             name='part1plate' value={formik.values.part1plate} onChange={formik.handleChange}
                                             maxLength='2' className="c-form__input form-control"/>
                                             <span className="input-group-text c-form__car-plate-input rounded-8"></span>
@@ -562,10 +563,12 @@ const Modal = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                    {props.ModalTitle !== 'visit' ?
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
-                            <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
+                                   <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
+                                  <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
                         </div>
+                      : null}
                 </form>
             </div>
         </div>
