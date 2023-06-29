@@ -37,28 +37,36 @@ const NavBar = (props) => {
                   </li>
                     {props.isAuth ?
                         <Fragment>
-                            {props.permission === 'مدیر'  || props.permission === 'اداری' || props.permission === 'حقوقی' || props.permission === 'پشتیبانی'?
+                            {props.permission === 'مدیر'  || props.permission === 'اداری' || props.permission === 'مشاهده'?
                                 <Fragment>
-                                    {props.permission === 'مدیر' || (props.permission === 'اداری' && props.office === 'دفتر مرکزی') || props.permission === 'حقوقی' || props.permission === 'پشتیبانی' ?
+                                    {props.permission === 'مدیر' || (props.permission === 'اداری' && props.office === 'دفتر مرکزی') || props.permission === 'مشاهده'  ?
                                         <li className="nav-item dropdown">
                                         <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                                               data-bs-toggle="dropdown" aria-expanded="false">
                                           مدیریت قراردادها
                                         </span>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><Link className='dropdown-item' to="/main" onClick={() => {
-                                                    props.formik.resetForm()
-                                                    props.setDocToggle(null)
-                                                }}>ثبت قرارداد</Link></li>
-                                                <li>
-                                                    <hr className="dropdown-divider bg-primary"></hr>
-                                                </li>
+                                                {props.permission !== 'مشاهده' ?
+                                                    <Fragment>
+                                                    <li><Link className='dropdown-item' to="/main" onClick={() => {
+                                                        props.formik.resetForm()
+                                                        props.setDocToggle(null)
+                                                    }}>ثبت قرارداد</Link></li>
+                                                    <li>
+                                                        <hr className="dropdown-divider bg-primary"></hr>
+                                                    </li>
+                                                    </Fragment>
+
+                                                         : null }
                                                 <li><Link className='dropdown-item' to='/report' onClick={() => {
                                                     props.formik.resetForm()
                                                     props.setDocToggle(null)
                                                 }}>گزارش</Link></li>
-                                                <li><Link className='dropdown-item' to='/upload'>بارگزاری مدارک</Link>
-                                                </li>
+                                                {props.permission !== 'مشاهده' ?
+                                                    <li><Link className='dropdown-item' to='/upload'>بارگزاری
+                                                        مدارک</Link>
+                                                    </li>
+                                                : null }
                                             </ul>
                                         </li>
                                     : null}
@@ -132,13 +140,13 @@ const NavBar = (props) => {
 
                 </ul>
 
-                  <span className="btn position-relative material-symbols-outlined">
+                  {/*<span className="btn position-relative material-symbols-outlined">
                       <i className="fas fa-bell fa-2x"></i>
                     <span className="position-absolute translate-middle badge rounded-pill bg-danger" style={{top:'8px' , right:'10px'}}>
                                  1
                     <span className="visually-hidden">New alerts</span>
                   </span>
-                  </span>
+                  </span> */}
 
               </div>
 

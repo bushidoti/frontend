@@ -1,17 +1,42 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { ReactComponent as Logo } from "./avatar.svg";
 import Modal from './modal'
 import {Link} from "react-router-dom";
+import axios from "axios";
+import Url from "../../config";
 
 export const Profile = (props) => {
+    const [fullName, setFullName] = useState('');
+    const [office, setOffice] = useState('');
 
+     useEffect(() => {
+            (async () => {
+                const {data} = await (await axios.get(`${Url}/home/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              }));
+              setOffice(data.message);
+        })()
+    }, []);
+
+     useEffect(() => {
+            (async () => {
+                const {data} = await (await axios.get(`${Url}/name/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              }));
+              setFullName(data.message);
+        })()
+    }, []);
     return (
         <Fragment>
                 <Modal username={props.username} setUsername={props.setUsername} password={props.password} setPassword={props.setPassword}/>
                <div className="dropdown">
-                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown"
+                <Link className="nav-link dropdown-toggle text-decoration-none" to="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <Logo/>
+                    <Logo/> <span className={`${props.isAuth ? 'mx-2' : null}`}>{fullName + ' ' +  office}</span>
                 </Link>
                 <ul className="dropdown-menu">
                     {props.isAuth ?

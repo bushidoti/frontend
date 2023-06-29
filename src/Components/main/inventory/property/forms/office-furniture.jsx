@@ -5,7 +5,7 @@ import Url from "../../../../config";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export const DustrialEquipment = () => {
+export const OfficeFurniture = () => {
     const form = useContext(Contextform)
     const [property, setProperty] = useState([])
     const [getName, setGetName] = useState([])
@@ -15,10 +15,9 @@ export const DustrialEquipment = () => {
               code: "",
               name: "",
               inventory: "",
-              install_location: "",
+              using_location: "",
               user: "",
-              model: "",
-              year_buy: "",
+              year_made: "",
               description: "",
               type_register: "",
             },
@@ -30,7 +29,7 @@ export const DustrialEquipment = () => {
     }
 
     const fetchDataName = async () => {
-        const response = await fetch(`${Url}/api/industrialtool/${formik.values.code}`, {
+        const response = await fetch(`${Url}/api/officefurniture/${formik.values.code}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -40,7 +39,7 @@ export const DustrialEquipment = () => {
       }
 
     const fetchDataProperty = async () => {
-        const response = await fetch(`${Url}/api/industrialtool`, {
+        const response = await fetch(`${Url}/api/officefurniture`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -51,13 +50,12 @@ export const DustrialEquipment = () => {
 
     const postHandler = async () => {
            await axios.post(
-            `${Url}/api/industrialtool/`,
+            `${Url}/api/officefurniture/`,
               {
               code: handleAutoIncrement(),
               name: formik.values.name,
               user: formik.values.user,
-              model: formik.values.model,
-              year_buy: formik.values.year_buy,
+              year_made: formik.values.year_made,
               using_location: formik.values.using_location,
               inventory: form.office,
               type_register: 'ثبت اولیه',
@@ -75,13 +73,13 @@ export const DustrialEquipment = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              industrial_tools_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.industrial_tools_01+1 : form.autoIncrement.industrial_tools_01,
-              industrial_tools_02: form.office === 'چابهار' ? form.autoIncrement.industrial_tools_02+1 : form.autoIncrement.industrial_tools_02,
-              industrial_tools_03: form.office === 'دزفول' ? form.autoIncrement.industrial_tools_03+1 : form.autoIncrement.industrial_tools_03,
-              industrial_tools_04: form.office === 'جاسک' ? form.autoIncrement.industrial_tools_04+1 : form.autoIncrement.industrial_tools_04,
-              industrial_tools_05: form.office === 'بیشه کلا' ? form.autoIncrement.industrial_tools_05+1 : form.autoIncrement.industrial_tools_05,
-              industrial_tools_06: form.office === 'اورهال تهران' ? form.autoIncrement.industrial_tools_06+1 : form.autoIncrement.industrial_tools_06,
-              industrial_tools_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.industrial_tools_07+1 : form.autoIncrement.industrial_tools_07,
+              office_furniture_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.office_furniture_01+1 : form.autoIncrement.office_furniture_01,
+              office_furniture_02: form.office === 'چابهار' ? form.autoIncrement.office_furniture_02+1 : form.autoIncrement.office_furniture_02,
+              office_furniture_03: form.office === 'دزفول' ? form.autoIncrement.office_furniture_03+1 : form.autoIncrement.office_furniture_03,
+              office_furniture_04: form.office === 'جاسک' ? form.autoIncrement.office_furniture_04+1 : form.autoIncrement.office_furniture_04,
+              office_furniture_05: form.office === 'بیشه کلا' ? form.autoIncrement.office_furniture_05+1 : form.autoIncrement.office_furniture_05,
+              office_furniture_06: form.office === 'اورهال تهران' ? form.autoIncrement.office_furniture_06+1 : form.autoIncrement.office_furniture_06,
+              office_furniture_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.office_furniture_07+1 : form.autoIncrement.office_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -115,9 +113,9 @@ export const DustrialEquipment = () => {
 
     const postHandlerRepair = async () => {
            await axios.post(
-            `${Url}/api/repairedindustrialtool/`,
+            `${Url}/api/repairedofficefurniture/`,
               {
-              industrial_tool: formik.values.code,
+              office_furniture: formik.values.code,
               name: getName.name,
               description: formik.values.description,
               date: today.replaceAll('/' , '-'),
@@ -155,19 +153,19 @@ export const DustrialEquipment = () => {
 
     const handleAutoIncrement = () => {
         if (form.office === 'دفتر مرکزی') {
-            return form.autoIncrement.industrial_tools_01
+            return form.autoIncrement.office_furniture_01
         } else if (form.office === 'چابهار') {
-            return form.autoIncrement.industrial_tools_02
+            return form.autoIncrement.office_furniture_02
         } else if (form.office === 'دزفول') {
-            return form.autoIncrement.industrial_tools_03
+            return form.autoIncrement.office_furniture_03
         } else if (form.office === 'جاسک') {
-            return form.autoIncrement.industrial_tools_04
+            return form.autoIncrement.office_furniture_04
         } else if (form.office === 'بیشه کلا') {
-            return form.autoIncrement.industrial_tools_05
+            return form.autoIncrement.office_furniture_05
         } else if (form.office === 'اورهال تهران') {
-            return form.autoIncrement.industrial_tools_06
+            return form.autoIncrement.office_furniture_06
         } else if (form.office === 'اورهال اصفهان') {
-            return form.autoIncrement.industrial_tools_07
+            return form.autoIncrement.office_furniture_07
         }
     }
 
@@ -186,9 +184,8 @@ export const DustrialEquipment = () => {
         }
     }
 
-
     return(
-      <form className='needs-validation' noValidate>
+     <form className='needs-validation' noValidate>
         <Fragment>
                {formik.values.type_register === 'ثبت اولیه' || form.editStatus ?
                <div className="form-floating justify-content-center mb-5">
@@ -198,7 +195,7 @@ export const DustrialEquipment = () => {
               </div>
              : null}
                <div className='d-flex gap-2'>
-                  {form.editStatus === false ?
+                   {form.editStatus === false ?
                     <div className="col form-floating mb-3 ">
                         <select className="form-select" defaultValue='' id="typeAdd" aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
@@ -213,58 +210,56 @@ export const DustrialEquipment = () => {
                              نوع ثبت را انتخاب کنید.
                          </div>
                     </div>
-                  : null}
+                   : null}
                    {(() => {
                        if(form.isRepair === 'تعمیرات'){
                            return(
                                <Fragment>
-                                   <div className="col form-floating mb-3">
-                                            <select className="form-select" defaultValue='' id="register_code"
-                                                onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
-                                                <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                {(property.filter(property => property.inventory ===  form.office).map((data) => (
-                                                    <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
-                                                )))}
-                                            </select>
-                                        <label htmlFor="register_code">کد</label>
-                                         <div className="invalid-feedback">
-                                             کد را وارد کنید.
-                                         </div>
-                                   </div>
+                                       <div className="col form-floating mb-3">
+                                                <select className="form-select" defaultValue='' id="register_code"
+                                                    onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
+                                                    <option value='' disabled>یک مورد انتخاب کنید</option>
+                                                    {(property.filter(property => property.inventory ===  form.office).map((data) => (
+                                                        <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
+                                                    )))}
+                                                </select>
+                                            <label htmlFor="register_code">کد</label>
+                                             <div className="invalid-feedback">
+                                                 کد را وارد کنید.
+                                             </div>
+                                       </div>
                                </Fragment>
                            )
                        }else if(form.isRepair === 'ثبت اولیه' || form.editStatus){
                            return(
                                <Fragment>
-                                       <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="nameTools" name='name' disabled={form.viewOnly}
-                                                   value={form.editStatus ? form.formik.values.name : formik.values.name}
+                                     <div className="col form-floating mb-3">
+                                        <input type="text" className="form-control" id="nameFurniture" name='name' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
-                                                   placeholder="لپ تاپ" required/>
-                                                <label htmlFor="nameTools">نام ابزار</label>
-                                             <div className="invalid-feedback">
-                                                 نام ابزار را وارد کنید.
-                                             </div>
+                                               placeholder="لپ تاپ" required/>
+                                            <label htmlFor="nameFurniture">نام اثاث</label>
+                                         <div className="invalid-feedback">
+                                             نام اثاث را وارد کنید.
                                          </div>
-                                          <div className="col form-floating mb-3">
-                                            <input type="text" className="form-control" id="model" name='model' disabled={form.viewOnly}
-                                                   value={form.editStatus ? form.formik.values.model : formik.values.model}
+                                     </div>
+
+                                     <div className="col form-floating mb-3">
+                                        <input type="text" className="form-control" id="year" name='year_made' disabled={form.viewOnly}
+                                               value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
-                                                   placeholder="12BA" required/>
-                                                <label htmlFor="model">مدل</label>
-                                             <div className="invalid-feedback">
-                                                 مدل را وارد کنید.
-                                             </div>
-                                       </div>
+                                               placeholder="1400" required/>
+                                            <label htmlFor="year">سال ساخت</label>
+                                         <div className="invalid-feedback">
+                                             سال ساخت را وارد کنید.
+                                         </div>
+                                     </div>
                                </Fragment>
                            )
                        }
                    })()}
-
                 </div>
-
-
-                        {(() => {
+                    {(() => {
                        if(form.isRepair === 'تعمیرات'){
                            return(
                                <Fragment>
@@ -284,21 +279,11 @@ export const DustrialEquipment = () => {
                        }else if(form.isRepair === 'ثبت اولیه' || form.editStatus){
                            return(
                                <Fragment>
-                                 <hr className='bg-primary mb-5'/>
-                                 <div className='d-flex gap-2'>
-                                    <div className="col form-floating">
-                                        <input type="text" className="form-control" id="year" name='year_buy' disabled={form.viewOnly}
-                                               value={form.editStatus ? form.formik.values.year_buy : formik.values.year_buy}
-                                               onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
-                                               placeholder="1400" required/>
-                                            <label htmlFor="year">سال خرید</label>
-                                         <div className="invalid-feedback">
-                                             سال خرید را وارد کنید.
-                                         </div>
-                                     </div>
-                                        <div className="col form-floating">
-                                            <input type="text" className="form-control" id="locationUse" disabled={form.viewOnly}
-                                                   name='using_location' value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
+                                   <hr className='bg-primary mb-5'/>
+                                   <div className='d-flex gap-2'>
+                                       <div className="col form-floating">
+                                            <input type="text" className="form-control" id="locationUse" name='using_location' disabled={form.viewOnly}
+                                                   value={form.editStatus ? form.formik.values.using_location : formik.values.using_location}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                             placeholder="شرکت" required/>
                                                 <label htmlFor="locationUse">محل استفاده</label>
@@ -314,17 +299,17 @@ export const DustrialEquipment = () => {
                                                 <label htmlFor="user">یوزر</label>
                                                 <div className="invalid-feedback">
                                                 یوزر را وارد کنید.
-                                        </div>
+                                                </div>
+                                       </div>
                                    </div>
-                                 </div>
                                </Fragment>
                            )
                        }
                    })()}
-                  {form.viewOnly ? null :
-                    <div className='d-flex flex-column mt-2'>
-                              <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
-                    </div>
+              {form.viewOnly ? null :
+                <div className='d-flex flex-column mt-2'>
+                          <button type="button" className="btn material-symbols-outlined btn-success align-self-end" onClick={handleSubmit()}>done</button>
+                </div>
                  }
         </Fragment>
     </form>

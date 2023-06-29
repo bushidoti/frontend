@@ -62,7 +62,7 @@ const Main = (props) => {
 
     return (
         <Fragment>
-                 <Modal docToggle={props.docToggle}  editDocument={props.editDocument} setEditDocument={props.setEditDocument}  modalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+                 <Modal docToggle={props.docToggle} permission={props.permission}  editDocument={props.editDocument} setEditDocument={props.setEditDocument}  modalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
             <div className= 'd-flex justify-content-between m-4' >
                 <Toggler handleForm={props.handleForm}/>

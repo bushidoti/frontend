@@ -33,7 +33,7 @@ export const Benefits = () => {
               number_type: formik.values.number_type,
               number: formik.values.number,
               using_location: formik.values.using_location,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -49,13 +49,13 @@ export const Benefits = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              benefit_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.benefit_01+1 : form.autoIncrement.benefit_01,
-              benefit_02: form.message === 'چابهار' ? form.autoIncrement.benefit_02+1 : form.autoIncrement.benefit_02,
-              benefit_03: form.message === 'دزفول' ? form.autoIncrement.benefit_03+1 : form.autoIncrement.benefit_03,
-              benefit_04: form.message === 'جاسک' ? form.autoIncrement.benefit_04+1 : form.autoIncrement.benefit_04,
-              benefit_05: form.message === 'بیشه کلا' ? form.autoIncrement.benefit_05+1 : form.autoIncrement.benefit_05,
-              benefit_06: form.message === 'اورهال تهران' ? form.autoIncrement.benefit_06+1 : form.autoIncrement.benefit_06,
-              benefit_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.benefit_07+1 : form.autoIncrement.benefit_07,
+              benefit_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.benefit_01+1 : form.autoIncrement.benefit_01,
+              benefit_02: form.office === 'چابهار' ? form.autoIncrement.benefit_02+1 : form.autoIncrement.benefit_02,
+              benefit_03: form.office === 'دزفول' ? form.autoIncrement.benefit_03+1 : form.autoIncrement.benefit_03,
+              benefit_04: form.office === 'جاسک' ? form.autoIncrement.benefit_04+1 : form.autoIncrement.benefit_04,
+              benefit_05: form.office === 'بیشه کلا' ? form.autoIncrement.benefit_05+1 : form.autoIncrement.benefit_05,
+              benefit_06: form.office === 'اورهال تهران' ? form.autoIncrement.benefit_06+1 : form.autoIncrement.benefit_06,
+              benefit_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.benefit_07+1 : form.autoIncrement.benefit_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -88,19 +88,19 @@ export const Benefits = () => {
       }
 
     const handleAutoIncrement = () => {
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.benefit_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.benefit_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.benefit_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.benefit_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.benefit_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.benefit_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.benefit_07
         }
     }

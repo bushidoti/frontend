@@ -73,7 +73,7 @@ export const DigitalFurniture = () => {
               type_furniture: formik.values.type_furniture,
               model: form.typeDigital === 'کامپیوتر' ? formik.values.cpu : formik.values.model,
               install_location: formik.values.install_location,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -89,13 +89,13 @@ export const DigitalFurniture = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              digital_furniture_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.digital_furniture_01+1 : form.autoIncrement.digital_furniture_01,
-              digital_furniture_02: form.message === 'چابهار' ? form.autoIncrement.digital_furniture_02+1 : form.autoIncrement.digital_furniture_02,
-              digital_furniture_03: form.message === 'دزفول' ? form.autoIncrement.digital_furniture_03+1 : form.autoIncrement.digital_furniture_03,
-              digital_furniture_04: form.message === 'جاسک' ? form.autoIncrement.digital_furniture_04+1 : form.autoIncrement.digital_furniture_04,
-              digital_furniture_05: form.message === 'بیشه کلا' ? form.autoIncrement.digital_furniture_05+1 : form.autoIncrement.digital_furniture_05,
-              digital_furniture_06: form.message === 'اورهال تهران' ? form.autoIncrement.digital_furniture_06+1 : form.autoIncrement.digital_furniture_06,
-              digital_furniture_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.digital_furniture_07+1 : form.autoIncrement.digital_furniture_07,
+              digital_furniture_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.digital_furniture_01+1 : form.autoIncrement.digital_furniture_01,
+              digital_furniture_02: form.office === 'چابهار' ? form.autoIncrement.digital_furniture_02+1 : form.autoIncrement.digital_furniture_02,
+              digital_furniture_03: form.office === 'دزفول' ? form.autoIncrement.digital_furniture_03+1 : form.autoIncrement.digital_furniture_03,
+              digital_furniture_04: form.office === 'جاسک' ? form.autoIncrement.digital_furniture_04+1 : form.autoIncrement.digital_furniture_04,
+              digital_furniture_05: form.office === 'بیشه کلا' ? form.autoIncrement.digital_furniture_05+1 : form.autoIncrement.digital_furniture_05,
+              digital_furniture_06: form.office === 'اورهال تهران' ? form.autoIncrement.digital_furniture_06+1 : form.autoIncrement.digital_furniture_06,
+              digital_furniture_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.digital_furniture_07+1 : form.autoIncrement.digital_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -169,19 +169,19 @@ export const DigitalFurniture = () => {
       }
 
     const handleAutoIncrement = () => {
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.digital_furniture_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.digital_furniture_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.digital_furniture_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.digital_furniture_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.digital_furniture_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.digital_furniture_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.digital_furniture_07
         }
     }
@@ -260,7 +260,7 @@ export const DigitalFurniture = () => {
                                                     <select className="form-select"  id="register_code" defaultValue=''
                                                         onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                        {(property.filter(property => property.inventory ===  form.message && property.type_furniture ===  formik.values.type_furniture).map((data) => (
+                                                        {(property.filter(property => property.inventory ===  form.office && property.type_furniture ===  formik.values.type_furniture).map((data) => (
                                                             <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
                                                         )))}
                                                     </select>

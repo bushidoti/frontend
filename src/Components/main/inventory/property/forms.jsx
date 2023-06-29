@@ -17,9 +17,8 @@ import  {Contextform} from "./contextform"
 import axios from "axios";
 export const Forms =  (props) => {
      const [autoIncrement, setAutoIncrement] = useState([])
-     const [message, setMessage] = useState('')
-     const [isRepair , setIsRepair] = useState('')
-     const [editStatus, setEditStatus] = useState(false)
+     const [office, setOffice] = useState('')
+     const [editStatus] = useState(false)
      const [typeDigital , setTypeDigital] = useState('')
      const [typeCommunication , setTypeCommunication] = useState('')
      const form = useContext(Contextform)
@@ -45,7 +44,7 @@ export const Forms =  (props) => {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
               });
-              setMessage(data.message);
+              setOffice(data.message);
         })()
     }, []);
 
@@ -53,7 +52,7 @@ export const Forms =  (props) => {
     return (
         <Contextform.Provider value={{
                     autoIncrement:autoIncrement,
-                    message:message,
+                    office:office,
                     isRepair:form.isRepair,
                     setTypeDigital:setTypeDigital,
                     typeDigital:typeDigital,

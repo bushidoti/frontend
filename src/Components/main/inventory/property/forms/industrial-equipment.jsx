@@ -35,7 +35,7 @@ export const IndustrialEquipment = () => {
               user: formik.values.user,
               year_buy: formik.values.year_buy,
               using_location: formik.values.using_location,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -51,13 +51,13 @@ export const IndustrialEquipment = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              none_industrial_tools_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.none_industrial_tools_01+1 : form.autoIncrement.none_industrial_tools_01,
-              none_industrial_tools_02: form.message === 'چابهار' ? form.autoIncrement.none_industrial_tools_02+1 : form.autoIncrement.none_industrial_tools_02,
-              none_industrial_tools_03: form.message === 'دزفول' ? form.autoIncrement.none_industrial_tools_03+1 : form.autoIncrement.none_industrial_tools_03,
-              none_industrial_tools_04: form.message === 'جاسک' ? form.autoIncrement.none_industrial_tools_04+1 : form.autoIncrement.none_industrial_tools_04,
-              none_industrial_tools_05: form.message === 'بیشه کلا' ? form.autoIncrement.none_industrial_tools_05+1 : form.autoIncrement.none_industrial_tools_05,
-              none_industrial_tools_06: form.message === 'اورهال تهران' ? form.autoIncrement.none_industrial_tools_06+1 : form.autoIncrement.none_industrial_tools_06,
-              none_industrial_tools_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.none_industrial_tools_07+1 : form.autoIncrement.none_industrial_tools_07,
+              none_industrial_tools_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.none_industrial_tools_01+1 : form.autoIncrement.none_industrial_tools_01,
+              none_industrial_tools_02: form.office === 'چابهار' ? form.autoIncrement.none_industrial_tools_02+1 : form.autoIncrement.none_industrial_tools_02,
+              none_industrial_tools_03: form.office === 'دزفول' ? form.autoIncrement.none_industrial_tools_03+1 : form.autoIncrement.none_industrial_tools_03,
+              none_industrial_tools_04: form.office === 'جاسک' ? form.autoIncrement.none_industrial_tools_04+1 : form.autoIncrement.none_industrial_tools_04,
+              none_industrial_tools_05: form.office === 'بیشه کلا' ? form.autoIncrement.none_industrial_tools_05+1 : form.autoIncrement.none_industrial_tools_05,
+              none_industrial_tools_06: form.office === 'اورهال تهران' ? form.autoIncrement.none_industrial_tools_06+1 : form.autoIncrement.none_industrial_tools_06,
+              none_industrial_tools_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.none_industrial_tools_07+1 : form.autoIncrement.none_industrial_tools_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -90,19 +90,19 @@ export const IndustrialEquipment = () => {
       }
       
     const handleAutoIncrement = () => {
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.none_industrial_tools_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.none_industrial_tools_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.none_industrial_tools_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.none_industrial_tools_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.none_industrial_tools_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.none_industrial_tools_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.none_industrial_tools_07
         }
     }

@@ -65,7 +65,7 @@ const Modal = (props) => {
               name: formik.values.name,
               category: formik.values.category,
               input: formik.values.input,
-              inventory: props.message,
+              inventory: props.office,
               operator: 'ثبت اولیه',
               output: 0,
               date: today.replaceAll('/' , '-'),
@@ -410,13 +410,13 @@ const Modal = (props) => {
            await axios.put(
             `${Url}/api/autoIncrement/1/`,
               {
-              oghab101: props.message === 'دفتر مرکزی' ? autoIncrement.oghab101+1 : autoIncrement.oghab101,
-              oghab102: props.message === 'چابهار' ? autoIncrement.oghab102+1 : autoIncrement.oghab102,
-              oghab103: props.message === 'دزفول' ? autoIncrement.oghab103+1 : autoIncrement.oghab103,
-              oghab104: props.message === 'جاسک' ? autoIncrement.oghab104+1 : autoIncrement.oghab104,
-              oghab105: props.message === 'بیشه کلا' ? autoIncrement.oghab105+1 : autoIncrement.oghab105,
-              oghab106: props.message === 'اورهال تهران' ? autoIncrement.oghab106+1 : autoIncrement.oghab106,
-              oghab107: props.message === 'اورهال اصفهان' ? autoIncrement.oghab107+1 : autoIncrement.oghab107,
+              oghab101: props.office === 'دفتر مرکزی' ? autoIncrement.oghab101+1 : autoIncrement.oghab101,
+              oghab102: props.office === 'چابهار' ? autoIncrement.oghab102+1 : autoIncrement.oghab102,
+              oghab103: props.office === 'دزفول' ? autoIncrement.oghab103+1 : autoIncrement.oghab103,
+              oghab104: props.office === 'جاسک' ? autoIncrement.oghab104+1 : autoIncrement.oghab104,
+              oghab105: props.office === 'بیشه کلا' ? autoIncrement.oghab105+1 : autoIncrement.oghab105,
+              oghab106: props.office === 'اورهال تهران' ? autoIncrement.oghab106+1 : autoIncrement.oghab106,
+              oghab107: props.office === 'اورهال اصفهان' ? autoIncrement.oghab107+1 : autoIncrement.oghab107,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -450,19 +450,19 @@ const Modal = (props) => {
         window.location.reload()
     }
     const handleAutoIncrement = () => {
-          if (props.message === 'دفتر مرکزی'){
+          if (props.office === 'دفتر مرکزی'){
               return autoIncrement.oghab101
-          }else if (props.message === 'چابهار'){
+          }else if (props.office === 'چابهار'){
               return autoIncrement.oghab102
-          }else if (props.message === 'دزفول'){
+          }else if (props.office === 'دزفول'){
               return autoIncrement.oghab103
-          }else if (props.message === 'جاسک'){
+          }else if (props.office === 'جاسک'){
               return autoIncrement.oghab104
-          }else if (props.message === 'بیشه کلا'){
+          }else if (props.office === 'بیشه کلا'){
               return autoIncrement.oghab105
-          }else if (props.message === 'اورهال تهران'){
+          }else if (props.office === 'اورهال تهران'){
               return autoIncrement.oghab106
-          }else if (props.message === 'اورهال اصفهان'){
+          }else if (props.office === 'اورهال اصفهان'){
               return autoIncrement.oghab107
           }
     }

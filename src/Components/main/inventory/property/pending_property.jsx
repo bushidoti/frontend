@@ -12,7 +12,7 @@ const PendingProperty = () => {
     const [idNumber, setIdNumber] = useState(null)
     const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
-    const [message, setMessage] = useState('')
+    const [office, setOffice] = useState('')
     const [editStatus, setEditStatus] = useState(false)
     const [viewOnly, setViewOnly] = useState(false)
     const formik = useFormik({
@@ -115,7 +115,7 @@ const PendingProperty = () => {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
               });
-              setMessage(data.message);
+              setOffice(data.message);
         })()
     }, []);
 
@@ -137,7 +137,7 @@ const PendingProperty = () => {
     return (
         <Fragment>
             <Modal setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
-            <AgreementMove message={message} setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
+            <AgreementMove office={office} setTypeCommunication={setTypeCommunication} typeCommunication={typeCommunication}  typeProperty={typeProperty} editStatus={editStatus} setEditStatus={setEditStatus} viewOnly={viewOnly} setViewOnly={setViewOnly} idNumber={idNumber} setIdNumber={setIdNumber} setTypeDigital={setTypeDigital} typeDigital={typeDigital}/>
             <div className= 'plater  m-2 rounded-3 shadow-lg mb-4'>
                  <div className= 'd-flex  justify-content-between m-4' >
                         <div className= 'd-flex gap-2  align-items-center'>
@@ -328,7 +328,7 @@ const PendingProperty = () => {
                              {(() => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                            <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -358,7 +358,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'safetyequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                             <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -386,7 +386,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                             <tr key={data.code}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.code}</td>
@@ -414,7 +414,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                          (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -443,7 +443,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -471,7 +471,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -500,7 +500,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -527,7 +527,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -559,7 +559,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -587,7 +587,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>
@@ -616,7 +616,7 @@ const PendingProperty = () => {
                                         )
                                     }else if (typeProperty === 'supportitem'){
                                         return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === message || property.dst_inventory === message) && property.movement_status === "pending").map((data,i) => (
+                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>
                                                     <td>{data.code}</td>

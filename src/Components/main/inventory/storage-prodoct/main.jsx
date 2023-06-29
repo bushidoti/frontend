@@ -14,7 +14,8 @@ const WarHouse = (props) => {
     const [factorBtn, setFactorBtn] = useState(true)
     const [checkBtn, setCheckBtn] = useState(true)
     const [handleBtn, setHandleBtn] = useState(true)
-    const [message, setMessage] = useState('');
+    const [rank, setRank] = useState('');
+    const [office, setOffice] = useState('');
     const [factor, setFactor] = useState('');
     const [billCheck, setBillCheck] = useState('');
     const [handling, setHandling] = useState('');
@@ -28,15 +29,25 @@ const WarHouse = (props) => {
 
     useEffect(() => {
             (async () => {
-                const {data} = await axios.get(`${Url}/home/`, {
+                    const {data} = await axios.get(`${Url}/permission/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
               });
-              setMessage(data.message);
+              setRank(data.message);
         })()
     }, []);
 
+        useEffect(() => {
+            (async () => {
+                    const {data} = await axios.get(`${Url}/home/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setOffice(data.message);
+        })()
+    }, []);
 
     const fetchData = async () => {
         const response = await fetch(`${Url}/api/product/?name=${props.formik.values.name}&code=${props.formik.values.code}`, {
@@ -91,7 +102,7 @@ const WarHouse = (props) => {
         <Fragment>
         <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber}
         setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
-        <Modal modalTitle={props.modalTitle} idNumber={idNumber} message={message} setIdNumber={setIdNumber}
+        <Modal modalTitle={props.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
         <BillCheckmodal modalTitle={props.modalTitle} setModalTitle={props.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
@@ -160,10 +171,10 @@ const WarHouse = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {(product.length > 0 && product.filter(product => {if (message === 'حسین شاه محمدلو'){
+                    {(product.length > 0 && product.filter(product => {if (rank === 'مدیر'){
                                               return product.inventory
                                           }else{
-                                              return (product.inventory === message)
+                                              return (product.inventory === office)
                                           }}).map((data) => (
                     <tr key={data.code}>
                         <th scope="row">{data.code}</th>

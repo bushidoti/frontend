@@ -93,13 +93,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              airport_equipment_01: props.message === 'دفتر مرکزی' ? autoIncrement.airport_equipment_01+1 : autoIncrement.airport_equipment_01,
-              airport_equipment_02: props.message === 'چابهار' ? autoIncrement.airport_equipment_02+1 : autoIncrement.airport_equipment_02,
-              airport_equipment_03: props.message === 'دزفول' ? autoIncrement.airport_equipment_03+1 : autoIncrement.airport_equipment_03,
-              airport_equipment_04: props.message === 'جاسک' ? autoIncrement.airport_equipment_04+1 : autoIncrement.airport_equipment_04,
-              airport_equipment_05: props.message === 'بیشه کلا' ? autoIncrement.airport_equipment_05+1 : autoIncrement.airport_equipment_05,
-              airport_equipment_06: props.message === 'اورهال تهران' ? autoIncrement.airport_equipment_06+1 : autoIncrement.airport_equipment_06,
-              airport_equipment_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_equipment_07+1 : autoIncrement.airport_equipment_07,
+              airport_equipment_01: props.office === 'دفتر مرکزی' ? autoIncrement.airport_equipment_01+1 : autoIncrement.airport_equipment_01,
+              airport_equipment_02: props.office === 'چابهار' ? autoIncrement.airport_equipment_02+1 : autoIncrement.airport_equipment_02,
+              airport_equipment_03: props.office === 'دزفول' ? autoIncrement.airport_equipment_03+1 : autoIncrement.airport_equipment_03,
+              airport_equipment_04: props.office === 'جاسک' ? autoIncrement.airport_equipment_04+1 : autoIncrement.airport_equipment_04,
+              airport_equipment_05: props.office === 'بیشه کلا' ? autoIncrement.airport_equipment_05+1 : autoIncrement.airport_equipment_05,
+              airport_equipment_06: props.office === 'اورهال تهران' ? autoIncrement.airport_equipment_06+1 : autoIncrement.airport_equipment_06,
+              airport_equipment_07: props.office === 'اورهال اصفهان' ? autoIncrement.airport_equipment_07+1 : autoIncrement.airport_equipment_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -108,13 +108,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              safety_equipment_01: props.message === 'دفتر مرکزی' ? autoIncrement.safety_equipment_01+1 : autoIncrement.safety_equipment_01,
-              safety_equipment_02: props.message === 'چابهار' ? autoIncrement.safety_equipment_02+1 : autoIncrement.safety_equipment_02,
-              safety_equipment_03: props.message === 'دزفول' ? autoIncrement.safety_equipment_03+1 : autoIncrement.safety_equipment_03,
-              safety_equipment_04: props.message === 'جاسک' ? autoIncrement.safety_equipment_04+1 : autoIncrement.safety_equipment_04,
-              safety_equipment_05: props.message === 'بیشه کلا' ? autoIncrement.safety_equipment_05+1 : autoIncrement.safety_equipment_05,
-              safety_equipment_06: props.message === 'اورهال تهران' ? autoIncrement.safety_equipment_06+1 : autoIncrement.safety_equipment_06,
-              safety_equipment_07: props.message === 'اورهال اصفهان' ? autoIncrement.safety_equipment_07+1 : autoIncrement.safety_equipment_07,
+              safety_equipment_01: props.office === 'دفتر مرکزی' ? autoIncrement.safety_equipment_01+1 : autoIncrement.safety_equipment_01,
+              safety_equipment_02: props.office === 'چابهار' ? autoIncrement.safety_equipment_02+1 : autoIncrement.safety_equipment_02,
+              safety_equipment_03: props.office === 'دزفول' ? autoIncrement.safety_equipment_03+1 : autoIncrement.safety_equipment_03,
+              safety_equipment_04: props.office === 'جاسک' ? autoIncrement.safety_equipment_04+1 : autoIncrement.safety_equipment_04,
+              safety_equipment_05: props.office === 'بیشه کلا' ? autoIncrement.safety_equipment_05+1 : autoIncrement.safety_equipment_05,
+              safety_equipment_06: props.office === 'اورهال تهران' ? autoIncrement.safety_equipment_06+1 : autoIncrement.safety_equipment_06,
+              safety_equipment_07: props.office === 'اورهال اصفهان' ? autoIncrement.safety_equipment_07+1 : autoIncrement.safety_equipment_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -123,13 +123,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              electronic_furniture_01: props.message === 'دفتر مرکزی' ? autoIncrement.electronic_furniture_01+1 : autoIncrement.electronic_furniture_01,
-              electronic_furniture_02: props.message === 'چابهار' ? autoIncrement.electronic_furniture_02+1 : autoIncrement.electronic_furniture_02,
-              electronic_furniture_03: props.message === 'دزفول' ? autoIncrement.electronic_furniture_03+1 : autoIncrement.electronic_furniture_03,
-              electronic_furniture_04: props.message === 'جاسک' ? autoIncrement.electronic_furniture_04+1 : autoIncrement.electronic_furniture_04,
-              electronic_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.electronic_furniture_05+1 : autoIncrement.electronic_furniture_05,
-              electronic_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.electronic_furniture_06+1 : autoIncrement.electronic_furniture_06,
-              electronic_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.electronic_furniture_07+1 : autoIncrement.electronic_furniture_07,
+              electronic_furniture_01: props.office === 'دفتر مرکزی' ? autoIncrement.electronic_furniture_01+1 : autoIncrement.electronic_furniture_01,
+              electronic_furniture_02: props.office === 'چابهار' ? autoIncrement.electronic_furniture_02+1 : autoIncrement.electronic_furniture_02,
+              electronic_furniture_03: props.office === 'دزفول' ? autoIncrement.electronic_furniture_03+1 : autoIncrement.electronic_furniture_03,
+              electronic_furniture_04: props.office === 'جاسک' ? autoIncrement.electronic_furniture_04+1 : autoIncrement.electronic_furniture_04,
+              electronic_furniture_05: props.office === 'بیشه کلا' ? autoIncrement.electronic_furniture_05+1 : autoIncrement.electronic_furniture_05,
+              electronic_furniture_06: props.office === 'اورهال تهران' ? autoIncrement.electronic_furniture_06+1 : autoIncrement.electronic_furniture_06,
+              electronic_furniture_07: props.office === 'اورهال اصفهان' ? autoIncrement.electronic_furniture_07+1 : autoIncrement.electronic_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -138,13 +138,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              office_furniture_01: props.message === 'دفتر مرکزی' ? autoIncrement.office_furniture_01+1 : autoIncrement.office_furniture_01,
-              office_furniture_02: props.message === 'چابهار' ? autoIncrement.office_furniture_02+1 : autoIncrement.office_furniture_02,
-              office_furniture_03: props.message === 'دزفول' ? autoIncrement.office_furniture_03+1 : autoIncrement.office_furniture_03,
-              office_furniture_04: props.message === 'جاسک' ? autoIncrement.office_furniture_04+1 : autoIncrement.office_furniture_04,
-              office_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.office_furniture_05+1 : autoIncrement.office_furniture_05,
-              office_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.office_furniture_06+1 : autoIncrement.office_furniture_06,
-              office_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.office_furniture_07+1 : autoIncrement.office_furniture_07,
+              office_furniture_01: props.office === 'دفتر مرکزی' ? autoIncrement.office_furniture_01+1 : autoIncrement.office_furniture_01,
+              office_furniture_02: props.office === 'چابهار' ? autoIncrement.office_furniture_02+1 : autoIncrement.office_furniture_02,
+              office_furniture_03: props.office === 'دزفول' ? autoIncrement.office_furniture_03+1 : autoIncrement.office_furniture_03,
+              office_furniture_04: props.office === 'جاسک' ? autoIncrement.office_furniture_04+1 : autoIncrement.office_furniture_04,
+              office_furniture_05: props.office === 'بیشه کلا' ? autoIncrement.office_furniture_05+1 : autoIncrement.office_furniture_05,
+              office_furniture_06: props.office === 'اورهال تهران' ? autoIncrement.office_furniture_06+1 : autoIncrement.office_furniture_06,
+              office_furniture_07: props.office === 'اورهال اصفهان' ? autoIncrement.office_furniture_07+1 : autoIncrement.office_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -153,13 +153,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              facility_furniture_01: props.message === 'دفتر مرکزی' ? autoIncrement.facility_furniture_01+1 : autoIncrement.facility_furniture_01,
-              facility_furniture_02: props.message === 'چابهار' ? autoIncrement.facility_furniture_02+1 : autoIncrement.facility_furniture_02,
-              facility_furniture_03: props.message === 'دزفول' ? autoIncrement.facility_furniture_03+1 : autoIncrement.facility_furniture_03,
-              facility_furniture_04: props.message === 'جاسک' ? autoIncrement.facility_furniture_04+1 : autoIncrement.facility_furniture_04,
-              facility_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.facility_furniture_05+1 : autoIncrement.facility_furniture_05,
-              facility_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.facility_furniture_06+1 : autoIncrement.facility_furniture_06,
-              facility_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.facility_furniture_07+1 : autoIncrement.facility_furniture_07,
+              facility_furniture_01: props.office === 'دفتر مرکزی' ? autoIncrement.facility_furniture_01+1 : autoIncrement.facility_furniture_01,
+              facility_furniture_02: props.office === 'چابهار' ? autoIncrement.facility_furniture_02+1 : autoIncrement.facility_furniture_02,
+              facility_furniture_03: props.office === 'دزفول' ? autoIncrement.facility_furniture_03+1 : autoIncrement.facility_furniture_03,
+              facility_furniture_04: props.office === 'جاسک' ? autoIncrement.facility_furniture_04+1 : autoIncrement.facility_furniture_04,
+              facility_furniture_05: props.office === 'بیشه کلا' ? autoIncrement.facility_furniture_05+1 : autoIncrement.facility_furniture_05,
+              facility_furniture_06: props.office === 'اورهال تهران' ? autoIncrement.facility_furniture_06+1 : autoIncrement.facility_furniture_06,
+              facility_furniture_07: props.office === 'اورهال اصفهان' ? autoIncrement.facility_furniture_07+1 : autoIncrement.facility_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -168,13 +168,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              airport_furniture_01: props.message === 'دفتر مرکزی' ? autoIncrement.airport_furniture_01+1 : autoIncrement.airport_furniture_01,
-              airport_furniture_02: props.message === 'چابهار' ? autoIncrement.airport_furniture_02+1 : autoIncrement.airport_furniture_02,
-              airport_furniture_03: props.message === 'دزفول' ? autoIncrement.airport_furniture_03+1 : autoIncrement.airport_furniture_03,
-              airport_furniture_04: props.message === 'جاسک' ? autoIncrement.airport_furniture_04+1 : autoIncrement.airport_furniture_04,
-              airport_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.airport_furniture_05+1 : autoIncrement.airport_furniture_05,
-              airport_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.airport_furniture_06+1 : autoIncrement.airport_furniture_06,
-              airport_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_furniture_07+1 : autoIncrement.airport_furniture_07,
+              airport_furniture_01: props.office === 'دفتر مرکزی' ? autoIncrement.airport_furniture_01+1 : autoIncrement.airport_furniture_01,
+              airport_furniture_02: props.office === 'چابهار' ? autoIncrement.airport_furniture_02+1 : autoIncrement.airport_furniture_02,
+              airport_furniture_03: props.office === 'دزفول' ? autoIncrement.airport_furniture_03+1 : autoIncrement.airport_furniture_03,
+              airport_furniture_04: props.office === 'جاسک' ? autoIncrement.airport_furniture_04+1 : autoIncrement.airport_furniture_04,
+              airport_furniture_05: props.office === 'بیشه کلا' ? autoIncrement.airport_furniture_05+1 : autoIncrement.airport_furniture_05,
+              airport_furniture_06: props.office === 'اورهال تهران' ? autoIncrement.airport_furniture_06+1 : autoIncrement.airport_furniture_06,
+              airport_furniture_07: props.office === 'اورهال اصفهان' ? autoIncrement.airport_furniture_07+1 : autoIncrement.airport_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -183,13 +183,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              digital_furniture_01: props.message === 'دفتر مرکزی' ? autoIncrement.digital_furniture_01+1 : autoIncrement.digital_furniture_01,
-              digital_furniture_02: props.message === 'چابهار' ? autoIncrement.digital_furniture_02+1 : autoIncrement.digital_furniture_02,
-              digital_furniture_03: props.message === 'دزفول' ? autoIncrement.digital_furniture_03+1 : autoIncrement.digital_furniture_03,
-              digital_furniture_04: props.message === 'جاسک' ? autoIncrement.digital_furniture_04+1 : autoIncrement.digital_furniture_04,
-              digital_furniture_05: props.message === 'بیشه کلا' ? autoIncrement.digital_furniture_05+1 : autoIncrement.digital_furniture_05,
-              digital_furniture_06: props.message === 'اورهال تهران' ? autoIncrement.digital_furniture_06+1 : autoIncrement.digital_furniture_06,
-              digital_furniture_07: props.message === 'اورهال اصفهان' ? autoIncrement.digital_furniture_07+1 : autoIncrement.digital_furniture_07,
+              digital_furniture_01: props.office === 'دفتر مرکزی' ? autoIncrement.digital_furniture_01+1 : autoIncrement.digital_furniture_01,
+              digital_furniture_02: props.office === 'چابهار' ? autoIncrement.digital_furniture_02+1 : autoIncrement.digital_furniture_02,
+              digital_furniture_03: props.office === 'دزفول' ? autoIncrement.digital_furniture_03+1 : autoIncrement.digital_furniture_03,
+              digital_furniture_04: props.office === 'جاسک' ? autoIncrement.digital_furniture_04+1 : autoIncrement.digital_furniture_04,
+              digital_furniture_05: props.office === 'بیشه کلا' ? autoIncrement.digital_furniture_05+1 : autoIncrement.digital_furniture_05,
+              digital_furniture_06: props.office === 'اورهال تهران' ? autoIncrement.digital_furniture_06+1 : autoIncrement.digital_furniture_06,
+              digital_furniture_07: props.office === 'اورهال اصفهان' ? autoIncrement.digital_furniture_07+1 : autoIncrement.digital_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -198,13 +198,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              airport_vehicle_01: props.message === 'دفتر مرکزی' ? autoIncrement.airport_vehicle_01+1 : autoIncrement.airport_vehicle_01,
-              airport_vehicle_02: props.message === 'چابهار' ? autoIncrement.airport_vehicle_02+1 : autoIncrement.airport_vehicle_02,
-              airport_vehicle_03: props.message === 'دزفول' ? autoIncrement.airport_vehicle_03+1 : autoIncrement.airport_vehicle_03,
-              airport_vehicle_04: props.message === 'جاسک' ? autoIncrement.airport_vehicle_04+1 : autoIncrement.airport_vehicle_04,
-              airport_vehicle_05: props.message === 'بیشه کلا' ? autoIncrement.airport_vehicle_05+1 : autoIncrement.airport_vehicle_05,
-              airport_vehicle_06: props.message === 'اورهال تهران' ? autoIncrement.airport_vehicle_06+1 : autoIncrement.airport_vehicle_06,
-              airport_vehicle_07: props.message === 'اورهال اصفهان' ? autoIncrement.airport_vehicle_07+1 : autoIncrement.airport_vehicle_07,
+              airport_vehicle_01: props.office === 'دفتر مرکزی' ? autoIncrement.airport_vehicle_01+1 : autoIncrement.airport_vehicle_01,
+              airport_vehicle_02: props.office === 'چابهار' ? autoIncrement.airport_vehicle_02+1 : autoIncrement.airport_vehicle_02,
+              airport_vehicle_03: props.office === 'دزفول' ? autoIncrement.airport_vehicle_03+1 : autoIncrement.airport_vehicle_03,
+              airport_vehicle_04: props.office === 'جاسک' ? autoIncrement.airport_vehicle_04+1 : autoIncrement.airport_vehicle_04,
+              airport_vehicle_05: props.office === 'بیشه کلا' ? autoIncrement.airport_vehicle_05+1 : autoIncrement.airport_vehicle_05,
+              airport_vehicle_06: props.office === 'اورهال تهران' ? autoIncrement.airport_vehicle_06+1 : autoIncrement.airport_vehicle_06,
+              airport_vehicle_07: props.office === 'اورهال اصفهان' ? autoIncrement.airport_vehicle_07+1 : autoIncrement.airport_vehicle_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -213,13 +213,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              office_vehicle_01: props.message === 'دفتر مرکزی' ? autoIncrement.office_vehicle_01+1 : autoIncrement.office_vehicle_01,
-              office_vehicle_02: props.message === 'چابهار' ? autoIncrement.office_vehicle_02+1 : autoIncrement.office_vehicle_02,
-              office_vehicle_03: props.message === 'دزفول' ? autoIncrement.office_vehicle_03+1 : autoIncrement.office_vehicle_03,
-              office_vehicle_04: props.message === 'جاسک' ? autoIncrement.office_vehicle_04+1 : autoIncrement.office_vehicle_04,
-              office_vehicle_05: props.message === 'بیشه کلا' ? autoIncrement.office_vehicle_05+1 : autoIncrement.office_vehicle_05,
-              office_vehicle_06: props.message === 'اورهال تهران' ? autoIncrement.office_vehicle_06+1 : autoIncrement.office_vehicle_06,
-              office_vehicle_07: props.message === 'اورهال اصفهان' ? autoIncrement.office_vehicle_07+1 : autoIncrement.office_vehicle_07,
+              office_vehicle_01: props.office === 'دفتر مرکزی' ? autoIncrement.office_vehicle_01+1 : autoIncrement.office_vehicle_01,
+              office_vehicle_02: props.office === 'چابهار' ? autoIncrement.office_vehicle_02+1 : autoIncrement.office_vehicle_02,
+              office_vehicle_03: props.office === 'دزفول' ? autoIncrement.office_vehicle_03+1 : autoIncrement.office_vehicle_03,
+              office_vehicle_04: props.office === 'جاسک' ? autoIncrement.office_vehicle_04+1 : autoIncrement.office_vehicle_04,
+              office_vehicle_05: props.office === 'بیشه کلا' ? autoIncrement.office_vehicle_05+1 : autoIncrement.office_vehicle_05,
+              office_vehicle_06: props.office === 'اورهال تهران' ? autoIncrement.office_vehicle_06+1 : autoIncrement.office_vehicle_06,
+              office_vehicle_07: props.office === 'اورهال اصفهان' ? autoIncrement.office_vehicle_07+1 : autoIncrement.office_vehicle_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -228,13 +228,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              none_industrial_tools_01: props.message === 'دفتر مرکزی' ? autoIncrement.none_industrial_tools_01+1 : autoIncrement.none_industrial_tools_01,
-              none_industrial_tools_02: props.message === 'چابهار' ? autoIncrement.none_industrial_tools_02+1 : autoIncrement.none_industrial_tools_02,
-              none_industrial_tools_03: props.message === 'دزفول' ? autoIncrement.none_industrial_tools_03+1 : autoIncrement.none_industrial_tools_03,
-              none_industrial_tools_04: props.message === 'جاسک' ? autoIncrement.none_industrial_tools_04+1 : autoIncrement.none_industrial_tools_04,
-              none_industrial_tools_05: props.message === 'بیشه کلا' ? autoIncrement.none_industrial_tools_05+1 : autoIncrement.none_industrial_tools_05,
-              none_industrial_tools_06: props.message === 'اورهال تهران' ? autoIncrement.none_industrial_tools_06+1 : autoIncrement.none_industrial_tools_06,
-              none_industrial_tools_07: props.message === 'اورهال اصفهان' ? autoIncrement.none_industrial_tools_07+1 : autoIncrement.none_industrial_tools_07,
+              none_industrial_tools_01: props.office === 'دفتر مرکزی' ? autoIncrement.none_industrial_tools_01+1 : autoIncrement.none_industrial_tools_01,
+              none_industrial_tools_02: props.office === 'چابهار' ? autoIncrement.none_industrial_tools_02+1 : autoIncrement.none_industrial_tools_02,
+              none_industrial_tools_03: props.office === 'دزفول' ? autoIncrement.none_industrial_tools_03+1 : autoIncrement.none_industrial_tools_03,
+              none_industrial_tools_04: props.office === 'جاسک' ? autoIncrement.none_industrial_tools_04+1 : autoIncrement.none_industrial_tools_04,
+              none_industrial_tools_05: props.office === 'بیشه کلا' ? autoIncrement.none_industrial_tools_05+1 : autoIncrement.none_industrial_tools_05,
+              none_industrial_tools_06: props.office === 'اورهال تهران' ? autoIncrement.none_industrial_tools_06+1 : autoIncrement.none_industrial_tools_06,
+              none_industrial_tools_07: props.office === 'اورهال اصفهان' ? autoIncrement.none_industrial_tools_07+1 : autoIncrement.none_industrial_tools_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -243,13 +243,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              industrial_tools_01: props.message === 'دفتر مرکزی' ? autoIncrement.industrial_tools_01+1 : autoIncrement.industrial_tools_01,
-              industrial_tools_02: props.message === 'چابهار' ? autoIncrement.industrial_tools_02+1 : autoIncrement.industrial_tools_02,
-              industrial_tools_03: props.message === 'دزفول' ? autoIncrement.industrial_tools_03+1 : autoIncrement.industrial_tools_03,
-              industrial_tools_04: props.message === 'جاسک' ? autoIncrement.industrial_tools_04+1 : autoIncrement.industrial_tools_04,
-              industrial_tools_05: props.message === 'بیشه کلا' ? autoIncrement.industrial_tools_05+1 : autoIncrement.industrial_tools_05,
-              industrial_tools_06: props.message === 'اورهال تهران' ? autoIncrement.industrial_tools_06+1 : autoIncrement.industrial_tools_06,
-              industrial_tools_07: props.message === 'اورهال اصفهان' ? autoIncrement.industrial_tools_07+1 : autoIncrement.industrial_tools_07,
+              industrial_tools_01: props.office === 'دفتر مرکزی' ? autoIncrement.industrial_tools_01+1 : autoIncrement.industrial_tools_01,
+              industrial_tools_02: props.office === 'چابهار' ? autoIncrement.industrial_tools_02+1 : autoIncrement.industrial_tools_02,
+              industrial_tools_03: props.office === 'دزفول' ? autoIncrement.industrial_tools_03+1 : autoIncrement.industrial_tools_03,
+              industrial_tools_04: props.office === 'جاسک' ? autoIncrement.industrial_tools_04+1 : autoIncrement.industrial_tools_04,
+              industrial_tools_05: props.office === 'بیشه کلا' ? autoIncrement.industrial_tools_05+1 : autoIncrement.industrial_tools_05,
+              industrial_tools_06: props.office === 'اورهال تهران' ? autoIncrement.industrial_tools_06+1 : autoIncrement.industrial_tools_06,
+              industrial_tools_07: props.office === 'اورهال اصفهان' ? autoIncrement.industrial_tools_07+1 : autoIncrement.industrial_tools_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -258,13 +258,13 @@ const AgreementMove = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              support_item_01: props.message === 'دفتر مرکزی' ? autoIncrement.support_item_01+1 : autoIncrement.support_item_01,
-              support_item_02: props.message === 'چابهار' ? autoIncrement.support_item_02+1 : autoIncrement.support_item_02,
-              support_item_03: props.message === 'دزفول' ? autoIncrement.support_item_03+1 : autoIncrement.support_item_03,
-              support_item_04: props.message === 'جاسک' ? autoIncrement.support_item_04+1 : autoIncrement.support_item_04,
-              support_item_05: props.message === 'بیشه کلا' ? autoIncrement.support_item_05+1 : autoIncrement.support_item_05,
-              support_item_06: props.message === 'اورهال تهران' ? autoIncrement.support_item_06+1 : autoIncrement.support_item_06,
-              support_item_07: props.message === 'اورهال اصفهان' ? autoIncrement.support_item_07+1 : autoIncrement.electronic_furniture_07,
+              support_item_01: props.office === 'دفتر مرکزی' ? autoIncrement.support_item_01+1 : autoIncrement.support_item_01,
+              support_item_02: props.office === 'چابهار' ? autoIncrement.support_item_02+1 : autoIncrement.support_item_02,
+              support_item_03: props.office === 'دزفول' ? autoIncrement.support_item_03+1 : autoIncrement.support_item_03,
+              support_item_04: props.office === 'جاسک' ? autoIncrement.support_item_04+1 : autoIncrement.support_item_04,
+              support_item_05: props.office === 'بیشه کلا' ? autoIncrement.support_item_05+1 : autoIncrement.support_item_05,
+              support_item_06: props.office === 'اورهال تهران' ? autoIncrement.support_item_06+1 : autoIncrement.support_item_06,
+              support_item_07: props.office === 'اورهال اصفهان' ? autoIncrement.support_item_07+1 : autoIncrement.electronic_furniture_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -279,7 +279,7 @@ const AgreementMove = (props) => {
               {
               code: handleAutoIncrement(),
               name: formik.values.name,
-              inventory: props.message,
+              inventory: props.office,
               install_location: formik.values.install_location,
               user: formik.values.user,
               use_for: formik.values.use_for,
@@ -319,195 +319,195 @@ const AgreementMove = (props) => {
 
      const handleAutoIncrement = () => {
          if (props.typeProperty === 'safetyequipment') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.safety_equipment_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.safety_equipment_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.safety_equipment_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.safety_equipment_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.safety_equipment_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.safety_equipment_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.safety_equipment_07
              }
          }else if (props.typeProperty === 'airportequipment') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.airport_equipment_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.airport_equipment_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.airport_equipment_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.airport_equipment_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.airport_equipment_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.airport_equipment_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.airport_equipment_07
              }
          }else if (props.typeProperty === 'electronicfurniture') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.electronic_furniture_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.electronic_furniture_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.electronic_furniture_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.electronic_furniture_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.electronic_furniture_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.electronic_furniture_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.electronic_furniture_07
              }
          }else if (props.typeProperty === 'officefurniture') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.office_furniture_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.office_furniture_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.office_furniture_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.office_furniture_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.office_furniture_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.office_furniture_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.office_furniture_07
              }
          }else if (props.typeProperty === 'facilityfurniture') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.facility_furniture_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.facility_furniture_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.facility_furniture_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.facility_furniture_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.facility_furniture_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.facility_furniture_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.facility_furniture_07
              }
          }else if (props.typeProperty === 'airportfurniture') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.airport_furniture_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.airport_furniture_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.airport_furniture_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.airport_furniture_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.airport_furniture_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.airport_furniture_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.airport_furniture_07
              }
          }else if (props.typeProperty === 'digitalfurniture') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.digital_furniture_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.digital_furniture_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.digital_furniture_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.digital_furniture_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.digital_furniture_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.digital_furniture_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.digital_furniture_07
              }
          }else if (props.typeProperty === 'airportvehicle') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.airport_vehicle_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.airport_vehicle_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.airport_vehicle_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.airport_vehicle_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.airport_vehicle_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.airport_vehicle_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.airport_vehicle_07
              }
          }else if (props.typeProperty === 'officevehicle') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.office_vehicle_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.office_vehicle_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.office_vehicle_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.office_vehicle_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.office_vehicle_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.office_vehicle_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.office_vehicle_07
              }
          }else if (props.typeProperty === 'noneindustrialtool') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.none_industrial_tools_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.none_industrial_tools_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.none_industrial_tools_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.none_industrial_tools_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.none_industrial_tools_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.none_industrial_tools_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.none_industrial_tools_07
              }
          }else if (props.typeProperty === 'industrialtool') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.industrial_tools_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.industrial_tools_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.industrial_tools_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.industrial_tools_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.industrial_tools_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.industrial_tools_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.industrial_tools_07
              }
          }else if (props.typeProperty === 'supportitem') {
-             if (props.message === 'دفتر مرکزی') {
+             if (props.office === 'دفتر مرکزی') {
                  return autoIncrement.support_item_01
-             } else if (props.message === 'چابهار') {
+             } else if (props.office === 'چابهار') {
                  return autoIncrement.support_item_02
-             } else if (props.message === 'دزفول') {
+             } else if (props.office === 'دزفول') {
                  return autoIncrement.support_item_03
-             } else if (props.message === 'جاسک') {
+             } else if (props.office === 'جاسک') {
                  return autoIncrement.support_item_04
-             } else if (props.message === 'بیشه کلا') {
+             } else if (props.office === 'بیشه کلا') {
                  return autoIncrement.support_item_05
-             } else if (props.message === 'اورهال تهران') {
+             } else if (props.office === 'اورهال تهران') {
                  return autoIncrement.support_item_06
-             } else if (props.message === 'اورهال اصفهان') {
+             } else if (props.office === 'اورهال اصفهان') {
                  return autoIncrement.support_item_07
              }
          }

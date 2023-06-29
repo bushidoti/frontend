@@ -39,7 +39,7 @@ export const SupportItems = () => {
               type_item: formik.values.type_item,
               description: formik.values.description,
               using_location: formik.values.using_location,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -55,13 +55,13 @@ export const SupportItems = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              support_item_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.support_item_01+1 : form.autoIncrement.support_item_01,
-              support_item_02: form.message === 'چابهار' ? form.autoIncrement.support_item_02+1 : form.autoIncrement.support_item_02,
-              support_item_03: form.message === 'دزفول' ? form.autoIncrement.support_item_03+1 : form.autoIncrement.support_item_03,
-              support_item_04: form.message === 'جاسک' ? form.autoIncrement.support_item_04+1 : form.autoIncrement.support_item_04,
-              support_item_05: form.message === 'بیشه کلا' ? form.autoIncrement.support_item_05+1 : form.autoIncrement.support_item_05,
-              support_item_06: form.message === 'اورهال تهران' ? form.autoIncrement.support_item_06+1 : form.autoIncrement.support_item_06,
-              support_item_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.support_item_07+1 : form.autoIncrement.support_item_07,
+              support_item_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.support_item_01+1 : form.autoIncrement.support_item_01,
+              support_item_02: form.office === 'چابهار' ? form.autoIncrement.support_item_02+1 : form.autoIncrement.support_item_02,
+              support_item_03: form.office === 'دزفول' ? form.autoIncrement.support_item_03+1 : form.autoIncrement.support_item_03,
+              support_item_04: form.office === 'جاسک' ? form.autoIncrement.support_item_04+1 : form.autoIncrement.support_item_04,
+              support_item_05: form.office === 'بیشه کلا' ? form.autoIncrement.support_item_05+1 : form.autoIncrement.support_item_05,
+              support_item_06: form.office === 'اورهال تهران' ? form.autoIncrement.support_item_06+1 : form.autoIncrement.support_item_06,
+              support_item_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.support_item_07+1 : form.autoIncrement.support_item_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -94,19 +94,19 @@ export const SupportItems = () => {
       }
 
     const handleAutoIncrement = () => {
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.support_item_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.support_item_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.support_item_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.support_item_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.support_item_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.support_item_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.support_item_07
         }
     }

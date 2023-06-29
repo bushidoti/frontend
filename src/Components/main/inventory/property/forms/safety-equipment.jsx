@@ -58,7 +58,7 @@ export const SafetyEquipment = () => {
               user: formik.values.user,
               use_for: formik.values.use_for,
               install_location: formik.values.install_location,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -74,13 +74,13 @@ export const SafetyEquipment = () => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              safety_equipment_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.safety_equipment_01+1 : form.autoIncrement.safety_equipment_01,
-              safety_equipment_02: form.message === 'چابهار' ? form.autoIncrement.safety_equipment_02+1 : form.autoIncrement.safety_equipment_02,
-              safety_equipment_03: form.message === 'دزفول' ? form.autoIncrement.safety_equipment_03+1 : form.autoIncrement.safety_equipment_03,
-              safety_equipment_04: form.message === 'جاسک' ? form.autoIncrement.safety_equipment_04+1 : form.autoIncrement.safety_equipment_04,
-              safety_equipment_05: form.message === 'بیشه کلا' ? form.autoIncrement.safety_equipment_05+1 : form.autoIncrement.safety_equipment_05,
-              safety_equipment_06: form.message === 'اورهال تهران' ? form.autoIncrement.safety_equipment_06+1 : form.autoIncrement.safety_equipment_06,
-              safety_equipment_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.safety_equipment_07+1 : form.autoIncrement.safety_equipment_07,
+              safety_equipment_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.safety_equipment_01+1 : form.autoIncrement.safety_equipment_01,
+              safety_equipment_02: form.office === 'چابهار' ? form.autoIncrement.safety_equipment_02+1 : form.autoIncrement.safety_equipment_02,
+              safety_equipment_03: form.office === 'دزفول' ? form.autoIncrement.safety_equipment_03+1 : form.autoIncrement.safety_equipment_03,
+              safety_equipment_04: form.office === 'جاسک' ? form.autoIncrement.safety_equipment_04+1 : form.autoIncrement.safety_equipment_04,
+              safety_equipment_05: form.office === 'بیشه کلا' ? form.autoIncrement.safety_equipment_05+1 : form.autoIncrement.safety_equipment_05,
+              safety_equipment_06: form.office === 'اورهال تهران' ? form.autoIncrement.safety_equipment_06+1 : form.autoIncrement.safety_equipment_06,
+              safety_equipment_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.safety_equipment_07+1 : form.autoIncrement.safety_equipment_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -153,19 +153,19 @@ export const SafetyEquipment = () => {
       }
 
     const handleAutoIncrement = () => {
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.safety_equipment_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.safety_equipment_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.safety_equipment_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.safety_equipment_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.safety_equipment_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.safety_equipment_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.safety_equipment_07
         }
     }
@@ -220,7 +220,7 @@ export const SafetyEquipment = () => {
                                                 <select className="form-select" defaultValue='' id="register_code"
                                                     onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                    {(property.filter(property => property.inventory ===  form.message).map((data) => (
+                                                    {(property.filter(property => property.inventory ===  form.office).map((data) => (
                                                         <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
                                                     )))}
                                                 </select>

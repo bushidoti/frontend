@@ -15,9 +15,9 @@ const ReportProperty = () => {
     const [typeDigital , setTypeDigital] = useState('')
     const [typeCommunication , setTypeCommunication] = useState('')
     const [viewOnly, setViewOnly] = useState(false)
+    const [rank, setRank] = useState('');
+    const [office, setOffice] = useState('');
 
-
-    const [message, setMessage] = useState('')
     const [editStatus, setEditStatus] = useState(false)
     const componentPDF= useRef();
     const formik = useFormik({
@@ -105,12 +105,23 @@ const ReportProperty = () => {
       
        useEffect(() => {
             (async () => {
+                const {data} = await axios.get(`${Url}/permission/`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                }
+              });
+              setRank(data.message);
+        })()
+    }, []);
+
+     useEffect(() => {
+            (async () => {
                 const {data} = await axios.get(`${Url}/home/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
               });
-              setMessage(data.message);
+              setOffice(data.message);
         })()
     }, []);
 
@@ -564,10 +575,10 @@ const ReportProperty = () => {
                              {(() => {
                                     if (typeProperty === 'airportequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                          (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                            <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
@@ -598,10 +609,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'safetyequipment'){
                                         return (
-                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                          (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                             <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
@@ -630,10 +641,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'digitalfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                          (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                             <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                 <th scope="row">{i}</th>
@@ -662,10 +673,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'electronicfurniture'){
                                         return (
-                                          (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                          (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -695,10 +706,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'officefurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -727,10 +738,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'facilityfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -760,10 +771,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportfurniture'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -791,10 +802,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -827,10 +838,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'noneindustrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -855,10 +866,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'industrialtool'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -888,10 +899,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'supportitem'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.movement_status === 'pending' ? 'hsl(120, 59%, 70%)' : null) }`}} key={data.code}>
                                                     <th scope="row">{i}</th>
@@ -917,10 +928,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (typeProperty === 'benefit'){
                                         return (
-                                           (property.length > 0 && property.filter(property => {if (message === 'حسین شاه محمدلو'){
+                                           (property.length > 0 && property.filter(property => {if (rank === 'مدیر'){
                                               return property.inventory
                                           }else{
-                                              return (property.inventory === message)
+                                              return (property.inventory === office)
                                           }}).map((data,i) => (
                                                 <tr key={data.code}>
                                                     <th scope="row">{i}</th>

@@ -197,12 +197,12 @@ function App() {
                 <Route path="/" element={<NavBar isAuth={isAuth} setDocToggle={setDocToggle} office={office} permission={permission} formik={formikDocumentSearch} setIsAuth={setIsAuth}/>} >
                     {isAuth ?
                         <Fragment>
-                            {permission === 'مدیر' || permission === 'اداری' || permission === 'حقوقی' || permission === 'پشتیبانی' ?
+                            {permission === 'مدیر' || permission === 'اداری' || permission === 'مشاهده' ?
                                 <Fragment>
-                                    {permission === 'مدیر' || (permission === 'اداری' && office === 'دفتر مرکزی') || permission === 'حقوقی' || permission === 'پشتیبانی' ?
+                                    {permission === 'مدیر' || (permission === 'اداری' && office === 'دفتر مرکزی') || permission === 'مشاهده' ?
                                         <Fragment>
                                         <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                                        <Route path="main" element={<Main modalTitle={modalTitle} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
+                                        <Route path="main" element={<Main modalTitle={modalTitle} permission={permission} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                                         <Route path="upload" element={<UploadDocuments/>}/>
                                         </Fragment>
                                     : null}
@@ -241,9 +241,15 @@ function App() {
                                     : null}
                                         </Fragment>
                                 : null}
-                          <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle} />} />
-                          <Route path="property" element={<Property/>} />
-                          <Route path="report-properties" element={<ReportProperty />} />
+                            {permission === 'مدیر' || permission === 'انباردار' ?
+                                <Fragment>
+                                    <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct}
+                                      modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
+                                    <Route path="property" element={<Property/>}/>
+                                    <Route path="report-properties" element={<ReportProperty />} />
+                                </Fragment>
+                            : null}
+
                             {permission === 'مدیر' ?
                           <Route path="warehouse-handling" element={<StorageHandling formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
                                 : null}

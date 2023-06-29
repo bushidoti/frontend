@@ -95,7 +95,7 @@ export const Vehicles = (props) => {
               plate4: formik.values.plate4,
               chassis: formik.values.chassis,
               owner: formik.values.owner,
-              inventory: form.message,
+              inventory: form.office,
               type_register: 'ثبت اولیه',
               date: today.replaceAll('/' , '-'),
          }, {
@@ -118,7 +118,7 @@ export const Vehicles = (props) => {
                   plate4: formik.values.plate4,
                   chassis: formik.values.chassis,
                   owner: formik.values.owner,
-                  inventory: form.message,
+                  inventory: form.office,
                   type_register: 'ثبت اولیه',
                   date: today.replaceAll('/' , '-'),
              }, {
@@ -138,13 +138,13 @@ export const Vehicles = (props) => {
            await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              airport_vehicle_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.airport_vehicle_01+1 : form.autoIncrement.airport_vehicle_01,
-              airport_vehicle_02: form.message === 'چابهار' ? form.autoIncrement.airport_vehicle_02+1 : form.autoIncrement.airport_vehicle_02,
-              airport_vehicle_03: form.message === 'دزفول' ? form.autoIncrement.airport_vehicle_03+1 : form.autoIncrement.airport_vehicle_03,
-              airport_vehicle_04: form.message === 'جاسک' ? form.autoIncrement.airport_vehicle_04+1 : form.autoIncrement.airport_vehicle_04,
-              airport_vehicle_05: form.message === 'بیشه کلا' ? form.autoIncrement.airport_vehicle_05+1 : form.autoIncrement.airport_vehicle_05,
-              airport_vehicle_06: form.message === 'اورهال تهران' ? form.autoIncrement.airport_vehicle_06+1 : form.autoIncrement.airport_vehicle_06,
-              airport_vehicle_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.airport_vehicle_07+1 : form.autoIncrement.airport_vehicle_07,
+              airport_vehicle_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.airport_vehicle_01+1 : form.autoIncrement.airport_vehicle_01,
+              airport_vehicle_02: form.office === 'چابهار' ? form.autoIncrement.airport_vehicle_02+1 : form.autoIncrement.airport_vehicle_02,
+              airport_vehicle_03: form.office === 'دزفول' ? form.autoIncrement.airport_vehicle_03+1 : form.autoIncrement.airport_vehicle_03,
+              airport_vehicle_04: form.office === 'جاسک' ? form.autoIncrement.airport_vehicle_04+1 : form.autoIncrement.airport_vehicle_04,
+              airport_vehicle_05: form.office === 'بیشه کلا' ? form.autoIncrement.airport_vehicle_05+1 : form.autoIncrement.airport_vehicle_05,
+              airport_vehicle_06: form.office === 'اورهال تهران' ? form.autoIncrement.airport_vehicle_06+1 : form.autoIncrement.airport_vehicle_06,
+              airport_vehicle_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.airport_vehicle_07+1 : form.autoIncrement.airport_vehicle_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -153,13 +153,13 @@ export const Vehicles = (props) => {
             await axios.put(
             `${Url}/api/autoincrementproperty/1/`,
               {
-              office_vehicle_01: form.message === 'دفتر مرکزی' ? form.autoIncrement.office_vehicle_01+1 : form.autoIncrement.office_vehicle_01,
-              office_vehicle_02: form.message === 'چابهار' ? form.autoIncrement.office_vehicle_02+1 : form.autoIncrement.office_vehicle_02,
-              office_vehicle_03: form.message === 'دزفول' ? form.autoIncrement.office_vehicle_03+1 : form.autoIncrement.office_vehicle_03,
-              office_vehicle_04: form.message === 'جاسک' ? form.autoIncrement.office_vehicle_04+1 : form.autoIncrement.office_vehicle_04,
-              office_vehicle_05: form.message === 'بیشه کلا' ? form.autoIncrement.office_vehicle_05+1 : form.autoIncrement.office_vehicle_05,
-              office_vehicle_06: form.message === 'اورهال تهران' ? form.autoIncrement.office_vehicle_06+1 : form.autoIncrement.office_vehicle_06,
-              office_vehicle_07: form.message === 'اورهال اصفهان' ? form.autoIncrement.office_vehicle_07+1 : form.autoIncrement.office_vehicle_07,
+              office_vehicle_01: form.office === 'دفتر مرکزی' ? form.autoIncrement.office_vehicle_01+1 : form.autoIncrement.office_vehicle_01,
+              office_vehicle_02: form.office === 'چابهار' ? form.autoIncrement.office_vehicle_02+1 : form.autoIncrement.office_vehicle_02,
+              office_vehicle_03: form.office === 'دزفول' ? form.autoIncrement.office_vehicle_03+1 : form.autoIncrement.office_vehicle_03,
+              office_vehicle_04: form.office === 'جاسک' ? form.autoIncrement.office_vehicle_04+1 : form.autoIncrement.office_vehicle_04,
+              office_vehicle_05: form.office === 'بیشه کلا' ? form.autoIncrement.office_vehicle_05+1 : form.autoIncrement.office_vehicle_05,
+              office_vehicle_06: form.office === 'اورهال تهران' ? form.autoIncrement.office_vehicle_06+1 : form.autoIncrement.office_vehicle_06,
+              office_vehicle_07: form.office === 'اورهال اصفهان' ? form.autoIncrement.office_vehicle_07+1 : form.autoIncrement.office_vehicle_07,
          }, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -253,35 +253,35 @@ export const Vehicles = (props) => {
 
     const handleAutoIncrement = () => {
     if (props.showForm === 'airportCar'){
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.airport_vehicle_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.airport_vehicle_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.airport_vehicle_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.airport_vehicle_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.airport_vehicle_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.airport_vehicle_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.airport_vehicle_07
         }
     }else if (props.showForm === 'personalCar'){
-        if (form.message === 'دفتر مرکزی') {
+        if (form.office === 'دفتر مرکزی') {
             return form.autoIncrement.office_vehicle_01
-        } else if (form.message === 'چابهار') {
+        } else if (form.office === 'چابهار') {
             return form.autoIncrement.office_vehicle_02
-        } else if (form.message === 'دزفول') {
+        } else if (form.office === 'دزفول') {
             return form.autoIncrement.office_vehicle_03
-        } else if (form.message === 'جاسک') {
+        } else if (form.office === 'جاسک') {
             return form.autoIncrement.office_vehicle_04
-        } else if (form.message === 'بیشه کلا') {
+        } else if (form.office === 'بیشه کلا') {
             return form.autoIncrement.office_vehicle_05
-        } else if (form.message === 'اورهال تهران') {
+        } else if (form.office === 'اورهال تهران') {
             return form.autoIncrement.office_vehicle_06
-        } else if (form.message === 'اورهال اصفهان') {
+        } else if (form.office === 'اورهال اصفهان') {
             return form.autoIncrement.office_vehicle_07
         }
     }
@@ -351,7 +351,7 @@ export const Vehicles = (props) => {
                                                 <select className="form-select" defaultValue='' id="register_code"
                                                     onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
-                                                    {(property.filter(property => property.inventory ===  form.message).map((data) => (
+                                                    {(property.filter(property => property.inventory ===  form.office).map((data) => (
                                                         <option key={data.code} value={data.code}>{data.code} - {data.name}</option>
                                                     )))}
                                                 </select>
