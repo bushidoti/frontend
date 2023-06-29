@@ -9,7 +9,7 @@ function ToastLogin() {
   const [permission, setPermission] = useState('');
     useEffect(() => {
             (async () => {
-                const {data} = await (await axios.get(`${Url}/home/`, {
+                const {data} = await (await axios.get(`${Url}/name/`, {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }

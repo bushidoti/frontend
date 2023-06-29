@@ -37,9 +37,9 @@ const NavBar = (props) => {
                   </li>
                     {props.isAuth ?
                         <Fragment>
-                            {props.message === 'حسین شاه محمدلو' || props.permission === 'اداری'?
+                            {props.permission === 'مدیر'  || props.permission === 'اداری' || props.permission === 'حقوقی' || props.permission === 'پشتیبانی'?
                                 <Fragment>
-                                    {props.message === 'حسین شاه محمدلو' ?
+                                    {props.permission === 'مدیر' || (props.permission === 'اداری' && props.office === 'دفتر مرکزی') || props.permission === 'حقوقی' || props.permission === 'پشتیبانی' ?
                                         <li className="nav-item dropdown">
                                         <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                                               data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,29 +62,37 @@ const NavBar = (props) => {
                                             </ul>
                                         </li>
                                     : null}
-                                 <li className="nav-item dropdown">
-                                    <span className="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                    {props.permission === 'مدیر' || props.permission === 'اداری' ?
+                                        <li className="nav-item dropdown">
+                                    <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                          data-bs-toggle="dropdown" aria-expanded="false">
                                       مدیریت اسناد
                                     </span>
-                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد اموال</Link></li>
-                                      <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک اشخاص</Link></li>
-                                      <li>
-                                        <hr className="dropdown-divider bg-primary"></hr>
-                                      </li>
-                                        <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری اسناد امول</Link></li>
-                                        <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری مدارک اشخاص</Link></li>
-                                      <li>
-                                        <hr className="dropdown-divider bg-primary"></hr>
-                                      </li>
-                                        <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش  مدارک اشخاص</Link></li>
-                                        <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش اموال</Link></li>
-                                    </ul>
-                              </li>
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
+                                                    اموال</Link></li>
+                                                <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
+                                                    اشخاص</Link></li>
+                                                <li>
+                                                    <hr className="dropdown-divider bg-primary"></hr>
+                                                </li>
+                                                <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری
+                                                    اسناد امول</Link></li>
+                                                <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
+                                                    مدارک اشخاص</Link></li>
+                                                <li>
+                                                    <hr className="dropdown-divider bg-primary"></hr>
+                                                </li>
+                                                <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
+                                                    مدارک اشخاص</Link></li>
+                                                <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش
+                                                    اموال</Link></li>
+                                            </ul>
+                                        </li>
+                                    : null}
                             </Fragment>
                              : null}
-                            {props.permission !== 'اداری' ?
+                            {props.permission === 'انباردار' || props.permission === 'مدیر'?
                                 <li className="nav-item dropdown">
                                 <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                                       data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,7 +109,7 @@ const NavBar = (props) => {
                                         </li>
                                         <li>
                                         </li>
-                                        {props.message === 'حسین شاه محمدلو' ?
+                                        {props.permission === 'مدیر'  ?
                                             <Fragment>
                                                 <hr className="dropdown-divider bg-primary"></hr>
                                                 <li><Link className='dropdown-item'

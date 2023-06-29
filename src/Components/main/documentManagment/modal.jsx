@@ -35,7 +35,7 @@ const Modal = (props) => {
       secondBail2: contract.secondBail2 || '',
       topicContract: contract.topicContract || '',
       typeContract: contract.typeContract || '',
-      clearedDate: contract.clearedDate || '',
+      clearedDate: contract.clearedDate || null,
       receivedDocument: contract.receivedDocument || '',
       clearedStatus: contract.clearedStatus || '',
     },
