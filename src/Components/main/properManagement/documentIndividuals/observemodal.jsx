@@ -95,7 +95,6 @@ const ObserveModal = () => {
                                      handleId(e)
                                 }}
                             aria-label="searchBox" aria-describedby="search"/>
-                            <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtr">search</button>
                         </div>
                         {allContract.filter(contract => contract.national_id === search).map((data) => (
                                   <div className="alert alert-success" role="alert" key={data.id}>

@@ -71,7 +71,7 @@ const ReportIndividualsDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal  editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal  editDocumentIndividuals={props.editDocumentIndividuals} setEditDocumentIndividuals={props.setEditDocumentIndividuals} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-end m-4' >
@@ -83,8 +83,8 @@ const ReportIndividualsDoc = (props) => {
                  </div>
 
                 <div className='d-flex gap-2 align-items-center'>
-                  <div className="form-floating m-4" style={{width:'10%'}}>
-                    <select className="form-select" id="searchSelect" defaultValue=''
+                  <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                    <select className="form-select" id="searchSelect" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                         aria-label="Floating label select example"  onChange={(e) =>
                         {
                           props.formik.setFieldValue('full_name' , '')
@@ -143,8 +143,9 @@ const ReportIndividualsDoc = (props) => {
                                      )
                                  }else if (search === 'جنسیت'){
                                      return (
-                                            <div className="form-floating  col-2">
-                                                <select className="form-select" id="sexSelector" defaultValue='' onChange={(e) => {
+                                            <div className="form-floating  col-2" style={{maxWidth:'255px'}}>
+                                                <select className="form-select" id="sexSelector" defaultValue=''
+                                                    style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
                                                     props.formik.setFieldValue('sex' , e.target.value)
                                             }} name='sex' aria-label="Floating label select example">
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -158,8 +159,8 @@ const ReportIndividualsDoc = (props) => {
 
                                  }else if (search === 'محل کار'){
                                      return (
-                                            <div className="col-2 form-floating">
-                                                    <input className="form-control" type='search' list="workLocationList" id="workLocation"
+                                            <div className="col-2 form-floating" style={{maxWidth:'255px'}}>
+                                                    <input className="form-control" type='search' list="workLocationList" id="workLocation" style={{maxWidth:'20vw' , minWidth:'200px'}}
                                                     onChange={(e) => {
                                                     props.formik.setFieldValue('office' , e.target.value)
                                                     }} name='office' placeholder="جاسک" required/>
@@ -176,8 +177,8 @@ const ReportIndividualsDoc = (props) => {
                                             </div>
                                      )}else if (search === 'وضعیت'){
                                          return (
-                                              <div className="form-floating  col-2">
-                                                    <select className="form-select" defaultValue='' id="typeSelector" onChange={(e) => {
+                                              <div className="form-floating  col-2" style={{maxWidth:'255px'}}>
+                                                    <select className="form-select" defaultValue='' id="typeSelector" style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
                                                     props.formik.setFieldValue('type' , e.target.value)
                                                     }} name='type' aria-label="Floating label select example">
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -189,18 +190,20 @@ const ReportIndividualsDoc = (props) => {
                                          )}else {
                                                 return (
                                                   <div className="input-group mb-3">
-                                                    <input type="text" id='searchBoxPersonal' className="form-control" onChange={(e) => {
+                                                    <input type="search" id='searchBoxPersonal' className="form-control" onChange={(e) => {
                                                     props.formik.setFieldValue(nameFieldHandler() , e.target.value)
                                                    }} placeholder={`جستجو براساس ${search}`} aria-label="searchBox" aria-describedby="searchBox"/>
-                                                    <button className="btn btn-outline-success material-symbols-outlined"  type="button" id="searchBtn">search</button>
                                                   </div>
                                                  )
                                              }
                                   })()}
                 </div>
-
+                       <div className='m-4'>
+                            <span className="dot bg-danger"></span><span> به معنی تسویه شده و قفل شده</span>
+                       </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary"
+                           ref={componentPDF} style={{direction:'rtl' , fontSize:'1vw'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
@@ -225,7 +228,7 @@ const ReportIndividualsDoc = (props) => {
 
                         <tbody>
                             {(contract.length > 0 && contract.map((data,i) => (
-                                <tr key={data.id}>
+                                <tr key={data.id} style={{backgroundColor:`${(data.clearedStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                                     <th scope="row">{i}</th>
                                     <td>{data.id}</td>
                                     <td>{data.type}</td>
@@ -247,6 +250,8 @@ const ReportIndividualsDoc = (props) => {
                                         onClick={() => {
                                             props.handleEditDocumentIndividuals()
                                             setIdNumber(data.id)
+                                            props.setModalTitle('visit')
+
                                         }}>info</button>
                                     </td>
                                 </tr>

@@ -56,6 +56,7 @@ const Modal = (props) => {
         formik.setFieldValue('clearedDate' , '')
         formik.setFieldValue('receivedDocument' , '')
         props.setIdNumber('')
+        props.setEditDocumentIndividuals(false)
       }
 
     const postHandler = async () => {
@@ -312,7 +313,7 @@ const Modal = (props) => {
                                             return (
                                                 'ثبت قرارداد'
                                             )
-                                        }else{
+                                        }else if (props.ModalTitle === 'visit'){
                                             return (
                                                 'نمایش اطلاعات'
                                             )
@@ -334,8 +335,8 @@ const Modal = (props) => {
                             </div>
 
                             <div className='d-flex gap-2'>
-                                      <div className="form-floating  col">
-                                            <select className="form-select" id="situationSelector"
+                                      <div className="form-floating" style={{maxWidth:'200px'}}>
+                                            <select className="form-select" id="situationSelector" style={{minWidth:'185px' , maxWidth:'20vw'}}
                                             aria-label="situationSelector" disabled={props.editDocumentIndividuals} name='type' value={formik.values.type}
                                             onChange={formik.handleChange}>
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -348,7 +349,7 @@ const Modal = (props) => {
                                             </div>
                                       </div>
 
-                                      <div className="col form-floating mb-3 ">
+                                      <div className="col form-floating mb-3">
                                             <input type="text" className="form-control" id="fullName" name='full_name' value={formik.values.full_name}
                                              onChange={formik.handleChange}
                                             placeholder="امیرحسین عباسی" required disabled={props.editDocumentIndividuals}/>
@@ -357,9 +358,12 @@ const Modal = (props) => {
                                             </div>
                                             <label htmlFor="fullName">نام و نشان</label>
                                       </div>
+                        </div>
 
-                                      <div className="form-floating  col">
-                                            <select className="form-select" id="sexSelector" name='sex' value={formik.values.sex}
+
+                            <div className='d-flex gap-2 mb-5'>
+                                      <div className="form-floating" style={{maxWidth:'200px'}}>
+                                            <select className="form-select" id="sexSelector" name='sex' value={formik.values.sex} style={{minWidth:'185px' , maxWidth:'20vw'}}
                                              onChange={formik.handleChange}
                                             aria-label="sexSelector" disabled={props.editDocumentIndividuals} required>
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -372,10 +376,6 @@ const Modal = (props) => {
                                             <label htmlFor="sexSelector">جنسیت</label>
                                       </div>
 
-                        </div>
-
-
-                            <div className='d-flex gap-2 mb-5'>
                                       <div className="col-3">
                                           <DatePicker
                                              animations={[transition()]}
@@ -385,14 +385,15 @@ const Modal = (props) => {
                                              name='date'
                                              value={formik.values.date}
                                              onChange={handleChange}
+                                             onOpenPickNewDate={false}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
                                           />
                                       </div>
 
-                                      <div className="col-4 form-floating mb-3">
-                                          <input type="text" className="form-control" id="nationalCard" name='national_id' value={formik.values.national_id}
+                                      <div className="col form-floating mb-3">
+                                          <input type="text" className="form-control" id="nationalCard" name='national_id' value={formik.values.national_id} maxLength='10'
                                              onChange={formik.handleChange}
                                           placeholder="1520505142" disabled={props.editDocumentIndividuals}  required/>
                                           <label htmlFor="nationalCard">کد ملی</label>
@@ -422,8 +423,8 @@ const Modal = (props) => {
                                         مبلغ تضمین مصوب را وارد کنید.
                                     </div>
                                 </div>
-                            <div className="col-3 form-floating">
-                                    <input className="form-control" name='office' type='search' value={formik.values.office}
+                            <div className="form-floating" style={{maxWidth:'200px'}}>
+                                    <input className="form-control" name='office' type='search' value={formik.values.office} style={{minWidth:'185px' , maxWidth:'20vw'}}
                                       onChange={formik.handleChange} list="workLocationList" id="workLocation" disabled={props.editDocumentIndividuals}
                                     placeholder="دزفول" required/>
                                     <label htmlFor="workLocation">محل کار</label>
@@ -480,8 +481,8 @@ const Modal = (props) => {
                                       {(() => {
                                              if (isCommitmentPriceEmpty.length !== 0 || props.editDocumentIndividuals || props.ModalTitle === 'edit') {
                                                 return (
-                                                             <div className="col-2 form-floating">
-                                                                <input className="form-control" type='search' name='typeBail' list="typeBailList" id="typeBail"
+                                                             <div className="form-floating" style={{maxWidth:'200px'}}>
+                                                                <input className="form-control" type='search' name='typeBail' list="typeBailList" id="typeBail" style={{minWidth:'110px' , maxWidth:'20vw'}}
                                                                 value={formik.values.typeBail} placeholder="بانک"
                                                                 onChange={(e) => {
                                                                     setIsTypeBail1Empty(e.target.value)
@@ -507,21 +508,21 @@ const Modal = (props) => {
                                               if (isTypeBail1Empty.length !==0 || props.editDocumentIndividuals || props.ModalTitle === 'edit') {
                                                   return (
                                                       <Fragment>
-                                                            <div className="col form-floating ">
+                                                            <div className="form-floating col">
                                                                 <input type="text" placeholder={firstBail} name='firstBail' value={formik.values.firstBail}
                                                                 onChange={formik.handleChange} aria-label="First Bail" id='firstBail' className="form-control"
                                                                 disabled={props.editDocumentIndividuals} required/>
-                                                                <label htmlFor="firstBail">{firstBail}</label>
+                                                                <label style={{fontSize:'1vw'}} htmlFor="firstBail">{firstBail}</label>
                                                                 <div className="invalid-feedback">
                                                                  {firstBail} را وارد کنید.
                                                                 </div>
                                                             </div>
 
-                                                             <div className="col form-floating mb-3">
+                                                             <div className="form-floating mb-3 col">
                                                                 <input type="text" placeholder={secondBail} id='secondBail' name='secondBail' value={formik.values.secondBail}
                                                                 onChange={formik.handleChange} aria-label="Second Bail" className="form-control"
                                                                 disabled={props.editDocumentIndividuals} required/>
-                                                                <label htmlFor="secondBail">{secondBail}</label>
+                                                                <label style={{fontSize:'1vw'}} htmlFor="secondBail">{secondBail}</label>
                                                                 <div className="invalid-feedback">
                                                                  {secondBail} را وارد کنید.
                                                                 </div>
@@ -535,8 +536,8 @@ const Modal = (props) => {
 
                             <hr className='bg-primary mb-5'/>
 
-                            <div className='row  mb-2 align-items-center '>
-                                    <div className='d-flex col align-items-center'>
+                            <div className='d-flex gap-2  mb-2 align-items-center '>
+                                    <div className='d-flex align-items-center'>
                                           <p className='me-2'>در</p>
                                           <div>
                                              <DatePicker
@@ -547,11 +548,12 @@ const Modal = (props) => {
                                                 onChange={handleChangeClear}
                                                 name='clearedDate'
                                                 id="clearedDatePicker"
+                                                onOpenPickNewDate={false}
                                                 calendar={persian}
                                                 locale={persian_fa}
                                              />
                                           </div>
-                                          <p className='ms-2'>تسویه شده</p>
+                                          <p className='ms-2 w-100'>تسویه شده</p>
                                     </div>
 
                                     <div className="form-check col ms-4">
@@ -569,7 +571,9 @@ const Modal = (props) => {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                                <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
+                                {props.ModalTitle !== 'visit' ?
+                                    <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
+                                 : null}
                             </div>
                         </form>
                     </div>

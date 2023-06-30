@@ -349,7 +349,7 @@ const Modal = (props) => {
                                             return (
                                                 'ثبت قرارداد'
                                             )
-                                        }else if (props.modalTitle === 'edit'){
+                                        }else if (props.modalTitle === 'visit'){
                                             return (
                                                 'نمایش اطلاعات'
                                             )
@@ -494,7 +494,7 @@ const Modal = (props) => {
                                       return (
                                           <Fragment>
                                                  <div className="form-floating" style={{maxWidth:'200px'}}>
-                                                        <input className="form-control" list="typeBailList" type='search' style={{minWidth:'100px' , maxWidth:'20vw'}}
+                                                        <input className="form-control" list="typeBailList" type='search' style={{minWidth:'110px' , maxWidth:'20vw'}}
                                                                 value={formik.values.typeBail1}
                                                                id="typeBail1" placeholder="چک"
                                                                required disabled={props.editDocument}
@@ -581,7 +581,7 @@ const Modal = (props) => {
                                       return (
                                                  <div className="form-floating" style={{maxWidth:'200px'}}>
                                                         <input className="form-control" type='search' list="typeBailList"
-                                                        id="typeBail2" placeholder="نقد" style={{minWidth:'100px' , maxWidth:'20vw'}}
+                                                        id="typeBail2" placeholder="نقد" style={{minWidth:'110px' , maxWidth:'20vw'}}
                                                         required disabled={props.editDocument}
                                                         value={formik.values.typeBail2}
                                                         onChange={(e) =>
@@ -610,7 +610,9 @@ const Modal = (props) => {
                                           return (
                                               <Fragment>
                                                     <div className="col form-floating ">
-                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail2" id='firstBail2' name='firstBail2' className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
+                                                        <input type="text" placeholder='ضمانت اول'
+                                                       aria-label="firstBail2" id='firstBail2' name='firstBail2'
+                                                       className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
                                                         required disabled={props.editDocument}
                                                          value={formik.values.firstBail2}
                                                         onChange={formik.handleChange}
@@ -710,7 +712,7 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                            {props.modalTitle !== 'edit' ?
+                            {props.modalTitle !== 'visit' ?
                                  <button type="button" className="btn material-symbols-outlined btn-success"
                                   onClick={handleSubmit()}>done</button>
                                 : null}

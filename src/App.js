@@ -216,15 +216,16 @@ function App() {
                                                                             propToggle={propertyToggle}
                                                                             modalTitle={modalTitle}
                                                                             setModalTitle={setModalTitle}/>}/>
-                                            <Route path="addIndividualsDoc" element={<AddIndividualsDoc
+                                            <Route path="addIndividualsDoc" element={<AddIndividualsDoc setEditDocumentIndividuals={setEditDocumentIndividuals}
                                                 handleEditDocumentIndividuals={handleEditDocumentIndividuals}
                                                 editDocumentIndividuals={editDocumentIndividuals}
                                                 formik={formikPersonalSearch} modalTitle={modalTitle}
                                                 setModalTitle={setModalTitle}/>}/>
                                             <Route path="reportindividualsdoc"
-                                                   element={<ReportIndividualsDoc formik={formikPersonalSearch}
-                                                                                  handleEditDocumentIndividuals={handleEditDocumentIndividuals}
-                                                                                  editDocumentIndividuals={editDocumentIndividuals}/>}/>
+                                                   element={<ReportIndividualsDoc formik={formikPersonalSearch} setEditDocumentIndividuals={setEditDocumentIndividuals}
+                                                      modalTitle={modalTitle} setModalTitle={setModalTitle}
+                                                      handleEditDocumentIndividuals={handleEditDocumentIndividuals}
+                                                      editDocumentIndividuals={editDocumentIndividuals}/>}/>
                                             <Route path="reportpropertydoc"
                                                    element={<ReportPropertyDoc modalTitle={modalTitle}
                                                                                setModalTitle={setModalTitle}
@@ -286,6 +287,8 @@ export function CustomInputDate({ openCalendar, ids , value ,disabled , label}) 
                   onFocus={openCalendar}
                   value={value}
                   disabled={disabled}
+                  style={{minWidth:'110px' , maxWidth:'20vw'}}
+
                   readOnly
                 />
                 <div className="invalid-feedback">

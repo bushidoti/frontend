@@ -59,7 +59,7 @@ const AddIndividualsDoc = (props) => {
            [props.formik.values.full_name])
     return (
      <Fragment>
-            <Modal ModalTitle={props.modalTitle} editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal ModalTitle={props.modalTitle} setEditDocumentIndividuals={props.setEditDocumentIndividuals} editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
              <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
@@ -82,7 +82,7 @@ const AddIndividualsDoc = (props) => {
                     <span className="dot bg-danger"></span><span> به معنی تسویه شده و قفل شده</span>
                </div>
             <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                <table className="table table-hover text-center align-middle table-bordered border-primary">
+                <table className="table table-hover text-center align-middle table-bordered border-primary" style={{fontSize:'1vw'}}>
                     <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">شماره ثبت</th>

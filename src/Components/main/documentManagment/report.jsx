@@ -137,7 +137,7 @@ const Report = (props) => {
                             } else if (props.search === 'نوع قرارداد') {
                                     return (
                                         <div className="col-2 form-floating" style={{maxWidth:'255px'}}>
-                                            <input className="form-control" type='search' list="typeContractList"  style={{maxWidth:'20vw' , minWidth:'200px'}}
+                                            <input className="form-control" type='search' list="typeContractList" style={{maxWidth:'20vw' , minWidth:'200px'}}
                                                    name='typeContract' onChange={(e) => {
                                                     props.formik.setFieldValue('typeContract' , e.target.value)
                                             }} id="typeContract" placeholder="اجاره"/>
@@ -217,7 +217,7 @@ const Report = (props) => {
                                                     data-bs-target="#modalMain" onClick={() => {
                                                 props.handleEditDocument()
                                                 setIdNumber(data.id)
-                                                props.setModalTitle('edit')
+                                                props.setModalTitle('visit')
                                             }}>info
                                             </button>
                                     </td>

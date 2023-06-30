@@ -198,8 +198,8 @@ const UploadIndividualsDoc = () => {
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
-                        <div className="form-floating m-4 col-3">
-                            <select className="form-select" id="typeDocumentSelector" defaultValue=''
+                        <div className="form-floating m-4 col-3" style={{maxWidth:'255px'}}>
+                            <select className="form-select" id="typeDocumentSelector" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                             aria-label="Floating label select example" onChange={(e) => setTypeDocument(e.target.value)}>
                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                 <option value="شناسنامه">شناسنامه</option>
