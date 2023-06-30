@@ -64,7 +64,7 @@ const AddPropertyDoc = (props) => {
 
     return (
         <Fragment>
-            <Modal propToggle={props.propToggle} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal propToggle={props.propToggle} setEditProperty={props.setEditProperty} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
                     <div className= 'd-flex justify-content-between m-4' >
@@ -100,7 +100,6 @@ const AddPropertyDoc = (props) => {
                     <input type="text" id='searchBox' className="form-control" placeholder="جستجو براساس شماره سند"
                     aria-label="searchBox" aria-describedby="search" value={props.formik.values.docNumber}
                     onChange={e => props.formik.setFieldValue('docNumber' , e.target.value)}/>
-                    <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
                <div className='m-4'>
@@ -109,7 +108,7 @@ const AddPropertyDoc = (props) => {
             {props.propToggle === null ?  null :
                 <Fragment>
                     <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                        <table className="table table-hover text-center align-middle table-bordered border-primary">
+                        <table className="table table-hover text-center align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                             <thead className= 'bg-light'>
                             <tr>
                                 <th scope="col">شماره ثبت</th>

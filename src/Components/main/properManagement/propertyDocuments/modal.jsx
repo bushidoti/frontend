@@ -70,6 +70,7 @@ const Modal = (props) => {
         formik.setFieldValue('buyer' , '')
         formik.setFieldValue('soldStatus' , '')
         props.setIdNumber('')
+        props.setEditProperty(false)
       }
 
     const postHandler = async () => {
@@ -326,9 +327,9 @@ const Modal = (props) => {
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
                             <div className="form-floating justify-content-center mb-5">
-                                <input type="text" id="Id" value={props.ModalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="ID"
+                                <input type="text" id="numberId" value={props.ModalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id} className="w-25 form-control" aria-label="ID"
                                 aria-describedby="REGISTER ID" disabled required/>
-                                <label  id="numberId">شماره ثبت</label>
+                                <label  htmlFor="numberId">شماره ثبت</label>
                             </div>
 
                             <div className='d-flex gap-2'>
@@ -352,8 +353,8 @@ const Modal = (props) => {
                                             <label htmlFor="typePropertySelector">نوع</label>
                                     </div>
 
-                                <div className="col form-floating mb-3 ">
-                                    <input type="text" className="form-control" id="name" name='name' value={formik.values.name}
+                                <div className="col form-floating mb-3">
+                                    <input type="text" className="form-control" id="name" name='name' value={formik.values.name} autoComplete='off'
                                     onChange={formik.handleChange} placeholder="وانت" disabled={props.editProperty} required />
                                     <div className="invalid-feedback">
                                     لطفا {props.propToggle?'نام':'سیستم'} را وارد کنید.
@@ -364,8 +365,8 @@ const Modal = (props) => {
 
 
                             <div className='d-flex gap-2 mb-5'>
-                                <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" name='docNumber' value={formik.values.docNumber}
+                                <div className="col form-floating mb-3" style={{maxWidth:'200px'}}>
+                                    <input type="text" className="form-control" name='docNumber' value={formik.values.docNumber} style={{minWidth:'100px' , maxWidth:'20vw'}}
                                     onChange={formik.handleChange} id="docNumber"
                                     placeholder="12/پ-7532" disabled={props.editProperty} required/>
                                     <label htmlFor="docNumber">شماره سند</label>
@@ -373,8 +374,8 @@ const Modal = (props) => {
                                     شماره سند را وارد کنید.
                                     </div>
                                 </div>
-                                <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="plateMotor"
+                                <div className="form-floating" style={{maxWidth:'200px'}}>
+                                    <input type="text" className="form-control" id="plateMotor" style={{minWidth:'100px' , maxWidth:'20vw'}}
                                     placeholder="26/د" name='plateMotor' value={formik.values.plateMotor}
                                     onChange={formik.handleChange} disabled={props.editProperty} required/>
                                     <label htmlFor="plateMotor">{props.propToggle ? 'پلاک' :  'شماره موتور'}</label>
@@ -382,8 +383,8 @@ const Modal = (props) => {
                                     {props.propToggle ? 'پلاک' :  'شماره موتور'} را وارد کنید.
                                     </div>
                                 </div>
-                                <div className="col  form-floating">
-                                    <input type="text" className="form-control" name='addressChassis' value={formik.values.addressChassis}
+                                <div className="form-floating" style={{maxWidth:'200px'}}>
+                                    <input type="text" className="form-control" name='addressChassis' value={formik.values.addressChassis} style={{minWidth:'100px' , maxWidth:'20vw'}}
                                     onChange={formik.handleChange} id="addressChassis"
                                     placeholder="افسریه قصرفیروزه 1" disabled={props.editProperty} required/>
                                     <label htmlFor="addressChassis">{props.propToggle ? 'آدرس' :  'شماره شاسی'}</label>
@@ -391,8 +392,8 @@ const Modal = (props) => {
                                     {props.propToggle ? 'آدرس' :  'شماره شاسی'} را وارد کنید.
                                     </div>
                                 </div>
-                                <div className="col  form-floating">
-                                    <input type="text" className="form-control" id="landlord" name='landlord' value={formik.values.landlord}
+                                <div className="col  form-floating" style={{maxWidth:'200px'}}>
+                                    <input type="text" className="form-control" id="landlord" name='landlord' value={formik.values.landlord} style={{minWidth:'100px' , maxWidth:'20vw'}}
                                     onChange={formik.handleChange} placeholder="علی عبدلی" disabled={props.editProperty} required/>
                                     <label htmlFor="landlord">نام مالک</label>
                                     <div className="invalid-feedback">
@@ -433,7 +434,7 @@ const Modal = (props) => {
                                             maxLength='3' className="c-form__input form-control"/>
                                             <select id="carPlateSection2" className="c-form__combo c-form__car-plate-input__section2" disabled={props.ModalTitle === 'done' ? false : props.editProperty}
                                             name='part2plate' value={formik.values.part2plate} onChange={formik.handleChange}>
-                                                <option value="">انتخاب</option>
+                                                <option value="" disabled>انتخاب</option>
                                                 <option value="الف">الف</option>
                                                 <option value="ب">ب</option>
                                                 <option value="پ">پ</option>
@@ -546,6 +547,7 @@ const Modal = (props) => {
                                                  name='soldDate'
                                                  value={formik.values.soldDate}
                                                  onChange={handleChangeSold}
+                                                 onOpenPickNewDate={false}
                                                  calendar={persian}
                                                  locale={persian_fa}
                                              />
@@ -563,12 +565,13 @@ const Modal = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                    {props.ModalTitle !== 'visit' ?
                         <div className="modal-footer">
-                                   <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPage}>close</button>
+                            {props.ModalTitle !== 'visit' ?
                                   <button type="button" className="btn material-symbols-outlined btn-success" onClick={handleSubmit()}>done</button>
+                            : null}
                         </div>
-                      : null}
+
                 </form>
             </div>
         </div>

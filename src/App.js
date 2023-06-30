@@ -211,6 +211,7 @@ function App() {
                                             <Route path="addpropertydoc"
                                                    element={<AddPropertyDoc formik={formikPropertySearch}
                                                                             handleEditProperty={handleEditProperty}
+                                                                            setEditProperty={setEditProperty}
                                                                             editProperty={editProperty}
                                                                             handleFormProp={handleFormProperty}
                                                                             propToggle={propertyToggle}
@@ -229,6 +230,7 @@ function App() {
                                             <Route path="reportpropertydoc"
                                                    element={<ReportPropertyDoc modalTitle={modalTitle}
                                                                                setModalTitle={setModalTitle}
+                                                                               setEditProperty={setEditProperty}
                                                                                formik={formikPropertySearch}
                                                                                search={searchProp}
                                                                                handleFormPropertyreport={handleFormPropertyreport}

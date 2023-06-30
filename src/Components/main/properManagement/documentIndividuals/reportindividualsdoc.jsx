@@ -71,7 +71,7 @@ const ReportIndividualsDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal  editDocumentIndividuals={props.editDocumentIndividuals} setEditDocumentIndividuals={props.setEditDocumentIndividuals} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editDocumentIndividuals={props.editDocumentIndividuals}  setEditDocumentIndividuals={props.setEditDocumentIndividuals} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-end m-4' >

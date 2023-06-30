@@ -63,7 +63,7 @@ const ReportPropertyDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editProperty={props.editProperty} ModalTitle={props.modalTitle} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editProperty={props.editProperty} setEditProperty={props.setEditProperty} ModalTitle={props.modalTitle} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -103,8 +103,8 @@ const ReportPropertyDoc = (props) => {
                                 </div>
                         </div>
 
-                        <div className="form-floating m-4" style={{width:'10%'}}>
-                                <select className="form-select" id="searchSelector" defaultValue=''
+                        <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                                <select className="form-select" id="searchSelector" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                                 aria-label="Search Selector" onChange={(e) =>
                                 {
                                   props.formik.setFieldValue('name' , '')
@@ -162,18 +162,18 @@ const ReportPropertyDoc = (props) => {
                                 <label htmlFor="searchSelector">جستجو براساس</label>
                         </div>
 
-                        <div className='col-4 m-4'>
+                        <div className='m-4'>
                                 {(() => {
                                     if(props.search === 'نوع خودرو'){
                                         return (
-                                             <div className="col-3 form-floating">
-                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" name='typeCar' onChange={(e) => {
+                                             <div className="col-3 form-floating" style={{maxWidth:'255px'}}>
+                                                <input className="form-control" type='search' list="typeCarList" id="typeCar" name='typeCar' style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
                                                     props.formik.setFieldValue('typeProperty' , e.target.value)
                                             }} placeholder="خودرو سواری"/>
                                                 <label htmlFor="typeCar">نوع خودرو</label>
                                                 <datalist id="typeCarList">
                                                     <option value="خودرو سواری"/>
-                                                    <option value="خودرو قرودگاهی"/>
+                                                    <option value="خودرو فرودگاهی"/>
                                                 </datalist>
                                              </div>
                                         )
@@ -246,7 +246,6 @@ const ReportPropertyDoc = (props) => {
                                                 <input type="text" className="form-control" id='searchBoxProp' onChange={(e) => {
                                                     props.formik.setFieldValue(nameFieldHandler() , e.target.value)
                                             }} placeholder={`جستوجو براساس ${props.search}`} aria-label="searchBoxProp" aria-describedby="searchBoxProp"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                             </div>
                                         )
                                     }

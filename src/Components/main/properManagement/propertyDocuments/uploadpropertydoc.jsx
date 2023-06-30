@@ -158,8 +158,8 @@ const UploadPropertyDoc = () => {
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
-                     <div className="form-floating m-4 col-2">
-                            <select className="form-select" defaultValue='' id="partitionSelect"
+                     <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                            <select className="form-select" defaultValue='' id="partitionSelect" style={{maxWidth:'20vw' , minWidth:'200px'}}
                             aria-label="Partition Select" onChange={(e) => setPartitionSelect(e.target.value)}>
                                 <option value='' disabled>یک مورد انتخاب کنید</option>
                                 <option value={'منقول'}>منقول</option>
