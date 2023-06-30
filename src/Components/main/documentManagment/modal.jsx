@@ -332,7 +332,7 @@ const Modal = (props) => {
       <Fragment>
      <div className="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" id="modalMain" tabIndex="-1" aria-labelledby="modalMainLabel"
                  aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered  modal-lg " >
+                <div className="modal-dialog modal-dialog-centered  modal-lg" >
                     <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -349,7 +349,7 @@ const Modal = (props) => {
                                             return (
                                                 'ثبت قرارداد'
                                             )
-                                        }else{
+                                        }else if (props.modalTitle === 'edit'){
                                             return (
                                                 'نمایش اطلاعات'
                                             )
@@ -366,7 +366,7 @@ const Modal = (props) => {
                                 <input type="text" id="idNumber" value={props.modalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id}
                                        className="w-25 form-control" aria-label="idNumber"
                                 aria-describedby="basic-addon1" disabled required/>
-                                <label  id="idNumber">شماره ثبت</label>
+                                <label  htmlFor="idNumber">شماره ثبت</label>
                             </div>
                             <div className='d-flex gap-2'>
                                 <div className="col form-floating mb-3 ">
@@ -383,7 +383,7 @@ const Modal = (props) => {
                                 </div>
 
                                  <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id="name"
+                                    <input type="text" className="form-control" id="name" autoComplete='off'
                                            name='employer'
                                              value={formik.values.employer}
                                              onChange={formik.handleChange}
@@ -402,6 +402,7 @@ const Modal = (props) => {
                                              name='dateContract'
                                              value={formik.values.dateContract}
                                              onChange={handleChange}
+                                             onOpenPickNewDate={false}
                                              calendar={persian}
                                              locale={persian_fa}
                                              required
@@ -467,9 +468,8 @@ const Modal = (props) => {
                             <hr className='bg-primary mb-5'/>
 
                             <div className='d-flex gap-2'>
-
-                                 <div className="col-3 form-floating mb-3">
-                                         <NumericFormat
+                                 <div className="form-floating mb-3" style={{maxWidth:'200px'}}>
+                                         <NumericFormat style={{minWidth:'153px' , maxWidth:'20vw'}}
                                           className='form-control'
                                           id="goodPrice"
                                           thousandSeparator=","
@@ -493,8 +493,8 @@ const Modal = (props) => {
                                     if (isGoodPriceEmpty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
                                           <Fragment>
-                                                 <div className="col-2 form-floating">
-                                                        <input className="form-control" list="typeBailList" type='search'
+                                                 <div className="form-floating" style={{maxWidth:'200px'}}>
+                                                        <input className="form-control" list="typeBailList" type='search' style={{minWidth:'100px' , maxWidth:'20vw'}}
                                                                 value={formik.values.typeBail1}
                                                                id="typeBail1" placeholder="چک"
                                                                required disabled={props.editDocument}
@@ -526,24 +526,24 @@ const Modal = (props) => {
                                       if (isTypeBail1Empty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
                                           <Fragment>
-                                              <div className="col form-floating ">
-                                                    <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control"
+                                              <div className="form-floating">
+                                                    <input type="text" placeholder='ضمانت اول' aria-label="firstBail" id='firstBail' className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
                                                      value={formik.values.firstBail}
                                                      onChange={formik.handleChange}
                                                     required disabled={props.editDocument}
                                                     />
-                                                    <label htmlFor="firstBail">{firstBail1}</label>
+                                                    <label htmlFor="firstBail" style={{fontSize:'1vw'}}>{firstBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {firstBail1} را وارد کنید.
                                                     </div>
                                                     </div>
                                                     <div className="col form-floating mb-3">
-                                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control"
+                                                    <input type="text" placeholder='ضمانت دوم' id='secondBail' aria-label="secondBail" className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
                                                    value={formik.values.secondBail}
                                                      onChange={formik.handleChange}
                                                     required disabled={props.editDocument}
                                                 />
-                                                    <label htmlFor="secondBail">{secondBail1}</label>
+                                                    <label htmlFor="secondBail" style={{fontSize:'1vw'}}>{secondBail1}</label>
                                                     <div className="invalid-feedback">
                                                     {secondBail1} را وارد کنید.
                                                     </div>
@@ -554,8 +554,8 @@ const Modal = (props) => {
                                 })()}
                             </div>
                             <div className='d-flex gap-2 mb-2'>
-                                 <div className="col-3 form-floating mb-3">
-                                          <NumericFormat
+                                 <div className="form-floating mb-3" style={{maxWidth:'200px'}}>
+                                          <NumericFormat style={{minWidth:'153px' , maxWidth:'20vw'}}
                                            className='form-control'
                                            id="commitmentPrice"
                                            thousandSeparator=","
@@ -579,8 +579,9 @@ const Modal = (props) => {
                                  {(() => {
                                     if (isCommitmentPriceEmpty.length !== 0 || props.editDocument || props.modalTitle === 'edit') {
                                       return (
-                                                 <div className="col-2 form-floating">
-                                                        <input className="form-control" type='search' list="typeBailList" id="typeBail2" placeholder="نقد"
+                                                 <div className="form-floating" style={{maxWidth:'200px'}}>
+                                                        <input className="form-control" type='search' list="typeBailList"
+                                                        id="typeBail2" placeholder="نقد" style={{minWidth:'100px' , maxWidth:'20vw'}}
                                                         required disabled={props.editDocument}
                                                         value={formik.values.typeBail2}
                                                         onChange={(e) =>
@@ -609,23 +610,23 @@ const Modal = (props) => {
                                           return (
                                               <Fragment>
                                                     <div className="col form-floating ">
-                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail2" id='firstBail2' name='firstBail2' className="form-control"
+                                                        <input type="text" placeholder='ضمانت اول' aria-label="firstBail2" id='firstBail2' name='firstBail2' className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
                                                         required disabled={props.editDocument}
                                                          value={formik.values.firstBail2}
                                                         onChange={formik.handleChange}
                                                         />
-                                                        <label htmlFor="firstBail">{firstBail2}</label>
+                                                        <label htmlFor="firstBail" style={{fontSize:'1vw'}}>{firstBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {firstBail2} را وارد کنید.
                                                         </div>
                                                     </div>
                                                     <div className="col form-floating mb-3">
-                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail2' aria-label="secondBail2" name='secondBail2' className="form-control"
+                                                        <input type="text" placeholder='ضمانت دوم' id='secondBail2' aria-label="secondBail2" name='secondBail2' className="form-control" style={{minWidth:'90px' , maxWidth:'20vw'}}
                                                         required disabled={props.editDocument}
                                                         value={formik.values.secondBail2}
                                                         onChange={formik.handleChange}
                                                         />
-                                                        <label htmlFor="secondBail">{secondBail2}</label>
+                                                        <label htmlFor="secondBail" style={{fontSize:'1vw'}}>{secondBail2}</label>
                                                         <div className="invalid-feedback">
                                                         {secondBail2} را وارد کنید.
                                                         </div>
@@ -675,21 +676,22 @@ const Modal = (props) => {
 
                             <div className='d-flex gap-2  mb-2 align-items-center '>
                                         <div className='d-flex col align-items-center'>
-                                        <p className='me-2'>در</p>
-                                        <div>
-                                          <DatePicker
-                                          animations={[transition()]}
-                                          render={<CustomInputDate disabled={props.modalTitle === 'done' ? false : props.editDocument}
-                                           ids={'clearedDatePicker'} names='clearedDate' label='تاریخ'/>}
-                                          id="clearedDatePicker"
-                                          value={formik.values.clearedDate}
-                                          onChange={handleChangeClear}
-                                          name='clearedDate'
-                                          calendar={persian}
-                                          locale={persian_fa}
-                                          />
-                                        </div>
-                                        <p className='ms-2'>تسویه شده</p>
+                                            <p className='me-2'>در</p>
+                                            <div>
+                                              <DatePicker
+                                              animations={[transition()]}
+                                              render={<CustomInputDate disabled={props.modalTitle === 'done' ? false : props.editDocument}
+                                               ids={'clearedDatePicker'} names='clearedDate' label='تاریخ'/>}
+                                              id="clearedDatePicker"
+                                              value={formik.values.clearedDate}
+                                              onChange={handleChangeClear}
+                                              name='clearedDate'
+                                              calendar={persian}
+                                              onOpenPickNewDate={false}
+                                              locale={persian_fa}
+                                              />
+                                            </div>
+                                            <p className='ms-2 w-100'>تسویه شده</p>
                                         </div>
 
                                         <div className="form-check col ms-4">
@@ -708,8 +710,11 @@ const Modal = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
-                            <button type="button" className="btn material-symbols-outlined btn-success"
-                            onClick={handleSubmit()}>done</button>
+                            {props.modalTitle !== 'edit' ?
+                                 <button type="button" className="btn material-symbols-outlined btn-success"
+                                  onClick={handleSubmit()}>done</button>
+                                : null}
+
                         </div>
                       </form>
                     </div>

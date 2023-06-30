@@ -201,7 +201,7 @@ function App() {
                                 <Fragment>
                                     {permission === 'مدیر' || (permission === 'اداری' && office === 'دفتر مرکزی') || permission === 'مشاهده' ?
                                         <Fragment>
-                                        <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} formik={formikDocumentSearch} docToggle={docToggle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
+                                        <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} modalTitle={modalTitle} formik={formikDocumentSearch} docToggle={docToggle} setModalTitle={setModalTitle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                                         <Route path="main" element={<Main modalTitle={modalTitle} permission={permission} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                                         <Route path="upload" element={<UploadDocuments/>}/>
                                         </Fragment>

@@ -79,12 +79,11 @@ const ObserveModal = () => {
                             <div className="container modal-body">
 
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="شماره قرارداد"
-                                           aria-label="searchBox" aria-describedby="search" onChange={e => {
+                                    <input type="text" className="form-control" id='documentNumber' placeholder="شماره قرارداد"
+                                           aria-label="documentNumber" aria-describedby="documentNumber" onChange={e => {
                                     setSearch(e.target.value)
                                      handleId(e)
                                 }}/>
-                                        <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                 </div>
                                  {allContract.filter(contract => contract.contractNumber === search).map((data) => (
                                   <div className="alert alert-success" role="alert" key={data.id}>

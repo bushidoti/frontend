@@ -78,13 +78,12 @@ const Main = (props) => {
                     <input type="text"  id='searchBox' className="form-control" value={props.formik.values.employer}
                     onChange={e => props.formik.setFieldValue('employer' , e.target.value)} placeholder={`جستجو براساس نام ${props.docToggle ? "پیمانکار" : "کارفرما"}`}
                     aria-label="searchBox" aria-describedby="search" />
-                    <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
             {props.docToggle === null ?  null :
                 <Fragment>
                     <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
-                            <table className="table table-hover text-center table-striped align-middle table-bordered border-primary">
+                            <table className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{fontSize:'1vw'}}>
                                 <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">شماره ثبت</th>

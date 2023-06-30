@@ -157,8 +157,8 @@ const UploadDocuments = () => {
     return (
         <Fragment>
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
-                     <div className="form-floating m-4 col-1">
-                        <select className="form-select" defaultValue='' id="partitionSelect"
+                     <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                        <select className="form-select" defaultValue='' id="partitionSelect" style={{maxWidth:'20vw' , minWidth:'200px'}}
                         aria-label="partitionSelect" onChange={(e) => setPartitionSelect(e.target.value)}>
                             <option value='' disabled>یک مورد انتخاب کنید</option>
                             <option value="قرارداد">قرارداد</option>
@@ -169,12 +169,11 @@ const UploadDocuments = () => {
 
                      <div className='m-4'>
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" value={search} onChange={e => {
+                                <input type="text" id='documentNumber' className="form-control" value={search} onChange={e => {
                                     setSearch(e.target.value)
                                      handleId(e)
                                 }} placeholder="شماره قرارداد"
                                 aria-label="searchBox" aria-describedby="searchDocuments"/>
-                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                             </div>
                             {allContract.filter(contract => contract.contractNumber === search).map((data) => (
                                 <div className="alert alert-success" role="alert" key={data.id}>

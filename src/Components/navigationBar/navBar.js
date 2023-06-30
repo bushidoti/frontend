@@ -17,7 +17,7 @@ const NavBar = (props) => {
 
     return (
         <Fragment>
-          <div className='rounded-top  bg-light mt-2 w-25 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
+          <div className='rounded-top  bg-light mt-2 w-50 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
           <nav className="navbar navbar-expand-lg navbar-light rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2" style={{backgroundColor:'hsl(209, 100%, 95%)'}}>
             <div className="container-fluid">
               <Link className='navbar-brand' to='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Link>
@@ -28,7 +28,7 @@ const NavBar = (props) => {
                         <span className="navbar-toggler-icon"></span>
                 </button>
 
-              <div className="collapse navbar-collapse " id="navbarSupportedContent">
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3 ms-1">
 

@@ -158,8 +158,8 @@ const WarHouse = (props) => {
                 </div>
             </div>
 
-            <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '47vh'}}>
-                <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl'}}>
+            <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
+                <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                     <thead className= 'bg-light'>
                     <tr>
                         <th scope="col">کد</th>

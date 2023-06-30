@@ -60,7 +60,7 @@ const Report = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editDocument={props.editDocument} docToggle={props.docToggle} setEditDocument={props.setEditDocument} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editDocument={props.editDocument} modalTitle={props.modalTitle} docToggle={props.docToggle} setEditDocument={props.setEditDocument} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -83,8 +83,8 @@ const Report = (props) => {
                             </div>
                         </div>
 
-                  <div className="form-floating m-4" style={{width:'10%'}}>
-                        <select className="form-select" id="searchSelector" defaultValue=''
+                  <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                        <select className="form-select" style={{maxWidth:'20vw' , minWidth:'200px'}} id="searchSelector"  defaultValue=''
                             aria-label="Search Select" onChange={(e) =>
                         {
                           props.formik.setFieldValue('employer' , '')
@@ -116,7 +116,7 @@ const Report = (props) => {
 
                             })()}
                         </select>
-                        <label htmlFor="searchSelect">جستجو براساس</label>
+                        <label htmlFor="searchSelector">جستجو براساس</label>
                   </div>
 
                   <div className='m-4'>
@@ -136,8 +136,8 @@ const Report = (props) => {
                               )
                             } else if (props.search === 'نوع قرارداد') {
                                     return (
-                                        <div className="col-2 form-floating">
-                                            <input className="form-control" type='search' list="typeContractList"
+                                        <div className="col-2 form-floating" style={{maxWidth:'255px'}}>
+                                            <input className="form-control" type='search' list="typeContractList"  style={{maxWidth:'20vw' , minWidth:'200px'}}
                                                    name='typeContract' onChange={(e) => {
                                                     props.formik.setFieldValue('typeContract' , e.target.value)
                                             }} id="typeContract" placeholder="اجاره"/>
@@ -157,11 +157,10 @@ const Report = (props) => {
                                 } else {
                                     return (
                                          <div className="input-group mb-3">
-                                             <input type="text" className="form-control" onChange={(e) => {
+                                             <input type="search" className="form-control" onChange={(e) => {
                                                     props.formik.setFieldValue(nameFieldHandler() , e.target.value)
                                             }} placeholder={`جستجو براساس ${props.search}`}
                                              aria-label="searchBox" id='searchBox' aria-describedby="searchBox"/>
-                                             <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                                          </div>
                                     )
                                 }
@@ -170,7 +169,7 @@ const Report = (props) => {
                 {props.docToggle === null ? null :
                     <div className='m-4 table-responsive text-nowrap rounded-3'  style={{maxHeight: '50vh'}}>
                         <table ref={componentPDF}
-                           className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
+                        className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                             <thead className='bg-light'>
                             <tr>
                                 <th scope="col">ردیف</th>
@@ -218,7 +217,7 @@ const Report = (props) => {
                                                     data-bs-target="#modalMain" onClick={() => {
                                                 props.handleEditDocument()
                                                 setIdNumber(data.id)
-
+                                                props.setModalTitle('edit')
                                             }}>info
                                             </button>
                                     </td>
