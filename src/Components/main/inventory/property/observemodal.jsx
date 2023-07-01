@@ -87,7 +87,7 @@ const ObserveModal = (props) => {
                   <hr className='bg-primary m-4'/>
                   <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '60vh'}}>
                       <table ref={componentPDF}
-                           className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
+                           className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}} >
                             <thead className='bg-light'>
                             {(() => {
                                 if (props.typeProperty === 'safetyequipment' || props.typeProperty === 'facilityfurniture' || props.typeProperty === 'airportfurniture' || props.typeProperty === 'electronicfurniture' || props.typeProperty === 'officefurniture' || props.typeProperty === 'industrialtool'){
@@ -309,7 +309,9 @@ const ObserveModal = (props) => {
                 </div>
               </div>
                     <div className="modal-footer mx-4">
-                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={() => {
+                                    props.setIdNumber(null)
+                                }}>close</button>
                     </div>
                 </div>
             </div>

@@ -132,8 +132,8 @@ export const PropertyHandling = (props) => {
                      <div className= 'my-2'>
                                 <button className="btn btn-outline-secondary material-symbols-outlined" type="button" id="print" onClick={generatePDF}>print</button>
                      </div>
-                 <div className="form-floating my-2 col-1">
-                        <select className="form-select" defaultValue='' id="searchSelector" onChange={(e) => {
+                 <div className="form-floating my-2" style={{maxWidth:'255px'}}>
+                        <select className="form-select" defaultValue='' id="searchSelector" style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
                             formik.setFieldValue('code' , '')
                             formik.setFieldValue('name' , '')
                             setSearch(e.target.value)
@@ -158,7 +158,7 @@ export const PropertyHandling = (props) => {
                 </div>
                 <div className='d-flex'>
                     <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '35vh'}}>
-                          <table className="table table-hover text-center align-middle table-bordered border-primary" ref={componentPDF}>
+                          <table className="table table-hover text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl' , fontSize:'1vw'}}>
                                 <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">کد</th>

@@ -174,8 +174,8 @@ const ReportProperty = () => {
                         </div>
                     <hr className='bg-primary mb-5'/>
 
-                        <div className="form-floating m-4 col-1">
-                                <select className="form-select" id="searchList" defaultValue=''
+                        <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                                <select className="form-select" id="searchList" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                                 aria-label="Search List" onChange={(e) =>
                         {
                           formik.resetForm()
@@ -321,12 +321,14 @@ const ReportProperty = () => {
                                 </select>
                                 <label htmlFor="searchList">جستجو براساس</label>
                         </div>
-                        <div className='col-4 m-4'>
+                        <div className='m-4'>
                                 {(() => {
                                     if(searchFor === 'نام تجهیزات'){
                                         return (
-                                             <div className="col-3 form-floating">
-                                                <input className="form-control" type='search' list="nameEquipmentList" id="nameEquipment" name='name' onChange={formik.handleChange} placeholder="نقاله" required/>
+                                             <div className="col-3 form-floating" style={{maxWidth:'255px'}}>
+                                                <input className="form-control" type='search' list="nameEquipmentList"
+                                                   id="nameEquipment" style={{maxWidth:'20vw' , minWidth:'200px'}}
+                                                   name='name' onChange={formik.handleChange} placeholder="نقاله" required/>
                                                 <label htmlFor="nameEquipment">نام تجهیزات</label>
                                                 <datalist id="nameEquipmentList">
                                                     <option value="X RAY"/>
@@ -341,8 +343,10 @@ const ReportProperty = () => {
                                         )
                                     }else if (searchFor === 'نوع خط'){
                                         return (
-                                              <div className="col-3 form-floating">
-                                                    <input className="form-control" type='search' list="typeLineList" name='number_type' onChange={formik.handleChange} id="typeLine" placeholder="02133229964" required/>
+                                              <div className="form-floating" style={{maxWidth:'255px'}}>
+                                                    <input className="form-control" type='search' list="typeLineList"
+                                                       style={{maxWidth:'20vw' , minWidth:'200px'}} name='number_type'
+                                                       onChange={formik.handleChange} id="typeLine" placeholder="02133229964" required/>
                                                     <label htmlFor="typeLine">نوع خط</label>
                                                     <datalist id="typeLineList">
                                                         <option value="سیم کارت"/>
@@ -362,7 +366,7 @@ const ReportProperty = () => {
                                                 <input type="tel"  id="carPlateSection3" placeholder="⚊ ⚊ ⚊" name='plate3' onChange={formik.handleChange} aria-label="First name"
                                                 maxLength='3' className="c-form__input form-control"/>
                                                 <select id="carPlateSection2" defaultValue='' name='plate2' onChange={formik.handleChange} className="c-form__combo c-form__car-plate-input__section2">
-                                                    <option value="">انتخاب</option>
+                                                    <option value="" disabled>انتخاب</option>
                                                     <option value="الف">الف</option>
                                                     <option value="ب">ب</option>
                                                     <option value="پ">پ</option>
@@ -400,7 +404,6 @@ const ReportProperty = () => {
                                             <div className="input-group mb-3">
                                                 <input type="text" className="form-control" name={handleSearch()} onChange={formik.handleChange} placeholder={`جستوجو براساس ${searchFor}`}
                                                 aria-label="searchBox" id='searchBox' aria-describedby="search"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="search">search</button>
                                             </div>
                                         )
                                     }
@@ -412,7 +415,7 @@ const ReportProperty = () => {
                         <span className="dot bg-success ms-4"></span><span> به معنی در انتظار تایید جا به جایی در مقصد</span>
                     </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '35vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" style={{direction:'rtl'}} ref={componentPDF}>
+                    <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}} ref={componentPDF}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {(() => {

@@ -165,7 +165,7 @@ const PendingProperty = () => {
                     </div>
                         </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
-                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl'}}>
+                    <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                          <thead className= 'bg-light'>
                             <tr>
                                 {(() => {

@@ -28,21 +28,21 @@ export const ContactUS =  () => {
   };
     return (
         <Fragment>
-            <div className='justify-content-center row  rounded-2'>
-                     <div className= 'div-contact rounded-end shadow-lg col-5 ' style={{backgroundColor:'hsl(0, 0%, 90%)'}}>
+            <div className='justify-content-center row m-3'>
+                     <div className= 'div-contact shadow-lg col' style={{backgroundColor:'hsl(0, 0%, 90%)' , borderRadius:'10px'}}>
                       <form onSubmit={handleOnSubmit}>
                          <div className='m-4'>
                          <div className='d-flex gap-4'>
                               <div className="col-5 form-floating mb-3">
-                                    <input type="text" className="form-control" id='form-input-control-last-name' name='name'
+                                    <input type="text" className="form-control" autoComplete='on' id='form-input-control-last-name' name='name'
                                            placeholder="رضا احمدآبادی" required/>
-                                        <label htmlFor="name">نام کامل</label>
+                                        <label htmlFor="form-input-control-last-name">نام کامل</label>
                                      <div className="invalid-feedback">
                                          نام کامل را وارد کنید.
                                      </div>
                                 </div>
                                <div className="col form-floating mb-3">
-                                    <input type="text" className="form-control" id='email' name='email'
+                                    <input type="text" className="form-control" autoComplete='on' id='email' name='email'
                                            placeholder="name@example.com" required/>
                                         <label htmlFor="email">آدرس ایمیل</label>
                                      <div className="invalid-feedback">
@@ -61,7 +61,7 @@ export const ContactUS =  () => {
                              <div className="col form-floating mb-3">
                                     <textarea className="form-control h-50" name='message' id='message'
                                     placeholder="......." required/>
-                                        <label htmlFor="description">توضیحات</label>
+                                        <label htmlFor="message">توضیحات</label>
                                      <div className="invalid-feedback">
                                          توضیحات را وارد کنید.
                                      </div>

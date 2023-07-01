@@ -366,7 +366,7 @@ export const Vehicles = (props) => {
                            return (
                                <Fragment>
                                      <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="nameCar" name='name' disabled={form.viewOnly}
+                                        <input type="text" className="form-control" id="nameCar" name='name' disabled={form.viewOnly} autoComplete='off'
                                                value={form.editStatus ? form.formik.values.name : formik.values.name}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="شاتر" required/>
@@ -386,11 +386,11 @@ export const Vehicles = (props) => {
                                          </div>
                                      </div>
                                        <div className="col form-floating mb-3">
-                                        <input type="text" className="form-control" id="madeOf" name='year_made' disabled={form.viewOnly}
+                                        <input type="text" className="form-control" id="made" name='year_made' disabled={form.viewOnly}
                                                value={form.editStatus ? form.formik.values.year_made : formik.values.year_made}
                                                onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                placeholder="1388" required/>
-                                            <label htmlFor="madeOf`">سال ساخت</label>
+                                            <label htmlFor="made`">سال ساخت</label>
                                          <div className="invalid-feedback">
                                              سال ساخت را وارد کنید.
                                          </div>

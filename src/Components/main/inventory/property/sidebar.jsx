@@ -5,7 +5,7 @@ export const SideBar = (props) => {
             <div className="flex-shrink-0 p-3 bg-white m-4 rounded" style={{width:'280px'}} >
                 <a href="/property  "
                    className="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-                    <span className="fs-5 fw-semibold">منو</span>
+                    <span className="fs-5 fw-bold">منو</span>
                 </a>
                 <ul className="list-unstyled ps-0" id="autoClose">
                     <li className="mb-1">
