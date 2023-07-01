@@ -236,10 +236,10 @@ export const SafetyEquipment = () => {
                                 return(
                                        <Fragment>
                                            <div className="form-floating mb-3" style={{maxWidth:'255px'}}>
-                                                <input type="text" className="form-control" name='name' autoComplete='off' disabled={form.viewOnly} style={{maxWidth:'20vw' , minWidth:'70px' , fontSize:'1vw'}}
+                                                <input type="text" className="form-control" name='name' autoComplete='off' disabled={form.viewOnly} style={{maxWidth:'20vw' , minWidth:'70px', fontSize:'1vw'}}
                                                        value={form.editStatus ? form.formik.values.name : formik.values.name} id="nameEquipment" onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="کلاه ایمنی" required/>
-                                                    <label htmlFor="nameEquipment">نام تجهیزات</label>
+                                                    <label  htmlFor="nameEquipment">نام تجهیزات</label>
                                                  <div className="invalid-feedback">
                                                      نام تجهیزات را وارد کنید.
                                                  </div>

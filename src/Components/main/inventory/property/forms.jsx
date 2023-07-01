@@ -143,25 +143,25 @@ export const Forms =  (props) => {
                                         }else if (props.showForm === 'officeFurniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3 img-fluid'  src={require('./assets/office-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 img-fluid d-none d-lg-block'  src={require('./assets/office-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'furniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3 img-fluid'  src={require('./assets/utility-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 img-fluid d-none d-lg-block'  src={require('./assets/utility-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'airportFurniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3' src={require('./assets/airport-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 d-none d-lg-block' src={require('./assets/airport-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'digitalFurniture'){
                                             return (
                                                <Fragment>
-                                                      <img className='m-3' src={require('./assets/digital-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                      <img className='m-3 d-none d-lg-block' src={require('./assets/digital-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }else if (props.showForm === 'airportCar'){
@@ -179,13 +179,13 @@ export const Forms =  (props) => {
                                         }else if (props.showForm === 'industrialEquipment'){
                                             return (
                                                <Fragment>
-                                                   <img className='m-3' src={require('./assets/none-industrial-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                   <img className='m-3 d-none d-lg-block' src={require('./assets/none-industrial-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }else if (props.showForm === 'supportItems'){
                                             return (
                                               <Fragment>
-                                                    <img className='m-3' src={require('./assets/support-tools.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 d-none d-lg-block' src={require('./assets/support-tools.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                               </Fragment>
                                             )
                                         }else if (props.showForm === 'benefits'){
@@ -197,7 +197,7 @@ export const Forms =  (props) => {
                                         }else if (props.showForm === 'dustrialEquipment'){
                                             return (
                                                <Fragment>
-                                                      <img className='m-3' src={require('./assets/industrial-equipment.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                      <img className='m-3 d-none d-lg-block' src={require('./assets/industrial-equipment.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }

@@ -180,3 +180,6 @@ code {
   border-radius: 50%;
   display: inline-block;
 }
+label {
+    font-size: 1vw;
+}
