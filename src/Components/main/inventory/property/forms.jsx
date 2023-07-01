@@ -126,78 +126,78 @@ export const Forms =  (props) => {
                                         if (props.showForm === 'safetyEquipment'){
 
                                             return (
-                                                <img className='m-2 d-none d-lg-block w-50' src={require('./assets/saftey-equipment.jpg')} style={{width:'50vw' , height:'20vw'}}  alt="..."/>
+                                                <img className='m-2 d-none d-xl-block w-50' src={require('./assets/saftey-equipment.jpg')} style={{width:'50vw' , height:'20vw'}}  alt="..."/>
                                             )
                                         }else if (props.showForm === 'airportEquipment'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-2 d-none d-lg-block' src={require('./assets/airport-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-2 d-none d-xl-block' src={require('./assets/airport-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'electronicFurniture'){
                                             return (
                                                  <Fragment>
-                                                       <img className='m-2 d-none d-lg-block' src={require('./assets/electronic-furniture.png')} style={{width:'50vw' , height:'50vh'}}  alt="..."/>
+                                                       <img className='m-2 d-none d-xl-block' src={require('./assets/electronic-furniture.png')} style={{width:'50vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'officeFurniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3 img-fluid d-none d-lg-block'  src={require('./assets/office-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 img-fluid d-none d-xl-block'  src={require('./assets/office-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'furniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3 img-fluid d-none d-lg-block'  src={require('./assets/utility-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 img-fluid d-none d-xl-block'  src={require('./assets/utility-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'airportFurniture'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-3 d-none d-lg-block' src={require('./assets/airport-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 d-none d-xl-block' src={require('./assets/airport-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'digitalFurniture'){
                                             return (
                                                <Fragment>
-                                                      <img className='m-3 d-none d-lg-block' src={require('./assets/digital-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                      <img className='m-3 d-none d-xl-block' src={require('./assets/digital-furniture.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }else if (props.showForm === 'airportCar'){
                                             return (
                                                  <Fragment>
-                                                      <img className='m-2 d-none d-lg-block' src={require('./assets/airport-vehicles.jpg')} style={{width:'50vw' , height:'50vh'}}  alt="..."/>
+                                                      <img className='m-2 d-none d-xl-block' src={require('./assets/airport-vehicles.jpg')} style={{width:'50vw' , height:'50vh'}}  alt="..."/>
                                                  </Fragment>
                                             )
                                         }else if (props.showForm === 'personalCar'){
                                             return (
                                                  <Fragment>
-                                                     <img className='m-2 d-none d-lg-block' src={require('./assets/personal-vehicles.png')} style={{maxWidth:'30vw' , height:'50vh'}}  alt="..."/>
+                                                     <img className='m-2 d-none d-xl-block' src={require('./assets/personal-vehicles.png')} style={{maxWidth:'30vw' , height:'50vh'}}  alt="..."/>
                                                  </Fragment>
                                             )
                                         }else if (props.showForm === 'industrialEquipment'){
                                             return (
                                                <Fragment>
-                                                   <img className='m-3 d-none d-lg-block' src={require('./assets/none-industrial-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                   <img className='m-3 d-none d-xl-block' src={require('./assets/none-industrial-equipments.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }else if (props.showForm === 'supportItems'){
                                             return (
                                               <Fragment>
-                                                    <img className='m-3 d-none d-lg-block' src={require('./assets/support-tools.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                    <img className='m-3 d-none d-xl-block' src={require('./assets/support-tools.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                               </Fragment>
                                             )
                                         }else if (props.showForm === 'benefits'){
                                             return (
                                                 <Fragment>
-                                                    <img className='m-2 d-none d-lg-block' src={require('./assets/benefits.jpg')} style={{width:'50vw' , height:'20vw'}}  alt="..."/>
+                                                    <img className='m-2 d-none d-xl-block' src={require('./assets/benefits.jpg')} style={{width:'50vw' , height:'20vw'}}  alt="..."/>
                                                 </Fragment>
                                             )
                                         }else if (props.showForm === 'dustrialEquipment'){
                                             return (
                                                <Fragment>
-                                                      <img className='m-3 d-none d-lg-block' src={require('./assets/industrial-equipment.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
+                                                      <img className='m-3 d-none d-xl-block' src={require('./assets/industrial-equipment.jpg')} style={{width:'31vw' , height:'50vh'}}  alt="..."/>
                                                </Fragment>
                                             )
                                         }

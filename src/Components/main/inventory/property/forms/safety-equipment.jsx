@@ -196,9 +196,9 @@ export const SafetyEquipment = () => {
                      : null}
                <div className='d-flex gap-2'>
                    {form.editStatus === false ?
-                       <div className="form-floating mb-3" style={{maxWidth:'255px'}}>
+                       <div className="form-floating mb-3">
                         <select className="form-select" defaultValue='' id="typeAdd" name='type_register'
-                                style={{maxWidth:'20vw' , minWidth:'80px' , fontSize:'1vw'}} aria-label="Type Add" onChange={(e) => {
+                                 aria-label="Type Add" onChange={(e) => {
                            form.setIsRepair(e.target.value)
                            formik.setFieldValue('type_register' , e.target.value)
                         }} required>
@@ -217,8 +217,8 @@ export const SafetyEquipment = () => {
                             if (form.isRepair === 'تعمیرات'){
                                 return(
                                     <Fragment>
-                                        <div className="form-floating mb-3" style={{maxWidth:'255px'}}>
-                                                <select className="form-select" defaultValue='' id="register_code" style={{maxWidth:'20vw' , minWidth:'110px' , fontSize:'1vw'}}
+                                        <div className="form-floating mb-3 col">
+                                                <select className="form-select" defaultValue='' id="register_code"
                                                     onChange={e => formik.setFieldValue('code' , e.target.value)} name='register_code' aria-label="Type Add" required>
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
                                                     {(property.filter(property => property.inventory ===  form.office).map((data) => (
@@ -235,8 +235,8 @@ export const SafetyEquipment = () => {
                             }else if (form.isRepair === 'ثبت اولیه' || form.editStatus) {
                                 return(
                                        <Fragment>
-                                           <div className="form-floating mb-3" style={{maxWidth:'255px'}}>
-                                                <input type="text" className="form-control" name='name' autoComplete='off' disabled={form.viewOnly} style={{maxWidth:'20vw' , minWidth:'70px', fontSize:'1vw'}}
+                                           <div className="form-floating mb-3 col">
+                                                <input type="text" className="form-control" name='name' autoComplete='off' disabled={form.viewOnly}
                                                        value={form.editStatus ? form.formik.values.name : formik.values.name} id="nameEquipment" onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="کلاه ایمنی" required/>
                                                     <label  htmlFor="nameEquipment">نام تجهیزات</label>
@@ -244,8 +244,8 @@ export const SafetyEquipment = () => {
                                                      نام تجهیزات را وارد کنید.
                                                  </div>
                                              </div>
-                                             <div className="form-floating mb-3" style={{maxWidth:'255px'}}>
-                                                <input type="text" className="form-control" id="use_for" name='use_for' disabled={form.viewOnly} style={{maxWidth:'20vw' , minWidth:'70px' , fontSize:'1vw'}}
+                                             <div className="form-floating mb-3 col">
+                                                <input type="text" className="form-control" id="use_for" name='use_for' disabled={form.viewOnly}
                                                        value={form.editStatus ? form.formik.values.use_for : formik.values.use_for} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                        placeholder="ساختمان" required/>
                                                     <label htmlFor="use_for">مورد استفاده</label>
@@ -268,7 +268,7 @@ export const SafetyEquipment = () => {
                                         <div className='d-flex gap-2'>
                                         <div className="form-floating col">
                                             <textarea className="form-control" name='description' id="describeRepair"
-                                              onChange={formik.handleChange} style={{maxWidth:'20vw' , minWidth:'230px'}}
+                                              onChange={formik.handleChange}
                                             placeholder="...." required/>
                                             <label htmlFor="describeRepair">شرح تعمیرات</label>
                                             <div className="invalid-feedback">
@@ -283,8 +283,8 @@ export const SafetyEquipment = () => {
                                        <Fragment>
                                          <hr className='bg-primary mb-5'/>
                                         <div className='d-flex gap-2'>
-                                            <div className="form-floating" style={{maxWidth:'255px'}}>
-                                                    <input type="text" className="form-control" id="user" name='user' disabled={form.viewOnly} style={{maxWidth:'20vw' , minWidth:'110px'}}
+                                            <div className="form-floating col">
+                                                    <input type="text" className="form-control" id="user" name='user' disabled={form.viewOnly}
                                                            value={form.editStatus ? form.formik.values.user : formik.values.user} onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="فرودگاه" required/>
                                                         <label htmlFor="user">یوزر</label>
@@ -294,7 +294,7 @@ export const SafetyEquipment = () => {
                                                </div>
                                                <div className="form-floating col">
                                                     <input type="text" className="form-control" id="install_location" name='install_location' disabled={form.viewOnly}
-                                                           value={form.editStatus ? form.formik.values.install_location : formik.values.install_location} style={{maxWidth:'20vw' , minWidth:'110px'}}
+                                                           value={form.editStatus ? form.formik.values.install_location : formik.values.install_location}
                                                     onChange={form.editStatus ? form.formik.handleChange : formik.handleChange}
                                                     placeholder="شرکت" required/>
                                                         <label htmlFor="install_location">محل نصب</label>
