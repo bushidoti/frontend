@@ -105,40 +105,44 @@ const WarHouse = (props) => {
         <Modal modalTitle={props.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
         <BillCheckmodal modalTitle={props.modalTitle} setModalTitle={props.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
-        <div className= 'plater  m-2 rounded-3 shadow-lg '>
+        <div className= 'plater m-2 rounded-3 shadow-lg'>
             <div className= 'd-flex justify-content-between m-4' >
-                <div className='d-flex gap-2'>
+                <div className='d-flex flex-lg-nowrap gap-2 flex-wrap'>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal"
+                        <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
                         data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
-                        <input type="text" className="form-control" onChange={e => {
+                        <input type="text" className="form-control" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => {
                                  setFactor(e.target.value)
                         }} placeholder="شماره فاکتور" value={factor}
                         aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
                     </div>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="checkBtn"
+                        <button className="btn btn-outline-secondary" type="button" id="checkBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
                                 data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
-                        <input type="text" className="form-control" id="checkInp" onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
+                        <input type="text" className="form-control" id="checkInp" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="handlingBtn"
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={handleBtn} onClick={() => props.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
-                        <input type="text" className="form-control" id="handlingInp" onChange={e => setHandling(e.target.value)} value={handling} placeholder="شناسه انبارگردانی"
+                        <button className="btn btn-outline-secondary" type="button" id="handlingBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
+                                data-bs-toggle="modal" data-bs-target="#billCheckModal"
+                            disabled={handleBtn} onClick={() => props.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
+                        <input type="text" className="form-control" id="handlingInp"
+                           style={{maxWidth:'20vw' , minWidth:'10px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setHandling(e.target.value)} value={handling} placeholder="شناسه انبارگردانی"
                         aria-label="شناسه انبارگردانی" aria-describedby="handlingBtn"/>
                     </div>
                 </div>
-                <div className= 'd-flex gap-2'>
-                <button className="btn btn-outline-secondary material-symbols-outlined h-100"  style={{width:'50px'}} type="button" id="print" onClick={generatePDF}>print</button>
+                <div className= 'd-flex gap-2' style={{maxWidth:'255px'}}>
+                <button className="btn btn-outline-secondary material-symbols-outlined h-100 ms-2"
+                    style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh'}} type="button" id="print" onClick={generatePDF}>print</button>
                 <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
+                    style={{maxWidth:'20vw' , minWidth:'150px' , maxHeight:'10vh'}}
                 data-bs-target="#modalMain" onClick={() =>  props.setModalTitle('register')}>ثبت کالا جدید</button>
                 </div>
             </div>
 
             <div className='m-4'>
-                <div className="form-floating my-2 col-1">
-                        <select className="form-select" defaultValue='' id="searchSelector" onChange={(e) => {
+                <div className="form-floating my-2" style={{maxWidth:'255px'}}>
+                        <select className="form-select" defaultValue='' id="searchSelector" style={{maxWidth:'20vw' , minWidth:'200px'}}  onChange={(e) => {
                             props.formik.setFieldValue('code' , '')
                             props.formik.setFieldValue('name' , '')
                             setSearch(e.target.value)
@@ -154,7 +158,6 @@ const WarHouse = (props) => {
                     <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? props.formik.values.name : props.formik.values.code}
                     onChange={e => search === 'نام کالا' ? props.formik.setFieldValue('name' , e.target.value) : props.formik.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
                     aria-label="searchBox" aria-describedby="search" />
-                    <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
             </div>
 

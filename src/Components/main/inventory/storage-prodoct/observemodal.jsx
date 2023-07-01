@@ -71,8 +71,8 @@ const ObserveModal = (props) => {
                             </div>
                             <div className="modal-body">
                                 <div className='d-flex justify-content-between'>
-                                      <div className="form-floating m-4 col-1">
-                                            <select className="form-select" defaultValue='' id="searchSelectorModal"
+                                      <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                                            <select className="form-select" defaultValue='' id="searchSelectorModal" style={{maxWidth:'20vw' , minWidth:'200px'}}
                                                 aria-label="Search Select" onChange={(e) => {
                                                     props.formik.setFieldValue('consumable' , '')
                                                     props.formik.setFieldValue('date' , '')
@@ -111,8 +111,8 @@ const ObserveModal = (props) => {
                               )
                             }else if (search === 'عملیات') {
                                     return (
-                                        <div className="form-floating m-4 col-1">
-                                            <select className="form-select" defaultValue='' id="searchOperation"
+                                        <div className="form-floating m-4" style={{maxWidth:'255px'}}>
+                                            <select className="form-select" defaultValue='' id="searchOperation" style={{maxWidth:'20vw' , minWidth:'200px'}}
                                             onChange={e => props.formik.setFieldValue('operator' , e.target.value)}
                                                 aria-label="Search Operation">
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
@@ -125,8 +125,8 @@ const ObserveModal = (props) => {
                                     )
                                 }else if (search === 'مورد مصرف') {
                                     return (
-                                        <div className="col-2 form-floating">
-                                            <input className="form-control" type='search' value={props.formik.values.consumable}
+                                        <div className="form-floating" style={{maxWidth:'255px'}}>
+                                            <input className="form-control" type='search' value={props.formik.values.consumable} style={{maxWidth:'20vw' , minWidth:'200px'}}
                                             onChange={e => props.formik.setFieldValue('consumable' , e.target.value)} list="consumeCauseList" id="consumeCause" placeholder="اجاره"/>
                                             <label htmlFor="consumeCause">مورد مصرف</label>
                                             <datalist id="consumeCauseList">
@@ -157,7 +157,7 @@ const ObserveModal = (props) => {
                   </div>
                   <hr className='bg-primary m-4'/>
                   <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '60vh'}}>
-                    <table ref={componentPDF} className="table table-hover text-center align-middle table-bordered border-primary" style={{direction:'rtl'}}>
+                    <table ref={componentPDF} className="table table-hover text-center align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                         <thead className= 'bg-light'>
                         <tr>
                             <th scope="col">ردیف</th>

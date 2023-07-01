@@ -136,8 +136,8 @@ export const Product = (props) => {
                      <div className= 'my-2'>
                                 <button className="btn btn-outline-secondary material-symbols-outlined" type="button" id="print" onClick={generatePDF}>print</button>
                      </div>
-                 <div className="form-floating my-2 col-1">
-                        <select className="form-select" defaultValue='' id="searchSelector" onChange={(e) => {
+                 <div className="form-floating my-2" style={{maxWidth:'255px'}}>
+                        <select className="form-select" defaultValue='' id="searchSelector" style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
                             formik.setFieldValue('code' , '')
                             formik.setFieldValue('name' , '')
                             setSearch(e.target.value)
@@ -153,15 +153,14 @@ export const Product = (props) => {
                     <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? formik.values.name : formik.values.code}
                     onChange={e => search === 'نام کالا' ? formik.setFieldValue('name' , e.target.value) : formik.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
                     aria-label="searchBox" aria-describedby="search" />
-                    <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
                 </div>
                    <div className='m-4'>
-                        <span className="dot bg-warning ms-4"></span><span> به معنی یک بار انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>
+                        <span className="dot bg-warning ms-4"></span><span> به معنی انبارگردانی شده و به مدت یک سال در این بخش قفل شده.</span>
                    </div>
                 <div className='d-flex'>
                     <div className= 'm-4 table-responsive rounded-3 col' style={{maxHeight : '40vh'}}>
-                          <table className="table table-hover text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
+                          <table className="table table-hover text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl' , fontSize:'1vw'}}>
                                 <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">کد</th>
@@ -195,8 +194,9 @@ export const Product = (props) => {
                                                 - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))
                                         }</td>
 
-                                        <td><input type="number"  id={`count${i}`} name={`count`}
-                                       onChange={e => setCount({...count, [data.code]: e.target.value})} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
+                                        <td><input type="number"  id={`count${i}`} name={`count`}  style={{direction:'rtl' , fontSize:'1vw'}}
+                                       onChange={e => setCount({...count, [data.code]: e.target.value})}
+                                       disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
                                         value={count[data.code] || ''} className="form-control" placeholder='تعداد شمارش شده را وارد کنید'
                                         aria-label="count" aria-describedby="count" /></td>
 
@@ -204,7 +204,7 @@ export const Product = (props) => {
                                                 - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))) : 0}</td>
                                         <td>
                                             <div className="input-group">
-                                                <input type="text"  id={`resultInp${i}`} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
+                                                <input type="text"  id={`resultInp${i}`} style={{direction:'rtl' , fontSize:'1vw', maxWidth:'11vw'}} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
                                                 onChange={e => formik.setFieldValue('result' , e.target.value)} className="form-control" placeholder='نتیجه را بنویسید'
                                                 aria-label="result" aria-describedby="result"/>
                                                 <button className="btn btn-outline-success material-symbols-outlined"

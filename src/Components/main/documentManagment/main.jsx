@@ -103,7 +103,7 @@ const Main = (props) => {
                                             <td>{data.contractPrice}</td>
                                             <td>{data.dateContract}</td>
                                             <td>
-                                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
+                                                <button id='editBtn' className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={(e) => {
                                                     props.setModalTitle('edit')
                                                     setIdNumber(data.id)
                                                 }}>edit</button>
