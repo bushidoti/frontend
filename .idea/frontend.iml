@@ -7,5 +7,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Vazirmatn-font-face" level="application" />
+    <orderEntry type="library" name="scanner" level="application" />
   </component>
 </module>

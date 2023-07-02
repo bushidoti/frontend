@@ -48,6 +48,18 @@ const ObserveModal = () => {
             return contract.doc_3
         }else if (selectedFile === 'doc_4'){
             return contract.doc_4
+        }else if (selectedFile === 'doc_5'){
+            return contract.doc_5
+        }else if (selectedFile === 'doc_6'){
+            return contract.doc_6
+        }else if (selectedFile === 'doc_7'){
+            return contract.doc_7
+        }else if (selectedFile === 'doc_8'){
+            return contract.doc_8
+        }else if (selectedFile === 'doc_9'){
+            return contract.doc_9
+        }else if (selectedFile === 'doc_10'){
+            return contract.doc_10
         }else if (selectedFile === 'doc_bail_1'){
             return contract.doc_bail_1
         }else if (selectedFile === 'doc_bail_2'){
@@ -124,6 +136,12 @@ const ObserveModal = () => {
                                                                             <option value="doc_2">صفحه دوم</option>
                                                                             <option value="doc_3">صفحه سوم</option>
                                                                             <option value="doc_4">صفحه چهارم</option>
+                                                                            <option value="doc_5">صفحه پنجم</option>
+                                                                            <option value="doc_6">صفحه ششم</option>
+                                                                            <option value="doc_7">صفحه هفتم</option>
+                                                                            <option value="doc_8">صفحه هشتم</option>
+                                                                            <option value="doc_9">صفحه نهم</option>
+                                                                            <option value="doc_10">صفحه دهم</option>
                                                                         </Fragment>
                                                                     )
                                                                 }else if (partitionSelect === 'تضامین') {

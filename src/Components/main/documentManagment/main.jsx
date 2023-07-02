@@ -87,6 +87,7 @@ const Main = (props) => {
                                 <thead className= 'bg-light'>
                                 <tr>
                                     <th scope="col">شماره ثبت</th>
+                                    <th scope="col">شماره قرارداد</th>
                                     <th scope="col">نام {props.docToggle ? "پیمانکار" : "کارفرما"}</th>
                                     <th scope="col">موضوع قرارداد</th>
                                     <th scope="col">مبلغ قرارداد</th>
@@ -98,6 +99,7 @@ const Main = (props) => {
                                     {(contract.length > 0 && contract.filter(contract => contract.type_form === props.docToggle).map((data) => (
                                         <tr key={data.id}>
                                             <th scope="row">{data.id}</th>
+                                            <td>{data.contractNumber}</td>
                                             <td>{data.employer}</td>
                                             <td>{data.topicContract}</td>
                                             <td>{data.contractPrice}</td>
@@ -107,7 +109,7 @@ const Main = (props) => {
                                                     props.setModalTitle('edit')
                                                     setIdNumber(data.id)
                                                 }}>edit</button>
-                                                <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' onClick={() =>
+                                                <button id='deleteBtn' className= 'btn btn-danger material-symbols-outlined ms-2' onClick={() =>
                                                   deleteAlert(data.id)
                                                 }>delete</button>
                                                 <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {

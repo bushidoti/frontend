@@ -103,6 +103,12 @@ const UploadDocuments = () => {
                       doc_2: formik.values.doc_2,
                       doc_3: formik.values.doc_3,
                       doc_4: formik.values.doc_4,
+                      doc_5: formik.values.doc_5,
+                      doc_6: formik.values.doc_6,
+                      doc_7: formik.values.doc_7,
+                      doc_8: formik.values.doc_8,
+                      doc_9: formik.values.doc_9,
+                      doc_10: formik.values.doc_10,
                       doc_bail_1: formik.values.doc_bail_1,
                       doc_bail_2: formik.values.doc_bail_2,
              }, {
@@ -140,6 +146,42 @@ const UploadDocuments = () => {
         function doc_4(e) {
           reader(e.target.files[0], (err, res) => {
             formik.setFieldValue('doc_4' , res)
+          });
+        }
+
+        function doc_5(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_5' , res)
+          });
+        }
+
+        function doc_6(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_6' , res)
+          });
+        }
+
+        function doc_7(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_7' , res)
+          });
+        }
+
+        function doc_8(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_8' , res)
+          });
+        }
+
+        function doc_9(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_9' , res)
+          });
+        }
+
+        function doc_10(e) {
+          reader(e.target.files[0], (err, res) => {
+            formik.setFieldValue('doc_10' , res)
           });
         }
 
@@ -187,34 +229,79 @@ const UploadDocuments = () => {
                                     {(() => {
                                         if (partitionSelect === 'قرارداد'){
                                             return (
-                                                <Fragment>
+                                                <div className='d-flex flex-wrap gap-3'>
+                                                <div className='col'>
                                                   <div className="input-group mb-3 align-items-center">
-                                                        <label className='me-2'>صفحه 1</label>
+                                                        <label className='me-2'>صفحه 01</label>
                                                         <button className="btn btn-outline-secondary" type="button" id="firstPageBtn" onClick={putHandler}>بارگذاری</button>
                                                         <input type="file" name='doc_1'  accept="application/pdf" onChange={doc_1} className="form-control" id="firstPageInp"
                                                         aria-describedby="firstPageBtn" aria-label="firstPageInp"/>
                                                   </div>
                                                   <div className="input-group mb-3 align-items-center">
-                                                         <label className='me-2'>صفحه 2</label>
+                                                         <label className='me-2'>صفحه 02</label>
                                                          <button className="btn btn-outline-secondary" type="button" id="secondPageBtn" onClick={putHandler}>بارگذاری</button>
                                                          <input type="file" name='doc_2' accept="application/pdf" className="form-control" id="secondPageInp"
                                                          aria-describedby="secondPageBtn" aria-label="secondPageInp" onChange={doc_2}/>
                                                   </div>
 
                                                   <div className="input-group mb-3 align-items-center">
-                                                         <label className='me-2'>صفحه 3</label>
+                                                         <label className='me-2'>صفحه 03</label>
                                                          <button className="btn btn-outline-secondary" type="button" id="thirdPageBtn" onClick={putHandler}>بارگذاری</button>
                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_3' id="thirdPageInp"
                                                          aria-describedby="thirdPageBtn" aria-label="thirdPageInp" onChange={doc_3}/>
                                                   </div>
 
                                                   <div className="input-group mb-3 align-items-center">
-                                                          <label className='me-2'>صفحه 4</label>
+                                                          <label className='me-2'>صفحه 04</label>
                                                           <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
                                                           <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
                                                           aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_4}/>
                                                   </div>
-                                                </Fragment>
+
+                                                    <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 05</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_5}/>
+                                                  </div>
+                                                </div>
+                                                <div className='col'>
+                                                     <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 06</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_6}/>
+                                                  </div>
+
+                                                     <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 07</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_7}/>
+                                                  </div>
+
+                                                     <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 08</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_8}/>
+                                                  </div>
+
+                                                     <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 09</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_9}/>
+                                                  </div>
+
+                                                     <div className="input-group mb-3 align-items-center">
+                                                          <label className='me-2'>صفحه 10</label>
+                                                          <button className="btn btn-outline-secondary" type="button" id="forthPageBtn" onClick={putHandler}>بارگذاری</button>
+                                                          <input type="file" className="form-control" accept="application/pdf" name='doc_4' id="forthPageInp"
+                                                          aria-describedby="forthPageBtn" aria-label="forthPageInp" onChange={doc_10}/>
+                                                  </div>
+                                            </div>
+                                        </div>
                                             )
                                         } else if (partitionSelect === 'تضامین'){
                                             return (

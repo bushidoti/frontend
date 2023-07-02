@@ -124,7 +124,6 @@ export const Forms =  (props) => {
                                  </div>
                                 {(() => {
                                         if (props.showForm === 'safetyEquipment'){
-
                                             return (
                                                 <img className='m-2 d-none d-xl-block w-50' src={require('./assets/saftey-equipment.jpg')} style={{width:'50vw' , height:'20vw'}}  alt="..."/>
                                             )

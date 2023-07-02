@@ -183,3 +183,10 @@ code {
 label {
     font-size: 1vw;
 }
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' -25,
+  'opsz' 48
+}

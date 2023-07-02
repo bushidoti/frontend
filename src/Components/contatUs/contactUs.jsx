@@ -1,12 +1,12 @@
 import React, {Fragment} from "react";
 import emailjs from 'emailjs-com';
 import Swal from "sweetalert2";
-
 const SERVICE_ID = "service_cu99qpv";
 const TEMPLATE_ID = "template_27khoqf";
 const USER_ID = "fzWdo3mvBl-JiKkz2";
 
 export const ContactUS =  () => {
+
     const handleOnSubmit = (e) => {
     e.preventDefault();
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
