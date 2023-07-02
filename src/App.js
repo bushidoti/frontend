@@ -265,10 +265,6 @@ function App() {
                       <Route path="contactus" element={<ContactUS />} />
                       <Route path="*" element={<Page404 />} />
                       <Route path="/" element={<Home/>}/>
-
-
-
-
                 </Route>
             </Routes>
       </BrowserRouter>

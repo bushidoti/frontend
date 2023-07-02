@@ -2,10 +2,12 @@ import React, {Fragment} from "react";
 
 const Home  = () => {
 
+
+
     return (
         <Fragment>
             <div id="carouselExampleIndicators"  className="carousel slide mx-2 shadow carousel-fade position-sticky"
-                 data-bs-ride="carousel" data-bs-pause={false}>
+                 data-bs-ride="carousel">
                 <div className="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
                             className="active" aria-current="true" aria-label="Slide 1"></button>
