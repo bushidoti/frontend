@@ -35,8 +35,14 @@ const NavBar = (props) => {
                   <li className="nav-item ">
                       <Link className='nav-link active' to='/'>خانه</Link>
                   </li>
+
                     {props.isAuth ?
                         <Fragment>
+                            {props.permission === 'مدیر' ?
+                               <li className="nav-item ">
+                                  <Link className='nav-link active' to='/admin' >پنل مدیریتی</Link>
+                              </li>
+                            : null}
                             {props.permission === 'مدیر'  || props.permission === 'اداری' || props.permission === 'مشاهده'?
                                 <Fragment>
                                     {props.permission === 'مدیر' || (props.permission === 'اداری' && props.office === 'دفتر مرکزی') || props.permission === 'مشاهده'  ?
@@ -52,6 +58,8 @@ const NavBar = (props) => {
                                                         props.formik.resetForm()
                                                         props.setDocToggle(null)
                                                     }}>ثبت قرارداد</Link></li>
+                                                    <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
+                                                    اشخاص</Link></li>
                                                     <li>
                                                         <hr className="dropdown-divider bg-primary"></hr>
                                                     </li>
@@ -61,38 +69,38 @@ const NavBar = (props) => {
                                                 <li><Link className='dropdown-item' to='/report' onClick={() => {
                                                     props.formik.resetForm()
                                                     props.setDocToggle(null)
-                                                }}>گزارش</Link></li>
+                                                }}>گزارش قراداد</Link></li>
+                                                <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
+                                                    مدارک اشخاص</Link></li>
                                                 {props.permission !== 'مشاهده' ?
-                                                    <li><Link className='dropdown-item' to='/upload'>بارگزاری
-                                                        مدارک</Link>
-                                                    </li>
+                                                    <Fragment>
+                                                         <li>
+                                                                <hr className="dropdown-divider bg-primary"></hr>
+                                                        </li>
+                                                        <li><Link className='dropdown-item' to='/upload'>بارگزاری
+                                                            مدارک قرارداد</Link>
+                                                        </li>
+                                                         <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
+                                                        مدارک اشخاص</Link></li>
+                                                    </Fragment>
                                                 : null }
                                             </ul>
                                         </li>
                                     : null}
                                     {props.permission === 'مدیر' || props.permission === 'اداری' ?
                                         <li className="nav-item dropdown">
-                                    <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                                          data-bs-toggle="dropdown" aria-expanded="false">
-                                      مدیریت اسناد
-                                    </span>
+                                        <span className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                              data-bs-toggle="dropdown" aria-expanded="false">
+                                          مدیریت اسناد
+                                        </span>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <li><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
                                                     اموال</Link></li>
-                                                <li><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
-                                                    اشخاص</Link></li>
                                                 <li>
                                                     <hr className="dropdown-divider bg-primary"></hr>
                                                 </li>
                                                 <li><Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری
                                                     اسناد امول</Link></li>
-                                                <li><Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
-                                                    مدارک اشخاص</Link></li>
-                                                <li>
-                                                    <hr className="dropdown-divider bg-primary"></hr>
-                                                </li>
-                                                <li><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
-                                                    مدارک اشخاص</Link></li>
                                                 <li><Link className='dropdown-item' to='/reportpropertydoc'>گزارش
                                                     اموال</Link></li>
                                             </ul>

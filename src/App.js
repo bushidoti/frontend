@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import NavBar from "./Components/navigationBar/navBar";
 import Main from "./Components/main/documentManagment/main";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import Report from "./Components/main/documentManagment/report";
 import UploadDocuments from "./Components/main/documentManagment/uploadDocument/upload";
 import {Page404} from "./Components/Page404/404Page";
@@ -190,6 +190,20 @@ function App() {
         }
     };
     /*پایان مدیریت قرارداد*/
+
+    function Redirect() {
+          useEffect(() => {
+            const timeout = setTimeout(() => {
+              // 👇️ redirects to an external URL
+              window.location.replace('https://api.oghab-asaluyeh.ir/admin/');
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+          }, []);
+
+          return <>تغییر مسیر در 1 ثانیه ....</>;
+        }
+
   return (
        <Fragment >
           <BrowserRouter>
@@ -197,6 +211,9 @@ function App() {
                 <Route path="/" element={<NavBar isAuth={isAuth} setDocToggle={setDocToggle} office={office} permission={permission} formik={formikDocumentSearch} setIsAuth={setIsAuth}/>} >
                     {isAuth ?
                         <Fragment>
+                            {permission === 'مدیر' ?
+                                <Route path="admin" element={<Redirect />} />
+                            : null}
                             {permission === 'مدیر' || permission === 'اداری' || permission === 'مشاهده' ?
                                 <Fragment>
                                     {permission === 'مدیر' || (permission === 'اداری' && office === 'دفتر مرکزی') || permission === 'مشاهده' ?
@@ -204,6 +221,17 @@ function App() {
                                         <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} modalTitle={modalTitle} formik={formikDocumentSearch} docToggle={docToggle} setModalTitle={setModalTitle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
                                         <Route path="main" element={<Main modalTitle={modalTitle} permission={permission} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
                                         <Route path="upload" element={<UploadDocuments/>}/>
+                                        <Route path="addIndividualsDoc" element={<AddIndividualsDoc setEditDocumentIndividuals={setEditDocumentIndividuals}
+                                            handleEditDocumentIndividuals={handleEditDocumentIndividuals}
+                                            editDocumentIndividuals={editDocumentIndividuals}
+                                            formik={formikPersonalSearch} modalTitle={modalTitle}
+                                            setModalTitle={setModalTitle}/>}/>
+                                       <Route path="reportindividualsdoc"
+                                              element={<ReportIndividualsDoc formik={formikPersonalSearch} setEditDocumentIndividuals={setEditDocumentIndividuals}
+                                              modalTitle={modalTitle} setModalTitle={setModalTitle}
+                                              handleEditDocumentIndividuals={handleEditDocumentIndividuals}
+                                              editDocumentIndividuals={editDocumentIndividuals}/>}/>
+                                       <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc/>}/>
                                         </Fragment>
                                     : null}
                                     {permission === 'مدیر' || permission === 'اداری' ?
@@ -217,16 +245,8 @@ function App() {
                                                                             propToggle={propertyToggle}
                                                                             modalTitle={modalTitle}
                                                                             setModalTitle={setModalTitle}/>}/>
-                                            <Route path="addIndividualsDoc" element={<AddIndividualsDoc setEditDocumentIndividuals={setEditDocumentIndividuals}
-                                                handleEditDocumentIndividuals={handleEditDocumentIndividuals}
-                                                editDocumentIndividuals={editDocumentIndividuals}
-                                                formik={formikPersonalSearch} modalTitle={modalTitle}
-                                                setModalTitle={setModalTitle}/>}/>
-                                            <Route path="reportindividualsdoc"
-                                                   element={<ReportIndividualsDoc formik={formikPersonalSearch} setEditDocumentIndividuals={setEditDocumentIndividuals}
-                                                      modalTitle={modalTitle} setModalTitle={setModalTitle}
-                                                      handleEditDocumentIndividuals={handleEditDocumentIndividuals}
-                                                      editDocumentIndividuals={editDocumentIndividuals}/>}/>
+
+
                                             <Route path="reportpropertydoc"
                                                    element={<ReportPropertyDoc modalTitle={modalTitle}
                                                                                setModalTitle={setModalTitle}
@@ -238,7 +258,6 @@ function App() {
                                                                                propToggle={propertyToggle}
                                                                                handleEditProperty={handleEditProperty}
                                                                                editProperty={editProperty}/>}/>
-                                            <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc/>}/>
                                             <Route path="uploadpropertydoc" element={<UploadPropertyDoc/>}/>
                                         </Fragment>
                                     : null}
