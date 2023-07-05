@@ -4,7 +4,6 @@ import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import transition from "react-element-popper/animations/transition"
 import {CustomInputDate} from "../../../App";
-import {Required} from "../required";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,6 +14,16 @@ import Url from "../../config";
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
     const [lastID, setLastID] = useState([])
+    const [validated, setValidated] = useState(false);
+    const handleSubmitError = (event) => {
+            const form = event.currentTarget;
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            setValidated(true);
+          };
 
     const formik = useFormik({
     initialValues: {
@@ -39,7 +48,7 @@ const Modal = (props) => {
       receivedDocument: contract.receivedDocument || '',
       clearedStatus: contract.clearedStatus || '',
     },
-    enableReinitialize: true,
+    enableReinitialize: true
     });
 
      const postHandler = async () => {
@@ -245,8 +254,6 @@ const Modal = (props) => {
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [props.idNumber])
-      Required()
-
      function refreshPage() {
         formik.setFieldValue('id' , '')
         formik.setFieldValue('contractNumber' , '')
@@ -380,6 +387,7 @@ const Modal = (props) => {
                                         لطفا شماره قرارداد را وارد کنید.
                                     </div>
                                     <label htmlFor="contractNumber">شماره قرارداد</label>
+
                                 </div>
 
                                  <div className="col form-floating mb-3">
