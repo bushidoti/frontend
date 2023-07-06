@@ -1,18 +1,20 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import {Clock} from "./clock/timer";
 import {Profile} from "./login/loginBar";
 import {Link, Outlet} from "react-router-dom";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Context} from "../../context";
 
-const NavBar = (props) => {
+const NavBar = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const context = useContext(Context)
 
    useEffect(() => {
      if (localStorage.getItem('access_token') !== null) {
-        props.setIsAuth(true);
+        context.setIsAuth(true);
       }
-    }, [props, props.isAuth]);
+    }, [context, context.isAuth]);
 
 
 
@@ -22,7 +24,7 @@ const NavBar = (props) => {
           <Navbar collapseOnSelect expand="lg" className="rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2" style={{backgroundColor:'hsl(209, 100%, 95%)'}}>
             <Container fluid>
               <Navbar.Brand href='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Navbar.Brand>
-                <Profile isAuth={props.isAuth} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>
+                <Profile isAuth={context.isAuth} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
 
               <Navbar.Collapse id="responsive-navbar-nav">
@@ -31,20 +33,20 @@ const NavBar = (props) => {
 
                       <Link className='nav-link active' to='/'>خانه</Link>
 
-                    {props.isAuth ?
+                    {context.isAuth ?
                         <Fragment>
-                            {props.permission === 'مدیر' ?
+                            {context.permission === 'مدیر' ?
                                   <Link className='nav-link active' to='/admin' >پنل مدیریتی</Link>
                             : null}
-                            {props.permission === 'مدیر'  || props.permission === 'اداری' || props.permission === 'مشاهده'?
+                            {context.permission === 'مدیر'  || context.permission === 'اداری' || context.permission === 'مشاهده'?
                                 <Fragment>
-                                    {props.permission === 'مدیر' || (props.permission === 'اداری' && props.office === 'دفتر مرکزی') || props.permission === 'مشاهده'  ?
+                                    {context.permission === 'مدیر' || (context.permission === 'اداری' && context.office === 'دفتر مرکزی') || context.permission === 'مشاهده'  ?
                                         <NavDropdown title="مدیریت قراردادها" id="collasible-nav-dropdown">
-                                                {props.permission !== 'مشاهده' ?
+                                                {context.permission !== 'مشاهده' ?
                                                     <Fragment>
                                                     <NavDropdown.Item><Link className='dropdown-item' to="/main" onClick={() => {
-                                                        props.formik.resetForm()
-                                                        props.setDocToggle(null)
+                                                        context.formik.resetForm()
+                                                        context.setDocToggle(null)
                                                     }}>ثبت قرارداد</Link></NavDropdown.Item>
                                                     <NavDropdown.Item><Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
                                                     اشخاص</Link></NavDropdown.Item>
@@ -53,12 +55,12 @@ const NavBar = (props) => {
 
                                                          : null }
                                                 <NavDropdown.Item><Link className='dropdown-item' to='/report' onClick={() => {
-                                                    props.formik.resetForm()
-                                                    props.setDocToggle(null)
+                                                    context.formik.resetForm()
+                                                    context.setDocToggle(null)
                                                 }}>گزارش قراداد</Link></NavDropdown.Item>
                                                 <NavDropdown.Item><Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
                                                     مدارک اشخاص</Link></NavDropdown.Item>
-                                                {props.permission !== 'مشاهده' ?
+                                                {context.permission !== 'مشاهده' ?
                                                     <Fragment>
                                                          <NavDropdown.Divider />
                                                         <NavDropdown.Item><Link className='dropdown-item' to='/upload'>بارگزاری
@@ -70,7 +72,7 @@ const NavBar = (props) => {
                                                 : null }
                                         </NavDropdown>
                                     : null}
-                                    {props.permission === 'مدیر' || props.permission === 'اداری' ?
+                                    {context.permission === 'مدیر' || context.permission === 'اداری' ?
                                         <NavDropdown title="مدیریت اسناد" id="collasible-nav-dropdown">
                                                 <NavDropdown.Item><Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
                                                     اموال</Link></NavDropdown.Item>
@@ -83,7 +85,7 @@ const NavBar = (props) => {
                                     : null}
                             </Fragment>
                              : null}
-                            {props.permission === 'انباردار' || props.permission === 'مدیر'?
+                            {context.permission === 'انباردار' || context.permission === 'مدیر'?
                                 <NavDropdown title="انبارداری" id="collasible-nav-dropdown">
                                         <NavDropdown.Item><Link className='dropdown-item ' to='/warehouse'>انبار</Link></NavDropdown.Item>
                                         <NavDropdown.Divider />
@@ -92,7 +94,7 @@ const NavBar = (props) => {
                                         <NavDropdown.Item><Link className='dropdown-item ' to='/pending-products'>جا به جای</Link>
                                         </NavDropdown.Item>
 
-                                        {props.permission === 'مدیر'  ?
+                                        {context.permission === 'مدیر'  ?
                                             <Fragment>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item><Link className='dropdown-item'

@@ -1,10 +1,12 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useContext, useState} from "react";
 import {Product} from "./storage-prodoct/handling/product";
 import {PropertyHandling} from "./property/handeling/property-handling";
+import {Context} from "../../../context";
 
 const StorageHandling = (props) => {
     const [handling , setHandling] = useState('')
     const [inventory, setInventory] = useState('')
+    const context = useContext(Context)
 
     return (
         <Fragment>
@@ -45,11 +47,11 @@ const StorageHandling = (props) => {
             {(() => {
                 if (handling === 'انبار'){
                     return (
-                        <Product inventory={inventory} setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} formik={props.formik}/>
+                        <Product inventory={inventory} setModalTitle={context.setModalTitle} handleProduct={context.handleProduct} formik={context.formikProductSearch}/>
                     )
                 }else if (handling === 'اموال'){
                     return (
-                        <PropertyHandling inventory={inventory} setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} formik={props.formik}/>
+                        <PropertyHandling inventory={inventory} setModalTitle={context.setModalTitle} handleProduct={context.handleProduct} formik={context.formikProductSearch}/>
                     )
                 }
             })()}

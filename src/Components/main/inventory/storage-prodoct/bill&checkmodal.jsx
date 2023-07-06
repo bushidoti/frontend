@@ -108,13 +108,7 @@ const BillCheckModal = (props) => {
                                         </thead>
                                         <tbody>
                                     {(product.length > 0 &&
-                                    product.filter(product => {if (props.modalTitle === 'factor'){
-                                        return product.document_code === props.factor && product.document_type === 'فاکتور'
-                                    }else if (props.modalTitle === 'check'){
-                                        return product.document_code === props.billCheck && product.document_type === 'حواله'
-                                    }else if (props.modalTitle === 'handling'){
-                                        return product.document_code === props.handling && product.document_type === 'انبارگردانی'
-                                    }}).map((data , i) => (
+                                    product.filter(filterDocument).map((data , i) => (
                                         <tr key={data.id}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.product}</td>
@@ -177,6 +171,16 @@ const BillCheckModal = (props) => {
         </div>
   </Fragment>
   );
+
+    function filterDocument(product) {
+        if (props.modalTitle === 'factor') {
+            return product.document_code === props.factor && product.document_type === 'فاکتور'
+        } else if (props.modalTitle === 'check') {
+            return product.document_code === props.billCheck && product.document_type === 'حواله'
+        } else if (props.modalTitle === 'handling') {
+            return product.document_code === props.handling && product.document_type === 'انبارگردانی'
+        }
+    }
 };
 
 export default BillCheckModal

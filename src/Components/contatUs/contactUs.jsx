@@ -10,14 +10,12 @@ export const ContactUS =  () => {
     const handleOnSubmit = (e) => {
     e.preventDefault();
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
-      .then((result) => {
-        console.log(result.text);
+      .then(() => {
         Swal.fire({
           icon: 'success',
           title: 'پیغام شما با موفقیت ارسال شد'
         })
       }, (error) => {
-        console.log(error.text);
         Swal.fire({
           icon: 'error',
           title: 'Ooops, something went wrong',

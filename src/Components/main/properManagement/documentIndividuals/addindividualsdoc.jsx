@@ -1,16 +1,18 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Modal from "./modal";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Url from "../../../config";
+import {Context} from "../../../../context";
 
 const AddIndividualsDoc = (props) => {
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const context = useContext(Context)
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}` , {
+        const response = await fetch(`${Url}/api/persons/?full_name=${context.formikPersonalSearch.values.full_name}` , {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -56,25 +58,25 @@ const AddIndividualsDoc = (props) => {
             void fetchData()
           },
             // eslint-disable-next-line react-hooks/exhaustive-deps
-           [props.formik.values.full_name])
+           [context.formikPersonalSearch.values.full_name])
     return (
      <Fragment>
-            <Modal ModalTitle={props.modalTitle} setEditDocumentIndividuals={props.setEditDocumentIndividuals} editDocumentIndividuals={props.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal ModalTitle={context.modalTitle} setEditDocumentIndividuals={context.setEditDocumentIndividuals} editDocumentIndividuals={context.editDocumentIndividuals} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
              <div className= 'plater  m-2 rounded-3 shadow-lg '>
 
                 <div className= 'd-flex justify-content-end m-4' >
                     <div className= 'd-flex gap-2'>
                       <Link to= '/reportindividualsdoc'><button className= 'btn btn-secondary'>گزارش</button></Link>
-                      <button className= 'btn btn-primary' id='modalAddBtn' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => props.setModalTitle('add')}>ثبت قرارداد جدید</button>
+                      <button className= 'btn btn-primary' id='modalAddBtn' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => context.setModalTitle('add')}>ثبت قرارداد جدید</button>
                     </div>
                 </div>
 
              <div className='m-4'>
                 <div className="input-group mb-3">
                     <input type="text" id='searchBox' className="form-control" placeholder="جستجو براساس نام و نشان"
-                    aria-label="searchBox" aria-describedby="search" value={props.formik.values.full_name}
-                    onChange={e => props.formik.setFieldValue('full_name' , e.target.value)}/>
+                    aria-label="searchBox" aria-describedby="search" value={context.formikPersonalSearch.values.full_name}
+                    onChange={e => context.formikPersonalSearch.setFieldValue('full_name' , e.target.value)}/>
                     <button className="btn btn-outline-success material-symbols-outlined" type="button" id="searchBtn">search</button>
                 </div>
              </div>
@@ -104,14 +106,14 @@ const AddIndividualsDoc = (props) => {
                             <td>
                                 <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" disabled={data.clearedStatus} onClick={() => {
                                     setIdNumber(data.id)
-                                    props.setModalTitle('edit')
+                                    context.setModalTitle('edit')
                                 }}>edit</button>
                                 <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' disabled={data.clearedStatus} onClick={() =>
                                 deleteAlert(data.id)}>delete</button>
                                 <button id='doneBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain" disabled={data.clearedStatus} onClick={() => {
                                     setIdNumber(data.id)
-                                    props.setModalTitle('done')
-                                    props.handleEditDocumentIndividuals()
+                                    context.setModalTitle('done')
+                                    context.handleEditDocumentIndividuals()
                                 }}>done</button>
                             </td>
                         </tr>

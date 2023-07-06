@@ -14,16 +14,6 @@ import Url from "../../config";
 const Modal = (props) => {
     const [contract, setContracts] = useState([])
     const [lastID, setLastID] = useState([])
-    const [validated, setValidated] = useState(false);
-    const handleSubmitError = (event) => {
-            const form = event.currentTarget;
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-
-            setValidated(true);
-          };
 
     const formik = useFormik({
     initialValues: {
@@ -254,6 +244,7 @@ const Modal = (props) => {
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [props.idNumber])
+
      function refreshPage() {
         formik.setFieldValue('id' , '')
         formik.setFieldValue('contractNumber' , '')
@@ -369,12 +360,14 @@ const Modal = (props) => {
                         </div>
                     <form className='needs-validation' noValidate>
                         <div className="container modal-body">
+
                             <div className="form-floating justify-content-center mb-5">
                                 <input type="text" id="idNumber" value={props.modalTitle === 'add' && lastID.length !==0 ? lastID.slice(-1)[0].id + 1 :formik.values.id}
-                                       className="w-25 form-control" aria-label="idNumber"
-                                aria-describedby="basic-addon1" disabled required/>
+                                       className="form-control w-25" aria-label="idNumber"
+                                aria-describedby="basic-addon1" disabled/>
                                 <label  htmlFor="idNumber">شماره ثبت</label>
                             </div>
+
                             <div className='d-flex gap-2'>
                                 <div className="col form-floating mb-3 ">
                                     <input type="text" className="form-control" id="contractNumber"
@@ -719,10 +712,10 @@ const Modal = (props) => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal">close</button>
+                            <button type="button" className="btn material-symbols-outlined btn-danger" onClick={refreshPage} data-bs-dismiss="modal"><ion-icon name="close-outline"></ion-icon></button>
                             {props.modalTitle !== 'visit' ?
                                  <button type="button" className="btn material-symbols-outlined btn-success"
-                                  onClick={handleSubmit()}>done</button>
+                                  onClick={handleSubmit()}><ion-icon name="checkmark-outline"></ion-icon></button>
                                 : null}
 
                         </div>

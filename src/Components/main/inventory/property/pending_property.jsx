@@ -5,6 +5,7 @@ import axios from "axios";
 import {useFormik} from "formik";
 import AgreementMove from "./agreement_modal";
 import Swal from "sweetalert2";
+import {Thead} from "./thead";
 
 const PendingProperty = () => {
     const [typeProperty , setTypeProperty] = useState('')
@@ -15,6 +16,7 @@ const PendingProperty = () => {
     const [office, setOffice] = useState('')
     const [editStatus, setEditStatus] = useState(false)
     const [viewOnly, setViewOnly] = useState(false)
+
     const formik = useFormik({
         initialValues: {
               code: property.code || '',
@@ -130,7 +132,7 @@ const PendingProperty = () => {
 
     }
     const func = async (id) => {
-         await prom(id).then(res => {
+         await prom(id).then(() => {
              setIdNumber(id)
          });
     }
@@ -166,164 +168,7 @@ const PendingProperty = () => {
                         </div>
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '37vh'}}>
                     <table className="table table-hover table-fixed text-center align-middle table-striped table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
-                         <thead className= 'bg-light'>
-                            <tr>
-                                {(() => {
-                                    if (typeProperty === 'airportequipment'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام تجهیزات</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">سال ساخت</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">مالکیت</th>
-                                                <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'safetyequipment'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام تجهیزات</th>
-                                                <th scope="col">مورد استفاده</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'digitalfurniture'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام اثاث</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'electronicfurniture'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام اثاث</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'officefurniture'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام اثاث</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">محل استفاده</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'facilityfurniture'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام اثاث</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'airportfurniture'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام اثاث</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'airportvehicle' || typeProperty === 'officevehicle' ){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام خودرو</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">پلاک</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">شماره موتور</th>
-                                                <th scope="col">شماره شاسی</th>
-                                                <th scope="col">سال ساخت</th>
-                                                <th scope="col">مالکیت</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'noneindustrialtool'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام ابزار</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">مکان استفاده</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'industrialtool'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نام ابزار</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">سال</th>
-                                                <th scope="col">مکان استفاده</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'supportitem'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نوع قلم</th>
-                                                <th scope="col">نام اقلام</th>
-                                                <th scope="col">مدل</th>
-                                                <th scope="col">مکان استفاده</th>
-                                                <th scope="col">یوزر</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }else if (typeProperty === 'benefit'){
-                                        return (
-                                           <Fragment>
-                                                <th scope="col">ردیف</th>
-                                                <th scope="col">کد ثبت</th>
-                                                <th scope="col">نوع خط</th>
-                                                <th scope="col">مکان استفاده</th>
-                                                <th scope="col">شماره</th>
-                                                <th scope="col"></th>
-                                           </Fragment>
-                                        )
-                                    }
-                                })()}
-
-                            </tr>
-                         </thead>
+                          <Thead typeProperty={typeProperty}/>
                         <tbody>
                              {(() => {
                                     if (typeProperty === 'airportequipment'){
@@ -412,7 +257,7 @@ const PendingProperty = () => {
                                             </tr>
                                                      )))
                                         )
-                                    }else if (typeProperty === 'electronicfurniture'){
+                                    }else if (typeProperty === 'electronicfurniture' || typeProperty === 'facilityfurniture'){
                                         return (
                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
                                                 <tr key={data.code}>
@@ -451,35 +296,6 @@ const PendingProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
-                                                    <td>
-                                                        <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
-                                                            setEditStatus(true)
-                                                            setViewOnly(true)
-                                                            setIdNumber(data.code)
-                                                        }}>info</button>
-                                                        <button className='btn btn-danger material-symbols-outlined ms-2' onClick={async () => {
-                                                            await func(data.code)
-                                                        }}>
-                                                            close</button>
-                                                        <button className='btn btn-success material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#agreementModal" onClick={() => {
-                                                            setIdNumber(data.code)
-                                                        }}>
-                                                            done</button>
-                                                    </td>
-                                                </tr>
-                                           )))
-                                        )
-                                    }else if (typeProperty === 'facilityfurniture'){
-                                        return (
-                                           (property.length > 0 && property.filter(property => (property.inventory === office || property.dst_inventory === office) && property.movement_status === "pending").map((data,i) => (
-                                                <tr key={data.code}>
-                                                    <th scope="row">{i}</th>
-                                                    <td>{data.code}</td>
-                                                    <td>{data.name}</td>
-                                                    <td>{data.model}</td>
-                                                    <td>{data.year_buy}</td>
-                                                    <td>{data.user}</td>
-                                                    <td>{data.install_location}</td>
                                                     <td>
                                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)

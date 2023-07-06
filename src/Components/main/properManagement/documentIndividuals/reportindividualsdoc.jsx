@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./observemodal";
 import DatePicker from "react-multi-date-picker";
@@ -10,19 +10,21 @@ import {useReactToPrint} from "react-to-print";
 import options from "../../date-option"
 import fixNumbers from "../../persianNumbers"
 import Url from "../../../config";
+import {Context} from "../../../../context";
 
 const ReportIndividualsDoc = (props) => {
     const [search , setSearch] = useState('')
     const [contract, setContracts] = useState([])
     const [idNumber, setIdNumber] = useState(null)
     const componentPDF= useRef();
+    const context = useContext(Context)
 
     const fetchData = async () => {
         const response = await
-        fetch(`${Url}/api/persons/?full_name=${props.formik.values.full_name}
-        &sex=${props.formik.values.sex}&id=${props.formik.values.id}&office=${props.formik.values.office}
-        &date=${fixNumbers(props.formik.values.date)}&national_id=${props.formik.values.national_id}
-        &clearedStatus=${props.formik.values.clearedStatus}&type=${props.formik.values.type}&job=${props.formik.values.job}` , {
+        fetch(`${Url}/api/persons/?full_name=${context.formikPersonalSearch.values.full_name}
+        &sex=${context.formikPersonalSearch.values.sex}&id=${context.formikPersonalSearch.values.id}&office=${context.formikPersonalSearch.values.office}
+        &date=${fixNumbers(context.formikPersonalSearch.values.date)}&national_id=${context.formikPersonalSearch.values.national_id}
+        &clearedStatus=${context.formikPersonalSearch.values.clearedStatus}&type=${context.formikPersonalSearch.values.type}&job=${context.formikPersonalSearch.values.job}` , {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -34,10 +36,10 @@ const ReportIndividualsDoc = (props) => {
             void fetchData()
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          [props.formik.values])
+          [context.formikPersonalSearch.values])
 
       function handleChange(value){
-            props.formik.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
+            context.formikPersonalSearch.setFieldValue('date' , value.toDate().toLocaleDateString('fa-IR', options).replaceAll('/' , '-'))
         }
 
 
@@ -71,7 +73,7 @@ const ReportIndividualsDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editDocumentIndividuals={props.editDocumentIndividuals}  setEditDocumentIndividuals={props.setEditDocumentIndividuals} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editDocumentIndividuals={context.editDocumentIndividuals}  setEditDocumentIndividuals={context.setEditDocumentIndividuals} ModalTitle={context.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-end m-4' >
@@ -87,14 +89,14 @@ const ReportIndividualsDoc = (props) => {
                     <select className="form-select" id="searchSelect" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                         aria-label="Floating label select example"  onChange={(e) =>
                         {
-                          props.formik.setFieldValue('full_name' , '')
-                          props.formik.setFieldValue('date' , '')
-                          props.formik.setFieldValue('id' , '')
-                          props.formik.setFieldValue('national_id' , '')
-                          props.formik.setFieldValue('job' , '')
-                          props.formik.setFieldValue('sex' , '')
-                          props.formik.setFieldValue('type' , '')
-                          props.formik.setFieldValue('office' , '')
+                          context.formikPersonalSearch.setFieldValue('full_name' , '')
+                          context.formikPersonalSearch.setFieldValue('date' , '')
+                          context.formikPersonalSearch.setFieldValue('id' , '')
+                          context.formikPersonalSearch.setFieldValue('national_id' , '')
+                          context.formikPersonalSearch.setFieldValue('job' , '')
+                          context.formikPersonalSearch.setFieldValue('sex' , '')
+                          context.formikPersonalSearch.setFieldValue('type' , '')
+                          context.formikPersonalSearch.setFieldValue('office' , '')
 
                           setSearch(e.target.value)
                             if (search !== 'جنسیت' && search !== 'وضعیت' && search !== 'تاریخ استخدام' && search !== 'محل کار') {
@@ -115,8 +117,8 @@ const ReportIndividualsDoc = (props) => {
                     <label htmlFor="searchSelect">جستجو براساس</label>
                   </div>
                   <div className="form-check ms-4">
-                    <input className="form-check-input" type="checkbox" name='clearedStatus' checked={props.formik.values.clearedStatus} onChange={e => e.target.checked ?
-                      props.formik.setFieldValue('clearedStatus' , true) : props.formik.setFieldValue('clearedStatus' , '')}
+                    <input className="form-check-input" type="checkbox" name='clearedStatus' checked={context.formikPersonalSearch.values.clearedStatus} onChange={e => e.target.checked ?
+                      context.formikPersonalSearch.setFieldValue('clearedStatus' , true) : context.formikPersonalSearch.setFieldValue('clearedStatus' , '')}
                     id="clearedCheck"/>
                     <label className="form-check-label" htmlFor="clearedCheck">
                     تسویه شده
@@ -146,7 +148,7 @@ const ReportIndividualsDoc = (props) => {
                                             <div className="form-floating  col-2" style={{maxWidth:'255px'}}>
                                                 <select className="form-select" id="sexSelector" defaultValue=''
                                                     style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
-                                                    props.formik.setFieldValue('sex' , e.target.value)
+                                                    context.formikPersonalSearch.setFieldValue('sex' , e.target.value)
                                             }} name='sex' aria-label="Floating label select example">
                                                     <option value='' disabled>یک مورد انتخاب کنید</option>
                                                     <option value="مونث">مونث</option>
@@ -162,7 +164,7 @@ const ReportIndividualsDoc = (props) => {
                                             <div className="col-2 form-floating" style={{maxWidth:'255px'}}>
                                                     <input className="form-control" type='search' list="workLocationList" id="workLocation" style={{maxWidth:'20vw' , minWidth:'200px'}}
                                                     onChange={(e) => {
-                                                    props.formik.setFieldValue('office' , e.target.value)
+                                                    context.formikPersonalSearch.setFieldValue('office' , e.target.value)
                                                     }} name='office' placeholder="جاسک" required/>
                                                     <label htmlFor="workLocation">محل کار</label>
                                                     <datalist id="workLocationList">
@@ -179,7 +181,7 @@ const ReportIndividualsDoc = (props) => {
                                          return (
                                               <div className="form-floating  col-2" style={{maxWidth:'255px'}}>
                                                     <select className="form-select" defaultValue='' id="typeSelector" style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
-                                                    props.formik.setFieldValue('type' , e.target.value)
+                                                    context.formikPersonalSearch.setFieldValue('type' , e.target.value)
                                                     }} name='type' aria-label="Floating label select example">
                                                         <option value='' disabled>یک مورد انتخاب کنید</option>
                                                         <option value="قراردادی">قراردادی</option>
@@ -191,7 +193,7 @@ const ReportIndividualsDoc = (props) => {
                                                 return (
                                                   <div className="input-group mb-3">
                                                     <input type="search" id='searchBoxPersonal' className="form-control" onChange={(e) => {
-                                                    props.formik.setFieldValue(nameFieldHandler() , e.target.value)
+                                                    context.formikPersonalSearch.setFieldValue(nameFieldHandler() , e.target.value)
                                                    }} placeholder={`جستجو براساس ${search}`} aria-label="searchBox" aria-describedby="searchBox"/>
                                                   </div>
                                                  )
@@ -248,9 +250,9 @@ const ReportIndividualsDoc = (props) => {
                                     <td>
                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" id='infoModalBtn' data-bs-target="#modalMain"
                                         onClick={() => {
-                                            props.handleEditDocumentIndividuals()
+                                            context.handleEditDocumentIndividuals()
                                             setIdNumber(data.id)
-                                            props.setModalTitle('visit')
+                                            context.setModalTitle('visit')
 
                                         }}>info</button>
                                     </td>

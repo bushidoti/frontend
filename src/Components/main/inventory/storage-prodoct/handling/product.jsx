@@ -1,10 +1,11 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import Url from "../../../../config";
 import ObserveModal from "../observemodal";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {useReactToPrint} from "react-to-print";
+import {Context} from "../../../../../context";
 
 export const Product = (props) => {
     const [product, setProduct] = useState({})
@@ -14,6 +15,7 @@ export const Product = (props) => {
     const [setIdNumberProduct] = useState(null)
     const [count, setCount] = useState({})
     const [search , setSearch] = useState('')
+    const context = useContext(Context)
 
     let today = new Date().toLocaleDateString('fa-IR');
     const componentPDF= useRef();
@@ -122,7 +124,7 @@ export const Product = (props) => {
 
     }
     const func = async (id) => {
-         await prom(id).then(res => {
+         await prom(id).then(() => {
              setCode(id)
          });
     }

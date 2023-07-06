@@ -1,22 +1,24 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import Modal from "./modal";
 import ObserveModal from "./observemodal";
 import {useReactToPrint} from "react-to-print";
 import Url from "../../../config";
+import {Context} from "../../../../context";
 
 const ReportPropertyDoc = (props) => {
     const [property, setProperties] = useState([])
     const [idNumber, setIdNumber] = useState(null)
     const componentPDF= useRef();
+    const context = useContext(Context)
 
     const fetchData = async () => {
         const response = await
-        fetch(`${Url}/api/properties/?name=${props.formik.values.name}&docNumber=${props.formik.values.docNumber}
-        &landlord=${props.formik.values.landlord}&madeOf=${props.formik.values.madeOf}
-        &plateMotor=${props.formik.values.plateMotor}&id=${props.formik.values.id}&typeProperty=${props.formik.values.typeProperty}
-        &part1plate=${props.formik.values.part1plate}&part2plate=${props.formik.values.part2plate}&part3plate=${props.formik.values.part3plate}
-        &cityPlate=${props.formik.values.cityPlate}&addressChassis=${props.formik.values.addressChassis}&modelMeter=${props.formik.values.modelMeter}
-        &descriptionLocation=${props.formik.values.descriptionLocation}&soldStatus=${props.formik.values.soldStatus}` , {
+        fetch(`${Url}/api/properties/?name=${context.formikPropertySearch.values.name}&docNumber=${context.formikPropertySearch.values.docNumber}
+        &landlord=${context.formikPropertySearch.values.landlord}&madeOf=${context.formikPropertySearch.values.madeOf}
+        &plateMotor=${context.formikPropertySearch.values.plateMotor}&id=${context.formikPropertySearch.values.id}&typeProperty=${context.formikPropertySearch.values.typeProperty}
+        &part1plate=${context.formikPropertySearch.values.part1plate}&part2plate=${context.formikPropertySearch.values.part2plate}&part3plate=${context.formikPropertySearch.values.part3plate}
+        &cityPlate=${context.formikPropertySearch.values.cityPlate}&addressChassis=${context.formikPropertySearch.values.addressChassis}&modelMeter=${context.formikPropertySearch.values.modelMeter}
+        &descriptionLocation=${context.formikPropertySearch.values.descriptionLocation}&soldStatus=${context.formikPropertySearch.values.soldStatus}` , {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -28,7 +30,7 @@ const ReportPropertyDoc = (props) => {
             void fetchData()
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          [props.formik.values])
+          [context.formikPropertySearch.values])
 
 
      const nameFieldHandler = () => {
@@ -63,7 +65,7 @@ const ReportPropertyDoc = (props) => {
     return (
         <Fragment>
             <ObserveModal/>
-            <Modal editProperty={props.editProperty} setEditProperty={props.setEditProperty} ModalTitle={props.modalTitle} propToggle={props.propToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal editProperty={context.editProperty} setEditProperty={context.setEditProperty} ModalTitle={context.modalTitle} propToggle={context.propertyToggle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
             <div className= 'plater  m-2 rounded-3 shadow-lg '>
                  <div className= 'd-flex  justify-content-between m-4' >
@@ -85,8 +87,8 @@ const ReportPropertyDoc = (props) => {
                                         </div>
                                         <div className="form-check ms-4">
                                             <input className="form-check-input" type="checkbox" value="فروخته شده" id="soldCheck" name='soldStatus'
-                                            checked={props.formik.values.soldStatus} onChange={e => e.target.checked ?
-                                            props.formik.setFieldValue('soldStatus' , true) : props.formik.setFieldValue('soldStatus' , '')} />
+                                            checked={context.formikPropertySearch.values.soldStatus} onChange={e => e.target.checked ?
+                                            context.formikPropertySearch.setFieldValue('soldStatus' , true) : context.formikPropertySearch.setFieldValue('soldStatus' , '')} />
                                             <label className="form-check-label" htmlFor="soldCheck">
                                             فروخته شده
                                             </label>
@@ -107,20 +109,20 @@ const ReportPropertyDoc = (props) => {
                                 <select className="form-select" id="searchSelector" defaultValue='' style={{maxWidth:'20vw' , minWidth:'200px'}}
                                 aria-label="Search Selector" onChange={(e) =>
                                 {
-                                  props.formik.setFieldValue('name' , '')
-                                  props.formik.setFieldValue('docNumber' , '')
-                                  props.formik.setFieldValue('landlord' , '')
-                                  props.formik.setFieldValue('madeOf' , '')
-                                  props.formik.setFieldValue('plateMotor' , '')
-                                  props.formik.setFieldValue('id' , '')
-                                  props.formik.setFieldValue('typeProperty' , '')
-                                  props.formik.setFieldValue('part1plate' , '')
-                                  props.formik.setFieldValue('part2plate' , '')
-                                  props.formik.setFieldValue('part3plate' , '')
-                                  props.formik.setFieldValue('cityPlate' , '')
-                                  props.formik.setFieldValue('addressChassis' , '')
-                                  props.formik.setFieldValue('modelMeter' , '')
-                                  props.formik.setFieldValue('descriptionLocation' , '')
+                                  context.formikPropertySearch.setFieldValue('name' , '')
+                                  context.formikPropertySearch.setFieldValue('docNumber' , '')
+                                  context.formikPropertySearch.setFieldValue('landlord' , '')
+                                  context.formikPropertySearch.setFieldValue('madeOf' , '')
+                                  context.formikPropertySearch.setFieldValue('plateMotor' , '')
+                                  context.formikPropertySearch.setFieldValue('id' , '')
+                                  context.formikPropertySearch.setFieldValue('typeProperty' , '')
+                                  context.formikPropertySearch.setFieldValue('part1plate' , '')
+                                  context.formikPropertySearch.setFieldValue('part2plate' , '')
+                                  context.formikPropertySearch.setFieldValue('part3plate' , '')
+                                  context.formikPropertySearch.setFieldValue('cityPlate' , '')
+                                  context.formikPropertySearch.setFieldValue('addressChassis' , '')
+                                  context.formikPropertySearch.setFieldValue('modelMeter' , '')
+                                  context.formikPropertySearch.setFieldValue('descriptionLocation' , '')
                                   props.setSearch(e.target.value)
                                  if (props.search !== 'نوع ملک' && props.search !== 'نوع خودرو' && props.search !== 'پلاک') {
                                         document.getElementById('searchBoxProp').value = ''
@@ -130,7 +132,7 @@ const ReportPropertyDoc = (props) => {
                                                 <option value='' disabled>یک مورد انتخاب کنید</option>
 
                                               {(() => {
-                                                  if (props.propToggle === true){
+                                                  if (context.propertyToggle === true){
                                                       return(
                                                       <Fragment>
                                                         <option value="نام">نام</option>
@@ -142,7 +144,7 @@ const ReportPropertyDoc = (props) => {
                                                         <option value="پلاک ملک">پلاک ملک</option>
                                                       </Fragment>
                                                       )
-                                                  }else if (props.propToggle === false){
+                                                  }else if (context.propertyToggle === false){
                                                       return (
                                                            <Fragment>
                                                         <option value="سیستم">سیستم</option>
@@ -168,7 +170,7 @@ const ReportPropertyDoc = (props) => {
                                         return (
                                              <div className="col-3 form-floating" style={{maxWidth:'255px'}}>
                                                 <input className="form-control" type='search' list="typeCarList" id="typeCar" name='typeCar' style={{maxWidth:'20vw' , minWidth:'200px'}} onChange={(e) => {
-                                                    props.formik.setFieldValue('typeProperty' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('typeProperty' , e.target.value)
                                             }} placeholder="خودرو سواری"/>
                                                 <label htmlFor="typeCar">نوع خودرو</label>
                                                 <datalist id="typeCarList">
@@ -181,7 +183,7 @@ const ReportPropertyDoc = (props) => {
                                         return (
                                               <div className="col-3 form-floating">
                                                     <input className="form-control" type='search' list="typeEstateList" id="typeEstate" name='typeEstate' onChange={(e) => {
-                                                    props.formik.setFieldValue('typeProperty' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('typeProperty' , e.target.value)
                                             }} placeholder="ملک تجاری"/>
                                                     <label htmlFor="typeEstate">نوع ملک</label>
                                                     <datalist id="typeEstateList">
@@ -194,16 +196,16 @@ const ReportPropertyDoc = (props) => {
                                         return (
                                               <div className="mt-2 input-group">
                                                 <input className="form-control c-form__input c-form__car-plate-input__section4" onChange={(e) => {
-                                                    props.formik.setFieldValue('cityPlate' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('cityPlate' , e.target.value)
                                             }} type="tel" maxLength='2' placeholder="⚊ ⚊"
                                                 id="carPlateSection4"/>
                                                 <span className="c-form__car-plate-input__iran">ایران</span>
                                                 <input type="tel"  id="carPlateSection3" onChange={(e) => {
-                                                    props.formik.setFieldValue('part3plate' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('part3plate' , e.target.value)
                                             }} placeholder="⚊ ⚊ ⚊" aria-label="First name"
                                                 maxLength='3' className="c-form__input form-control"/>
                                                 <select id="carPlateSection2" defaultValue=''  className="c-form__combo c-form__car-plate-input__section2" onChange={(e) => {
-                                                    props.formik.setFieldValue('part2plate' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('part2plate' , e.target.value)
                                             }}>
                                                     <option value="" disabled>انتخاب کنید</option>
                                                     <option value="الف">الف</option>
@@ -235,7 +237,7 @@ const ReportPropertyDoc = (props) => {
                                                     <option value="S">S</option>
                                                 </select>
                                                 <input type="tel" placeholder="⚊ ⚊"  id="carPlateSection1" maxLength='2' onChange={(e) => {
-                                                    props.formik.setFieldValue('part1plate' , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue('part1plate' , e.target.value)
                                             }} className="c-form__input form-control"/>
                                                 <button className="btn input-group-text c-form__car-plate-input rounded-8"></button>
                                           </div>
@@ -244,7 +246,7 @@ const ReportPropertyDoc = (props) => {
                                         return (
                                             <div className="input-group mb-3">
                                                 <input type="text" className="form-control" id='searchBoxProp' onChange={(e) => {
-                                                    props.formik.setFieldValue(nameFieldHandler() , e.target.value)
+                                                    context.formikPropertySearch.setFieldValue(nameFieldHandler() , e.target.value)
                                             }} placeholder={`جستوجو براساس ${props.search}`} aria-label="searchBoxProp" aria-describedby="searchBoxProp"/>
                                             </div>
                                         )
@@ -254,12 +256,12 @@ const ReportPropertyDoc = (props) => {
             <div className='m-4'>
                 <span className="dot bg-danger"></span><span> به معنی فروخته شده و قفل شده</span>
             </div>
-            {props.propToggle === null ? null :
+            {context.propertyToggle === null ? null :
                 <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
                     <table className="table table-hover table-fixed text-center align-middle table-bordered border-primary" ref={componentPDF} style={{direction:'rtl'}}>
                          <thead className= 'bg-light'>
                             <tr>
-                                {props.propToggle ?
+                                {context.propertyToggle ?
                                     <Fragment>
                                         <th scope="col">ردیف</th>
                                         <th scope="col">شماره ثبت</th>
@@ -296,7 +298,7 @@ const ReportPropertyDoc = (props) => {
                             </tr>
                          </thead>
                         <tbody>
-                            {(property.length > 0 && property.filter(property => property.type_form === !props.propToggle).map((data) => (
+                            {(property.length > 0 && property.filter(property => property.type_form === !context.propertyToggle).map((data) => (
                                 <tr key={data.id} style={{backgroundColor:`${(data.soldStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                                     <th scope="row">1</th>
                                     <td>{data.id}</td>
@@ -308,12 +310,12 @@ const ReportPropertyDoc = (props) => {
                                     <td>{data.landlord}</td>
                                     <td>{data.modelMeter}</td>
 
-                                    {props.propToggle ?
+                                    {context.propertyToggle ?
                                         <Fragment>
                                             <td>{data.madeOf}</td>
                                             <td>
                                                 <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
-                                            props.handleEditProperty()
+                                            context.handleEditProperty()
                                             setIdNumber(data.id)
                                         }}>info</button>
                                             </td>
@@ -329,9 +331,9 @@ const ReportPropertyDoc = (props) => {
                                             <td>
                                                 <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn'
                                                 data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
-                                            props.handleEditProperty()
+                                            context.handleEditProperty()
                                             setIdNumber(data.id)
-                                            props.setModalTitle('visit')
+                                            context.setModalTitle('visit')
                                         }}>info</button>
                                     </td>
                                 </Fragment>

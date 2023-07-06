@@ -1,17 +1,19 @@
-import React, {Fragment, useState , useEffect} from "react";
+import React, {Fragment, useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
 import Modal from "./modal";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Url from "../../../config";
+import {Context} from "../../../../context";
 
 const AddPropertyDoc = (props) => {
     const [property, setProperties] = useState([])
     const [idNumber, setIdNumber] = useState(null)
+    const context = useContext(Context)
 
     const fetchData = async () => {
-        if (props.formik.values.docNumber !== null){
-            const response = await fetch(`${Url}/api/properties/?docNumber=${props.formik.values.docNumber}` , {
+        if (context.formikPropertySearch.values.docNumber !== null){
+            const response = await fetch(`${Url}/api/properties/?docNumber=${context.formikPropertySearch.values.docNumber}` , {
                 headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -53,18 +55,18 @@ const AddPropertyDoc = (props) => {
                 }
               }
           )
-            fetchData()
+            await fetchData()
         }
 
       useEffect(() => {
             void fetchData()
           },
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          [props.formik.values.docNumber])
+          [context.formikPropertySearch.values.docNumber])
 
     return (
         <Fragment>
-            <Modal propToggle={props.propToggle} setEditProperty={props.setEditProperty} editProperty={props.editProperty} ModalTitle={props.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
+            <Modal propToggle={context.propertyToggle} setEditProperty={context.setEditProperty} editProperty={context.editProperty} ModalTitle={context.modalTitle} idNumber={idNumber} setIdNumber={setIdNumber}/>
 
         <div className= 'plater  m-2 rounded-3 shadow-lg '>
                     <div className= 'd-flex justify-content-between m-4' >
@@ -90,7 +92,7 @@ const AddPropertyDoc = (props) => {
                         <div className= 'd-flex gap-2'>
                           <Link to= '/reportpropertydoc'><button className= 'btn btn-secondary'>گزارش</button></Link>
                           <button className= 'btn btn-primary' id='addDocument' data-bs-toggle="modal"
-                          data-bs-target="#modalMain" disabled={props.propToggle === null} onClick={() => props.setModalTitle('add')}>ثبت سند جدید</button>
+                          data-bs-target="#modalMain" disabled={context.propertyToggle === null} onClick={() => context.setModalTitle('add')}>ثبت سند جدید</button>
                         </div>
 
                     </div>
@@ -98,14 +100,14 @@ const AddPropertyDoc = (props) => {
             <div className='m-4'>
                 <div className="input-group mb-3">
                     <input type="text" id='searchBox' className="form-control" placeholder="جستجو براساس شماره سند"
-                    aria-label="searchBox" aria-describedby="search" value={props.formik.values.docNumber}
-                    onChange={e => props.formik.setFieldValue('docNumber' , e.target.value)}/>
+                    aria-label="searchBox" aria-describedby="search" value={context.formikPropertySearch.values.docNumber}
+                    onChange={e => context.formikPropertySearch.setFieldValue('docNumber' , e.target.value)}/>
                 </div>
             </div>
                <div className='m-4'>
                     <span className="dot bg-danger"></span><span> به معنی فروخته شده و قفل شده</span>
                </div>
-            {props.propToggle === null ?  null :
+            {context.propertyToggle === null ?  null :
                 <Fragment>
                     <div className= 'm-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
                         <table className="table table-hover text-center align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
@@ -113,7 +115,7 @@ const AddPropertyDoc = (props) => {
                             <tr>
                                 <th scope="col">شماره ثبت</th>
                                 <th scope="col">نوع</th>
-                                {props.propToggle ?
+                                {context.propertyToggle ?
                                          <Fragment>
                                             <th scope="col">نام</th>
                                             <th scope="col">آدرس</th>
@@ -128,16 +130,16 @@ const AddPropertyDoc = (props) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {(property.length > 0 && property.filter(property => property.type_form === !props.propToggle).map((data) => (
+                            {(property.length > 0 && property.filter(property => property.type_form === !context.propertyToggle).map((data) => (
                             <tr key={data.id} style={{backgroundColor:`${(data.soldStatus ? 'hsl(0, 100%, 80%)' : null) }`}}>
                                 <th scope="row">{data.id}</th>
                                 <td>{data.typeProperty}</td>
                                 <td>{data.name}</td>
-                                <td>{!props.propToggle ? data.descriptionLocation : data.addressChassis }</td>
+                                <td>{!context.propertyToggle ? data.descriptionLocation : data.addressChassis }</td>
                                 <td>
                                     <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' disabled={data.soldStatus}
                                      data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
-                                     props.setModalTitle('edit')
+                                     context.setModalTitle('edit')
                                      setIdNumber(data.id)
                                      }}>edit</button>
                                     <button id='deleteBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' disabled={data.soldStatus} onClick={() =>
@@ -145,8 +147,8 @@ const AddPropertyDoc = (props) => {
                                     <button id='sellBtn' className= 'btn btn-success   material-symbols-outlined ms-2' disabled={data.soldStatus}
                                     data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                     setIdNumber(data.id)
-                                    props.setModalTitle('done')
-                                    props.handleEditProperty()
+                                    context.setModalTitle('done')
+                                    context.handleEditProperty()
                                     }}>done</button>
                                 </td>
                             </tr>

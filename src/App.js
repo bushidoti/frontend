@@ -24,7 +24,7 @@ import Home from "./Components/home/home";
 import axios from "axios";
 import PendingProperty from "./Components/main/inventory/property/pending_property";
 import Url from "./Components/config";
-
+import {Context} from "./context";
 
 function App() {
     const [modalTitle , setModalTitle] = useState('')
@@ -206,9 +206,34 @@ function App() {
 
   return (
        <Fragment >
+        <Context.Provider value={{
+            permission:permission,
+            modalTitle:modalTitle,
+            setEditDocument:setEditDocument,
+            setModalTitle:setModalTitle,
+            editDocument:editDocument,
+            formik:formikDocumentSearch,
+            isAuth:isAuth,
+            setIsAuth:setIsAuth,
+            office:office,
+            setDocToggle:setDocToggle,
+            docToggle:docToggle,
+            setEditDocumentIndividuals:setEditDocumentIndividuals,
+            handleEditDocument:handleEditDocument,
+            handleEditDocumentIndividuals:handleEditDocumentIndividuals,
+            editDocumentIndividuals:editDocumentIndividuals,
+            formikPersonalSearch:formikPersonalSearch,
+            handleProduct:handleProduct,
+            formikProductSearch:formikProductSearch,
+            formikPropertySearch:formikPropertySearch,
+            setEditProperty:setEditProperty,
+            handleEditProperty:handleEditProperty,
+            editProperty:editProperty,
+            propertyToggle:propertyToggle,
+           }}>
           <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar isAuth={isAuth} setDocToggle={setDocToggle} office={office} permission={permission} formik={formikDocumentSearch} setIsAuth={setIsAuth}/>} >
+                <Route path="/" element={<NavBar/>} >
                     {isAuth ?
                         <Fragment>
                             {permission === 'مدیر' ?
@@ -218,46 +243,24 @@ function App() {
                                 <Fragment>
                                     {permission === 'مدیر' || (permission === 'اداری' && office === 'دفتر مرکزی') || permission === 'مشاهده' ?
                                         <Fragment>
-                                        <Route path="report" element={<Report handleForm={handleFormReport} setEditDocument={setEditDocument} modalTitle={modalTitle} formik={formikDocumentSearch} docToggle={docToggle} setModalTitle={setModalTitle} handleEditDocument={handleEditDocument} editDocument={editDocument} setSearch={setSearch} search={search}/>}/>
-                                        <Route path="main" element={<Main modalTitle={modalTitle} permission={permission} formik={formikDocumentSearch} setEditDocument={setEditDocument} handleEditDocument={handleEditDocument} editDocument={editDocument} setModalTitle={setModalTitle} handleForm={handleForm} docToggle={docToggle}/>} />
+                                        <Route path="report" element={<Report handleForm={handleFormReport}
+                                                  setSearch={setSearch} search={search}/>}/>
+                                        <Route path="main" element={<Main handleForm={handleForm}/>} />
                                         <Route path="upload" element={<UploadDocuments/>}/>
-                                        <Route path="addIndividualsDoc" element={<AddIndividualsDoc setEditDocumentIndividuals={setEditDocumentIndividuals}
-                                            handleEditDocumentIndividuals={handleEditDocumentIndividuals}
-                                            editDocumentIndividuals={editDocumentIndividuals}
-                                            formik={formikPersonalSearch} modalTitle={modalTitle}
-                                            setModalTitle={setModalTitle}/>}/>
+                                        <Route path="addIndividualsDoc" element={<AddIndividualsDoc/>}/>
                                        <Route path="reportindividualsdoc"
-                                              element={<ReportIndividualsDoc formik={formikPersonalSearch} setEditDocumentIndividuals={setEditDocumentIndividuals}
-                                              modalTitle={modalTitle} setModalTitle={setModalTitle}
-                                              handleEditDocumentIndividuals={handleEditDocumentIndividuals}
-                                              editDocumentIndividuals={editDocumentIndividuals}/>}/>
+                                              element={<ReportIndividualsDoc/>}/>
                                        <Route path="uploadindividualsdoc" element={<UploadIndividualsDoc/>}/>
                                         </Fragment>
                                     : null}
                                     {permission === 'مدیر' || permission === 'اداری' ?
                                         <Fragment>
                                             <Route path="addpropertydoc"
-                                                   element={<AddPropertyDoc formik={formikPropertySearch}
-                                                                            handleEditProperty={handleEditProperty}
-                                                                            setEditProperty={setEditProperty}
-                                                                            editProperty={editProperty}
-                                                                            handleFormProp={handleFormProperty}
-                                                                            propToggle={propertyToggle}
-                                                                            modalTitle={modalTitle}
-                                                                            setModalTitle={setModalTitle}/>}/>
-
-
+                                                   element={<AddPropertyDoc handleFormProp={handleFormProperty}/>}/>
                                             <Route path="reportpropertydoc"
-                                                   element={<ReportPropertyDoc modalTitle={modalTitle}
-                                                                               setModalTitle={setModalTitle}
-                                                                               setEditProperty={setEditProperty}
-                                                                               formik={formikPropertySearch}
-                                                                               search={searchProp}
-                                                                               handleFormPropertyreport={handleFormPropertyreport}
-                                                                               setSearch={setSearchProp}
-                                                                               propToggle={propertyToggle}
-                                                                               handleEditProperty={handleEditProperty}
-                                                                               editProperty={editProperty}/>}/>
+                                                   element={<ReportPropertyDoc search={searchProp}
+                                                               handleFormPropertyreport={handleFormPropertyreport}
+                                                               setSearch={setSearchProp}/>}/>
                                             <Route path="uploadpropertydoc" element={<UploadPropertyDoc/>}/>
                                         </Fragment>
                                     : null}
@@ -265,17 +268,16 @@ function App() {
                                 : null}
                             {permission === 'مدیر' || permission === 'انباردار' ?
                                 <Fragment>
-                                    <Route path="warehouse" element={<WarHouse formik={formikProductSearch} handleProduct={handleProduct}
-                                      modalTitle={modalTitle} setModalTitle={setModalTitle}/>}/>
+                                    <Route path="warehouse" element={<WarHouse/>}/>
                                     <Route path="property" element={<Property/>}/>
                                     <Route path="report-properties" element={<ReportProperty />} />
                                 </Fragment>
                             : null}
 
                             {permission === 'مدیر' ?
-                          <Route path="warehouse-handling" element={<StorageHandling formik={formikProductSearch} handleProduct={handleProduct} modalTitle={modalTitle} setModalTitle={setModalTitle}/>} />
+                          <Route path="warehouse-handling" element={<StorageHandling/>} />
                                 : null}
-                          <Route path="pending-products" element={<PendingProperty setModalTitle={setModalTitle} modalTitle={modalTitle}/>} />
+                          <Route path="pending-products" element={<PendingProperty/>} />
                           <Route path="/logout" element={<Logout/>}/>
                         </Fragment>
                         :
@@ -287,6 +289,7 @@ function App() {
                 </Route>
             </Routes>
       </BrowserRouter>
+                        </Context.Provider>
            {isAuth ?
                <ToastLogin/>
                 :

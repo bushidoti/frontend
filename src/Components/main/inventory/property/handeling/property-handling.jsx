@@ -97,7 +97,7 @@ export const PropertyHandling = (props) => {
 
     }
     const func = async (id) => {
-         await prom(id).then(res => {
+         await prom(id).then(() => {
              setCode('code' , id)
          });
     }

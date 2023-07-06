@@ -8,5 +8,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Vazirmatn-font-face" level="application" />
     <orderEntry type="library" name="scanner" level="application" />
+    <orderEntry type="library" name="react-bootstrap" level="application" />
+    <orderEntry type="library" name="dbdfe7eb11" level="application" />
+    <orderEntry type="library" name="ionicons" level="application" />
   </component>
 </module>

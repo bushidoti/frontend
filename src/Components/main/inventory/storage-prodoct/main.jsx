@@ -1,11 +1,12 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
 import BillCheckmodal from "./bill&checkmodal";
-import axios from "axios";
 import { memo } from "react";
 import Url from "../../../config";
 import {useReactToPrint} from "react-to-print";
+import {Permission} from "../permission";
+import {Context} from "../../../../context";
 
 const WarHouse = (props) => {
     const [product, setProduct] = useState([])
@@ -26,31 +27,13 @@ const WarHouse = (props) => {
         content: ()=>componentPDF.current,
         documentTitle:"Data",
     });
+    const context = useContext(Context)
 
-    useEffect(() => {
-            (async () => {
-                    const {data} = await axios.get(`${Url}/permission/`, {
-                headers: {
-                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                }
-              });
-              setRank(data.message);
-        })()
-    }, []);
 
-        useEffect(() => {
-            (async () => {
-                    const {data} = await axios.get(`${Url}/home/`, {
-                headers: {
-                  'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                }
-              });
-              setOffice(data.message);
-        })()
-    }, []);
+
 
     const fetchData = async () => {
-        const response = await fetch(`${Url}/api/product/?name=${props.formik.values.name}&code=${props.formik.values.code}`, {
+        const response = await fetch(`${Url}/api/product/?name=${context.formikProductSearch.values.name}&code=${context.formikProductSearch.values.code}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -78,7 +61,7 @@ const WarHouse = (props) => {
                  handleCheck()
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props.formik.values.code, idNumberProduct , factor , billCheck , props.formik.values.name , handling])
+        [context.formikProductSearch.values.code, idNumberProduct , factor , billCheck , context.formikProductSearch.values.name , handling])
 
 
     const handleCheckFactor = () => {
@@ -100,17 +83,18 @@ const WarHouse = (props) => {
 
     return (
         <Fragment>
-        <ObserveModal setModalTitle={props.setModalTitle} handleProduct={props.handleProduct} idNumber={idNumber}
-        setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={props.formik} />
-        <Modal modalTitle={props.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
+        <Permission setRank={setRank} setOffice={setOffice}/>
+        <ObserveModal setModalTitle={context.setModalTitle} handleProduct={context.handleProduct} idNumber={idNumber}
+        setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={context.formikProductSearch} />
+        <Modal modalTitle={context.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
-        <BillCheckmodal modalTitle={props.modalTitle} setModalTitle={props.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
+        <BillCheckmodal modalTitle={context.modalTitle} setModalTitle={context.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater m-2 rounded-3 shadow-lg'>
             <div className= 'd-flex justify-content-between m-4' >
                 <div className='d-flex flex-lg-nowrap gap-2 flex-wrap'>
                     <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
-                        data-bs-target="#billCheckModal" onClick={() => props.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
+                        data-bs-target="#billCheckModal" onClick={() => context.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
                         <input type="text" className="form-control" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => {
                                  setFactor(e.target.value)
                         }} placeholder="شماره فاکتور" value={factor}
@@ -118,14 +102,14 @@ const WarHouse = (props) => {
                     </div>
                     <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="checkBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => props.setModalTitle('check')}>صدور حواله</button>
+                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => context.setModalTitle('check')}>صدور حواله</button>
                         <input type="text" className="form-control" id="checkInp" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
                         aria-label="صدور حواله" aria-describedby="checkBtn"/>
                     </div>
                     <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" id="handlingBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
                                 data-bs-toggle="modal" data-bs-target="#billCheckModal"
-                            disabled={handleBtn} onClick={() => props.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
+                            disabled={handleBtn} onClick={() => context.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
                         <input type="text" className="form-control" id="handlingInp"
                            style={{maxWidth:'20vw' , minWidth:'10px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setHandling(e.target.value)} value={handling} placeholder="شناسه انبارگردانی"
                         aria-label="شناسه انبارگردانی" aria-describedby="handlingBtn"/>
@@ -136,15 +120,15 @@ const WarHouse = (props) => {
                     style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh'}} type="button" id="print" onClick={generatePDF}>print</button>
                 <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
                     style={{maxWidth:'20vw' , minWidth:'150px' , maxHeight:'10vh'}}
-                data-bs-target="#modalMain" onClick={() =>  props.setModalTitle('register')}>ثبت کالا جدید</button>
+                data-bs-target="#modalMain" onClick={() =>  context.setModalTitle('register')}>ثبت کالا جدید</button>
                 </div>
             </div>
 
             <div className='m-4'>
                 <div className="form-floating my-2" style={{maxWidth:'255px'}}>
                         <select className="form-select" defaultValue='' id="searchSelector" style={{maxWidth:'20vw' , minWidth:'200px'}}  onChange={(e) => {
-                            props.formik.setFieldValue('code' , '')
-                            props.formik.setFieldValue('name' , '')
+                            context.formikProductSearch.setFieldValue('code' , '')
+                            context.formikProductSearch.setFieldValue('name' , '')
                             setSearch(e.target.value)
                         }}
                             aria-label="Search Select">
@@ -155,8 +139,8 @@ const WarHouse = (props) => {
                         <label htmlFor="searchSelector">جستجو براساس</label>
                 </div>
                 <div className="input-group mb-3">
-                    <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? props.formik.values.name : props.formik.values.code}
-                    onChange={e => search === 'نام کالا' ? props.formik.setFieldValue('name' , e.target.value) : props.formik.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
+                    <input type="text"  id='searchBox' className="form-control" value={search === 'نام کالا' ? context.formikProductSearch.values.name : context.formikProductSearch.values.code}
+                    onChange={e => search === 'نام کالا' ? context.formikProductSearch.setFieldValue('name' , e.target.value) : context.formikProductSearch.setFieldValue('code' , e.target.value)} placeholder={`جستجو براساس ${search}`}
                     aria-label="searchBox" aria-describedby="search" />
                 </div>
             </div>
@@ -194,12 +178,12 @@ const WarHouse = (props) => {
                             <button id='exitBtn' className= 'btn btn-danger   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain"
                             title="خروج" onClick={() => {
                                 setIdNumber(data.code)
-                                props.setModalTitle('remove')
+                                context.setModalTitle('remove')
                             }}>remove</button>
                             <button id='entryBtn' className= 'btn btn-success   material-symbols-outlined ms-2' data-bs-toggle="modal" data-bs-target="#modalMain"
                             title="ورود" onClick={() => {
                                 setIdNumber(data.code)
-                                props.setModalTitle('entry')
+                                context.setModalTitle('entry')
                             }}>add</button>
                         </td>
                     </tr>

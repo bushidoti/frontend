@@ -10,7 +10,6 @@ import {IndustrialEquipment} from "./forms/industrial-equipment";
 import {SupportItems} from "./forms/support-items";
 import {Benefits} from "./forms/benefits";
 import {DustrialEquipment} from "./forms/dustrial-equipment";
-import {Required} from "../../required";
 import {DigitalFurniture} from "./forms/digital-furniture";
 import Url from "../../../config";
 import  {Contextform} from "./contextform"
@@ -48,7 +47,6 @@ export const Forms =  (props) => {
         })()
     }, []);
 
-    Required()
     return (
         <Contextform.Provider value={{
                     autoIncrement:autoIncrement,

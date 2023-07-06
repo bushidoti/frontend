@@ -17,7 +17,7 @@ code {
 }
 
 .plater {
-  background-color: rgba(128, 128, 128, 0.13);
+  background-color: rgba(86, 86, 86, 0.13);
   border: solid rgba(128, 128, 128, 0.24);
   max-height: 100%;
 }
@@ -89,9 +89,7 @@ code {
     line-height: 48px;
     text-align: center;
     -webkit-transition: background-color,border-color .2s ease-in-out,-webkit-box-shadow;
-    transition: background-color,border-color .2s ease-in-out,-webkit-box-shadow;
     -o-transition: background-color,box-shadow,border-color .2s ease-in-out;
-    transition: background-color,box-shadow,border-color .2s ease-in-out;
     transition: background-color,box-shadow,border-color .2s ease-in-out,-webkit-box-shadow;
 }
 .c-form__car-plate-input__section1 {
@@ -183,10 +181,4 @@ code {
 label {
     font-size: 1vw;
 }
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' -25,
-  'opsz' 48
-}
+

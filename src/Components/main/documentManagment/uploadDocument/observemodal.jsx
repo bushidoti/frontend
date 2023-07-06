@@ -162,7 +162,7 @@ const ObserveModal = () => {
                                 })()}
                               </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal">close</button>
+                                <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal"><ion-icon name="close-outline"></ion-icon></button>
                             </div>
                     </form>
                 </div>

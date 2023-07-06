@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {Required} from "../../required";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {useFormik} from "formik";
@@ -444,7 +443,6 @@ const Modal = (props) => {
         }
     }
 
-    Required()
     const [documents , setDocument] = useState('')
     function refreshPages() {
         window.location.reload()

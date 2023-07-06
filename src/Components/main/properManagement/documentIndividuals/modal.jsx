@@ -4,7 +4,6 @@ import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {CustomInputDate} from "../../../../App";
-import {Required} from "../../required";
 import { NumericFormat } from 'react-number-format';
 import {useFormik} from "formik";
 import axios from "axios";
@@ -261,7 +260,6 @@ const Modal = (props) => {
         }
     }
 
-    Required()
    function refreshPages() {
         window.location.reload();
       }

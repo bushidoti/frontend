@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import {Required} from "../../main/required";
 import axios from "axios";
 import Url from '../../config'
 
@@ -21,7 +20,6 @@ const Modal = (props) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
         window.location.href = '/'
     }
-    Required()
   return (
       <Fragment>
      <div className="modal fade "  id="modalLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
@@ -31,7 +29,7 @@ const Modal = (props) => {
                             <button type="button" className="btn-close " data-bs-dismiss="modal"
                             aria-label="Close"></button>
                         </div>
-                    <form className='needs-validation' onSubmit={submit} noValidate>
+                    <form onSubmit={submit}>
                         <div className="container modal-body">
                           <div className="col form-floating mb-3">
                                     <input type="text" className="form-control" id="userName" autoComplete="on"

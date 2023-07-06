@@ -4,7 +4,6 @@ import transition from "react-element-popper/animations/transition";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import {CustomInputDate} from "../../../../App";
-import {Required} from "../../required";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -278,7 +277,6 @@ const Modal = (props) => {
           // eslint-disable-next-line react-hooks/exhaustive-deps
           [props.idNumber])
 
-    Required()
    function refreshPages() {
         window.location.reload();
       }
