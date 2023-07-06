@@ -1,8 +1,14 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import axios from "axios";
 import Url from '../../config'
 
 const Modal = (props) => {
+    const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
     const submit = async e => {
         e.preventDefault();
 
@@ -31,19 +37,21 @@ const Modal = (props) => {
                         </div>
                     <form onSubmit={submit}>
                         <div className="container modal-body">
-                          <div className="col form-floating mb-3">
+                          <div className="col input-group flex-nowrap mb-3">
+                              <span className="input-group-text" id="addon-wrapping">@</span>
                                     <input type="text" className="form-control" id="userName" autoComplete="on"
                                            name='username' value={props.username} onChange={e => props.setUsername(e.target.value)}
                                            placeholder="نام کاربری" required/>
-                                    <label htmlFor="userName">نام کاربری</label>
                                     <div className="invalid-feedback">
                                      نام کاربری را وارد کنید
                                     </div>
                           </div>
-                           <div className="col form-floating mb-3">
-                                    <input type="password" name='password' autoComplete="on" className="form-control" id="password"
+                            <div className="input-group mb-3">
+                                <span className="input-group-text material-symbols-outlined" id="addon-wrapping">lock</span>
+                                <input type={passwordShown ? "text" : "password"} name='password' autoComplete="on" className="form-control" id="password"
                                     placeholder="رمز عبور" value={props.password} onChange={e => props.setPassword(e.target.value)} required/>
-                                    <label htmlFor="password">رمز عبور</label>
+                                   <button className="btn btn-outline-secondary material-symbols-outlined" type='button' onClick={togglePassword} id="button-addon1">{passwordShown ? "visibility" : "visibility_off"}
+                                </button>
                                     <div className="invalid-feedback">
                                     رمز عبور را وارد کنید.
                                     </div>
