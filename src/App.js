@@ -205,7 +205,7 @@ function App() {
         }
 
   return (
-       <Fragment >
+       <Fragment>
         <Context.Provider value={{
             permission:permission,
             modalTitle:modalTitle,

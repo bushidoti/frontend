@@ -1,11 +1,10 @@
-import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Url from "../../../../config";
 import ObserveModal from "../observemodal";
 import {useFormik} from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {useReactToPrint} from "react-to-print";
-import {Context} from "../../../../../context";
 
 export const Product = (props) => {
     const [product, setProduct] = useState({})
@@ -15,7 +14,6 @@ export const Product = (props) => {
     const [setIdNumberProduct] = useState(null)
     const [count, setCount] = useState({})
     const [search , setSearch] = useState('')
-    const context = useContext(Context)
 
     let today = new Date().toLocaleDateString('fa-IR');
     const componentPDF= useRef();
@@ -169,7 +167,7 @@ export const Product = (props) => {
                                     <th scope="col">نام</th>
                                     <th scope="col">ورود</th>
                                     <th scope="col">خروج</th>
-                                    <th scope="col"></th>
+                                    <th scope="col" className='d-print-none'></th>
                                     <th scope="col">مانده</th>
                                     <th scope="col">شمارش</th>
                                     <th scope="col">کسری/اضافه</th>
@@ -185,7 +183,7 @@ export const Product = (props) => {
                                         <td>{data.name}</td>
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))}</td>
                                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
-                                        <td>
+                                        <td className='d-print-none'>
                                              <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined'
                                              data-bs-toggle="modal" disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} data-bs-target="#observeModal"
                                                 title="کاردکس" onClick={() => {
@@ -206,10 +204,10 @@ export const Product = (props) => {
                                                 - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))) : 0}</td>
                                         <td>
                                             <div className="input-group">
-                                                <input type="text"  id={`resultInp${i}`} style={{direction:'rtl' , fontSize:'1vw', maxWidth:'11vw'}} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
+                                                <input type="text"  id={`resultInp${i}`} style={{direction:'rtl' , fontSize:'1vw'}} disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)}
                                                 onChange={e => formik.setFieldValue('result' , e.target.value)} className="form-control" placeholder='نتیجه را بنویسید'
                                                 aria-label="result" aria-describedby="result"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined"
+                                                <button className="btn btn-outline-success material-symbols-outlined d-print-none"
                                                 disabled={data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} type="button" id="resultBtn" onClick={async () => {
                                                     await func(data.code)
                                                 }}>done</button>

@@ -190,7 +190,7 @@ const Report = (props) => {
                                 <th scope="col">مبلغ تعهد انجام کار</th>
                                 <th scope="col">نوع ضمانت</th>
                                 <th scope="col">مشخصه ضمانت</th>
-                                <th scope="col">نمایش</th>
+                                <th className='d-print-none' scope="col">نمایش</th>
                             </tr>
                             </thead>
 
@@ -213,7 +213,7 @@ const Report = (props) => {
                                         <td>{data.commitmentPrice}</td>
                                         <td>{data.typeBail2}</td>
                                         <td>{data.firstBail2} _ {data.secondBail2}</td>
-                                        <td>
+                                        <td className='d-print-none'>
                                             <button className='btn btn-warning material-symbols-outlined' id='infoBtn'
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalMain" onClick={() => {

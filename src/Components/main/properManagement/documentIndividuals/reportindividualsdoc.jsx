@@ -224,7 +224,7 @@ const ReportIndividualsDoc = (props) => {
                                 <th scope="col">وضعیت تسویه</th>
                                 <th scope="col">تاریخ تسویه</th>
                                 <th scope="col">وضعیت مدرک</th>
-                                <th scope="col">نمایش</th>
+                                <th scope="col" className='d-print-none'>نمایش</th>
                             </tr>
                          </thead>
 
@@ -247,7 +247,7 @@ const ReportIndividualsDoc = (props) => {
                                     <td>{data.clearedStatus ? 'تسویه شده' : 'تسویه نشده'}</td>
                                     <td>{data.clearedDate}</td>
                                     <td>{data.receivedDocument ? 'تحویل داده شده' : 'تحویل داده نشده'}</td>
-                                    <td>
+                                    <td className='d-print-none'>
                                         <button className= 'btn btn-warning material-symbols-outlined'  data-bs-toggle="modal" id='infoModalBtn' data-bs-target="#modalMain"
                                         onClick={() => {
                                             context.handleEditDocumentIndividuals()

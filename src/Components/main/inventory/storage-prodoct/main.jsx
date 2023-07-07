@@ -154,7 +154,7 @@ const WarHouse = (props) => {
                         <th scope="col">ورود</th>
                         <th scope="col">خروج</th>
                         <th scope="col">مانده</th>
-                        <th scope="col"></th>
+                        <th scope="col" className='d-print-none'></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -170,7 +170,7 @@ const WarHouse = (props) => {
                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
                         <td>{(products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.input , 0 ))
                             - (products.filter(products => products.product ===  data.code).reduce((a,v) =>   a + v.output , 0 ))}</td>
-                        <td>
+                        <td className='d-print-none'>
                             <button id='visibilityBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal"
                             title="کاردکس" onClick={() => {
                                 setIdNumber(data.code)

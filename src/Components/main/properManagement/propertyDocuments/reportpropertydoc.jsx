@@ -292,7 +292,7 @@ const ReportPropertyDoc = (props) => {
                                         <th scope="col">بیمه نامه</th>
                                         <th scope="col">کارت سوخت</th>
                                         <th scope="col">کارت ماشین</th>
-                                        <th scope="col">نمایش</th>
+                                        <th className='d-print-none' scope="col">نمایش</th>
                                     </Fragment>
                                 }
                             </tr>
@@ -328,7 +328,7 @@ const ReportPropertyDoc = (props) => {
                                             <td>{data.insurancePaper}</td>
                                             <td>{data.gasCard}</td>
                                             <td>{data.carCard}</td>
-                                            <td>
+                                            <td className='d-print-none'>
                                                 <button className= 'btn btn-warning material-symbols-outlined' id='infoBtn'
                                                 data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                             context.handleEditProperty()

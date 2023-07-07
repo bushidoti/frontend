@@ -21,7 +21,7 @@ const NavBar = () => {
     return (
         <Fragment>
           <div className='rounded-top  bg-light mt-2 w-50 ms-2 border-top border-start border-end  border-success' style={{maxWidth: 'max-content'}}><Clock/></div>
-          <Navbar collapseOnSelect expand="lg" className="rounded-8  shadow-lg p-3 mb-5 mb-2 ms-2 me-2" style={{backgroundColor:'hsl(209, 100%, 95%)'}}>
+          <Navbar collapseOnSelect expand="lg" className="nav rounded-8 shadow-lg p-3 mb-5 mb-2 ms-2 me-2 border border-2 border-success" style={{backgroundColor:'hsl(209, 100%, 95%)'}}>
             <Container fluid>
               <Navbar.Brand href='/'><img src="./favicon.ico" alt="" width="50" height="50"></img></Navbar.Brand>
                 <Profile isAuth={context.isAuth} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>

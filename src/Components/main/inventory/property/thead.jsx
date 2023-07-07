@@ -16,7 +16,7 @@ export const Thead = (props) => {
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">مالکیت</th>
                                                 <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'safetyequipment'){
@@ -28,7 +28,7 @@ export const Thead = (props) => {
                                                 <th scope="col">مورد استفاده</th>
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'digitalfurniture'){
@@ -38,7 +38,7 @@ export const Thead = (props) => {
                                                 <th scope="col">کد ثبت</th>
                                                 <th scope="col">نام اثاث</th>
                                                 <th scope="col">مدل</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'electronicfurniture'){
@@ -51,7 +51,7 @@ export const Thead = (props) => {
                                                 <th scope="col">سال</th>
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'officefurniture'){
@@ -63,7 +63,7 @@ export const Thead = (props) => {
                                                 <th scope="col">سال</th>
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">محل استفاده</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'facilityfurniture'){
@@ -76,7 +76,7 @@ export const Thead = (props) => {
                                                 <th scope="col">سال</th>
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'airportfurniture'){
@@ -87,7 +87,7 @@ export const Thead = (props) => {
                                                 <th scope="col">نام اثاث</th>
                                                 <th scope="col">سال</th>
                                                 <th scope="col">محل نصب</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'airportvehicle' || props.typeProperty === 'officevehicle' ){
@@ -103,7 +103,7 @@ export const Thead = (props) => {
                                                 <th scope="col">شماره شاسی</th>
                                                 <th scope="col">سال ساخت</th>
                                                 <th scope="col">مالکیت</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'noneindustrialtool'){
@@ -115,7 +115,7 @@ export const Thead = (props) => {
                                                 <th scope="col">یوزر</th>
                                                 <th scope="col">سال</th>
                                                 <th scope="col">مکان استفاده</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'industrialtool'){
@@ -128,7 +128,7 @@ export const Thead = (props) => {
                                                 <th scope="col">سال</th>
                                                 <th scope="col">مکان استفاده</th>
                                                 <th scope="col">یوزر</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'supportitem'){
@@ -141,7 +141,7 @@ export const Thead = (props) => {
                                                 <th scope="col">مدل</th>
                                                 <th scope="col">مکان استفاده</th>
                                                 <th scope="col">یوزر</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }else if (props.typeProperty === 'benefit'){
@@ -152,7 +152,7 @@ export const Thead = (props) => {
                                                 <th scope="col">نوع خط</th>
                                                 <th scope="col">مکان استفاده</th>
                                                 <th scope="col">شماره</th>
-                                                <th scope="col"></th>
+                                                <th scope="col" className='d-print-none'></th>
                                            </Fragment>
                                         )
                                     }

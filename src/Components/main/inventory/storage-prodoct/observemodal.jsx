@@ -171,7 +171,7 @@ const ObserveModal = (props) => {
                             <th scope="col">خریدار</th>
                             <th scope="col">گیرنده</th>
                             <th scope="col">اصلاحیه</th>
-                            <th scope="col"></th>
+                            <th scope="col" className='d-print-none'></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -189,7 +189,7 @@ const ObserveModal = (props) => {
                             <td>{data.buyer}</td>
                             <td>{data.receiver}</td>
                             <td>{data.amendment}</td>
-                            <td>
+                            <td className='d-print-none'>
                                 <button id='editBtn' className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" title="ویرایش" onClick={() => {
                                    props.setIdNumberProduct(data.id)
                                    props.setModalTitle('edit')

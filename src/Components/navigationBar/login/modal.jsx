@@ -50,7 +50,7 @@ const Modal = (props) => {
                                 <span className="input-group-text material-symbols-outlined" id="addon-wrapping">lock</span>
                                 <input type={passwordShown ? "text" : "password"} name='password' autoComplete="on" className="form-control" id="password"
                                     placeholder="رمز عبور" value={props.password} onChange={e => props.setPassword(e.target.value)} required/>
-                                   <button className="btn btn-outline-secondary material-symbols-outlined" type='button' onClick={togglePassword} id="button-addon1">{passwordShown ? "visibility" : "visibility_off"}
+                                   <button className="btn btn-outline-secondary material-symbols-outlined rounded-end" type='button' onClick={togglePassword} id="button-addon1">{passwordShown ? "visibility" : "visibility_off"}
                                 </button>
                                     <div className="invalid-feedback">
                                     رمز عبور را وارد کنید.

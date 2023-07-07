@@ -417,7 +417,7 @@ const ReportProperty = () => {
                                                 <td>{data.user}</td>
                                                 <td>{data.owner}</td>
                                                 <td>{data.install_location}</td>
-                                                <td>
+                                                <td className='d-print-none'>
                                                     <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
@@ -449,7 +449,7 @@ const ReportProperty = () => {
                                                 <td>{data.use_for}</td>
                                                 <td>{data.user}</td>
                                                 <td>{data.install_location}</td>
-                                                <td>
+                                                <td className='d-print-none'>
                                                     <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
@@ -479,7 +479,7 @@ const ReportProperty = () => {
                                                 <td>{data.code}</td>
                                                 <td>{data.name}</td>
                                                 <td>{data.model}</td>
-                                                <td>
+                                                <td className='d-print-none'>
                                                     <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                     }}>
@@ -514,7 +514,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.user}</td>
                                                     <td>{data.install_location}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
@@ -546,7 +546,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_made}</td>
                                                     <td>{data.user}</td>
                                                     <td>{data.using_location}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
@@ -577,7 +577,7 @@ const ReportProperty = () => {
                                                     <td>{data.name}</td>
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.install_location}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
@@ -613,7 +613,7 @@ const ReportProperty = () => {
                                                     <td>{data.chassis}</td>
                                                     <td>{data.year_made}</td>
                                                     <td>{data.owner}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
@@ -645,7 +645,7 @@ const ReportProperty = () => {
                                                     <td>{data.user}</td>
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.using_location}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
@@ -674,7 +674,7 @@ const ReportProperty = () => {
                                                     <td>{data.year_buy}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className='btn btn-primary material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#observeModal" onClick={() => {
                                                         setIdNumber(data.code)
                                                           }}>
@@ -707,7 +707,7 @@ const ReportProperty = () => {
                                                     <td>{data.model}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>{data.user}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className= 'btn btn-warning material-symbols-outlined' disabled={data.movement_status === 'received'} data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setIdNumber(data.code)
@@ -734,7 +734,7 @@ const ReportProperty = () => {
                                                     <td>{data.number_type}</td>
                                                     <td>{data.using_location}</td>
                                                     <td>{data.number}</td>
-                                                    <td>
+                                                    <td className='d-print-none'>
                                                         <button className= 'btn btn-warning material-symbols-outlined' data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                             setEditStatus(true)
                                                             setViewOnly(true)
