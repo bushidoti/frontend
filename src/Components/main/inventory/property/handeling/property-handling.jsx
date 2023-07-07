@@ -163,7 +163,7 @@ export const PropertyHandling = (props) => {
                                 <tr>
                                     <th scope="col">کد</th>
                                     <th scope="col">نام</th>
-                                    <th scope="col"></th>
+                                    <th scope="col" className='d-print-none'></th>
                                     <th scope="col">نتیجه</th>
                                 </tr>
                                 </thead>
@@ -172,7 +172,7 @@ export const PropertyHandling = (props) => {
                                     <tr style={{backgroundColor:`${(data.movement_status === 'received' ? 'hsl(0, 100%, 80%)' : null) || (data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options) ? 'hsl(60, 100%, 90%)' : null) }`}} key={data.code}>
                                         <th scope="row">{data.code}</th>
                                         <td>{data.name || data.number}</td>
-                                        <td>
+                                        <td className='d-print-none'>
                                            <button className= 'btn btn-warning material-symbols-outlined mx-2' disabled={data.movement_status === 'received'}  data-bs-toggle="modal" data-bs-target="#modalMain" onClick={() => {
                                                     setEditStatus(true)
                                                      setViewOnly(true)
@@ -186,7 +186,7 @@ export const PropertyHandling = (props) => {
                                                 <input type="text"  id='last_handling_result' name='last_handling_result' className="form-control" placeholder='نتیجه را بنویسید' value={data.last_handling_result}
                                                 disabled={data.movement_status === 'received' || data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} onChange={formik.handleChange}
                                                 aria-label="last_handling_result" aria-describedby="last_handling_result"/>
-                                                <button className="btn btn-outline-success material-symbols-outlined" type="button" id="resultBtn"
+                                                <button className="btn btn-outline-success material-symbols-outlined d-print-none" type="button" id="resultBtn"
                                                 disabled={data.movement_status === 'received' || data.yearly_handling === new Date().toLocaleDateString('fa-IR' , options)} onClick={async () => {
                                                     await func(data.code)
                                                 }}>done</button>
