@@ -1,8 +1,8 @@
 import React, {Fragment, useContext, useEffect, useState} from "react";
 import {Clock} from "./clock/timer";
 import {Profile} from "./login/loginBar";
-import {Outlet} from "react-router-dom";
-import {Container, Nav, Navbar, NavDropdown, NavLink} from "react-bootstrap";
+import {Link, Outlet} from "react-router-dom";
+import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Context} from "../../context";
 
 const NavBar = () => {
@@ -31,12 +31,12 @@ const NavBar = () => {
 
                 <Nav className="me-auto mb-2 mb-lg-0 gap-3 ms-1">
 
-                      <NavLink className='nav-link active' to='/'>خانه</NavLink>
+                      <Link className='nav-link active' to='/'>خانه</Link>
 
                     {context.isAuth ?
                         <Fragment>
                             {context.permission === 'مدیر' ?
-                                  <NavLink className='nav-link active' to='/admin' >پنل مدیریتی</NavLink>
+                                  <Link className='nav-link active' to='/admin' >پنل مدیریتی</Link>
                             : null}
                             {context.permission === 'مدیر'  || context.permission === 'اداری' || context.permission === 'مشاهده'?
                                 <Fragment>
@@ -44,61 +44,61 @@ const NavBar = () => {
                                         <NavDropdown title="مدیریت قراردادها" id="collasible-nav-dropdown">
                                                 {context.permission !== 'مشاهده' ?
                                                     <Fragment>
-                                                    <NavLink className='dropdown-item'  to="/main" onClick={() => {
+                                                    <Link className='dropdown-item'  to="/main" onClick={() => {
                                                         context.formik.resetForm()
                                                         context.setDocToggle(null)
-                                                    }}>ثبت قرارداد</NavLink>
-                                                    <NavLink className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
-                                                    اشخاص</NavLink>
+                                                    }}>ثبت قرارداد</Link>
+                                                    <Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
+                                                    اشخاص</Link>
                                                     <NavDropdown.Divider />
                                                     </Fragment>
 
                                                          : null }
-                                                <NavLink className='dropdown-item' to='/report' onClick={() => {
+                                                <Link className='dropdown-item' to='/report' onClick={() => {
                                                     context.formik.resetForm()
                                                     context.setDocToggle(null)
-                                                }}>گزارش قراداد</NavLink>
-                                                <NavLink className='dropdown-item' to='/reportindividualsdoc'>گزارش
-                                                    مدارک اشخاص</NavLink>
+                                                }}>گزارش قراداد</Link>
+                                                <Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
+                                                    مدارک اشخاص</Link>
                                                 {context.permission !== 'مشاهده' ?
                                                     <Fragment>
                                                          <NavDropdown.Divider />
-                                                        <NavLink className='dropdown-item' to='/upload'>بارگزاری
-                                                            مدارک قرارداد</NavLink>
+                                                        <Link className='dropdown-item' to='/upload'>بارگزاری
+                                                            مدارک قرارداد</Link>
                                                         
-                                                         <NavLink className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
-                                                        مدارک اشخاص</NavLink>
+                                                         <Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
+                                                        مدارک اشخاص</Link>
                                                     </Fragment>
                                                 : null }
                                         </NavDropdown>
                                     : null}
                                     {context.permission === 'مدیر' || context.permission === 'اداری' ?
                                         <NavDropdown title="مدیریت اسناد" id="collasible-nav-dropdown">
-                                                <NavLink className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
-                                                    اموال</NavLink>
+                                                <Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
+                                                    اموال</Link>
                                                 <NavDropdown.Divider />
-                                                <NavLink className='dropdown-item' to='/uploadpropertydoc'>بارگزاری
-                                                    اسناد امول</NavLink>
-                                                <NavLink className='dropdown-item' to='/reportpropertydoc'>گزارش
-                                                    اموال</NavLink>
+                                                <Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری
+                                                    اسناد امول</Link>
+                                                <Link className='dropdown-item' to='/reportpropertydoc'>گزارش
+                                                    اموال</Link>
                                         </NavDropdown>
                                     : null}
                             </Fragment>
                              : null}
                             {context.permission === 'انباردار' || context.permission === 'مدیر'?
                                 <NavDropdown title="انبارداری" id="collasible-nav-dropdown">
-                                        <NavLink className='dropdown-item ' to='/warehouse'>انبار</NavLink>
+                                        <Link className='dropdown-item ' to='/warehouse'>انبار</Link>
                                         <NavDropdown.Divider />
-                                        <NavLink className='dropdown-item' to='/property'>اموال</NavLink>
-                                        <NavLink className='dropdown-item' to='/report-properties'>گزارش</NavLink>
-                                        <NavLink className='dropdown-item ' to='/pending-products'>جا به جای</NavLink>
+                                        <Link className='dropdown-item' to='/property'>اموال</Link>
+                                        <Link className='dropdown-item' to='/report-properties'>گزارش</Link>
+                                        <Link className='dropdown-item ' to='/pending-products'>جا به جای</Link>
                                         
 
                                         {context.permission === 'مدیر'  ?
                                             <Fragment>
                                                 <NavDropdown.Divider />
-                                                <NavLink className='dropdown-item'
-                                                          to='/warehouse-handling'>انبارگردانی</NavLink>
+                                                <Link className='dropdown-item'
+                                                          to='/warehouse-handling'>انبارگردانی</Link>
                                             </Fragment>
                                             : null}
                                 </NavDropdown>
@@ -110,7 +110,7 @@ const NavBar = () => {
 
 
                   <li className="nav-item">
-                      <NavLink className='nav-link' to='contactus'>پشتیبانی</NavLink>
+                      <Link className='nav-link' to='contactus'>پشتیبانی</Link>
                   </li>
 
                 </Nav>

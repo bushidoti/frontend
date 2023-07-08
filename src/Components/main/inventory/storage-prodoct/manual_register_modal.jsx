@@ -23,7 +23,7 @@ const ManualModal = (props) => {
       operator:  "",
       left_stock: product.left_stock || "",
       scale:  product.scale || "",
-      document_type:  "",
+      document_type: product.document_type ||  "",
       document_code:  product.document_code || "",
       consumable: '',
       date:  '',
@@ -37,6 +37,17 @@ const ManualModal = (props) => {
       checkBill: '',
     },
     enableReinitialize: true,
+    });
+
+    const formikStatic = useFormik({
+        initialValues: {
+          document_type:   "",
+          document_code:  "",
+          consumable: '',
+          buyer: '',
+          receiver:  '',
+        },
+        enableReinitialize: true,
     });
 
      function reader(file, callback) {
@@ -87,11 +98,11 @@ const ManualModal = (props) => {
               - (props.products.filter(products => products.product ===  formik.values.code).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
               date: today.replaceAll('/' , '-'),
               operator:'ثبت اولیه',
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
+              document_type: formikStatic.values.document_type,
+              document_code: formikStatic.values.document_code,
               factor: formik.values.factor,
-              receiver:formik.values.receiver,
-              buyer:formik.values.buyer,
+              receiver:formikStatic.values.receiver,
+              buyer:formikStatic.values.buyer,
               product: handleAutoIncrement(),
          }, {
                  headers: {
@@ -136,11 +147,11 @@ const ManualModal = (props) => {
               afterOperator: (props.products.filter(products => products.product ===  formik.values.code).reduce((a,v) =>   a + v.input , 0 ))
               - (props.products.filter(products => products.product ===  formik.values.code).reduce((a,v) =>   a + v.output , 0 )) + formik.values.input,
               date: today.replaceAll('/' , '-'),
-              receiver:formik.values.receiver,
-              buyer:formik.values.buyer,
+              receiver:formikStatic.values.receiver,
+              buyer:formikStatic.values.buyer,
               operator:'ورود',
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
+              document_type: formikStatic.values.document_type,
+              document_code: formikStatic.values.document_code,
               product: formik.values.code,
               factor: formik.values.factor,
          }, {
@@ -154,7 +165,7 @@ const ManualModal = (props) => {
            await axios.post(
             `${Url}/api/allproducts/`,
               {
-              consumable: formik.values.consumable,
+              consumable: formikStatic.values.consumable,
               output: formik.values.output,
               afterOperator: (props.products.filter(products => products.product ===  formik.values.code).reduce((a,v) =>   a + v.input , 0 ))
                             - (props.products.filter(products => products.product ===  formik.values.code).reduce((a,v) =>   a + v.output , 0 )) - formik.values.output,
@@ -162,9 +173,9 @@ const ManualModal = (props) => {
               scale: formik.values.scale,
               date: today.replaceAll('/' , '-'),
               operator:'خروج',
-              receiver:formik.values.receiver,
-              document_type: formik.values.document_type,
-              document_code: formik.values.document_code,
+              receiver:formikStatic.values.receiver,
+              document_type: formikStatic.values.document_type,
+              document_code: formikStatic.values.document_code,
               product: formik.values.code,
               checkBill: formik.values.checkBill,
          }, {
@@ -358,7 +369,7 @@ const ManualModal = (props) => {
                                                         <option value="ورود">ورود</option>
                                                         <option value="خروج">خروج</option>
                                                     </select>
-                                            <label htmlFor="operator">مدرک</label>
+                                            <label htmlFor="operator">عملیات</label>
                                           </div>
                                 </div>
                         {registerType !== '' ?
@@ -454,8 +465,8 @@ const ManualModal = (props) => {
                                                             <Fragment>
                                                                    <div className="col form-floating">
                                                                         <input className="form-control" type='search' list="consumeCauseList"
-                                                                       id="consumeCause" value={formik.values.consumable}
-                                                                       onChange={formik.handleChange} name='consumable'
+                                                                       id="consumeCause" value={formikStatic.values.consumable}
+                                                                       onChange={formikStatic.handleChange} name='consumable'
                                                                         placeholder="اجاره" required/>
                                                                         <label htmlFor="consumeCause">مورد مصرف</label>
                                                                         <datalist id="consumeCauseList">
@@ -496,8 +507,8 @@ const ManualModal = (props) => {
                                                         return (
                                                             <Fragment>
                                                                   <div className="col form-floating">
-                                                                    <input type="text" className="form-control" id="receiver" value={formik.values.receiver}
-                                                                   onChange={formik.handleChange} name='receiver' placeholder="560" required/>
+                                                                    <input type="text" className="form-control" id="receiver" value={formikStatic.values.receiver}
+                                                                   onChange={formikStatic.handleChange} name='receiver' placeholder="560" required/>
                                                                         <label htmlFor="receiver">گیرنده</label>
                                                                      <div className="invalid-feedback">
                                                                          گیرنده  را وارد کنید.
@@ -505,8 +516,8 @@ const ManualModal = (props) => {
                                                                   </div>
                                                                 {documents === 'فاکتور' ?
                                                                       <div className="col form-floating">
-                                                                            <input type="text" className="form-control" id="buyer" value={formik.values.buyer}
-                                                                               onChange={formik.handleChange} name='buyer' placeholder="560" required/>
+                                                                            <input type="text" className="form-control" id="buyer" value={formikStatic.values.buyer}
+                                                                               onChange={formikStatic.handleChange} name='buyer' placeholder="560" required/>
                                                                                 <label htmlFor="buyer">خریدار</label>
                                                                              <div className="invalid-feedback">
                                                                                  خریدار  را وارد کنید.
@@ -520,7 +531,7 @@ const ManualModal = (props) => {
                                 {documents === 'حواله' ?
                                           <div className="col form-floating">
                                                     <input type="text" className="form-control" id="receiver"
-                                                    name='receiver' value={formik.values.receiver} onChange={formik.handleChange}
+                                                    name='receiver' value={formikStatic.values.receiver} onChange={formikStatic.handleChange}
                                                     placeholder="560" required/>
                                                         <label htmlFor="receiver">گیرنده</label>
                                                      <div className="invalid-feedback">
@@ -531,9 +542,9 @@ const ManualModal = (props) => {
                              </div>
                               <div className='d-flex gap-2 mb-3'>
                                 <div className="form-floating  col-4">
-                                <select className="form-select" id="documentType" name='document_type' aria-label="Document Type" value={formik.values.document_type} onChange={(e) => {
+                                <select className="form-select" id="documentType" name='document_type' aria-label="Document Type" value={formikStatic.values.document_type} onChange={(e) => {
                                 setDocument(e.target.value)
-                                formik.setFieldValue('document_type' , e.target.value)}}>
+                                formikStatic.setFieldValue('document_type' , e.target.value)}}>
                                             <option  value='' disabled>انتخاب کنید</option>
                                              {(() => {
                                                 if (registerType === 'ورود'){
@@ -571,8 +582,8 @@ const ManualModal = (props) => {
                               </div>
                              <div className="col form-floating">
                                 <input type="text" className="form-control" name='document_code'
-                                id="documentId" value={formik.values.document_code}
-                                onChange={formik.handleChange}
+                                id="documentId" value={formikStatic.values.document_code}
+                                onChange={formikStatic.handleChange}
                                        placeholder="560"/>
                                     <label htmlFor="documentId">شناسه {documents}</label>
                                  <div className="invalid-feedback">
