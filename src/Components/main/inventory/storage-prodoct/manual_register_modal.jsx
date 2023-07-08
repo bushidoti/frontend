@@ -113,28 +113,16 @@ const ManualModal = (props) => {
         }
 
     const postAlert = () => {
-          Swal.fire({
-              title: 'مطمئنید?',
-              text: "آیا از ثبت اولیه این کالا مطمئنید ؟",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'انصراف',
-              confirmButtonText: 'بله, ثبت کن!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire(
-                  'ثبت شد!',
-                  'کالا ثبت شد.',
-                  'success',
-                  'ok',
-                  postHandler(),
-                  putHandlerAutoIncrement(),
+            Swal.fire(
+              'ثبت شد!',
+              'کالا ثبت شد.',
+              'success',
+              'ok',
+              postHandler(),
+              putHandlerAutoIncrement(),
+              fetchDataAutoIncrement(),
 
-                )
-              }
-            })
+            )
       }
 
     const postHandlerProductInput = async () => {
@@ -283,13 +271,7 @@ const ManualModal = (props) => {
             })
         }
 
-    useEffect(() => {
-          void fetchData()
-          void fetchDataAutoIncrement()
-          void fetchDataList()
-          },
-           // eslint-disable-next-line react-hooks/exhaustive-deps
-        [formik.values.code])
+
     const handleSubmit = (event) => {
          event.preventDefault();
         if (registerType === 'ورود'){
@@ -299,6 +281,7 @@ const ManualModal = (props) => {
         }else if (registerType === 'ثبت اولیه'){
             return postAlert()
         }
+
     }
 
 
@@ -319,7 +302,13 @@ const ManualModal = (props) => {
               return autoIncrement.oghab107
           }
     }
-
+     useEffect(() => {
+          void fetchData()
+          void fetchDataAutoIncrement()
+          void fetchDataList()
+          },
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+        [formik.values.code])
 
     function refreshPages() {
         window.location.reload()
