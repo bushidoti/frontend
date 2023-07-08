@@ -73,7 +73,7 @@ const BillCheckModal = (props) => {
                                     <table ref={componentPDF} className="table table-hover text-center table-striped align-middle table-bordered border-primary" style={{direction:'rtl' , fontSize:'1vw'}}>
                                         <thead className= 'bg-light'>
                                         <tr>
-                                            <td colSpan='7'>
+                                            <td colSpan='8'>
                                                 {(() => {
                                                     if (props.modalTitle === 'factor'){
                                                         return  `شماره فاکتور ${props.factor}`
@@ -89,6 +89,7 @@ const BillCheckModal = (props) => {
                                             <th scope="col">ردیف</th>
                                             <th scope="col">کد کالا</th>
                                             <th scope="col">نام کالا</th>
+                                            <th scope="col">مقیاس</th>
                                             <th scope="col">تعداد</th>
                                             {props.modalTitle === 'handling' ?  null :
                                                <th scope="col">
@@ -113,6 +114,7 @@ const BillCheckModal = (props) => {
                                                 <th scope="row">{i}</th>
                                                 <td>{data.product}</td>
                                                 <td>{data.name}</td>
+                                                <td>{data.scale}</td>
                                                 <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
                                             {props.modalTitle === 'handling' ?  null :
                                                  <td>{data.document_type === 'حواله' ? data.consumable : data.receiver}</td>
@@ -127,10 +129,10 @@ const BillCheckModal = (props) => {
                                           <td colSpan="6" className='h3'>داده ای یافت نشد .....</td>
                                        </tr>
                                     }
-                                    <tr>
+                                    <tr className='bg-light'>
                                          {props.modalTitle === 'factor' ?
                                              <Fragment>
-                                                   <td colSpan="3">مهر و امضای خریدار</td>
+                                                   <td colSpan="4">مهر و امضای خریدار</td>
                                                    <td colSpan="4">مهر و امضای گیرنده</td>
                                              </Fragment>
                                              :
@@ -139,7 +141,7 @@ const BillCheckModal = (props) => {
                                           {props.modalTitle === 'check' ?
                                              <Fragment>
                                                    <td colSpan="4">مهر و امضای تحویل دهنده</td>
-                                                   <td colSpan="3">مهر و امضای گیرنده</td>
+                                                   <td colSpan="4">مهر و امضای گیرنده</td>
                                              </Fragment>
                                              :
                                              null
@@ -147,7 +149,7 @@ const BillCheckModal = (props) => {
                                           {props.modalTitle === 'handling' ?
                                              <Fragment>
                                                    <td colSpan="2">مهر و امضای انباردار</td>
-                                                   <td colSpan="2">مهر و امضای حسابرس</td>
+                                                   <td colSpan="3">مهر و امضای حسابرس</td>
                                                    <td colSpan="3">مهر و امضای مدیر</td>
                                              </Fragment>
                                              :

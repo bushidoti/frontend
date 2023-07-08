@@ -7,8 +7,9 @@ import Url from "../../../config";
 import {useReactToPrint} from "react-to-print";
 import {Permission} from "../permission";
 import {Context} from "../../../../context";
+import ManualModal from "./manual_register_modal";
 
-const WarHouse = (props) => {
+const WarHouse = () => {
     const [product, setProduct] = useState([])
     const [idNumber, setIdNumber] = useState(null)
     const [idNumberProduct, setIdNumberProduct] = useState(null)
@@ -22,6 +23,7 @@ const WarHouse = (props) => {
     const [handling, setHandling] = useState('');
     const [products, setProducts] = useState([])
     const [search , setSearch] = useState('')
+
     const componentPDF= useRef();
     const generatePDF= useReactToPrint({
         content: ()=>componentPDF.current,
@@ -88,6 +90,8 @@ const WarHouse = (props) => {
         setIdNumberProduct={setIdNumberProduct} setIdNumber={setIdNumber} formik={context.formikProductSearch} />
         <Modal modalTitle={context.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
+        <ManualModal modalTitle={context.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
+        products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
         <BillCheckmodal modalTitle={context.modalTitle} setModalTitle={context.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater m-2 rounded-3 shadow-lg'>
             <div className= 'd-flex justify-content-between m-4' >
@@ -118,9 +122,9 @@ const WarHouse = (props) => {
                 <div className= 'd-flex gap-2' style={{maxWidth:'255px'}}>
                 <button className="btn btn-outline-secondary material-symbols-outlined h-100 ms-2"
                     style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh'}} type="button" id="print" onClick={generatePDF}>print</button>
-                <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
+                     <button className= 'btn btn-primary'  id='registrationBtnModal' data-bs-toggle="modal"
                     style={{maxWidth:'20vw' , minWidth:'150px' , maxHeight:'10vh'}}
-                data-bs-target="#modalMain" onClick={() =>  context.setModalTitle('register')}>ثبت کالا جدید</button>
+                data-bs-target="#manualModal">ثبت</button>
                 </div>
             </div>
 
