@@ -1,13 +1,13 @@
 import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import ObserveModal from "./observemodal";
 import Modal from "./main_modal";
-import BillCheckmodal from "./bill&checkmodal";
 import { memo } from "react";
 import Url from "../../../config";
 import {useReactToPrint} from "react-to-print";
 import {Permission} from "../permission";
 import {Context} from "../../../../context";
 import ManualModal from "./manual_register_modal";
+import {Link} from "react-router-dom";
 
 const WarHouse = () => {
     const [product, setProduct] = useState([])
@@ -17,13 +17,9 @@ const WarHouse = () => {
     const [checkBtn, setCheckBtn] = useState(true)
     const [handleBtn, setHandleBtn] = useState(true)
     const [rank, setRank] = useState('');
-    const [office, setOffice] = useState('');
-    const [factor, setFactor] = useState('');
-    const [billCheck, setBillCheck] = useState('');
-    const [handling, setHandling] = useState('');
     const [products, setProducts] = useState([])
     const [search , setSearch] = useState('')
-
+    const [office, setOffice] = useState('');
     const componentPDF= useRef();
     const generatePDF= useReactToPrint({
         content: ()=>componentPDF.current,
@@ -45,7 +41,7 @@ const WarHouse = () => {
       }
 
     const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts`, {
+        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -63,25 +59,27 @@ const WarHouse = () => {
                  handleCheck()
           },
            // eslint-disable-next-line react-hooks/exhaustive-deps
-        [context.formikProductSearch.values.code, idNumberProduct , factor , billCheck , context.formikProductSearch.values.name , handling])
+        [context.formikProductSearch.values.code, idNumberProduct , context.factor , context.billCheck , context.formikProductSearch.values.name , context.handling])
 
 
     const handleCheckFactor = () => {
-        if (products.filter(product => product.document_code === factor && product.document_code !== '' && product.document_type === 'فاکتور')[0]){
+        if (products.filter(product => product.document_code === context.factor && product.document_code !== '' && product.document_type === 'فاکتور')[0]){
             return setFactorBtn(false)
         }else return setFactorBtn(true)
     }
     const handleCheck = () => {
-        if (products.filter(product => product.document_code === billCheck && product.document_code !== '' && product.document_type === 'حواله')[0]){
+        if (products.filter(product => product.document_code === context.billCheck && product.document_code !== '' && product.document_type === 'حواله')[0]){
             return setCheckBtn(false)
         }else return setCheckBtn(true)
     }
 
      const handleHandling = () => {
-        if (products.filter(product => product.document_code === handling && product.document_code !== '' && product.document_type === 'انبارگردانی')[0]){
+        if (products.filter(product => product.document_code === context.handling && product.document_code !== '' && product.document_type === 'انبارگردانی')[0]){
             return setHandleBtn(false)
         }else return setHandleBtn(true)
     }
+
+
 
     return (
         <Fragment>
@@ -92,30 +90,32 @@ const WarHouse = () => {
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
         <ManualModal modalTitle={context.modalTitle} idNumber={idNumber} office={office} setIdNumber={setIdNumber}
         products={products} setIdNumberProduct={setIdNumberProduct} idNumberProduct={idNumberProduct}/>
-        <BillCheckmodal modalTitle={context.modalTitle} setModalTitle={context.setModalTitle} factor={factor} billCheck={billCheck} setBillCheck={setBillCheck} setFactor={setFactor} handling={handling} setHandling={setHandling}/>
         <div className= 'plater m-2 rounded-3 shadow-lg'>
             <div className= 'd-flex justify-content-between m-4' >
                 <div className='d-flex flex-lg-nowrap gap-2 flex-wrap'>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="billBtn" data-bs-toggle="modal" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
-                        data-bs-target="#billCheckModal" onClick={() => context.setModalTitle('factor')}  disabled={factorBtn}>قبض انبار</button>
+                        <Link to= '/billcheck'  style={{pointerEvents:factorBtn ? 'none' : ''}}>
+                        <button className="btn btn-info" type="button" id="billBtn" disabled={factorBtn} style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
+                              onClick={() => context.setModalTitle('factor')}>مشاهده فاکتور</button></Link>
                         <input type="text" className="form-control" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => {
-                                 setFactor(e.target.value)
-                        }} placeholder="شماره فاکتور" value={factor}
-                        aria-label="قبض انبار" id="billInp" aria-describedby="billBtn"/>
+                             context.setFactor(e.target.value)
+                            context.setModalTitle('factor')
+                        }} placeholder="شماره فاکتور" value={context.factor}
+                        aria-label="مشاهده انبار" id="billInp" aria-describedby="billBtn"/>
                     </div>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="checkBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal"  disabled={checkBtn} onClick={() => context.setModalTitle('check')}>صدور حواله</button>
-                        <input type="text" className="form-control" id="checkInp" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setBillCheck(e.target.value)} value={billCheck} placeholder="شماره حواله"
-                        aria-label="صدور حواله" aria-describedby="checkBtn"/>
+                        <Link to= '/billcheck' style={{pointerEvents:checkBtn ? 'none' : ''}}>
+                        <button className="btn btn-info" type="button" id="checkBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
+                                disabled={checkBtn} onClick={() => context.setModalTitle('check')}>مشاهده حواله</button></Link>
+                        <input type="text" className="form-control" id="checkInp" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => context.setBillCheck(e.target.value)} value={context.billCheck} placeholder="شماره حواله"
+                        aria-label="مشاهده حواله" aria-describedby="checkBtn"/>
                     </div>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" id="handlingBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
-                                data-bs-toggle="modal" data-bs-target="#billCheckModal"
-                            disabled={handleBtn} onClick={() => context.setModalTitle('handling')}>صدور گزارش انبارگردانی</button>
+                        <Link to= '/billcheck' style={{pointerEvents:handleBtn ? 'none' : ''}}>
+                        <button className="btn btn-info" type="button" id="handlingBtn" style={{maxWidth:'20vw' , minWidth:'50px' , maxHeight:'10vh' , fontSize:'1vw'}}
+                                disabled={handleBtn} onClick={() => context.setModalTitle('handling')}>مشاهده گزارش انبارگردانی</button></Link>
                         <input type="text" className="form-control" id="handlingInp"
-                           style={{maxWidth:'20vw' , minWidth:'10px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => setHandling(e.target.value)} value={handling} placeholder="شناسه انبارگردانی"
+                           style={{maxWidth:'20vw' , minWidth:'10px' , maxHeight:'10vh' , fontSize:'1vw'}} onChange={e => context.setHandling(e.target.value)} value={context.handling} placeholder="شناسه انبارگردانی"
                         aria-label="شناسه انبارگردانی" aria-describedby="handlingBtn"/>
                     </div>
                 </div>
@@ -165,7 +165,7 @@ const WarHouse = () => {
                     {(product.length > 0 && product.filter(product => {if (rank === 'مدیر'){
                                               return product.inventory
                                           }else{
-                                              return (product.inventory === office)
+                                              return (product.inventory === context.office)
                                           }}).map((data) => (
                     <tr key={data.code}>
                         <th scope="row">{data.code}</th>

@@ -30,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-element-popper": "^2.1.6",
     "react-html5-camera-photo": "^1.5.11",
+    "react-infinite-scroller": "^1.2.6",
     "react-multi-date-picker": "^3.3.4",
     "react-number-format": "^5.1.4",
     "react-scripts": "5.0.1",

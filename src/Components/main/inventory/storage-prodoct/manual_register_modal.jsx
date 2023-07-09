@@ -121,7 +121,6 @@ const ManualModal = (props) => {
               postHandler(),
               putHandlerAutoIncrement(),
               fetchDataAutoIncrement(),
-
             )
       }
 
@@ -175,17 +174,6 @@ const ManualModal = (props) => {
         }
 
     const postAlertProductsInput = () => {
-          Swal.fire({
-              title: 'مطمئنید?',
-              text: "آیا از ثبت ورودی این کالا مطمئنید ؟",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'انصراف',
-              confirmButtonText: 'بله, ثبت کن!'
-            }).then((result) => {
-              if (result.isConfirmed) {
                 Swal.fire(
                   'ثبت شد!',
                   'کالا ثبت شد.',
@@ -193,22 +181,9 @@ const ManualModal = (props) => {
                   'ok',
                   postHandlerProductInput(),
                 )
-              }
-            })
       }
 
     const postAlertProductsOutput = () => {
-          Swal.fire({
-              title: 'مطمئنید?',
-              text: "آیا از ثبت خروجی این کالا مطمئنید ؟",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'انصراف',
-              confirmButtonText: 'بله, ثبت کن!'
-            }).then((result) => {
-              if (result.isConfirmed) {
                 Swal.fire(
                   'ثبت شد!',
                   'کالا ثبت شد.',
@@ -216,8 +191,6 @@ const ManualModal = (props) => {
                   'ok',
                   postHandlerProductOutput(),
                 )
-              }
-            })
       }
 
     const fetchData = async () => {

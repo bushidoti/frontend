@@ -25,13 +25,16 @@ import axios from "axios";
 import PendingProperty from "./Components/main/inventory/property/pending_property";
 import Url from "./Components/config";
 import {Context} from "./context";
+import BillCheckModal from "./Components/main/inventory/storage-prodoct/bill&checkmodal";
 
 function App() {
     const [modalTitle , setModalTitle] = useState('')
     const [isAuth, setIsAuth] = useState(false);
     const [permission, setPermission] = useState('');
     const [office, setOffice] = useState('');
-
+    const [factor, setFactor] = useState('');
+    const [billCheck, setBillCheck] = useState('');
+    const [handling, setHandling] = useState('');
 
     const formikDocumentSearch = useFormik({
             initialValues: {
@@ -230,6 +233,12 @@ function App() {
             handleEditProperty:handleEditProperty,
             editProperty:editProperty,
             propertyToggle:propertyToggle,
+            factor:factor,
+            setFactor:setFactor,
+            billCheck:billCheck,
+            setBillCheck:setBillCheck,
+            handling:handling,
+            setHandling:setHandling,
            }}>
           <BrowserRouter>
             <Routes>
@@ -270,6 +279,7 @@ function App() {
                                 <Fragment>
                                     <Route path="warehouse" element={<WarHouse/>}/>
                                     <Route path="property" element={<Property/>}/>
+                                    <Route path="billcheck" element={<BillCheckModal/>}/>
                                     <Route path="report-properties" element={<ReportProperty />} />
                                 </Fragment>
                             : null}

@@ -29,7 +29,7 @@ const ObserveModal = (props) => {
   }
 
   const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}&operator=${props.formik.values.operator}`, {
+        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type,date,operator,afterOperator,obsolete,consumable,buyer,receiver,amendment,id&date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}&operator=${props.formik.values.operator}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }

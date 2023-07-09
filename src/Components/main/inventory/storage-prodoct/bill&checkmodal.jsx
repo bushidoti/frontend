@@ -1,10 +1,12 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useContext, useEffect, useRef, useState} from "react";
 import {useReactToPrint} from "react-to-print";
 import {Link} from "react-router-dom";
 import Url from "../../../config";
+import {Context} from "../../../../context";
 
-const BillCheckModal = (props) => {
+const BillCheckModal = () => {
   const [product, setProduct] = useState([])
+  const context = useContext(Context)
 
 
 
@@ -16,7 +18,7 @@ const BillCheckModal = (props) => {
     });
 
   const fetchData = async () => {
-        const response = await fetch(`${Url}/api/allproducts`, {
+        const response = await fetch(`${Url}/api/allproducts/?fields=document_code,document_type,factor,checkBill,product,name,scale,input,output,consumable,receiver,buyer,id,date&document_code=${filterDocument()}&document_type=${filterDocumentType()}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -29,44 +31,66 @@ const BillCheckModal = (props) => {
             void fetchData()
           },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-       [props.modalTitle])
+       [])
+
 
    const handleOpenFile = () => {
-       if (props.modalTitle === 'factor') {
-           return product.filter(product => product.document_code === props.factor && product.document_type === 'فاکتور')[0].factor || ''
-       } else if (props.modalTitle === 'check') {
-           return product.filter(product => product.document_code === props.billCheck && product.document_type === 'حواله')[0].checkBill || ''
+       if (context.modalTitle === 'factor') {
+           return product.filter(product => product.document_code === context.factor && product.document_type === 'فاکتور')[0].factor || ''
+       } else if (context.modalTitle === 'check') {
+           return product.filter(product => product.document_code === context.billCheck && product.document_type === 'حواله')[0].checkBill || ''
        }
    }
 
+     const onButtonClick = () => {
+        fetch(`${handleOpenFile()}`).then(response => {
+            response.blob().then(blob => {
+                // Creating new object of PDF file
+                const fileURL = window.URL.createObjectURL(blob);
+                // Setting various property values
+                let alink = document.createElement('a');
+                alink.href = fileURL;
+                alink.download = FileNameHandler();
+                alink.click();
+            })
+        })
+    }
+  const FileNameHandler = () => {
+           if (context.modalTitle === 'factor'){
+                return  `فایل فاکتور ${context.factor}`
+            }else if (context.modalTitle === 'check') {
+                return `فایل حواله ${context.billCheck}`
+            }else if (context.modalTitle === 'handling') {
+                    return `فایل انبارگردانی ${context.handling}`
+                }
+  }
   return (
       <Fragment>
-         <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="billCheckModal" tabIndex="-1" aria-labelledby="billCheckModalLabel" aria-hidden="true">
-                    <div className="modal-dialog  modal-xl" >
+                <div className="plater m-2 rounded-3 shadow-lg" >
                         <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
                             <div className="modal-header mx-4">
                                 <h1 className="modal-title fs-5" id="exampleModalLabel">{(() => {
-                                    if (props.modalTitle === 'factor'){
-                                        return  `شماره فاکتور ${props.factor}`
-                                    }else if (props.modalTitle === 'check') {
-                                        return `شماره حواله ${props.billCheck}`
-                                    }else if (props.modalTitle === 'handling') {
-                                            return `شناسه انبارگردانی ${props.handling}`
+                                    if (context.modalTitle === 'factor'){
+                                        return  `شماره فاکتور ${context.factor}`
+                                    }else if (context.modalTitle === 'check') {
+                                        return `شماره حواله ${context.billCheck}`
+                                    }else if (context.modalTitle === 'handling') {
+                                            return `شناسه انبارگردانی ${context.handling}`
                                         }
                                 })()}</h1>
-                                <button type="button" className="btn-close " data-bs-dismiss="modal"
+                                <Link to= '/warehouse'>
+                                <button type="button" className="btn-close "
                                 aria-label="Close" onClick={() => {
-                                    props.setBillCheck('')
-                                    props.setModalTitle('')
-                                    props.setFactor('')
-                                    props.setHandling('')
-                                }}></button>
+                                    context.setBillCheck('')
+                                    context.setModalTitle('')
+                                    context.setFactor('')
+                                    context.setHandling('')
+                                }}></button></Link>
                             </div>
                             <div className="modal-body">
                                  <div className= 'd-flex mx-4 my-2 gap-2'>
                                 <button className= 'btn btn-primary material-symbols-outlined'  id='export&print' onClick={generatePDF}>print</button>
-                                     {props.modalTitle === 'handling' ? '' :  <Link className='text-decoration-none link-dark' download='document.pdf'
-                                rel="noreferrer"  to={handleOpenFile()}><button className= 'btn btn-warning material-symbols-outlined' id='export&print'>download</button></Link> }
+                                     {context.modalTitle === 'handling' ? '' : <button className= 'btn btn-warning material-symbols-outlined' id='export&print' onClick={onButtonClick}>download</button> }
                                 </div>
                                 <hr className='bg-primary mx-4'/>
                                   <div className= 'mx-4 table-responsive text-nowrap rounded-3' style={{maxHeight : '50vh'}}>
@@ -75,12 +99,12 @@ const BillCheckModal = (props) => {
                                         <tr>
                                             <td colSpan='8'>
                                                 {(() => {
-                                                    if (props.modalTitle === 'factor'){
-                                                        return  `شماره فاکتور ${props.factor}`
-                                                    }else if (props.modalTitle === 'check') {
-                                                        return `شماره حواله ${props.billCheck}`
-                                                    }else if (props.modalTitle === 'handling') {
-                                                        return `شناسه انبارگردانی ${props.handling}`
+                                                    if (context.modalTitle === 'factor'){
+                                                        return  `شماره فاکتور ${context.factor}`
+                                                    }else if (context.modalTitle === 'check') {
+                                                        return `شماره حواله ${context.billCheck}`
+                                                    }else if (context.modalTitle === 'handling') {
+                                                        return `شناسه انبارگردانی ${context.handling}`
                                                     }
                                                 })()}
                                             </td>
@@ -91,32 +115,32 @@ const BillCheckModal = (props) => {
                                             <th scope="col">نام کالا</th>
                                             <th scope="col">مقیاس</th>
                                             <th scope="col">تعداد</th>
-                                            {props.modalTitle === 'handling' ?  null :
+                                            {context.modalTitle === 'handling' ?  null :
                                                <th scope="col">
                                                     {(() => {
-                                                        if (props.modalTitle === 'factor'){
+                                                        if (context.modalTitle === 'factor'){
                                                             return  'گیرنده'
-                                                        }else if (props.modalTitle === 'check') {
+                                                        }else if (context.modalTitle === 'check') {
                                                             return 'مورد مصرف'
                                                         }
                                                     })()}
                                             </th>
                                             }
-                                            {props.modalTitle === 'factor' ? <th>خریدار</th> : ''}
-                                            {props.modalTitle === 'check' ? <th>گیرنده</th> : ''}
+                                            {context.modalTitle === 'factor' ? <th>خریدار</th> : ''}
+                                            {context.modalTitle === 'check' ? <th>گیرنده</th> : ''}
                                             <th scope="col">تاریخ</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                     {(product.length > 0 &&
-                                    product.filter(filterDocument).map((data , i) => (
+                                    product.map((data , i) => (
                                         <tr key={data.id}>
                                                 <th scope="row">{i}</th>
                                                 <td>{data.product}</td>
                                                 <td>{data.name}</td>
                                                 <td>{data.scale}</td>
                                                 <td>{data.document_type === 'حواله' ? data.output : data.input}</td>
-                                            {props.modalTitle === 'handling' ?  null :
+                                            {context.modalTitle === 'handling' ?  null :
                                                  <td>{data.document_type === 'حواله' ? data.consumable : data.receiver}</td>
                                             }
                                             {data.document_type === 'فاکتور' ? <td>{data.buyer}</td> : ''}
@@ -130,7 +154,7 @@ const BillCheckModal = (props) => {
                                        </tr>
                                     }
                                     <tr className='bg-light'>
-                                         {props.modalTitle === 'factor' ?
+                                         {context.modalTitle === 'factor' ?
                                              <Fragment>
                                                    <td colSpan="4">مهر و امضای خریدار</td>
                                                    <td colSpan="4">مهر و امضای گیرنده</td>
@@ -138,7 +162,7 @@ const BillCheckModal = (props) => {
                                              :
                                              null
                                          }
-                                          {props.modalTitle === 'check' ?
+                                          {context.modalTitle === 'check' ?
                                              <Fragment>
                                                    <td colSpan="4">مهر و امضای تحویل دهنده</td>
                                                    <td colSpan="4">مهر و امضای گیرنده</td>
@@ -146,7 +170,7 @@ const BillCheckModal = (props) => {
                                              :
                                              null
                                          }
-                                          {props.modalTitle === 'handling' ?
+                                          {context.modalTitle === 'handling' ?
                                              <Fragment>
                                                    <td colSpan="2">مهر و امضای انباردار</td>
                                                    <td colSpan="3">مهر و امضای حسابرس</td>
@@ -161,26 +185,28 @@ const BillCheckModal = (props) => {
                                     </table>
                                 </div>
                         </div>
-                    <div className="modal-footer mx-4">
-                        <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={() => {
-                                    props.setBillCheck('')
-                                    props.setModalTitle('')
-                                    props.setFactor('')
-                        }}>close</button>
-                    </div>
                 </div>
             </div>
-        </div>
   </Fragment>
   );
 
-    function filterDocument(product) {
-        if (props.modalTitle === 'factor') {
-            return product.document_code === props.factor && product.document_type === 'فاکتور'
-        } else if (props.modalTitle === 'check') {
-            return product.document_code === props.billCheck && product.document_type === 'حواله'
-        } else if (props.modalTitle === 'handling') {
-            return product.document_code === props.handling && product.document_type === 'انبارگردانی'
+    function filterDocument() {
+        if (context.modalTitle === 'factor') {
+            return context.factor
+        } else if (context.modalTitle === 'check') {
+            return context.billCheck
+        } else if (context.modalTitle === 'handling') {
+            return context.handling
+        }
+    }
+
+        function filterDocumentType() {
+        if (context.modalTitle === 'factor') {
+            return 'فاکتور'
+        } else if (context.modalTitle === 'check') {
+            return 'حواله'
+        } else if (context.modalTitle === 'handling') {
+            return 'انبارگردانی'
         }
     }
 };
