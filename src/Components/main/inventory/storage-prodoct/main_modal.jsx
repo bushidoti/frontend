@@ -384,7 +384,7 @@ const Modal = (props) => {
 
       const fetchDataAllProducts = async () => {
         if (props.idNumberProduct !== null) {
-            const response = await fetch(`${Url}/api/allproducts/` + props.idNumberProduct, {
+            const response = await fetch(`${Url}/api/allproducts/${props.idNumberProduct}/?fields=product,input,output,document_code,document_type,date,operator,afterOperator,obsolete,consumable,buyer,receiver,amendment,id` , {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -483,7 +483,7 @@ const Modal = (props) => {
         setIncrease('')
         setDocument('')
         document.getElementById("documentType").selectedIndex = '0' ;
-        props.setIdNumberProduct('')
+        props.setIdNumberProduct(null)
         if (props.modalTitle !== 'edit'){
             props.setIdNumber('')
         }

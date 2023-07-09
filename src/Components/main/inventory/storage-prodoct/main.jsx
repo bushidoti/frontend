@@ -41,7 +41,7 @@ const WarHouse = () => {
       }
 
     const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type`, {
+        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type,date,operator,afterOperator,obsolete,consumable,buyer,receiver,amendment,id`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
