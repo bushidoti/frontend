@@ -44,36 +44,38 @@ const NavBar = () => {
                                         <NavDropdown title="مدیریت قراردادها" id="collasible-nav-dropdown">
                                                 {context.permission !== 'مشاهده' ?
                                                     <Fragment>
-                                                        <NavDropdown.Item>
+                                                        <NavDropdown.Item className='dropdownbtn'>
                                                             <Link className='dropdown-item'  to="/main" onClick={() => {
                                                                 context.formik.resetForm()
                                                                 context.setDocToggle(null)
                                                             }}>ثبت قرارداد</Link>
                                                         </NavDropdown.Item>
+                                                    <NavDropdown.Item className='dropdownbtn'>
                                                     <Link className='dropdown-item' to='/addIndividualsDoc'>ثبت مدارک
                                                     اشخاص</Link>
-                                                    <NavDropdown.Divider />
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Divider/>
                                                     </Fragment>
 
                                                          : null }
-                                            <NavDropdown.Item>
+                                            <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item' to='/report' onClick={() => {
                                                     context.formik.resetForm()
                                                     context.setDocToggle(null)
                                                 }}>گزارش قراداد</Link>
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item>
+                                            <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item' to='/reportindividualsdoc'>گزارش
                                                     مدارک اشخاص</Link>
                                             </NavDropdown.Item>
                                                 {context.permission !== 'مشاهده' ?
                                                     <Fragment>
                                                          <NavDropdown.Divider />
-                                                        <NavDropdown.Item>
+                                                        <NavDropdown.Item className='dropdownbtn'>
                                                         <Link className='dropdown-item' to='/upload'>بارگزاری
                                                             مدارک قرارداد</Link>
                                                         </NavDropdown.Item>
-                                                        <NavDropdown.Item>
+                                                        <NavDropdown.Item className='dropdownbtn'>
                                                          <Link className='dropdown-item' to='/uploadindividualsdoc'>بارگزاری
                                                         مدارک اشخاص</Link>
                                                         </NavDropdown.Item>
@@ -83,16 +85,16 @@ const NavBar = () => {
                                     : null}
                                     {context.permission === 'مدیر' || context.permission === 'اداری' ?
                                         <NavDropdown title="مدیریت اسناد" id="collasible-nav-dropdown">
-                                            <NavDropdown.Item>
+                                            <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item ' to='/addpropertydoc'>ثبت اسناد
                                                     اموال</Link>
                                             </NavDropdown.Item>
                                                 <NavDropdown.Divider />
-                                            <NavDropdown.Item>
+                                            <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item' to='/uploadpropertydoc'>بارگزاری
                                                     اسناد امول</Link>
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item>
+                                            <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item' to='/reportpropertydoc'>گزارش
                                                     اموال</Link>
                                             </NavDropdown.Item>
@@ -102,17 +104,17 @@ const NavBar = () => {
                              : null}
                             {context.permission === 'انباردار' || context.permission === 'مدیر'?
                                 <NavDropdown title="انبارداری" id="collasible-nav-dropdown">
-                                    <NavDropdown.Item>
+                                    <NavDropdown.Item className='dropdownbtn'>
                                         <Link className='dropdown-item ' to='/warehouse'>انبار</Link>
                                     </NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                    <NavDropdown.Item>
+                                    <NavDropdown.Item className='dropdownbtn'>
                                         <Link className='dropdown-item' to='/property'>اموال</Link>
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item>
+                                    <NavDropdown.Item className='dropdownbtn'>
                                         <Link className='dropdown-item' to='/report-properties'>گزارش</Link>
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item>
+                                    <NavDropdown.Item className='dropdownbtn'>
                                         <Link className='dropdown-item ' to='/pending-products'>جا به جای</Link>
                                     </NavDropdown.Item>
                                         
@@ -120,7 +122,7 @@ const NavBar = () => {
                                         {context.permission === 'مدیر'  ?
                                             <Fragment>
                                                 <NavDropdown.Divider />
-                                                <NavDropdown.Item>
+                                                <NavDropdown.Item className='dropdownbtn'>
                                                 <Link className='dropdown-item'
                                                           to='/warehouse-handling'>انبارگردانی</Link>
                                                 </NavDropdown.Item>
