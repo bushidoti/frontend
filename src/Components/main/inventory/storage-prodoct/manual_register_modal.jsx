@@ -10,6 +10,13 @@ const ManualModal = (props) => {
      const [autoIncrement, setAutoIncrement] = useState([])
      const [registerType, setRegisterType] = useState('')
      const [documents , setDocument] = useState('')
+     const [numChildren, setNumChildren] = useState(0)
+     const children = []
+     const [productList, setProductList] = useState([]);
+
+      const handleClick = () => {
+        setProductList([...productList, { code: formik.values.code, name: formik.values.name,category: formik.values.category , scale:formik.values.scale , input:formik.values.input , output:formik.values.output , consumable:formikStatic.values.consumable}]);
+      };
 
     let today = new Date().toLocaleDateString('fa-IR');
     const formik = useFormik({
@@ -29,7 +36,7 @@ const ManualModal = (props) => {
       date:  '',
       buyer: '',
       receiver:  '',
-      product: null,
+      product: '',
       amendment:  "",
       factor: '',
       inventory_dst: '',
@@ -245,8 +252,7 @@ const ManualModal = (props) => {
         }
 
 
-    const handleSubmit = (event) => {
-         event.preventDefault();
+    const handleSubmit = () => {
         if (registerType === 'ورود'){
             return postAlertProductsInput()
         }else if (registerType === 'خروج'){
@@ -254,7 +260,6 @@ const ManualModal = (props) => {
         }else if (registerType === 'ثبت اولیه'){
             return postAlert()
         }
-
     }
 
 
@@ -286,184 +291,96 @@ const ManualModal = (props) => {
     function refreshPages() {
         window.location.reload()
     }
+
+      const addComponent = () => {
+    setNumChildren((count) => count + 1)
+  }
+
+    for (let i = 0; i < numChildren; i++) {
+    children.push(<ChildComponent key={i} number={i}  registerType={registerType} formik={formik} listProduct={listProduct} office={props.office} handleSubmit={handleSubmit} addComponent={addComponent} />)
+  }
+
+
   return (
       <Fragment>
          <div className="modal fade"  id="manualModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="manualModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg">
+                    <div className="modal-dialog modal-xl">
                         <div className="modal-content" style={{backgroundColor:'hsl(105, 100%, 92%)'}}>
-                            <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                        {(() => {
-                                               if (registerType === 'ثبت اولیه'){
-                                                    return (
-                                                        'ثبت کالا جدید'
+                              <form className='needs-validation' noValidate onSubmit={handleSubmit}>
+                                <div className='d-flex gap-2 m-2'>
+                                {registerType === 'ثبت اولیه'  ?
+                                        <div className="form-floating justify-content-center col">
+                                            <input type="text" id="idNumberManualModal" className="form-control"
+                                               value={registerType === 'ثبت اولیه' ? handleAutoIncrement() : formik.values.code}
+                                               aria-label="idNumberManualModal"  disabled required/>
+                                            <label  htmlFor="idNumberManualModal">کد کالا</label>
+                                        </div>
+                                    :  null}
+                                     <div className="form-floating col">
+                                        <select className="form-select" id="operator" name='operator' aria-label="Register Type" value={registerType} onChange={(e) => {
+                                        setRegisterType(e.target.value)
+                                        setDocument('')
+                                        formikStatic.setFieldValue('document_type' , '')
+                                        formik.setFieldValue('code' , '')
+                                        formik.setFieldValue('operator' , e.target.value)}}>
+                                                    <option  value='' disabled>انتخاب کنید</option>
+                                                    <option value="ثبت اولیه">ثبت اولیه</option>
+                                                    <option value="ورود">ورود</option>
+                                                    <option value="خروج">خروج</option>
+                                                </select>
+                                        <label htmlFor="operator">عملیات</label>
+                                      </div>
+                                <div className="form-floating col">
+                                <select className="form-select" id="documentTypeManual" name='document_type' aria-label="Document Type" value={formikStatic.values.document_type} onChange={(e) => {
+                                setDocument(e.target.value)
+                                formikStatic.setFieldValue('document_type' , e.target.value)}}>
+                                            <option  value='' disabled>انتخاب کنید</option>
+                                             {(() => {
+                                                if (registerType === 'ورود'){
+                                                    return(
+                                                      <Fragment>
+                                                            <option value="فاکتور">فاکتور</option>
+                                                            <option value="متفرقه">متفرقه</option>
+                                                            <option value="انبارگردانی">انبارگردانی</option>
+                                                            <option value="سند">سند</option>
+                                                      </Fragment>
                                                     )
                                                 }else if (registerType === 'خروج'){
-                                                    return (
-                                                        'خروج'
+                                                    return(
+                                                        <Fragment>
+                                                            <option value="حواله">حواله</option>
+                                                            <option value="متفرقه">متفرقه</option>
+                                                            <option value="سند">سند</option>
+                                                            <option value="انبارگردانی">انبارگردانی</option>
+                                                        </Fragment>
                                                     )
-                                                }else if (registerType === 'ورود'){
-                                                    return (
-                                                        'ورود'
+                                                }else if (registerType === 'ثبت اولیه'){
+                                                    return(
+                                                        <Fragment>
+                                                          <option value="انبارگردانی">انبارگردانی</option>
+                                                          <option value="فاکتور">فاکتور</option>
+                                                          <option value="سند">سند</option>
+                                                          <option value="متفرقه">متفرقه</option>
+                                                        </Fragment>
                                                     )
                                                 }
-                                        })()}
-                                </h1>
-                                <button type="button" className="btn-close " data-bs-dismiss="modal"
-                                aria-label="Close" onClick={refreshPages}></button>
-                            </div>
-                        <form className='needs-validation' noValidate onSubmit={handleSubmit}>
-                            <div className=" modal-body">
-                                <div className='d-flex gap-2'>
-                                    <div className="form-floating justify-content-center mb-5">
-                                        <input type="text" id="idNumberManualModal" className="form-control"
-                                           value={registerType === 'ثبت اولیه' ? handleAutoIncrement() : formik.values.code}
-                                           aria-label="idNumberManualModal"  disabled required/>
-                                        <label  htmlFor="idNumberManualModal">کد کالا</label>
-                                    </div>
-                                         <div className="form-floating col-4">
-                                            <select className="form-select" id="operator" name='operator' aria-label="Register Type" value={registerType} onChange={(e) => {
-                                            setRegisterType(e.target.value)
-                                            formik.setFieldValue('code' , '')
-                                            formik.setFieldValue('operator' , e.target.value)}}>
-                                                        <option  value='' disabled>انتخاب کنید</option>
-                                                        <option value="ثبت اولیه">ثبت اولیه</option>
-                                                        <option value="ورود">ورود</option>
-                                                        <option value="خروج">خروج</option>
-                                                    </select>
-                                            <label htmlFor="operator">عملیات</label>
-                                          </div>
+                                            })()}
+
+                                        </select>
+                                        <label htmlFor="documentTypeManual">مدرک</label>
+                              </div>
+                             <div className="form-floating col-4">
+                                <input type="text" className="form-control" name='document_code'
+                                id="documentIdManual" value={formikStatic.values.document_code}
+                                onChange={formikStatic.handleChange}
+                                       placeholder="560"/>
+                                    <label htmlFor="documentIdManual">شناسه {documents}</label>
+                                 <div className="invalid-feedback">
+                                     شناسه {documents}  را وارد کنید.
+                                 </div>
+                               </div>
                                 </div>
-                        {registerType !== '' ?
-                            <Fragment>
-
-
-
-
-                            <div className='d-flex gap-2 mb-3'>
-                                {registerType === 'ورود' || registerType === 'خروج'?
-                                         <div className="form-floating">
-                                                    <input className="form-control" type='search' value={formik.values.code}
-                                                    onChange={formik.handleChange} name='code' list="groupProductList" id="groupProductCode"
-                                                    placeholder="اداری" required/>
-                                                    <label htmlFor="groupProductCode">کالا های موجود</label>
-                                                    <datalist id="groupProductList">
-                                                       {(listProduct.filter(product => product.inventory ===  props.office).map((data) => (
-                                                                <option key={data.code} value={data.code}>{data.name}</option>
-                                                        )))}
-                                                    </datalist>
-                                                       <div className="invalid-feedback">
-                                                     کالا  را انتخاب کنید.
-                                                 </div>
-                                              </div>
-                                    : null}
-
-                                        {(() => {
-                                        if (registerType === 'ثبت اولیه'){
-                                                        return (
-                                                            <Fragment>
-
-                                                                  <div className="col-6 form-floating">
-                                                                        <input type="text" className="form-control" id="name" autoComplete='off'
-                                                                       onChange={formik.handleChange}
-                                                                        name='name'
-                                                                        placeholder="..." required />
-                                                                        <div className="invalid-feedback">
-                                                                        لطفا نام کالا را وارد کنید.
-                                                                        </div>
-                                                                        <label htmlFor="name">نام کالا</label>
-                                                                  </div>
-
-                                                            </Fragment>
-                                                        )
-                                                    }
-                                        })()}
-                                        <div className="form-floating">
-                                                    <input className="form-control" type='search' value={formik.values.category} disabled={registerType !== 'ثبت اولیه'}
-                                                   onChange={formik.handleChange} name='category' list="groupProductList" id="groupProduct"
-                                                    placeholder="اداری" required/>
-                                                    <label htmlFor="groupProduct">گروه</label>
-                                                    <datalist id="groupProductList">
-                                                        <option value="اداری"/>
-                                                        <option value="ترابری"/>
-                                                        <option value="تاسیسات"/>
-                                                        <option value="تجهیزات"/>
-                                                        <option value="آشپزخانه"/>
-                                                        <option value="آبدارخانه"/>
-                                                        <option value="بهداشتی"/>
-                                                        <option value="پشتیبانی"/>
-                                                    </datalist>
-                                                       <div className="invalid-feedback">
-                                                     گروه  را انتخاب کنید.
-                                                 </div>
-                                              </div>
-                            </div>
-                            <div className='d-flex gap-2 mb-3'>
-                                  <div className="col-2 form-floating">
-                                    <input type="number" className="form-control" id="count"
-                                           value={registerType === 'ورود' || formik.values.operator ===  'ورود' || registerType === 'ثبت اولیه' || formik.values.operator === 'ثبت اولیه' ? formik.values.input : formik.values.output }
-                                           onChange={formik.handleChange}
-                                           name={registerType === 'ورود' || formik.values.operator === 'ورود' || registerType === 'ثبت اولیه' || formik.values.operator === 'ثبت اولیه'? "input" : "output"}
-                                           placeholder="560" required/>
-                                        <label htmlFor="count">تعداد</label>
-                                     <div className="invalid-feedback">
-                                         تعداد  را وارد کنید.
-                                     </div>
-                                   </div>
-                                <div className="col-3 form-floating">
-                                    <input type="text" className="form-control" id="scale" value={formik.values.scale} disabled={registerType !== 'ثبت اولیه'}
-                                           onChange={formik.handleChange}
-                                          name='scale'
-                                           placeholder="560" required/>
-                                        <label htmlFor="count">مقیاس</label>
-                                     <div className="invalid-feedback">
-                                         مقیاس  را انتخاب کنید.
-                                     </div>
-                                   </div>
-
-                                 {(() => {
-                                        if (registerType === 'خروج'){
-                                                        return (
-                                                            <Fragment>
-                                                                   <div className="col form-floating">
-                                                                        <input className="form-control" type='search' list="consumeCauseList"
-                                                                       id="consumeCause" value={formikStatic.values.consumable}
-                                                                       onChange={formikStatic.handleChange} name='consumable'
-                                                                        placeholder="اجاره" required/>
-                                                                        <label htmlFor="consumeCause">مورد مصرف</label>
-                                                                        <datalist id="consumeCauseList">
-                                                                            <option value="اداری"/>
-                                                                            <option value="موتور پول"/>
-                                                                            <option value="مهندسی"/>
-                                                                            <option value="مالی"/>
-                                                                            <option value="آموزش"/>
-                                                                            <option value="ایستگاه"/>
-                                                                            <option value="حقوقی"/>
-                                                                            <option value="بازرگانی"/>
-                                                                            <option value="تدارکات"/>
-                                                                            <option value="حراست"/>
-                                                                            <option value="آبدارخانه"/>
-                                                                            <option value="مدیریت"/>
-                                                                            <option value="عملیات"/>
-                                                                            <option value="خدمات فرودگاهی"/>
-                                                                            <option value="پشتیبانی"/>
-                                                                            <option value="ایمنی"/>
-                                                                            <option value="سپاه"/>
-                                                                            <option value="دیسپج"/>
-                                                                            <option value="پلیس"/>
-                                                                        </datalist>
-                                                                           <div className="invalid-feedback">
-                                                                         مورد مصرف  را انتخاب کنید.
-                                                                     </div>
-                                                                    </div>
-
-                                                            </Fragment>
-                                                        )
-                                                    }
-                                        })()}
-                                      </div>
-                            <hr className='bg-primary my-4'/>
-                            <div className='d-flex gap-2 mb-3'>
+                                    <div className='d-flex gap-2 mb-3 m-2'>
                                         {(() => {
                                         if (registerType === 'ورود' || registerType === 'ثبت اولیه'){
                                                         return (
@@ -502,74 +419,156 @@ const ManualModal = (props) => {
                                           </div>
                                         :  null}
                              </div>
-                              <div className='d-flex gap-2 mb-3'>
-                                <div className="form-floating  col-4">
-                                <select className="form-select" id="documentType" name='document_type' aria-label="Document Type" value={formikStatic.values.document_type} onChange={(e) => {
-                                setDocument(e.target.value)
-                                formikStatic.setFieldValue('document_type' , e.target.value)}}>
-                                            <option  value='' disabled>انتخاب کنید</option>
-                                             {(() => {
-                                                if (registerType === 'ورود'){
-                                                    return(
-                                                      <Fragment>
-                                                            <option value="فاکتور">فاکتور</option>
-                                                            <option value="متفرقه">متفرقه</option>
-                                                            <option value="انبارگردانی">انبارگردانی</option>
-                                                            <option value="سند">سند</option>
-                                                      </Fragment>
-                                                    )
-                                                }else if (registerType === 'خروج'){
-                                                    return(
-                                                        <Fragment>
-                                                            <option value="حواله">حواله</option>
-                                                            <option value="متفرقه">متفرقه</option>
-                                                            <option value="سند">سند</option>
-                                                            <option value="انبارگردانی">انبارگردانی</option>
-                                                        </Fragment>
-                                                    )
-                                                }else if (registerType === 'ثبت اولیه'){
-                                                    return(
-                                                        <Fragment>
-                                                          <option value="انبارگردانی">انبارگردانی</option>
-                                                          <option value="فاکتور">فاکتور</option>
-                                                          <option value="سند">سند</option>
-                                                          <option value="متفرقه">متفرقه</option>
-                                                        </Fragment>
-                                                    )
-                                                }
-                                            })()}
-
-                                        </select>
-                                        <label htmlFor="documentType">مدرک</label>
-                              </div>
-                             <div className="col form-floating">
-                                <input type="text" className="form-control" name='document_code'
-                                id="documentId" value={formikStatic.values.document_code}
-                                onChange={formikStatic.handleChange}
-                                       placeholder="560"/>
-                                    <label htmlFor="documentId">شناسه {documents}</label>
-                                 <div className="invalid-feedback">
-                                     شناسه {documents}  را وارد کنید.
-                                 </div>
-                               </div>
-                          </div>
-                                {(() => {
+                               {(() => {
                                     if (((registerType === 'ورود' || registerType === 'ثبت اولیه') && documents === 'فاکتور') || (registerType === 'خروج' && documents === 'حواله')){
                                         return(
+                                            <div className='d-flex mx-2'>
                                             <div className="input-group">
                                                 <label className="input-group-text"
                                                        htmlFor="factor-check">فایل {documents}</label>
                                                 <input type="file" className="form-control" accept="application/pdf" id="factor-check" onChange={documents === 'حواله' ? checkBill : factor}/>
                                             </div>
+                                            </div>
                                         )
                                     }
                                 })()}
+                          </form>
+                            <hr className='bg-primary m-4'/>
+                        <form className='needs-validation' noValidate onSubmit={handleSubmit}>
+                            <div className=" modal-body">
+                        {registerType !== '' ?
+                            <Fragment>
+                                    <ChildComponent addComponent={addComponent} registerType={registerType} formikStatic={formikStatic} formik={formik} listProduct={listProduct} office={props.office} handleSubmit={handleSubmit} productList={productList}>{children}</ChildComponent>
+                            <div className='d-flex gap-2 mb-3'>
+                                {registerType === 'ورود' || registerType === 'خروج'?
+                                         <div className="form-floating col-4">
+                                                    <input className="form-control" type='search' value={formik.values.code}
+                                                    onChange={formik.handleChange} name='code' list="groupProductList" id="groupProductCode"
+                                                    placeholder="اداری" required/>
+                                                    <label htmlFor="groupProductCode">کالا های موجود</label>
+                                                    <datalist id="groupProductList">
+                                                       {(listProduct.filter(product => product.inventory ===  props.office).map((data) => (
+                                                                <option key={data.code} value={data.code}>{data.name}</option>
+                                                        )))}
+                                                    </datalist>
+                                                       <div className="invalid-feedback">
+                                                     کالا  را انتخاب کنید.
+                                                 </div>
+                                              </div>
+                                    : null}
+
+                                        {(() => {
+                                        if (registerType === 'ثبت اولیه'){
+                                                        return (
+                                                            <Fragment>
+                                                                  <div className="col-4 form-floating">
+                                                                        <input type="text" className="form-control" id="name" autoComplete='off'
+                                                                       onChange={formik.handleChange}
+                                                                        name='name'
+                                                                        placeholder="..." required />
+                                                                        <div className="invalid-feedback">
+                                                                        لطفا نام کالا را وارد کنید.
+                                                                        </div>
+                                                                        <label htmlFor="name">نام کالا</label>
+                                                                  </div>
+
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                        })()}
+                                        <div className="form-floating">
+                                                    <input className="form-control" type='search' value={registerType !== 'ثبت اولیه' ? formik.values.category : null} disabled={registerType !== 'ثبت اولیه'}
+                                                   onChange={formik.handleChange} name='category' list="groupProductList" id="groupProduct"
+                                                    placeholder="اداری" required/>
+                                                    <label htmlFor="groupProduct">گروه</label>
+                                                    <datalist id="groupProductList">
+                                                        <option value="اداری"/>
+                                                        <option value="ترابری"/>
+                                                        <option value="تاسیسات"/>
+                                                        <option value="تجهیزات"/>
+                                                        <option value="آشپزخانه"/>
+                                                        <option value="آبدارخانه"/>
+                                                        <option value="بهداشتی"/>
+                                                        <option value="پشتیبانی"/>
+                                                    </datalist>
+                                                       <div className="invalid-feedback">
+                                                     گروه  را انتخاب کنید.
+                                                 </div>
+                                              </div>
+                                  <div className="col-1 form-floating">
+                                            <input type="number" className="form-control" id="count" value={formik.values.input ||formik.values.output}
+                                                   onChange={formik.handleChange}
+                                                   name={registerType === 'ورود' || formik.values.operator === 'ورود' || registerType === 'ثبت اولیه' || formik.values.operator === 'ثبت اولیه'? "input" : "output"}
+                                                   placeholder="560" required/>
+                                                <label htmlFor="count">تعداد</label>
+                                             <div className="invalid-feedback">
+                                                 تعداد  را وارد کنید.
+                                             </div>
+                                           </div>
+                                   <div className="col form-floating">
+                                        <input type="text" className="form-control" id="scale" value={registerType !== 'ثبت اولیه' ? formik.values.scale : null} disabled={registerType !== 'ثبت اولیه'}
+                                               onChange={formik.handleChange}
+                                              name='scale'
+                                               placeholder="560" required/>
+                                            <label htmlFor="count">مقیاس</label>
+                                         <div className="invalid-feedback">
+                                             مقیاس  را انتخاب کنید.
+                                         </div>
+                                   </div>
+                                  {(() => {
+                                        if (registerType === 'خروج'){
+                                                        return (
+                                                            <Fragment>
+                                                                   <div className="col-2 form-floating">
+                                                                        <input className="form-control" type='search' list="consumeCauseList"
+                                                                       id="consumeCause" value={formikStatic.values.consumable}
+                                                                       onChange={formikStatic.handleChange} name='consumable'
+                                                                        placeholder="اجاره" required/>
+                                                                        <label htmlFor="consumeCause">مورد مصرف</label>
+                                                                        <datalist id="consumeCauseList">
+                                                                            <option value="اداری"/>
+                                                                            <option value="موتور پول"/>
+                                                                            <option value="مهندسی"/>
+                                                                            <option value="مالی"/>
+                                                                            <option value="آموزش"/>
+                                                                            <option value="ایستگاه"/>
+                                                                            <option value="حقوقی"/>
+                                                                            <option value="بازرگانی"/>
+                                                                            <option value="تدارکات"/>
+                                                                            <option value="حراست"/>
+                                                                            <option value="آبدارخانه"/>
+                                                                            <option value="مدیریت"/>
+                                                                            <option value="عملیات"/>
+                                                                            <option value="خدمات فرودگاهی"/>
+                                                                            <option value="پشتیبانی"/>
+                                                                            <option value="ایمنی"/>
+                                                                            <option value="سپاه"/>
+                                                                            <option value="دیسپج"/>
+                                                                            <option value="پلیس"/>
+                                                                        </datalist>
+                                                                           <div className="invalid-feedback">
+                                                                         مورد مصرف  را انتخاب کنید.
+                                                                     </div>
+                                                                    </div>
+
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                        })()}
+                                <button type="button" className="btn material-symbols-outlined btn-success" onClick={() => {
+                                      handleSubmit()
+                                      addComponent()
+                                      handleClick()
+                                      formik.setFieldValue('code' , '')
+                                      formikStatic.setFieldValue('consumable' , '')
+
+                                  }}>done</button>
+                                      </div>
                                   </Fragment>
                         : null}
                     </div>
                         <div className="modal-footer">
                             <button type="button" className="btn material-symbols-outlined btn-danger" data-bs-dismiss="modal" onClick={refreshPages}>close</button>
-                            <button type="submit" className="btn material-symbols-outlined btn-success">done</button>
                         </div>
                     </form>
                 </div>
@@ -578,4 +577,134 @@ const ManualModal = (props) => {
   </Fragment>
   );
 };
+
+
+const ChildComponent = ({registerType , formik ,listProduct , office , productList}) => {
+
+
+
+  return (
+      <Fragment>
+          {productList.map((data, i) => (
+            <div className='d-flex gap-2 mb-3' key={i}>
+                                {registerType === 'ورود' || registerType === 'خروج'?
+                                         <div className="form-floating col-4">
+                                                    <input className="form-control" type='search' id={`groupProductCode${i}`} value={data.code} disabled
+                                                           name='code' list="groupProductList"
+                                                    placeholder="اداری" required/>
+                                                    <label htmlFor={`groupProductCode${i}`}>کالا های موجود</label>
+                                                    <datalist id="groupProductList">
+                                                       {(listProduct.filter(product => product.inventory ===  office).map((data) => (
+                                                                <option key={data.code} value={data.code}>{data.name}</option>
+                                                        )))}
+                                                    </datalist>
+                                                       <div className="invalid-feedback">
+                                                     کالا  را انتخاب کنید.
+                                                 </div>
+                                              </div>
+                                    : null}
+
+                                        {(() => {
+                                        if (registerType === 'ثبت اولیه'){
+                                                        return (
+                                                            <Fragment>
+                                                                  <div className="col-4 form-floating">
+                                                                        <input type="text" className="form-control" id={`name${i}`} autoComplete='off' disabled
+                                                                        name='name' value={data.name}
+                                                                        placeholder="..." required />
+                                                                        <div className="invalid-feedback">
+                                                                        لطفا نام کالا را وارد کنید.
+                                                                        </div>
+                                                                        <label htmlFor={`name${i}`}>نام کالا</label>
+                                                                  </div>
+
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                        })()}
+                                      {registerType === 'ثبت اولیه' || registerType === 'ورود' ?
+                                              <div className="form-floating">
+                                                        <input className="form-control" type='search' id={`groupProduct${i}`} value={data.category}
+                                                         name='category' list="groupProductList" disabled
+                                                        placeholder="اداری" required/>
+                                                        <label htmlFor={`groupProduct${i}`}>گروه</label>
+                                                        <datalist id="groupProductList">
+                                                            <option value="اداری"/>
+                                                            <option value="ترابری"/>
+                                                            <option value="تاسیسات"/>
+                                                            <option value="تجهیزات"/>
+                                                            <option value="آشپزخانه"/>
+                                                            <option value="آبدارخانه"/>
+                                                            <option value="بهداشتی"/>
+                                                            <option value="پشتیبانی"/>
+                                                        </datalist>
+                                                           <div className="invalid-feedback">
+                                                         گروه  را انتخاب کنید.
+                                                     </div>
+                                              </div>
+                                          : null}
+
+                                  <div className="col-2 form-floating">
+                                            <input type="number" className="form-control" id={`count${i}`} value={data.input || data.output} disabled
+                                                   name={registerType === 'ورود' || formik.values.operator === 'ورود' || registerType === 'ثبت اولیه' || formik.values.operator === 'ثبت اولیه'? "input" : "output"}
+                                                   placeholder="560" required/>
+                                                <label htmlFor={`count${i}`}>تعداد</label>
+                                             <div className="invalid-feedback">
+                                                 تعداد  را وارد کنید.
+                                             </div>
+                                           </div>
+                                   <div className="col-3 form-floating">
+                                        <input type="text" className="form-control" id={`scale${i}`} value={data.scale} disabled
+                                              name='scale'
+                                               placeholder="560" required/>
+                                            <label htmlFor={`scale${i}`}>مقیاس</label>
+                                         <div className="invalid-feedback">
+                                             مقیاس  را انتخاب کنید.
+                                         </div>
+                                   </div>
+                                {(() => {
+                                        if (registerType === 'خروج'){
+                                                        return (
+                                                            <Fragment>
+                                                                   <div className="col-2 form-floating">
+                                                                        <input className="form-control" type='search' list="consumeCauseList" disabled
+                                                                       id={`consumeCause${i}`} value={data.consumable} name='consumable'
+                                                                        placeholder="اجاره" required/>
+                                                                        <label htmlFor="consumeCause">مورد مصرف</label>
+                                                                        <datalist id="consumeCauseList">
+                                                                            <option value="اداری"/>
+                                                                            <option value="موتور پول"/>
+                                                                            <option value="مهندسی"/>
+                                                                            <option value="مالی"/>
+                                                                            <option value="آموزش"/>
+                                                                            <option value="ایستگاه"/>
+                                                                            <option value="حقوقی"/>
+                                                                            <option value="بازرگانی"/>
+                                                                            <option value="تدارکات"/>
+                                                                            <option value="حراست"/>
+                                                                            <option value="آبدارخانه"/>
+                                                                            <option value="مدیریت"/>
+                                                                            <option value="عملیات"/>
+                                                                            <option value="خدمات فرودگاهی"/>
+                                                                            <option value="پشتیبانی"/>
+                                                                            <option value="ایمنی"/>
+                                                                            <option value="سپاه"/>
+                                                                            <option value="دیسپج"/>
+                                                                            <option value="پلیس"/>
+                                                                        </datalist>
+                                                                           <div className="invalid-feedback">
+                                                                         مورد مصرف  را انتخاب کنید.
+                                                                     </div>
+                                                                    </div>
+
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                        })()}
+                              </div>
+           ))}
+      </Fragment>
+  )
+}
+
 export default ManualModal

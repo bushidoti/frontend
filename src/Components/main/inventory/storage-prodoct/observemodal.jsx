@@ -29,7 +29,7 @@ const ObserveModal = (props) => {
   }
 
   const fetchDataProducts = async () => {
-        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type,date,operator,afterOperator,obsolete,consumable,buyer,receiver,amendment,id&date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}&operator=${props.formik.values.operator}`, {
+        const response = await fetch(`${Url}/api/allproducts/?fields=product,input,output,document_code,document_type,date,operator,afterOperator,obsolete,consumable,buyer,receiver,amendment,id,scale&date=${fixNumbers(props.formik.values.date)}&consumable=${props.formik.values.consumable}&operator=${props.formik.values.operator}`, {
                  headers: {
                   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                 }
@@ -165,6 +165,7 @@ const ObserveModal = (props) => {
                             <th scope="col">شناسه سند</th>
                             <th scope="col">تاریخ</th>
                             <th scope="col">عملیات</th>
+                            <th scope="col">مقیاس</th>
                             <th scope="col">تعداد</th>
                             <th scope="col">موجودی</th>
                             <th scope="col">مورد مصرف</th>
@@ -183,6 +184,7 @@ const ObserveModal = (props) => {
                             <td>{data.document_code}</td>
                             <td>{data.date}</td>
                             <td>{data.operator}</td>
+                            <td>{data.scale}</td>
                             <td>{data.operator === 'خروج' ? data.output : data.input }</td>
                             <td>{data.afterOperator}</td>
                             <td>{data.consumable}</td>
